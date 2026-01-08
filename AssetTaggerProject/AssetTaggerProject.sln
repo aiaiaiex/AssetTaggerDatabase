@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # SQL Server Management Studio Version 21
-VisualStudioVersion = 17.14.36603.0 d17.14
+VisualStudioVersion = 17.14.36603.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{4F2E2C19-372F-40D8-9FA7-9D2138C6997A}") = "AssetTaggerProject", "AssetTaggerProject\AssetTaggerProject.ssmssqlproj", "{A2D5B237-3B87-C438-5AEC-C00CC823F1C3}"
 EndProject
@@ -11,6 +11,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A2D5B237-3B87-C438-5AEC-C00CC823F1C3}.Default|Default.ActiveCfg = Default
+		{89617223-F397-41F7-9CF9-BC609FCA7C48}.Default|Default.ActiveCfg = Default
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
