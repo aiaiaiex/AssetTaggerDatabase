@@ -1,19 +1,12 @@
 CREATE TABLE [dbo].[Vendor] (
-    [VendorID]      UNIQUEIDENTIFIER NOT NULL,
+    [VendorID]      UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Vendor_VendorID] DEFAULT (newid()) NOT NULL,
+    [VendorName]    NVARCHAR (50)    NOT NULL,
     [VendorAddress] NVARCHAR (50)    NOT NULL,
-    [VendorName]    NVARCHAR (50)    NOT NULL
+    CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED ([VendorID] ASC)
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Vendor_VendorAddress_Name]
-    ON [dbo].[Vendor]([VendorAddress] ASC, [VendorName] ASC);
-GO
-
-ALTER TABLE [dbo].[Vendor]
-    ADD CONSTRAINT [DEFAULT_Vendor_VendorID] DEFAULT (newid()) FOR [VendorID];
-GO
-
-ALTER TABLE [dbo].[Vendor]
-    ADD CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED ([VendorID] ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Vendor_VendorName_VendorAddress]
+    ON [dbo].[Vendor]([VendorName] ASC, [VendorAddress] ASC);
 GO
 
