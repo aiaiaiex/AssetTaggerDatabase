@@ -9,12 +9,3 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_Department_DepartmentName]
     ON [dbo].[Department]([DepartmentName] ASC);
 GO
 
-ALTER TABLE [dbo].[Department]
-    ADD CONSTRAINT [PK_Department] PRIMARY KEY CLUSTERED ([DepartmentID] ASC);
-GO
-
-
-ALTER TABLE [dbo].[Department]
-    ADD CONSTRAINT [DEFAULT_Department_DepartmentID] DEFAULT (newid()) FOR [DepartmentID];
-GO
-
