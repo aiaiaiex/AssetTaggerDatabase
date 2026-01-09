@@ -1,29 +1,20 @@
-USE [AssetTagging]
-GO
-
-/****** Object:  Table [dbo].[User]    Script Date: 1/8/2026 4:45:11 PM ******/
 SET ANSI_NULLS ON
 GO
-
 SET QUOTED_IDENTIFIER ON
 GO
-
-CREATE TABLE [dbo].[User](
-	[UserID] [uniqueidentifier] NOT NULL,
-	[UserName] [varchar](50) NOT NULL,
-	[UserPasswordHash] [nchar](10) NOT NULL,
+CREATE TABLE [dbo].[EndUser](
+	[EndUserID] [uniqueidentifier] NOT NULL,
+	[EndUserName] [varchar](50) NOT NULL,
+	[EndUserPasswordHash] [nchar](10) NOT NULL,
  CONSTRAINT [PK_User_1] PRIMARY KEY CLUSTERED 
 (
-	[UserID] ASC
+	[EndUserID] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
  CONSTRAINT [UK_User_1] UNIQUE NONCLUSTERED 
 (
-	[UserName] ASC
+	[EndUserName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-
-ALTER TABLE [dbo].[User] ADD  CONSTRAINT [DF_User_UserID]  DEFAULT (newid()) FOR [UserID]
+ALTER TABLE [dbo].[EndUser] ADD  CONSTRAINT [DF_User_UserID]  DEFAULT (newid()) FOR [EndUserID]
 GO
-
-
