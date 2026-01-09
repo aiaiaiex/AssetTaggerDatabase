@@ -1,6 +1,7 @@
 CREATE TABLE [dbo].[Department] (
-    [DepartmentID]   UNIQUEIDENTIFIER NOT NULL,
-    [DepartmentName] NVARCHAR (50)    NOT NULL
+    [DepartmentID]   UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Department_DepartmentID] DEFAULT (newid()) NOT NULL,
+    [DepartmentName] NVARCHAR (50)    NOT NULL,
+    CONSTRAINT [PK_Department] PRIMARY KEY CLUSTERED ([DepartmentID] ASC)
 );
 GO
 
@@ -10,5 +11,10 @@ GO
 
 ALTER TABLE [dbo].[Department]
     ADD CONSTRAINT [PK_Department] PRIMARY KEY CLUSTERED ([DepartmentID] ASC);
+GO
+
+
+ALTER TABLE [dbo].[Department]
+    ADD CONSTRAINT [DEFAULT_Department_DepartmentID] DEFAULT (newid()) FOR [DepartmentID];
 GO
 
