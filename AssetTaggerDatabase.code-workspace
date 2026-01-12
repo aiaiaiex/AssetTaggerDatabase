@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"dataworkspace.excludedProjects": [
+			"DatabaseProjectAssetTaggerDatabase/DatabaseProjectAssetTaggerDatabase.sqlproj"
+		]
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-mssql.data-workspace-vscode"
+		]
+	}
+}
