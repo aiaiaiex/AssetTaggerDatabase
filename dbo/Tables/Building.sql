@@ -1,13 +1,10 @@
 CREATE TABLE [dbo].[Building] (
     [BuilidingID]     UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Building_BuilidingID] DEFAULT (newid()) NOT NULL,
     [BuilidingName]   NVARCHAR (50)    NOT NULL,
-    [CompanyID]       UNIQUEIDENTIFIER NULL,
-    [SubCompanyID]    UNIQUEIDENTIFIER NULL,
+    [CompanyID]       UNIQUEIDENTIFIER NOT NULL,
     [BuildingAddress] NVARCHAR (50)    NOT NULL,
     CONSTRAINT [PK_Building] PRIMARY KEY CLUSTERED ([BuilidingID] ASC),
-    CONSTRAINT [CK_Building_SubORCompanyIDNotNull] CHECK ([CompanyID] IS NOT NULL OR [SubCompanyID] IS NOT NULL),
-    CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
-    CONSTRAINT [FK_Building_SubCompany] FOREIGN KEY ([SubCompanyID]) REFERENCES [dbo].[SubCompany] ([SubCompanyID])
+    CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID])
 );
 
 
