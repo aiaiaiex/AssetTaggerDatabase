@@ -8,3 +8,8 @@ CREATE TABLE [dbo].[Product] (
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])
 );
 
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Product_ProductModelNumber_ProductManufacturer]
+    ON [dbo].[Product]([ProductModelNumber] ASC, [ProductManufacturer] ASC);
+
