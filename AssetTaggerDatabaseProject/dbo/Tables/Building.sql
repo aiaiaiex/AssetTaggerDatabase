@@ -5,18 +5,18 @@ CREATE TABLE [dbo].[Building] (
     [SubCompanyID]    UNIQUEIDENTIFIER NULL,
     [BuildingAddress] NVARCHAR (50)    NOT NULL,
     CONSTRAINT [PK_Building] PRIMARY KEY CLUSTERED ([BuilidingID] ASC),
-    CONSTRAINT [CK_SubORCompanyIDNotNull] CHECK ([CompanyID] IS NOT NULL OR [SubCompanyID] IS NOT NULL),
+    CONSTRAINT [CK_Building_SubORCompanyIDNotNull] CHECK ([CompanyID] IS NOT NULL OR [SubCompanyID] IS NOT NULL),
     CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
     CONSTRAINT [FK_Building_SubCompany] FOREIGN KEY ([SubCompanyID]) REFERENCES [dbo].[SubCompany] ([SubCompanyID])
 );
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Building_BuildingName]
-    ON [dbo].[Building]([BuilidingName] ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Building_BuildingAddress]
+    ON [dbo].[Building]([BuildingAddress] ASC);
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Building_BuildingAddress]
-    ON [dbo].[Building]([BuildingAddress] ASC);
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Building_BuildingName]
+    ON [dbo].[Building]([BuilidingName] ASC);
 
