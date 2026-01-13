@@ -1,16 +1,15 @@
 CREATE PROCEDURE [dbo].[usp_GetAssetIssuesOfProduct]
-    @AssetIssueID UNIQUEIDENTIFIER
+    @ProductID UNIQUEIDENTIFIER
 AS
 BEGIN
     SET NOCOUNT ON;
 
     SELECT 
-        ai.AssetIssueID,
-        ai.AssetID,
-        a.ProductID
+        ai.AssetIssueID
     FROM [dbo].[AssetIssue] ai
-    INNER JOIN [dbo].[Asset] a ON ai.AssetID = a.AssetID
-    WHERE ai.AssetIssueID = @AssetIssueID;
+    INNER JOIN [dbo].[Asset] a ON a.AssetID = ai.AssetID
+    INNER JOIN [dbo].[Product] p ON p.ProductID = a.ProductID
+    WHERE a.ProductID = @ProductID;
 END
 GO
 
