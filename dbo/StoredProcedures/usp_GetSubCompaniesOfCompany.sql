@@ -1,4 +1,4 @@
-CREATE PROCEDURE GetSubCompaniesOfCompany
+CREATE PROCEDURE usp_GetSubCompaniesOfCompany
     @ParentCompanyID UNIQUEIDENTIFIER
 AS
 BEGIN

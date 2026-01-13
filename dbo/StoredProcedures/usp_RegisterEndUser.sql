@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[RegisterEndUser]
+CREATE PROCEDURE [dbo].[usp_RegisterEndUser]
     @EndUserName NVARCHAR(50),
     @EndUserPassword NVARCHAR(255)
 AS
