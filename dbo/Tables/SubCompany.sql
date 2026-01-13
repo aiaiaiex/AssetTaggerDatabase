@@ -6,3 +6,8 @@ CREATE TABLE [dbo].[SubCompany] (
     CONSTRAINT [FK_SubCompany_Company_ParentCompanyID] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[Company] ([CompanyID])
 );
 
+
+GO
+CREATE UNIQUE NONCLUSTERED INDEX [UX_SubCompany_CompanyID]
+    ON [dbo].[SubCompany]([CompanyID] ASC);
+
