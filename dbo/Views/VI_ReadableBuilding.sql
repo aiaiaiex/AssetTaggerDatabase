@@ -1,6 +1,6 @@
 CREATE VIEW [dbo].[VI_ReadableBuilding]
 AS
-  SELECT b.BuilidingID, b.BuilidingName, b.BuildingAddress, b.CompanyID, c.CompanyName
+  SELECT b.BuildingID, b.BuildingName, b.BuildingAddress, b.CompanyID, c.CompanyName
   FROM [dbo].[Building] b
   INNER JOIN [dbo].[Company] c
     ON c.CompanyID = b.CompanyID
