@@ -1,6 +1,6 @@
-CREATE PROCEDURE RegisterEndUser
+CREATE PROCEDURE [dbo].[RegisterEndUser]
     @EndUserName NVARCHAR(50),
-    @EndUserPassword NCHAR(255)
+    @EndUserPassword NVARCHAR(255)
 AS
 BEGIN
     SET NOCOUNT ON;
