@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableAsset]
+CREATE VIEW [dbo].[VI_ReadableAsset]
 AS
   SELECT a.AssetID, a.AssetTagDate, a.AssetPurchaseDate, a.AssetPurchasePrice, a.AssetSerialNumber, a.AssetWarrantyUnitOfMeasure, a.AssetWarrantyDuration, a.AssetUsefulLife, a.AssetSalvageValue, a.ProductID, p.ProductName, a.VendorID, v.VendorName, a.LocationID, l.LocationAddress, a.EmployeeID, e.EmployeeFullName
   FROM [dbo].[Asset] a

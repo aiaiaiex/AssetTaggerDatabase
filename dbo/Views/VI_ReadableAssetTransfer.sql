@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableAssetTransfer]
+CREATE VIEW [dbo].[VI_ReadableAssetTransfer]
 AS
   SELECT atr.AssetTransferID, atr.AssetTransferDate, atr.AssetTransferPrice, atr.AssetID, p.ProductName, atr.CompanyID, c.CompanyName, atr.ReceivingCompanyID, co.CompanyName as ReceivingCompanyName
   FROM [dbo].[AssetTransfer] atr

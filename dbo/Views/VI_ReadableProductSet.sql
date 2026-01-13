@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableProductSet]
+CREATE VIEW [dbo].[VI_ReadableProductSet]
 AS
   SELECT ps.ParentProductID, pr.ProductName as ParentProductName, ps.ProductID, pro.ProductName
   FROM [dbo].[ProductSet] ps

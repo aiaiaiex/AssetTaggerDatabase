@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableBuilding]
+CREATE VIEW [dbo].[VI_ReadableBuilding]
 AS
   SELECT b.BuilidingID, b.BuilidingName, b.BuildingAddress, b.CompanyID, c.CompanyName
   FROM [dbo].[Building] b

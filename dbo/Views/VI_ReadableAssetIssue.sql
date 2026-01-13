@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableAssetIssue]
+CREATE VIEW [dbo].[VI_ReadableAssetIssue]
 AS
   SELECT ai.AssetIssueID, ai.AssetIssueTitle, ai.AssetIssueDesc, ai.AssetIssueDate, ai.AssetID, p.ProductName, ai.EmployeeID, e.EmployeeFullName
   FROM [dbo].[AssetIssue] ai
