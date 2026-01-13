@@ -3,7 +3,7 @@ CREATE TABLE [dbo].[Location] (
     [LocationAddress] NVARCHAR (50)    NOT NULL,
     [BuildingID]      UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [PK_Location] PRIMARY KEY CLUSTERED ([LocationID] ASC),
-    CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingID]) REFERENCES [dbo].[Building] ([BuilidingID])
+    CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingID]) REFERENCES [dbo].[Building] ([BuildingID])
 );
 
 
