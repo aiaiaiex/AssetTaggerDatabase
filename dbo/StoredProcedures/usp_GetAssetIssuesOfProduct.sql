@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[GetAssetIssuesOfProduct]
+CREATE PROCEDURE [dbo].[usp_GetAssetIssuesOfProduct]
     @AssetIssueID UNIQUEIDENTIFIER
 AS
 BEGIN

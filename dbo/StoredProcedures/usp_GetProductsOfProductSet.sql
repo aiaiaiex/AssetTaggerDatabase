@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[GetProductsOfProductSet]
+CREATE PROCEDURE [dbo].[usp_GetProductsOfProductSet]
     @ParentProductID UNIQUEIDENTIFIER
 AS
 BEGIN
