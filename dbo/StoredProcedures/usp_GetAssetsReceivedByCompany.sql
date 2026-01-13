@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_GetAssetsReceivedByCompany
+CREATE PROCEDURE [dbo].[usp_GetAssetsReceivedByCompany]
     @ReceivingCompanyID UNIQUEIDENTIFIER
 AS
 BEGIN

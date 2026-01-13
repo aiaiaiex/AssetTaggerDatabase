@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_GetAssetsTranseferredByCompany
+CREATE PROCEDURE [dbo].[usp_GetAssetsTranseferredByCompany]
     @CompanyID UNIQUEIDENTIFIER
 AS
 BEGIN

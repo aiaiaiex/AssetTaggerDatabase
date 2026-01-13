@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_CalculateWarrantyExpirationDate
+CREATE PROCEDURE [dbo].[usp_CalculateWarrantyExpirationDate]
     @AssetID UNIQUEIDENTIFIER
 AS
 BEGIN

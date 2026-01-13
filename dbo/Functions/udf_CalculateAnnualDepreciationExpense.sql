@@ -1,4 +1,4 @@
-CREATE FUNCTION udf_CalculateAnnualDepreciationExpense (
+CREATE FUNCTION [dbo].[udf_CalculateAnnualDepreciationExpense] (
     @AssetPurchasePrice MONEY,
     @AssetSalvageValue MONEY,
     @AssetUsefulLife INT
