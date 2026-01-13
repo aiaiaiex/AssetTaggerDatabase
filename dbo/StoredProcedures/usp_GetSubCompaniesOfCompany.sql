@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_GetSubCompaniesOfCompany
+CREATE PROCEDURE [dbo].[usp_GetSubCompaniesOfCompany]
     @ParentCompanyID UNIQUEIDENTIFIER
 AS
 BEGIN

@@ -1,4 +1,4 @@
-CREATE PROCEDURE usp_CalculateAnnualDepreciationExpense
+CREATE PROCEDURE [dbo].[usp_CalculateAnnualDepreciationExpense]
     @AssetID UNIQUEIDENTIFIER
 AS
 BEGIN
