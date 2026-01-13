@@ -13,6 +13,7 @@ CREATE TABLE [dbo].[Asset] (
     [LocationID]                 UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID]                 UNIQUEIDENTIFIER NULL,
     CONSTRAINT [PK_Asset] PRIMARY KEY CLUSTERED ([AssetID] ASC),
+    CONSTRAINT [CK_AssetWarrantyUnitOfMeasureAllowedValues] CHECK ([AssetWarrantyUnitOfMeasure]='dd' OR [AssetWarrantyUnitOfMeasure]='ww' OR [AssetWarrantyUnitOfMeasure]='mm' OR [AssetWarrantyUnitOfMeasure]='yy'),
     CONSTRAINT [CK_AssetWarrantyUnitOfMeasureAndAssetWarrantyDurationNotNull] CHECK ([AssetWarrantyUnitOfMeasure] IS NOT NULL AND [AssetWarrantyDuration] IS NOT NULL OR [AssetWarrantyUnitOfMeasure] IS NULL AND [AssetWarrantyDuration] IS NULL),
     CONSTRAINT [FK_Asset_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID]),
     CONSTRAINT [FK_Asset_Location] FOREIGN KEY ([LocationID]) REFERENCES [dbo].[Location] ([LocationID]),
