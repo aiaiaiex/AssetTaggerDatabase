@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableEmployee]
+CREATE VIEW [dbo].[VI_ReadableEmployee]
 AS
   SELECT e.EmployeeID, e.EmployeeFullName, e.RoleID, r.RoleName, e.CompanyID, c.CompanyName, e.DepartmentID, d.DepartmentName
   FROM [dbo].[Employee] e

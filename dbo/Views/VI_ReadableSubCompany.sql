@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableSubCompany]
+CREATE VIEW [dbo].[VI_ReadableSubCompany]
 AS
   SELECT sc.ParentCompanyID, co.CompanyName as ParentCompanyName, sc.CompanyID, com.CompanyName
   FROM [dbo].[SubCompany] sc

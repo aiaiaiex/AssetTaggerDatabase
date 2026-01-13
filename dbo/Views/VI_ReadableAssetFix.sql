@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableAssetFix]
+CREATE VIEW [dbo].[VI_ReadableAssetFix]
 AS
   SELECT af.AssetFixID, af.AssetIssueID, ai.AssetIssueTitle, p.ProductName, af.AssetFixDateStart, af.AssetFixCost, af.AssetFixDateEnd, af.AssetFixTitle, af.AssetFixDesc, af.AssetFixed, af.EmployeeID, e.EmployeeFullName
   FROM [dbo].[AssetFix] af

@@ -1,4 +1,4 @@
-CREATE VIEW [dbo].[ReadableProduct]
+CREATE VIEW [dbo].[VI_ReadableProduct]
 AS
   SELECT p.ProductID, p.ProductName, p.ProductModelNumber, p.ProductManufacturer, c.CategoryID, c.CategoryName
   FROM [dbo].[Product] p
