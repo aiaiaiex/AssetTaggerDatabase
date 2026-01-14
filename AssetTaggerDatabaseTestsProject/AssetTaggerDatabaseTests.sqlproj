@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build">
   <Sdk Name="Microsoft.Build.Sql" Version="2.0.0" />
   <PropertyGroup>
-    <Name>AssetTaggerDatabaseTestsProject</Name>
+    <Name>AssetTaggerDatabaseTests</Name>
     <ProjectGuid>{598056E4-5F6B-4B58-8913-55AB1BA7964A}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql170DatabaseSchemaProvider</DSP>
     <ModelCollation>1033, CI</ModelCollation>
