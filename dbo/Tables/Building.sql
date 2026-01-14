@@ -1,13 +1,10 @@
 CREATE TABLE [dbo].[Building] (
-    [BuilidingID]     UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Building_BuilidingID] DEFAULT (newid()) NOT NULL,
-    [BuilidingName]   NVARCHAR (50)    NOT NULL,
-    [CompanyID]       UNIQUEIDENTIFIER NULL,
-    [SubCompanyID]    UNIQUEIDENTIFIER NULL,
+    [BuildingID]      UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Building_BuildingID] DEFAULT (newid()) NOT NULL,
+    [BuildingName]    NVARCHAR (50)    NOT NULL,
+    [CompanyID]       UNIQUEIDENTIFIER NOT NULL,
     [BuildingAddress] NVARCHAR (50)    NOT NULL,
-    CONSTRAINT [PK_Building] PRIMARY KEY CLUSTERED ([BuilidingID] ASC),
-    CONSTRAINT [CK_Building_SubORCompanyIDNotNull] CHECK ([CompanyID] IS NOT NULL OR [SubCompanyID] IS NOT NULL),
-    CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
-    CONSTRAINT [FK_Building_SubCompany] FOREIGN KEY ([SubCompanyID]) REFERENCES [dbo].[SubCompany] ([SubCompanyID])
+    CONSTRAINT [PK_Building] PRIMARY KEY CLUSTERED ([BuildingID] ASC),
+    CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID])
 );
 
 
@@ -18,5 +15,5 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_Building_BuildingAddress]
 
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [UX_Building_BuildingName]
-    ON [dbo].[Building]([BuilidingName] ASC);
+    ON [dbo].[Building]([BuildingName] ASC);
 
