@@ -17,6 +17,21 @@
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="AssetTaggerDatabase">
+      <Value>$(SqlCmdVar__1)</Value>
+      <DefaultValue>AssetTaggerDatabase</DefaultValue>
+    </SqlCmdVariable>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssetTaggerDatabaseProject\AssetTaggerDatabase.sqlproj">
+      <Name>AssetTaggerDatabase</Name>
+      <Project>{50395B0E-8DA8-40EB-83DD-949967216AC4}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseSqlCmdVariable>AssetTaggerDatabase</DatabaseSqlCmdVariable>
+    </ProjectReference>
+  </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
   </Target>
