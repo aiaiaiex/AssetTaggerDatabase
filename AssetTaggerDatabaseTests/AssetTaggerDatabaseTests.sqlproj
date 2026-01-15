@@ -849,7 +849,7 @@
       <HintPath>Assemblies\tSQLtCLR.dll</HintPath>
       <SqlAssemblyName>tSQLtCLR</SqlAssemblyName>
       <IsModelAware>True</IsModelAware>
-      <GenerateSqlClrDdl>False</GenerateSqlClrDdl>
+      <GenerateSqlClrDdl>True</GenerateSqlClrDdl>
       <SqlOwnerName>dbo</SqlOwnerName>
       <SqlPermissionSet>EXTERNAL_ACCESS</SqlPermissionSet>
     </Reference>
