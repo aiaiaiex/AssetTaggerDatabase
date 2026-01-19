@@ -855,15 +855,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AssetTaggerDatabase\AssetTaggerDatabase.sqlproj">
-      <Name>AssetTaggerDatabase</Name>
-      <Project>{9ac96bee-ba6d-4269-824e-2cca62308b67}</Project>
-      <Private>True</Private>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseSqlCmdVariable>AssetTaggerDatabase</DatabaseSqlCmdVariable>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <SqlCmdVariable Include="AssetTaggerDatabase">
       <DefaultValue>AssetTaggerDatabase</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
@@ -884,6 +875,14 @@
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
     </ArtifactReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssetTaggerDatabase\AssetTaggerDatabase.sqlproj">
+      <Name>AssetTaggerDatabase</Name>
+      <Project>{9ac96bee-ba6d-4269-824e-2cca62308b67}</Project>
+      <Private>True</Private>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(NETCoreTargetsPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" Condition="'$(NetCoreBuild)' == 'true'" />
   <Target Name="BeforeBuild">
