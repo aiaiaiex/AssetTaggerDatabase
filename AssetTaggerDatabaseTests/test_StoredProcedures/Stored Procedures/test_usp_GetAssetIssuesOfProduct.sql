@@ -39,12 +39,6 @@ BEGIN
     (@AssetIssueID03, @AssetID03),
     (@AssetIssueID05, @AssetID03);
 
-    -- Actual output.
-    CREATE TABLE #actual (AssetIssueID UNIQUEIDENTIFIER);
-
-    INSERT INTO #actual (AssetIssueID)
-    EXEC [dbo].[usp_GetAssetIssuesOfProduct] @ProductID01;
-
     -- Expected output.
     CREATE TABLE #expected (AssetIssueID UNIQUEIDENTIFIER);
 
@@ -53,6 +47,12 @@ BEGIN
     (@AssetIssueID02),
     (@AssetIssueID04);
 
+    -- Actual output.
+    CREATE TABLE #actual (AssetIssueID UNIQUEIDENTIFIER);
+
+    INSERT INTO #actual (AssetIssueID)
+    EXEC [dbo].[usp_GetAssetIssuesOfProduct] @ProductID01;
+
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#actual', '#expected';
+    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
 END;
