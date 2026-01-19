@@ -847,6 +847,10 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Security\test_StoredProcedures.sql" />
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CalculateCurrentBookValue_CalculatesCorrectly.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
