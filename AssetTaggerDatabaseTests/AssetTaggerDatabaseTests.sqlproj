@@ -128,6 +128,8 @@
     <Folder Include="tSQLt\Stored Procedures\" />
     <Folder Include="tSQLt\User Defined Types\" />
     <Folder Include="Assemblies\" />
+    <Folder Include="test_StoredProcedures\" />
+    <Folder Include="test_StoredProcedures\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
@@ -840,6 +842,11 @@
     <Build Include="tSQLt\User Defined Types\Private.sql" />
     <Build Include="tSQLt\User Defined Types\AssertStringTable.sql" />
     <Build Include="Security\tSQLt.sql" />
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CalculateAnnualDepreciationExpense.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\test_StoredProcedures.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
