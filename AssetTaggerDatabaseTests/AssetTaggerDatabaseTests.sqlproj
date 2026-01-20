@@ -938,6 +938,7 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Security\test_TableValuedFunctions.sql" />
+    <Build Include="Security\test_ScalarValuedFunctions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
