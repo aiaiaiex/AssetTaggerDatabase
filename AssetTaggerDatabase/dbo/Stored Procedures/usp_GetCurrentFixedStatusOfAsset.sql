@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[usp_GetCurrentFixedStatusOfAsset]
+﻿
+CREATE PROCEDURE [dbo].[usp_GetCurrentFixedStatusOfAsset]
     @AssetID UNIQUEIDENTIFIER
 AS
 BEGIN
@@ -7,11 +8,9 @@ BEGIN
     SELECT 
         TOP 1
         af.AssetFixed
-    FROM [dbo].[Asset] a
+    FROM [dbo].[AssetFix] af
     INNER JOIN [dbo].[AssetIssue] ai
-        ON ai.AssetID = a.AssetID
-    INNER JOIN [dbo].[AssetFix] af
-        ON af.AssetIssueID = ai.AssetIssueID
-    WHERE a.AssetID = @AssetID
-    ORDER BY GREATEST(AssetFixDateStart, AssetFixDateEnd) DESC;
+        ON ai.AssetIssueID = af.AssetIssueID
+    WHERE ai.AssetID = @AssetID
+    ORDER BY GREATEST(af.AssetFixDateStart, af.AssetFixDateEnd) DESC;
 END
