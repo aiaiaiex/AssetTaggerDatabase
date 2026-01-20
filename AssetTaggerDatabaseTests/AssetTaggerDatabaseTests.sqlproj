@@ -132,6 +132,8 @@
     <Folder Include="test_StoredProcedures\Stored Procedures\" />
     <Folder Include="test_TableValuedFunctions\" />
     <Folder Include="test_TableValuedFunctions\Stored Procedures\" />
+    <Folder Include="test_ScalarValuedFunctions\" />
+    <Folder Include="test_ScalarValuedFunctions\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
@@ -939,6 +941,10 @@
     </Build>
     <Build Include="Security\test_TableValuedFunctions.sql" />
     <Build Include="Security\test_ScalarValuedFunctions.sql" />
+    <Build Include="test_ScalarValuedFunctions\Stored Procedures\test_udf_CalculateAnnualDepreciationExpense.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
