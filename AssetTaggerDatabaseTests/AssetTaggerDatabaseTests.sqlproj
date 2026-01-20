@@ -891,6 +891,14 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetEmployeesOfDepartment_ReturnsCorrectEmployees.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetsSoldByVendor_ReturnsCorrectAssets.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
