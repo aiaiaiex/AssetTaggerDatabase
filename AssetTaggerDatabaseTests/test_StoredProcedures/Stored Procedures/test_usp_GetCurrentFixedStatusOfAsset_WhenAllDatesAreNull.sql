@@ -2,22 +2,15 @@
 CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetCurrentFixedStatusOfAsset_WhenAllDatesAreNull]
 AS
 BEGIN
-    -- Create dummy data for Asset.
-    EXEC tSQLt.FakeTable '[dbo].[Asset]';
-
-    DECLARE @AssetID01 UNIQUEIDENTIFIER = NEWID();
-    DECLARE @AssetID02 UNIQUEIDENTIFIER = NEWID();
-
-    INSERT INTO [dbo].[Asset] (AssetID) VALUES
-    (@AssetID01),
-    (@AssetID02);
-
     -- Create dummy data for AssetIssue.
     EXEC tSQLt.FakeTable '[dbo].[AssetIssue]';
 
     DECLARE @AssetIssueID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetIssueID02 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetIssueID03 UNIQUEIDENTIFIER = NEWID();
+
+    DECLARE @AssetID01 UNIQUEIDENTIFIER = NEWID();
+    DECLARE @AssetID02 UNIQUEIDENTIFIER = NEWID();
 
     INSERT INTO [dbo].[AssetIssue] (AssetIssueID, AssetID) VALUES
     (@AssetIssueID01, @AssetID01),
