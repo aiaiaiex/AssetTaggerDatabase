@@ -130,6 +130,8 @@
     <Folder Include="Assemblies\" />
     <Folder Include="test_StoredProcedures\" />
     <Folder Include="test_StoredProcedures\Stored Procedures\" />
+    <Folder Include="test_TableValuedFunctions\" />
+    <Folder Include="test_TableValuedFunctions\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
@@ -931,6 +933,11 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="test_TableValuedFunctions\Stored Procedures\test_tvf_GetSubsidiariesOfCompany.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="Security\test_TableValuedFunctions.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
