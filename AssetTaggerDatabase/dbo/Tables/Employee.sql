@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Employee] (
-    [EmployeeID]       UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Employee_EmployeeID] DEFAULT (newid()) NOT NULL,
+    [EmployeeID]       UNIQUEIDENTIFIER CONSTRAINT [DF_Employee_EmployeeID] DEFAULT (newid()) NOT NULL,
     [EmployeeFullName] NVARCHAR (50)    NOT NULL,
     [RoleID]           UNIQUEIDENTIFIER NOT NULL,
     [CompanyID]        UNIQUEIDENTIFIER NOT NULL,

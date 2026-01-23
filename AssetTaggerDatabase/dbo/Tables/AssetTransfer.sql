@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[AssetTransfer] (
-    [AssetTransferID]    UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_AssetTransfer_AssetTransferID] DEFAULT (newid()) NOT NULL,
+    [AssetTransferID]    UNIQUEIDENTIFIER CONSTRAINT [DF_AssetTransfer_AssetTransferID] DEFAULT (newid()) NOT NULL,
     [AssetTransferDate]  DATETIME         NOT NULL,
     [AssetTransferPrice] MONEY            NULL,
     [AssetID]            UNIQUEIDENTIFIER NOT NULL,
