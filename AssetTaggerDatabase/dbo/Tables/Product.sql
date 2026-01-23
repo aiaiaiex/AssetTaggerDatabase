@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Product] (
-    [ProductID]           UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Product_ProductID] DEFAULT (newid()) NOT NULL,
+    [ProductID]           UNIQUEIDENTIFIER CONSTRAINT [DF_Product_ProductID] DEFAULT (newid()) NOT NULL,
     [ProductName]         NVARCHAR (50)    NULL,
     [ProductModelNumber]  NVARCHAR (50)    NULL,
     [ProductManufacturer] NVARCHAR (50)    NULL,

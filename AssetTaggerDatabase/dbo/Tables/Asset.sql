@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Asset] (
-    [AssetID]                    UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Asset_AssetID] DEFAULT (newid()) NOT NULL,
-    [AssetTagDate]               DATETIME         CONSTRAINT [DEFAULT_Asset_AssetTagDate] DEFAULT (getdate()) NOT NULL,
+    [AssetID]                    UNIQUEIDENTIFIER CONSTRAINT [DF_Asset_AssetID] DEFAULT (newid()) NOT NULL,
+    [AssetTagDate]               DATETIME         CONSTRAINT [DF_Asset_AssetTagDate] DEFAULT (getdate()) NOT NULL,
     [AssetPurchaseDate]          DATETIME         NULL,
     [AssetPurchasePrice]         MONEY            NULL,
     [AssetSerialNumber]          NVARCHAR (50)    NULL,

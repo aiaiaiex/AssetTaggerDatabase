@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Company] (
-    [CompanyID]       UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Company_CompanyID] DEFAULT (newid()) NOT NULL,
+    [CompanyID]       UNIQUEIDENTIFIER CONSTRAINT [DF_Company_CompanyID] DEFAULT (newid()) NOT NULL,
     [ParentCompanyID] UNIQUEIDENTIFIER NULL,
     [CompanyName]     NVARCHAR (50)    NOT NULL,
     [CompanyAddress]  NVARCHAR (50)    NOT NULL,

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Location] (
-    [LocationID]      UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Location_LocationID] DEFAULT (newid()) NOT NULL,
+    [LocationID]      UNIQUEIDENTIFIER CONSTRAINT [DF_Location_LocationID] DEFAULT (newid()) NOT NULL,
     [LocationAddress] NVARCHAR (50)    NOT NULL,
     [BuildingID]      UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_Location_LocationAddress_BuildingID] UNIQUE ([LocationAddress], [BuildingID]),

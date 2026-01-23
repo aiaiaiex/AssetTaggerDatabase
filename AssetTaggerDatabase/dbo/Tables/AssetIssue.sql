@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[AssetIssue] (
-    [AssetIssueID]    UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_AssetIssues_AssetIssueID] DEFAULT (newid()) NOT NULL,
+    [AssetIssueID]    UNIQUEIDENTIFIER CONSTRAINT [DF_AssetIssues_AssetIssueID] DEFAULT (newid()) NOT NULL,
     [AssetIssueTitle] NVARCHAR (50)    NOT NULL,
     [AssetIssueDesc]  NTEXT            NULL,
     [AssetIssueDate]  DATETIME         NULL,
