@@ -4,12 +4,7 @@
     [ProductModelNumber]  NVARCHAR (50)    NULL,
     [ProductManufacturer] NVARCHAR (50)    NULL,
     [CategoryID]          UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [AK_Product_ProductModelNumber_ProductManufacturer] UNIQUE ([ProductModelNumber], [ProductManufacturer]),
     CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED ([ProductID] ASC),
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])
 );
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Product_ProductModelNumber_ProductManufacturer]
-    ON [dbo].[Product]([ProductModelNumber] ASC, [ProductManufacturer] ASC);
-

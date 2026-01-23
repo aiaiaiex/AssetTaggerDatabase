@@ -4,22 +4,9 @@
     [CompanyName]     NVARCHAR (50)    NOT NULL,
     [CompanyAddress]  NVARCHAR (50)    NOT NULL,
     [CompanyCode]     NVARCHAR (5)     NOT NULL,
+    CONSTRAINT [AK_Company_CompanyName] UNIQUE ([CompanyName]),
+    CONSTRAINT [AK_Company_CompanyAddress] UNIQUE ([CompanyAddress]),
+    CONSTRAINT [AK_Company_CompanyCode] UNIQUE ([CompanyCode]),
     CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED ([CompanyID] ASC),
     CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[Company] ([CompanyID])
 );
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Company_CompanyName]
-    ON [dbo].[Company]([CompanyName] ASC);
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Company_CompanyAddress]
-    ON [dbo].[Company]([CompanyAddress] ASC);
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Company_CompanyCode]
-    ON [dbo].[Company]([CompanyCode] ASC);
-

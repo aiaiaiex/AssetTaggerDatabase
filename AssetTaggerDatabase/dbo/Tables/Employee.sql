@@ -4,14 +4,9 @@
     [RoleID]           UNIQUEIDENTIFIER NOT NULL,
     [CompanyID]        UNIQUEIDENTIFIER NOT NULL,
     [DepartmentID]     UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [AK_Employee_EmployeeFullName] UNIQUE ([EmployeeFullName]),
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC),
     CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
     CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentID]) REFERENCES [dbo].[Department] ([DepartmentID]),
     CONSTRAINT [FK_Employee_Role] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[Role] ([RoleID])
 );
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Employee_EmployeeFullName]
-    ON [dbo].[Employee]([EmployeeFullName] ASC);
-

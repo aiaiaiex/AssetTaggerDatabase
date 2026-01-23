@@ -1,11 +1,6 @@
 ﻿CREATE TABLE [dbo].[Role] (
     [RoleID]   UNIQUEIDENTIFIER CONSTRAINT [DEFAULT_Role_RoleID] DEFAULT (newid()) NOT NULL,
     [RoleName] NVARCHAR (50)    NOT NULL,
+    CONSTRAINT [AK_Role_RoleName] UNIQUE ([RoleName]),
     CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED ([RoleID] ASC)
 );
-
-
-GO
-CREATE UNIQUE NONCLUSTERED INDEX [UX_Role_RoleName]
-    ON [dbo].[Role]([RoleName] ASC);
-
