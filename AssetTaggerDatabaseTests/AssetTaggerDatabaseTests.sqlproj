@@ -136,6 +136,8 @@
     <Folder Include="test_ScalarValuedFunctions\Stored Procedures\" />
     <Folder Include="test_Views\" />
     <Folder Include="test_Views\Stored Procedures\" />
+    <Folder Include="test_Constraints\" />
+    <Folder Include="test_Constraints\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
@@ -989,6 +991,10 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Security\test_Constraints.sql" />
+    <Build Include="test_Constraints\Stored Procedures\test_DF_Asset_AssetID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
