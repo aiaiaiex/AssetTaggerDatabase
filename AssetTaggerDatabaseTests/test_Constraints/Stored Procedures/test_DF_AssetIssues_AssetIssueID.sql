@@ -1,5 +1,5 @@
 ﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_AssetIssues_AssetIssueID]
+CREATE PROCEDURE [test_Constraints].[test_DF_AssetIssue_AssetIssueID]
 AS
 BEGIN
     -- Create dummy data for AssetIssue.
