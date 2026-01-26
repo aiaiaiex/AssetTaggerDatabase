@@ -9,7 +9,7 @@ BEGIN
     DECLARE @ProductManufacturer NVARCHAR(50) = 'Product Manufacturer 01';
 
     -- Apply unique (alternate key) constraint.
-    EXEC tSQLt.ApplyConstraint '[dbo].[Location]', '[AK_Product_ProductModelNumber_ProductManufacturer]';
+    EXEC tSQLt.ApplyConstraint '[dbo].[Product]', '[AK_Product_ProductModelNumber_ProductManufacturer]';
 
     -- Test unique (alternate key) constraint by expecting an error.
     EXEC tSQLt.ExpectException @ExpectedErrorNumber = 2627;
