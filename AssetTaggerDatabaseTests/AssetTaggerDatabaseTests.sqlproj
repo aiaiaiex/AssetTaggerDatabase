@@ -1256,6 +1256,14 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="test_Constraints\Stored Procedures\test_CTK_Asset_AssetWarrantyUnitOfMeasure_AssetWarrantyDuration_WhenXIsNullAndYIsNot.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_Constraints\Stored Procedures\test_CTK_Asset_AssetWarrantyUnitOfMeasure_AssetWarrantyDuration_WhenXIsNotNullAndYIs.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
