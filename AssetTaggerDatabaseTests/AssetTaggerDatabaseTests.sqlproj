@@ -1116,11 +1116,11 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_Constraints\Stored Procedures\AK_Department_DepartmentName.sql">
+    <Build Include="test_Constraints\Stored Procedures\test_AK_Company_CompanyAddress.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_Constraints\Stored Procedures\test_AK_Company_CompanyAddress.sql">
+    <Build Include="test_Constraints\Stored Procedures\test_AK_Department_DepartmentName.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>

@@ -1,5 +1,6 @@
 ﻿
-CREATE PROCEDURE [test_Constraints].[AK_Department_DepartmentName]
+
+CREATE PROCEDURE [test_Constraints].[test_AK_Department_DepartmentName]
 AS
 BEGIN
     -- Create dummy data for Department.
@@ -18,3 +19,5 @@ BEGIN
     (@DepartmentName),
     (@DepartmentName);
 END;
+EXEC tSQLt.Run 'test_Constraints.test_AK_Department_DepartmentName';
+-- EXEC tSQLt.RunAll;
