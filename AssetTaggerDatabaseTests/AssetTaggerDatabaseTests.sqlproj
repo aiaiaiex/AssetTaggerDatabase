@@ -140,6 +140,7 @@
     <Folder Include="test_Constraints\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
+    <Build Include="test_Constraints\Stored Procedures\test_DF_AssetIssue_AssetIssueID.sql" />
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -1000,10 +1001,6 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="test_Constraints\Stored Procedures\test_DF_AssetFix_AssetFixID.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Constraints\Stored Procedures\test_DF_AssetIssues_AssetIssueID.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
