@@ -8,5 +8,6 @@
     CONSTRAINT [AK_Company_CompanyAddress] UNIQUE ([CompanyAddress]),
     CONSTRAINT [AK_Company_CompanyCode] UNIQUE ([CompanyCode]),
     CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED ([CompanyID] ASC),
-    CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[Company] ([CompanyID])
+    CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
+    CONSTRAINT [CTK_Company_CompanyID_ParentCompanyID] CHECK ([CompanyID] <> [ParentCompanyID])
 );
