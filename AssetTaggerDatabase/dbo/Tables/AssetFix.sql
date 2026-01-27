@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[AssetFix] (
     [AssetFixID]        UNIQUEIDENTIFIER CONSTRAINT [DF_AssetFix_AssetFixID] DEFAULT (newid()) NOT NULL,
     [AssetIssueID]      UNIQUEIDENTIFIER NOT NULL,
-    [AssetFixDateStart] DATETIME         NULL,
+    [AssetFixDateStart] DATETIME         CONSTRAINT [DF_AssetFix_AssetFixDateStart] DEFAULT (GETDATE()) NOT NULL,
     [AssetFixCost]      MONEY            NULL,
     [AssetFixDateEnd]   DATETIME         NULL,
     [AssetFixTitle]     NVARCHAR (50)    NOT NULL,
