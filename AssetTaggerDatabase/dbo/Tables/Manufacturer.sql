@@ -1,0 +1,7 @@
+﻿CREATE TABLE [dbo].[Manufacturer] (
+    [ManufacturerID]   UNIQUEIDENTIFIER CONSTRAINT [DF_Manufacturer_ManufacturerID] DEFAULT (newid()) NOT NULL,
+    [ManufacturerName] NVARCHAR (50)    NOT NULL,
+    CONSTRAINT [PK_Manufacturer] PRIMARY KEY CLUSTERED ([ManufacturerID] ASC),
+    CONSTRAINT [AK_Manufacturer_ManufacturerName] UNIQUE NONCLUSTERED ([ManufacturerName] ASC)
+);
+
