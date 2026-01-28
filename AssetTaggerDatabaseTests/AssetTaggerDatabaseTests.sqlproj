@@ -1136,7 +1136,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_Constraints\Stored Procedures\test_AK_Product_ProductModelNumber_ProductManufacturer.sql">
+    <Build Include="test_Constraints\Stored Procedures\test_AK_Product_ProductModelNumber_ManufacturerID.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
