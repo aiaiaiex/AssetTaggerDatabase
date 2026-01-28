@@ -4,10 +4,17 @@
 			"path": "."
 		}
 	],
-	"settings": {},
+	"settings": {
+		"[sql]": {
+			"editor.defaultFormatter": "sqlfluff.vscode-sqlfluff",
+			"editor.formatOnSave": true
+		},
+		"sqlfluff.executablePath": "${workspaceFolder}/venv/Scripts/sqlfluff"
+	},
 	"extensions": {
 		"recommendations": [
-			"ms-mssql.data-workspace-vscode"
+			"ms-mssql.data-workspace-vscode",
+			"sqlfluff.vscode-sqlfluff"
 		]
 	}
 }
