@@ -1,6 +1,6 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableProduct]
 AS
-  SELECT p.ProductID, p.ProductName, p.ProductModelNumber, p.ManufacturerID, m.ManufacturerName, c.CategoryID, c.CategoryName
+  SELECT p.ProductID, p.ProductName, p.ProductModelNumber, p.ManufacturerID, m.ManufacturerName, p.CategoryID, c.CategoryName
   FROM [dbo].[Product] p
   INNER JOIN [dbo].[Category] c
     ON c.CategoryID = p.CategoryID
