@@ -2,7 +2,7 @@
 CREATE PROCEDURE [test_Constraints].[test_DF_Building_BuildingID]
 AS
 BEGIN
-    -- Create dummy data for AssetIssue.
+    -- Create dummy data for Building.
     -- Preserve default constraints.
     EXEC tSQLt.FakeTable '[dbo].[Building]', @Defaults=1;
 
