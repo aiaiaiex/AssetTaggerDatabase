@@ -178,6 +178,7 @@
     <Build Include="dbo\Stored Procedures\usp_GetBuildingsOfCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetLocationsOfBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetAssetIssuesOfProduct.sql" />
+    <Build Include="dbo\Tables\EndUserRole.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">
