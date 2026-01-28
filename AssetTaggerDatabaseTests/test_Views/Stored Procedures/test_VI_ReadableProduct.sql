@@ -2,6 +2,29 @@
 CREATE PROCEDURE [test_Views].[test_VI_ReadableProduct]
 AS
 BEGIN
+    -- Create dummy data for Manufacturer.
+    EXEC tSQLt.FakeTable '[dbo].[Manufacturer]';
+
+    DECLARE @ManufacturerID01 UNIQUEIDENTIFIER = NEWID();
+    DECLARE @ManufacturerID02 UNIQUEIDENTIFIER = NEWID();
+
+    DECLARE @ManufacturerName01 NVARCHAR(50) = 'Manufacturer Name 01';
+    DECLARE @ManufacturerName02 NVARCHAR(50) = 'Manufacturer Name 02';
+
+    INSERT INTO [dbo].[Manufacturer] (
+        ManufacturerID,
+        ManufacturerName
+    ) VALUES
+    (
+        @ManufacturerID01,
+        @ManufacturerName01
+    ),
+    (
+        @ManufacturerID02,
+        @ManufacturerName02
+    );
+
+
     -- Create dummy data for Category.
     EXEC tSQLt.FakeTable '[dbo].[Category]';
 
@@ -36,28 +59,25 @@ BEGIN
     DECLARE @ProductModelNumber01 NVARCHAR(50) = 'Product Model Number 01';
     DECLARE @ProductModelNumber02 NVARCHAR(50) = 'Product Model Number 02';
 
-    DECLARE @ProductManufacturer01 NVARCHAR(50) = 'Product Manufacturer 01';
-    DECLARE @ProductManufacturer02 NVARCHAR(50) = 'Product Manufacturer 02';
-
     INSERT INTO [dbo].[Product] (
         ProductID,
         ProductName,
         ProductModelNumber,
-        ProductManufacturer,
+        ManufacturerID,
         CategoryID
     ) VALUES
     (
         @ProductID01,
         @ProductName01,
         @ProductModelNumber01,
-        @ProductManufacturer01,
+        @ManufacturerID02,
         @CategoryID02
     ),
     (
         @ProductID02,
         @ProductName02,
         @ProductModelNumber02,
-        @ProductManufacturer02,
+        @ManufacturerID01,
         @CategoryID01
     );
 
@@ -66,7 +86,8 @@ BEGIN
         ProductID UNIQUEIDENTIFIER,
         ProductName NVARCHAR(50),
         ProductModelNumber NVARCHAR(50),
-        ProductManufacturer NVARCHAR(50),
+        ManufacturerID UNIQUEIDENTIFIER,
+        ManufacturerName NVARCHAR(50),
         CategoryID UNIQUEIDENTIFIER,
         CategoryName NVARCHAR(50)
     );
@@ -76,7 +97,8 @@ BEGIN
         @ProductID01,
         @ProductName01,
         @ProductModelNumber01,
-        @ProductManufacturer01,
+        @ManufacturerID02,
+        @ManufacturerName02,
         @CategoryID02,
         @CategoryName02
     ),
@@ -84,7 +106,8 @@ BEGIN
         @ProductID02,
         @ProductName02,
         @ProductModelNumber02,
-        @ProductManufacturer02,
+        @ManufacturerID01,
+        @ManufacturerName01,
         @CategoryID01,
         @CategoryName01
     );
@@ -94,7 +117,8 @@ BEGIN
         ProductID UNIQUEIDENTIFIER,
         ProductName NVARCHAR(50),
         ProductModelNumber NVARCHAR(50),
-        ProductManufacturer NVARCHAR(50),
+        ManufacturerID UNIQUEIDENTIFIER,
+        ManufacturerName NVARCHAR(50),
         CategoryID UNIQUEIDENTIFIER,
         CategoryName NVARCHAR(50)
     );
