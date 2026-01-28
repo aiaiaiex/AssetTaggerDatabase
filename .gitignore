@@ -449,3 +449,6 @@ samples/features/sql-management-objects/src/out/CodeCoverage/CodeCoverage.config
 # Unignore
 !/AssetTaggerDatabaseTests/Assemblies/tSQLtCLR.dll
 !/AssetTaggerDatabaseTests/tSQLt/Tables/TestResult.sql
+
+# Python-Related
+venv/
