@@ -8,5 +8,5 @@ AS
     ON v.VendorID = a.VendorID
   INNER JOIN [dbo].[Location] l
     ON l.LocationID = a.LocationID
-  INNER JOIN [dbo].[Employee] e
+  LEFT JOIN [dbo].[Employee] e
     ON e.EmployeeID = a.EmployeeID

@@ -45,14 +45,11 @@ BEGIN
     EXEC tSQLt.FakeTable '[dbo].[Employee]';
 
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
-    DECLARE @EmployeeID02 UNIQUEIDENTIFIER = NEWID();
 
     DECLARE @EmployeeFullName01 NVARCHAR(50) = 'Employee Full Name 01';
-    DECLARE @EmployeeFullName02 NVARCHAR(50) = 'Employee Full Name 02';
 
     INSERT INTO [dbo].[Employee] (EmployeeID, EmployeeFullName) VALUES
-    (@EmployeeID01, @EmployeeFullName01),
-    (@EmployeeID02, @EmployeeFullName02);
+    (@EmployeeID01, @EmployeeFullName01);
 
     -- Create dummy data for Asset.
     EXEC tSQLt.FakeTable '[dbo].[Asset]';
@@ -100,7 +97,7 @@ BEGIN
         EmployeeID
     ) VALUES
     (
-        @AssetID01, @AssetTagDate01, @AssetPurchaseDate01, @AssetPurchasePrice01, @AssetSerialNumber01, @AssetWarrantyUnitOfMeasure01, @AssetWarrantyDuration01, @AssetUsefulLife01, @AssetSalvageValue01, @ProductID02, @VendorID02, @LocationID02, @EmployeeID02
+        @AssetID01, @AssetTagDate01, @AssetPurchaseDate01, @AssetPurchasePrice01, @AssetSerialNumber01, @AssetWarrantyUnitOfMeasure01, @AssetWarrantyDuration01, @AssetUsefulLife01, @AssetSalvageValue01, @ProductID02, @VendorID02, @LocationID02, NULL
     ),(
         @AssetID02, @AssetTagDate02, @AssetPurchaseDate02, @AssetPurchasePrice02, @AssetSerialNumber02, @AssetWarrantyUnitOfMeasure02, @AssetWarrantyDuration02, @AssetUsefulLife02, @AssetSalvageValue02, @ProductID01, @VendorID01, @LocationID01, @EmployeeID01
     );
@@ -128,7 +125,7 @@ BEGIN
 
     INSERT INTO #expected VALUES
     (
-        @AssetID01, @AssetTagDate01, @AssetPurchaseDate01, @AssetPurchasePrice01, @AssetSerialNumber01, @AssetWarrantyUnitOfMeasure01, @AssetWarrantyDuration01, @AssetUsefulLife01, @AssetSalvageValue01, @ProductID02, @ProductName02, @VendorID02, @VendorName02, @LocationID02, @LocationAddress02, @EmployeeID02, @EmployeeFullName02
+        @AssetID01, @AssetTagDate01, @AssetPurchaseDate01, @AssetPurchasePrice01, @AssetSerialNumber01, @AssetWarrantyUnitOfMeasure01, @AssetWarrantyDuration01, @AssetUsefulLife01, @AssetSalvageValue01, @ProductID02, @ProductName02, @VendorID02, @VendorName02, @LocationID02, @LocationAddress02, NULL, NULL
     ),(
         @AssetID02, @AssetTagDate02, @AssetPurchaseDate02, @AssetPurchasePrice02, @AssetSerialNumber02, @AssetWarrantyUnitOfMeasure02, @AssetWarrantyDuration02, @AssetUsefulLife02, @AssetSalvageValue02, @ProductID01, @ProductName01, @VendorID01, @VendorName01, @LocationID01, @LocationAddress01, @EmployeeID01, @EmployeeFullName01
     );
