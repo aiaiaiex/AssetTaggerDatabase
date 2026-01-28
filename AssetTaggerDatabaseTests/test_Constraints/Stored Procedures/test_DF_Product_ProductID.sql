@@ -2,14 +2,14 @@
 CREATE PROCEDURE [test_Constraints].[test_DF_Product_ProductID]
 AS
 BEGIN
-    -- Create dummy data for AssetIssue.
+    -- Create dummy data for Product.
     -- Preserve default constraints.
     EXEC tSQLt.FakeTable '[dbo].[Product]', @Defaults=1;
 
-    DECLARE @ProductManufacturer NVARCHAR(50) = 'Nvidia';
+    DECLARE @ProductName NVARCHAR(50) = 'Product Name 01';
 
-    INSERT INTO [dbo].[Product] (ProductManufacturer) VALUES
-    (@ProductManufacturer);
+    INSERT INTO [dbo].[Product] (ProductName) VALUES
+    (@ProductName);
 
     -- Actual ouput.
     DECLARE @actual UNIQUEIDENTIFIER;
