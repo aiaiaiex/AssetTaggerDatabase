@@ -1,4 +1,4 @@
-﻿CREATE FUNCTION [dbo].[tvf_GetSubsidiariesOfCompany] (
+﻿CREATE FUNCTION [dbo].[tvf_GetSubsidiariesOfCompany](
     @ParentCompanyID UNIQUEIDENTIFIER
 )
 RETURNS @Subsidiary TABLE
@@ -8,6 +8,7 @@ RETURNS @Subsidiary TABLE
 AS
 BEGIN
     INSERT INTO @Subsidiary
-    SELECT CompanyID FROM [dbo].[Company] WHERE ParentCompanyID = @ParentCompanyID
+    SELECT CompanyID FROM [dbo].[Company]
+    WHERE ParentCompanyID = @ParentCompanyID
     RETURN
 END;

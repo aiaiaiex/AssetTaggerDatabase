@@ -1,10 +1,18 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableEmployee]
 AS
-  SELECT e.EmployeeID, e.EmployeeFullName, e.RoleID, r.RoleName, e.CompanyID, c.CompanyName, e.DepartmentID, d.DepartmentName
-  FROM [dbo].[Employee] e
-  INNER JOIN [dbo].[Role] r
-    ON r.RoleID = e.RoleID
-  INNER JOIN [dbo].[Company] c
-    ON c.CompanyID = e.CompanyID
-  INNER JOIN [dbo].[Department] d
-    ON d.DepartmentID = e.DepartmentID
+SELECT
+    E.EmployeeID,
+    E.EmployeeFullName,
+    E.RoleID,
+    R.RoleName,
+    E.CompanyID,
+    C.CompanyName,
+    E.DepartmentID,
+    D.DepartmentName
+FROM [dbo].[Employee] AS E
+INNER JOIN [dbo].[Role] AS R
+    ON E.RoleID = R.RoleID
+INNER JOIN [dbo].[Company] AS C
+    ON E.CompanyID = C.CompanyID
+INNER JOIN [dbo].[Department] AS D
+    ON E.DepartmentID = D.DepartmentID

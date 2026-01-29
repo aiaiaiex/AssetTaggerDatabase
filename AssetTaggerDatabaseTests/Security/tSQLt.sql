@@ -1,3 +1,2 @@
 ﻿CREATE SCHEMA [tSQLt]
-    AUTHORIZATION [dbo];
-
+AUTHORIZATION [dbo];

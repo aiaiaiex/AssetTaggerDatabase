@@ -1,12 +1,24 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableAssetFix]
 AS
-  SELECT af.AssetFixID, af.AssetIssueID, ai.AssetIssueTitle, p.ProductName, af.AssetFixDateStart, af.AssetFixCost, af.AssetFixDateEnd, af.AssetFixTitle, af.AssetFixDesc, af.AssetFixed, af.EmployeeID, e.EmployeeFullName
-  FROM [dbo].[AssetFix] af
-  INNER JOIN [dbo].[AssetIssue] ai
-    ON ai.AssetIssueID = af.AssetIssueID
-  INNER JOIN [dbo].[Asset] a
-    ON a.AssetID = ai.AssetID
-  INNER JOIN [dbo].[Product] p
-    ON p.ProductID = a.ProductID
-  INNER JOIN [dbo].[Employee] e
-    ON e.EmployeeID = af.EmployeeID
+SELECT
+    Af.AssetFixID,
+    Af.AssetIssueID,
+    Ai.AssetIssueTitle,
+    P.ProductName,
+    Af.AssetFixDateStart,
+    Af.AssetFixCost,
+    Af.AssetFixDateEnd,
+    Af.AssetFixTitle,
+    Af.AssetFixDesc,
+    Af.AssetFixed,
+    Af.EmployeeID,
+    E.EmployeeFullName
+FROM [dbo].[AssetFix] AS Af
+INNER JOIN [dbo].[AssetIssue] AS Ai
+    ON Af.AssetIssueID = Ai.AssetIssueID
+INNER JOIN [dbo].[Asset] AS A
+    ON Ai.AssetID = A.AssetID
+INNER JOIN [dbo].[Product] AS P
+    ON A.ProductID = P.ProductID
+INNER JOIN [dbo].[Employee] AS E
+    ON Af.EmployeeID = E.EmployeeID

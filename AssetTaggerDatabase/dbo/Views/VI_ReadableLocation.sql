@@ -1,6 +1,10 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableLocation]
 AS
-  SELECT l.LocationID, l.LocationAddress, l.BuildingID, b.BuildingName
-  FROM [dbo].[Location] l
-  INNER JOIN [dbo].[Building] b
-    ON b.BuildingID = l.BuildingID
+SELECT
+    L.LocationID,
+    L.LocationAddress,
+    L.BuildingID,
+    B.BuildingName
+FROM [dbo].[Location] AS L
+INNER JOIN [dbo].[Building] AS B
+    ON L.BuildingID = B.BuildingID

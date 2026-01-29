@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_AssetTransfer_AssetTransferID]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_AssetTransfer_AssetTransferID]
 AS
 BEGIN
     -- Create dummy data for AssetTransfer.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[AssetTransfer]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[AssetTransfer]', @Defaults = 1;
 
     DECLARE @AssetTransferDate DATETIME = '2000-01-01';
 
@@ -13,8 +12,8 @@ BEGIN
 
     -- Actual output.
     DECLARE @actual UNIQUEIDENTIFIER;
-    SELECT @actual = AssetTransferID from [dbo].[AssetTransfer];
+    SELECT @actual = AssetTransferID FROM [dbo].[AssetTransfer];
 
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;

@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableProduct]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableProduct]
 AS
 BEGIN
     -- Create dummy data for Manufacturer.
-    EXEC tSQLt.FakeTable '[dbo].[Manufacturer]';
+    EXEC TSQLt.FakeTable '[dbo].[Manufacturer]';
 
     DECLARE @ManufacturerID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ManufacturerID02 UNIQUEIDENTIFIER = NEWID();
@@ -24,9 +23,8 @@ BEGIN
         @ManufacturerName02
     );
 
-
     -- Create dummy data for Category.
-    EXEC tSQLt.FakeTable '[dbo].[Category]';
+    EXEC TSQLt.FakeTable '[dbo].[Category]';
 
     DECLARE @CategoryID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CategoryID02 UNIQUEIDENTIFIER = NEWID();
@@ -48,7 +46,7 @@ BEGIN
     );
 
     -- Create dummy data for Product.
-    EXEC tSQLt.FakeTable '[dbo].[Product]';
+    EXEC TSQLt.FakeTable '[dbo].[Product]';
 
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
@@ -127,5 +125,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableProduct];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

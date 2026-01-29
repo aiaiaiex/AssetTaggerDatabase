@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [test_ScalarValuedFunctions].[test_udf_CalculateAnnualDepreciationExpense]
+﻿CREATE PROCEDURE [test_ScalarValuedFunctions].[test_udf_CalculateAnnualDepreciationExpense]
 AS
 BEGIN
     -- Expected output.
@@ -15,5 +14,5 @@ BEGIN
     SELECT @actual = [dbo].[udf_CalculateAnnualDepreciationExpense](@AssetPurchasePrice, @AssetSalvageValue, @AssetUsefulLife)
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEquals @expected, @actual;
+    EXEC TSQLt.AssertEquals @expected, @actual;
 END;

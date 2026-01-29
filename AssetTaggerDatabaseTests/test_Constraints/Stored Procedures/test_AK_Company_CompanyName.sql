@@ -1,17 +1,16 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_AK_Company_CompanyName]
+﻿CREATE PROCEDURE [test_Constraints].[test_AK_Company_CompanyName]
 AS
 BEGIN
     -- Create dummy data for Company.
-    EXEC tSQLt.FakeTable '[dbo].[Company]';
+    EXEC TSQLt.FakeTable '[dbo].[Company]';
 
     DECLARE @CompanyName NVARCHAR(50) = 'Company Name 01';
 
     -- Apply unique (alternate key) constraint.
-    EXEC tSQLt.ApplyConstraint '[dbo].[Company]', '[AK_Company_CompanyName]';
+    EXEC TSQLt.ApplyConstraint '[dbo].[Company]', '[AK_Company_CompanyName]';
 
     -- Test unique (alternate key) constraint by expecting an error.
-    EXEC tSQLt.ExpectException @ExpectedErrorNumber = 2627;
+    EXEC TSQLt.ExpectException @ExpectedErrorNumber = 2627;
 
     -- Create error by inserting same (unique) data twice.
     INSERT INTO [dbo].[Company] (CompanyName) VALUES

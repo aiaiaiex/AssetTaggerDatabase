@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_Location_LocationID]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_Location_LocationID]
 AS
 BEGIN
     -- Create dummy data for Location.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[Location]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[Location]', @Defaults = 1;
 
     DECLARE @LocationAddress NVARCHAR(50) = 'Location Address 01';
 
@@ -13,8 +12,8 @@ BEGIN
 
     -- Actual output.
     DECLARE @actual UNIQUEIDENTIFIER;
-    SELECT @actual = LocationID from [dbo].[Location];
+    SELECT @actual = LocationID FROM [dbo].[Location];
 
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;

@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_CalculateAnnualDepreciationExpense]
 AS
 BEGIN
-    EXEC tSQLt.FakeTable '[dbo].[Asset]';
+    EXEC TSQLt.FakeTable '[dbo].[Asset]';
 
     DECLARE @AssetID UNIQUEIDENTIFIER = NEWID();
 
@@ -16,5 +16,5 @@ BEGIN
 
     INSERT INTO #expected VALUES (1000);
 
-    EXEC tSQLt.AssertEqualsTable '#actual', '#expected';
+    EXEC TSQLt.AssertEqualsTable '#actual', '#expected';
 END;

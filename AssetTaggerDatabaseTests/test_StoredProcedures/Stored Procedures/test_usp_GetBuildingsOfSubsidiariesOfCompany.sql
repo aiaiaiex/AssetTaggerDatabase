@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetBuildingsOfSubsidiariesOfCompany]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetBuildingsOfSubsidiariesOfCompany]
 AS
 BEGIN
     -- Create dummy data for Company.
-    EXEC tSQLt.FakeTable '[dbo].[Company]';
+    EXEC TSQLt.FakeTable '[dbo].[Company]';
 
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
@@ -17,13 +16,12 @@ BEGIN
     (@CompanyID04, @CompanyID01);
 
     -- Create dummy data for Building.
-    EXEC tSQLt.FakeTable '[dbo].[Building]';
+    EXEC TSQLt.FakeTable '[dbo].[Building]';
 
     DECLARE @BuildingID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID02 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID03 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID04 UNIQUEIDENTIFIER = NEWID();
-
 
     INSERT INTO [dbo].[Building] (BuildingID, CompanyID) VALUES
     (@BuildingID01, @CompanyID01),
@@ -45,5 +43,5 @@ BEGIN
     EXEC [dbo].[usp_GetBuildingsOfSubsidiariesOfCompany] @CompanyID01;
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

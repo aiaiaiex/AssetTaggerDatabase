@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_Vendor_VendorID]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_Vendor_VendorID]
 AS
 BEGIN
     -- Create dummy data for Vendor.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[Vendor]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[Vendor]', @Defaults = 1;
 
     DECLARE @VendorName NVARCHAR(50) = 'Vendor Name 01';
 
@@ -13,8 +12,8 @@ BEGIN
 
     -- Actual output.
     DECLARE @actual UNIQUEIDENTIFIER;
-    SELECT @actual = VendorID from [dbo].[Vendor];
+    SELECT @actual = VendorID FROM [dbo].[Vendor];
 
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;

@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_AssetIssue_AssetIssueDate]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_AssetIssue_AssetIssueDate]
 AS
 BEGIN
     -- Create dummy data for AssetIssue.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[AssetIssue]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[AssetIssue]', @Defaults = 1;
 
     DECLARE @AssetIssueTitle NVARCHAR(50) = 'Asset Issue Title 01';
 
@@ -13,8 +12,8 @@ BEGIN
 
     -- Actual ouput.
     DECLARE @actual DATETIME;
-    SELECT @actual = AssetIssueDate from [dbo].[AssetIssue];
+    SELECT @actual = AssetIssueDate FROM [dbo].[AssetIssue];
 
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;

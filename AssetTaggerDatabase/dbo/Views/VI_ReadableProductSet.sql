@@ -1,8 +1,12 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableProductSet]
 AS
-  SELECT ps.ParentProductID, pr.ProductName as ParentProductName, ps.ProductID, pro.ProductName
-  FROM [dbo].[ProductSet] ps
-  INNER JOIN [dbo].[Product] pr
-    ON pr.ProductID = ps.ParentProductID
-  INNER JOIN [dbo].[Product] pro
-    ON pro.ProductID = ps.ProductID
+SELECT
+    Ps.ParentProductID,
+    Pr.ProductName AS ParentProductName,
+    Ps.ProductID,
+    Pro.ProductName
+FROM [dbo].[ProductSet] AS Ps
+INNER JOIN [dbo].[Product] AS Pr
+    ON Ps.ParentProductID = Pr.ProductID
+INNER JOIN [dbo].[Product] AS Pro
+    ON Ps.ProductID = Pro.ProductID

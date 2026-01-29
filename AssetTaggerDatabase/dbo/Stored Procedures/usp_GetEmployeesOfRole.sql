@@ -4,9 +4,8 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        EmployeeID
-        -- EmployeeFullName -- Added this so you know WHO the employee is
+    SELECT EmployeeID
+    -- EmployeeFullName -- Added this so you know WHO the employee is
     FROM [dbo].[Employee]
     WHERE RoleID = @RoleID;
 END

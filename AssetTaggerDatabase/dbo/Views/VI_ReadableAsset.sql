@@ -1,12 +1,29 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableAsset]
 AS
-  SELECT a.AssetID, a.AssetTagDate, a.AssetPurchaseDate, a.AssetPurchasePrice, a.AssetSerialNumber, a.AssetWarrantyUnitOfMeasure, a.AssetWarrantyDuration, a.AssetUsefulLife, a.AssetSalvageValue, a.ProductID, p.ProductName, a.VendorID, v.VendorName, a.LocationID, l.LocationAddress, a.EmployeeID, e.EmployeeFullName
-  FROM [dbo].[Asset] a
-  INNER JOIN [dbo].[Product] p
-    ON p.ProductID = a.ProductID
-  INNER JOIN [dbo].[Vendor] v
-    ON v.VendorID = a.VendorID
-  INNER JOIN [dbo].[Location] l
-    ON l.LocationID = a.LocationID
-  LEFT JOIN [dbo].[Employee] e
-    ON e.EmployeeID = a.EmployeeID
+SELECT
+    A.AssetID,
+    A.AssetTagDate,
+    A.AssetPurchaseDate,
+    A.AssetPurchasePrice,
+    A.AssetSerialNumber,
+    A.AssetWarrantyUnitOfMeasure,
+    A.AssetWarrantyDuration,
+    A.AssetUsefulLife,
+    A.AssetSalvageValue,
+    A.ProductID,
+    P.ProductName,
+    A.VendorID,
+    V.VendorName,
+    A.LocationID,
+    L.LocationAddress,
+    A.EmployeeID,
+    E.EmployeeFullName
+FROM [dbo].[Asset] AS A
+INNER JOIN [dbo].[Product] AS P
+    ON A.ProductID = P.ProductID
+INNER JOIN [dbo].[Vendor] AS V
+    ON A.VendorID = V.VendorID
+INNER JOIN [dbo].[Location] AS L
+    ON A.LocationID = L.LocationID
+LEFT JOIN [dbo].[Employee] AS E
+    ON A.EmployeeID = E.EmployeeID

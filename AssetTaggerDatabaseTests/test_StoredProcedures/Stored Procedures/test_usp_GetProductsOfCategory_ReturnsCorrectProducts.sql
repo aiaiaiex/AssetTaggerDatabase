@@ -2,20 +2,20 @@
 AS
 BEGIN
 
-    EXEC tSQLt.FakeTable '[dbo].[Product]';
+    EXEC TSQLt.FakeTable '[dbo].[Product]';
 
     DECLARE @TargetCategoryID UNIQUEIDENTIFIER = NEWID();
-    DECLARE @OtherCategoryID  UNIQUEIDENTIFIER = NEWID();
+    DECLARE @OtherCategoryID UNIQUEIDENTIFIER = NEWID();
 
     DECLARE @Prod1 UNIQUEIDENTIFIER = NEWID();
     DECLARE @Prod2 UNIQUEIDENTIFIER = NEWID();
     DECLARE @NoiseProd UNIQUEIDENTIFIER = NEWID();
 
     INSERT INTO [dbo].[Product] (ProductID, CategoryID)
-    VALUES 
-        (@Prod1, @TargetCategoryID),
-        (@Prod2, @TargetCategoryID),
-        (@NoiseProd, @OtherCategoryID);
+    VALUES
+    (@Prod1, @TargetCategoryID),
+    (@Prod2, @TargetCategoryID),
+    (@NoiseProd, @OtherCategoryID);
 
     CREATE TABLE #actual (ProductID UNIQUEIDENTIFIER);
 
@@ -25,5 +25,5 @@ BEGIN
     CREATE TABLE #expected (ProductID UNIQUEIDENTIFIER);
     INSERT INTO #expected (ProductID) VALUES (@Prod1), (@Prod2);
 
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

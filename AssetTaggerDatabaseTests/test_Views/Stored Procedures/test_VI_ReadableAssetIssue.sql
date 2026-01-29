@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableAssetIssue]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableAssetIssue]
 AS
 BEGIN
     -- Create dummy data for Employee.
-    EXEC tSQLt.FakeTable '[dbo].[Employee]';
+    EXEC TSQLt.FakeTable '[dbo].[Employee]';
 
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EmployeeID02 UNIQUEIDENTIFIER = NEWID();
@@ -16,7 +15,7 @@ BEGIN
     (@EmployeeID02, @EmployeeFullName02);
 
     -- Create dummy data for Product.
-    EXEC tSQLt.FakeTable '[dbo].[Product]';
+    EXEC TSQLt.FakeTable '[dbo].[Product]';
 
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
@@ -29,7 +28,7 @@ BEGIN
     (@ProductID02, @ProductName02);
 
     -- Create dummy data for Asset.
-    EXEC tSQLt.FakeTable '[dbo].[Asset]';
+    EXEC TSQLt.FakeTable '[dbo].[Asset]';
 
     DECLARE @AssetID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetID02 UNIQUEIDENTIFIER = NEWID();
@@ -39,7 +38,7 @@ BEGIN
     (@AssetID02, @ProductID02);
 
     -- Create dummy data for AssetIssue.
-    EXEC tSQLt.FakeTable '[dbo].[AssetIssue]';
+    EXEC TSQLt.FakeTable '[dbo].[AssetIssue]';
 
     DECLARE @AssetIssueID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetIssueID02 UNIQUEIDENTIFIER = NEWID();
@@ -128,5 +127,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableAssetIssue];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

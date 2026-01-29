@@ -4,8 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        LocationID
+    SELECT LocationID
     FROM [dbo].[Location]
     WHERE BuildingID = @BuildingID;
 END
