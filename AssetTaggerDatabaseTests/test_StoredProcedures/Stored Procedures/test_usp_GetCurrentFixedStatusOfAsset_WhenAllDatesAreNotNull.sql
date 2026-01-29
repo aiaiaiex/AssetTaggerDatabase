@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetCurrentFixedStatusOfAsset_WhenAllDatesAreNotNull]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetCurrentFixedStatusOfAsset_WhenAllDatesAreNotNull]
 AS
 BEGIN
     -- Create dummy data for AssetIssue.
-    EXEC tSQLt.FakeTable '[dbo].[AssetIssue]';
+    EXEC TSQLt.FakeTable '[dbo].[AssetIssue]';
 
     DECLARE @AssetIssueID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetIssueID02 UNIQUEIDENTIFIER = NEWID();
@@ -18,7 +17,7 @@ BEGIN
     (@AssetIssueID03, @AssetID01);
 
     -- Create dummy data for AssetFix.
-    EXEC tSQLt.FakeTable '[dbo].[AssetFix]';
+    EXEC TSQLt.FakeTable '[dbo].[AssetFix]';
 
     DECLARE @AssetFixID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetFixID02 UNIQUEIDENTIFIER = NEWID();
@@ -69,5 +68,5 @@ BEGIN
     EXEC [dbo].[usp_GetCurrentFixedStatusOfAsset] @AssetID01;
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

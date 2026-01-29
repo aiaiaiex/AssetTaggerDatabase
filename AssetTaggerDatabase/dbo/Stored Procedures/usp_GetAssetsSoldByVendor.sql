@@ -4,8 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        AssetID
-    FROM [dbo].[Asset] 
+    SELECT AssetID
+    FROM [dbo].[Asset]
     WHERE VendorID = @VendorID;
 END

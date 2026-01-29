@@ -7,6 +7,7 @@ BEGIN
 
     SELECT EndUserID
     FROM [dbo].[EndUser]
-    WHERE EndUserName = @EndUserName 
-    AND EndUserPasswordHash = CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword));
+    WHERE
+        EndUserName = @EndUserName
+        AND EndUserPasswordHash = CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword));
 END

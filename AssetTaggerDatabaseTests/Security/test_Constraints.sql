@@ -1,7 +1,6 @@
 ﻿CREATE SCHEMA [test_Constraints]
-    AUTHORIZATION [dbo];
+AUTHORIZATION [dbo];
 
 
 GO
-EXECUTE sp_addextendedproperty @name = N'tSQLt.TestClass', @value = 1, @level0type = N'SCHEMA', @level0name = N'test_Constraints';
-
+EXECUTE Sp_Addextendedproperty @name = N'tSQLt.TestClass', @value = 1, @level0type = N'SCHEMA', @level0name = N'test_Constraints';

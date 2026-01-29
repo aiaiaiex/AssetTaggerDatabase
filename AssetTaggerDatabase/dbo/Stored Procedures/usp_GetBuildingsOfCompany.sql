@@ -4,8 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        BuildingID
+    SELECT BuildingID
     FROM [dbo].[Building]
-    WHERE CompanyID = @CompanyID; 
+    WHERE CompanyID = @CompanyID;
 END

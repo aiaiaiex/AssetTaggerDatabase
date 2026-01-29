@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableEmployee]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableEmployee]
 AS
 BEGIN
     -- Create dummy data for Role.
-    EXEC tSQLt.FakeTable '[dbo].[Role]';
+    EXEC TSQLt.FakeTable '[dbo].[Role]';
 
     DECLARE @RoleID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @RoleID02 UNIQUEIDENTIFIER = NEWID();
@@ -25,7 +24,7 @@ BEGIN
     );
 
     -- Create dummy data for Company.
-    EXEC tSQLt.FakeTable '[dbo].[Company]';
+    EXEC TSQLt.FakeTable '[dbo].[Company]';
 
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
@@ -47,7 +46,7 @@ BEGIN
     );
 
     -- Create dummy data for Department.
-    EXEC tSQLt.FakeTable '[dbo].[Department]';
+    EXEC TSQLt.FakeTable '[dbo].[Department]';
 
     DECLARE @DepartmentID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @DepartmentID02 UNIQUEIDENTIFIER = NEWID();
@@ -69,7 +68,7 @@ BEGIN
     );
 
     -- Create dummy data for Employee.
-    EXEC tSQLt.FakeTable '[dbo].[Employee]';
+    EXEC TSQLt.FakeTable '[dbo].[Employee]';
 
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EmployeeID02 UNIQUEIDENTIFIER = NEWID();
@@ -149,5 +148,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableEmployee];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

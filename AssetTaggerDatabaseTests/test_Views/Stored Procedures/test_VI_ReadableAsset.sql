@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableAsset]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableAsset]
 AS
 BEGIN
     -- Create dummy data for Product.
-    EXEC tSQLt.FakeTable '[dbo].[Product]';
+    EXEC TSQLt.FakeTable '[dbo].[Product]';
 
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
@@ -16,7 +15,7 @@ BEGIN
     (@ProductID02, @ProductName02);
 
     -- Create dummy data for Vendor.
-    EXEC tSQLt.FakeTable '[dbo].[Vendor]';
+    EXEC TSQLt.FakeTable '[dbo].[Vendor]';
 
     DECLARE @VendorID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @VendorID02 UNIQUEIDENTIFIER = NEWID();
@@ -29,7 +28,7 @@ BEGIN
     (@VendorID02, @VendorName02);
 
     -- Create dummy data for Location.
-    EXEC tSQLt.FakeTable '[dbo].[Location]';
+    EXEC TSQLt.FakeTable '[dbo].[Location]';
 
     DECLARE @LocationID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @LocationID02 UNIQUEIDENTIFIER = NEWID();
@@ -42,7 +41,7 @@ BEGIN
     (@LocationID02, @LocationAddress02);
 
     -- Create dummy data for Employee.
-    EXEC tSQLt.FakeTable '[dbo].[Employee]';
+    EXEC TSQLt.FakeTable '[dbo].[Employee]';
 
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
 
@@ -52,7 +51,7 @@ BEGIN
     (@EmployeeID01, @EmployeeFullName01);
 
     -- Create dummy data for Asset.
-    EXEC tSQLt.FakeTable '[dbo].[Asset]';
+    EXEC TSQLt.FakeTable '[dbo].[Asset]';
 
     DECLARE @AssetID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetID02 UNIQUEIDENTIFIER = NEWID();
@@ -98,7 +97,7 @@ BEGIN
     ) VALUES
     (
         @AssetID01, @AssetTagDate01, @AssetPurchaseDate01, @AssetPurchasePrice01, @AssetSerialNumber01, @AssetWarrantyUnitOfMeasure01, @AssetWarrantyDuration01, @AssetUsefulLife01, @AssetSalvageValue01, @ProductID02, @VendorID02, @LocationID02, NULL
-    ),(
+    ), (
         @AssetID02, @AssetTagDate02, @AssetPurchaseDate02, @AssetPurchasePrice02, @AssetSerialNumber02, @AssetWarrantyUnitOfMeasure02, @AssetWarrantyDuration02, @AssetUsefulLife02, @AssetSalvageValue02, @ProductID01, @VendorID01, @LocationID01, @EmployeeID01
     );
 
@@ -126,7 +125,7 @@ BEGIN
     INSERT INTO #expected VALUES
     (
         @AssetID01, @AssetTagDate01, @AssetPurchaseDate01, @AssetPurchasePrice01, @AssetSerialNumber01, @AssetWarrantyUnitOfMeasure01, @AssetWarrantyDuration01, @AssetUsefulLife01, @AssetSalvageValue01, @ProductID02, @ProductName02, @VendorID02, @VendorName02, @LocationID02, @LocationAddress02, NULL, NULL
-    ),(
+    ), (
         @AssetID02, @AssetTagDate02, @AssetPurchaseDate02, @AssetPurchasePrice02, @AssetSerialNumber02, @AssetWarrantyUnitOfMeasure02, @AssetWarrantyDuration02, @AssetUsefulLife02, @AssetSalvageValue02, @ProductID01, @ProductName01, @VendorID01, @VendorName01, @LocationID01, @LocationAddress01, @EmployeeID01, @EmployeeFullName01
     );
 
@@ -155,5 +154,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableAsset];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

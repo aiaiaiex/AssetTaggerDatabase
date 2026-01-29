@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_AssetFix_AssetFixID]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_AssetFix_AssetFixID]
 AS
 BEGIN
     -- Create dummy data for AssetFix.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[AssetFix]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[AssetFix]', @Defaults = 1;
 
     DECLARE @AssetFixDateStart DATETIME = '2000-01-01';
 
@@ -13,8 +12,8 @@ BEGIN
 
     -- Actual output.
     DECLARE @actual UNIQUEIDENTIFIER;
-    SELECT @actual = AssetFixID from [dbo].[AssetFix];
+    SELECT @actual = AssetFixID FROM [dbo].[AssetFix];
 
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;

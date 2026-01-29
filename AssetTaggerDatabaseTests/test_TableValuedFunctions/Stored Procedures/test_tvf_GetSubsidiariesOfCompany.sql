@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_TableValuedFunctions].[test_tvf_GetSubsidiariesOfCompany]
+﻿CREATE PROCEDURE [test_TableValuedFunctions].[test_tvf_GetSubsidiariesOfCompany]
 AS
 BEGIN
     -- Create dummy data for Company.
-    EXEC tSQLt.FakeTable '[dbo].[Company]';
+    EXEC TSQLt.FakeTable '[dbo].[Company]';
 
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
@@ -38,5 +37,5 @@ BEGIN
     SELECT SubsidiaryID FROM [dbo].[tvf_GetSubsidiariesOfCompany](@CompanyID01);
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

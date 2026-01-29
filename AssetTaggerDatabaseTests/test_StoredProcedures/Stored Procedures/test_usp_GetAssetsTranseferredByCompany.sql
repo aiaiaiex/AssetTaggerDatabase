@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetAssetsTranseferredByCompany]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_GetAssetsTranseferredByCompany]
 AS
 BEGIN
     -- Create dummy data for AssetTransfer.
-    EXEC tSQLt.FakeTable '[dbo].[AssetTransfer]';
+    EXEC TSQLt.FakeTable '[dbo].[AssetTransfer]';
 
     DECLARE @AssetID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetID02 UNIQUEIDENTIFIER = NEWID();
@@ -31,5 +30,5 @@ BEGIN
     EXEC [dbo].[usp_GetAssetsTranseferredByCompany] @CompanyID01;
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

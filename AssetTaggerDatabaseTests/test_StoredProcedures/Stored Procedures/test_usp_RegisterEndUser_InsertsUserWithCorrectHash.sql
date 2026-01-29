@@ -2,29 +2,31 @@
 AS
 BEGIN
 
-    EXEC tSQLt.FakeTable '[dbo].[EndUser]';
+    EXEC TSQLt.FakeTable '[dbo].[EndUser]';
 
-    DECLARE @UserName      NVARCHAR(50)  = 'NewUser';
+    DECLARE @UserName NVARCHAR(50) = 'NewUser';
     DECLARE @PlainPassword NVARCHAR(255) = 'MyPassword123';
 
-    EXEC [dbo].[usp_RegisterEndUser] 
-        @EndUserName = @UserName, 
+    EXEC [dbo].[usp_RegisterEndUser]
+        @EndUserName = @UserName,
         @EndUserPassword = @PlainPassword;
 
     CREATE TABLE #expected (
-        EndUserName NVARCHAR(50), 
+        EndUserName NVARCHAR(50),
         EndUserPasswordHash NCHAR(32)
     );
 
     INSERT INTO #expected (EndUserName, EndUserPasswordHash)
     VALUES (
-        @UserName, 
+        @UserName,
         CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @PlainPassword))
     );
 
-    SELECT EndUserName, EndUserPasswordHash
+    SELECT
+        EndUserName,
+        EndUserPasswordHash
     INTO #actual
     FROM [dbo].[EndUser];
 
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

@@ -2,20 +2,20 @@
 AS
 BEGIN
 
-    EXEC tSQLt.FakeTable '[dbo].[Employee]';
+    EXEC TSQLt.FakeTable '[dbo].[Employee]';
 
     DECLARE @TargetDeptID UNIQUEIDENTIFIER = NEWID();
-    DECLARE @OtherDeptID  UNIQUEIDENTIFIER = NEWID();
+    DECLARE @OtherDeptID UNIQUEIDENTIFIER = NEWID();
 
     DECLARE @Emp1 UNIQUEIDENTIFIER = NEWID();
     DECLARE @Emp2 UNIQUEIDENTIFIER = NEWID();
     DECLARE @NoiseEmp UNIQUEIDENTIFIER = NEWID();
 
     INSERT INTO [dbo].[Employee] (EmployeeID, DepartmentID)
-    VALUES 
-        (@Emp1, @TargetDeptID),
-        (@Emp2, @TargetDeptID),
-        (@NoiseEmp, @OtherDeptID);
+    VALUES
+    (@Emp1, @TargetDeptID),
+    (@Emp2, @TargetDeptID),
+    (@NoiseEmp, @OtherDeptID);
 
     CREATE TABLE #actual (EmployeeID UNIQUEIDENTIFIER);
 
@@ -25,5 +25,5 @@ BEGIN
     CREATE TABLE #expected (EmployeeID UNIQUEIDENTIFIER);
     INSERT INTO #expected (EmployeeID) VALUES (@Emp1), (@Emp2);
 
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

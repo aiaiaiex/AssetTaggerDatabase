@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableProductSet]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableProductSet]
 AS
 BEGIN
     -- Create dummy data for Product.
-    EXEC tSQLt.FakeTable '[dbo].[Product]';
+    EXEC TSQLt.FakeTable '[dbo].[Product]';
 
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
@@ -37,7 +36,7 @@ BEGIN
     (@ProductID09, @ProductName09);
 
     -- Create dummy data for ProductSet.
-    EXEC tSQLt.FakeTable '[dbo].[ProductSet]';
+    EXEC TSQLt.FakeTable '[dbo].[ProductSet]';
 
     INSERT INTO [dbo].[ProductSet] (ParentProductID, ProductID) VALUES
     (@ProductID01, @ProductID02),
@@ -93,5 +92,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableProductSet];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

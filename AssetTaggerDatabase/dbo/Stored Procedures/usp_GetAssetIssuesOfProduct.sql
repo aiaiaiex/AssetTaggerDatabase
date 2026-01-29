@@ -4,10 +4,9 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        ai.AssetIssueID
-    FROM [dbo].[AssetIssue] ai
-    INNER JOIN [dbo].[Asset] a ON a.AssetID = ai.AssetID
-    INNER JOIN [dbo].[Product] p ON p.ProductID = a.ProductID
-    WHERE a.ProductID = @ProductID;
+    SELECT Ai.AssetIssueID
+    FROM [dbo].[AssetIssue] AS Ai
+    INNER JOIN [dbo].[Asset] AS A ON Ai.AssetID = A.AssetID
+    INNER JOIN [dbo].[Product] AS P ON A.ProductID = P.ProductID
+    WHERE A.ProductID = @ProductID;
 END

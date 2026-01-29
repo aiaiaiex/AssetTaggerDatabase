@@ -7,7 +7,7 @@ BEGIN
 
     INSERT INTO [dbo].[EndUser] (EndUserName, EndUserPasswordHash)
     VALUES (
-        @EndUserName, 
+        @EndUserName,
         CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword))
         -- CAST(HASHBYTES('SHA2_256', @EndUserPassword) AS NCHAR(32))
     );

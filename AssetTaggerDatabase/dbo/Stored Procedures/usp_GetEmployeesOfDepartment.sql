@@ -4,8 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        EmployeeID
+    SELECT EmployeeID
     FROM [dbo].[Employee]
     WHERE DepartmentID = @DepartmentID;
 END

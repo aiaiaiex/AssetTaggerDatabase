@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableLocation]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableLocation]
 AS
 BEGIN
     -- Create dummy data for Building.
-    EXEC tSQLt.FakeTable '[dbo].[Building]';
+    EXEC TSQLt.FakeTable '[dbo].[Building]';
 
     DECLARE @BuildingID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID02 UNIQUEIDENTIFIER = NEWID();
@@ -25,7 +24,7 @@ BEGIN
     );
 
     -- Create dummy data for Location.
-    EXEC tSQLt.FakeTable '[dbo].[Location]';
+    EXEC TSQLt.FakeTable '[dbo].[Location]';
 
     DECLARE @LocationID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @LocationID02 UNIQUEIDENTIFIER = NEWID();
@@ -54,7 +53,7 @@ BEGIN
         LocationID UNIQUEIDENTIFIER,
         LocationAddress NVARCHAR(50),
         BuildingID UNIQUEIDENTIFIER,
-        BuildingName NVARCHAR(50) 
+        BuildingName NVARCHAR(50)
     );
 
     INSERT INTO #expected VALUES
@@ -76,12 +75,12 @@ BEGIN
         LocationID UNIQUEIDENTIFIER,
         LocationAddress NVARCHAR(50),
         BuildingID UNIQUEIDENTIFIER,
-        BuildingName NVARCHAR(50) 
+        BuildingName NVARCHAR(50)
     );
 
     INSERT INTO #actual
     SELECT * FROM [dbo].[VI_ReadableLocation];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

@@ -4,8 +4,7 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
-    SELECT 
-        ProductID
-    FROM [dbo].[Product] 
+    SELECT ProductID
+    FROM [dbo].[Product]
     WHERE CategoryID = @CategoryID;
 END

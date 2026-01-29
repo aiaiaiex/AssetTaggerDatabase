@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableBuilding]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableBuilding]
 AS
 BEGIN
     -- Create dummy data for Company.
-    EXEC tSQLt.FakeTable '[dbo].[Company]';
+    EXEC TSQLt.FakeTable '[dbo].[Company]';
 
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
@@ -16,7 +15,7 @@ BEGIN
     (@CompanyID02, @CompanyName02);
 
     -- Create dummy data for Building.
-    EXEC tSQLt.FakeTable '[dbo].[Building]';
+    EXEC TSQLt.FakeTable '[dbo].[Building]';
 
     DECLARE @BuildingID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID02 UNIQUEIDENTIFIER = NEWID();
@@ -84,5 +83,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableBuilding];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

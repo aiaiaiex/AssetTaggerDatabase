@@ -1,10 +1,18 @@
 ﻿CREATE VIEW [dbo].[VI_ReadableAssetIssue]
 AS
-  SELECT ai.AssetIssueID, ai.AssetIssueTitle, ai.AssetIssueDesc, ai.AssetIssueDate, ai.AssetID, p.ProductName, ai.EmployeeID, e.EmployeeFullName
-  FROM [dbo].[AssetIssue] ai
-  INNER JOIN [dbo].[Asset] a
-    ON a.AssetID = ai.AssetID
-  INNER JOIN [dbo].[Product] p
-    ON p.ProductID = a.ProductID
-  INNER JOIN [dbo].[Employee] e
-    ON e.EmployeeID = ai.EmployeeID
+SELECT
+    Ai.AssetIssueID,
+    Ai.AssetIssueTitle,
+    Ai.AssetIssueDesc,
+    Ai.AssetIssueDate,
+    Ai.AssetID,
+    P.ProductName,
+    Ai.EmployeeID,
+    E.EmployeeFullName
+FROM [dbo].[AssetIssue] AS Ai
+INNER JOIN [dbo].[Asset] AS A
+    ON Ai.AssetID = A.AssetID
+INNER JOIN [dbo].[Product] AS P
+    ON A.ProductID = P.ProductID
+INNER JOIN [dbo].[Employee] AS E
+    ON Ai.EmployeeID = E.EmployeeID

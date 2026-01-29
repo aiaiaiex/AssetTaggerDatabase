@@ -1,9 +1,8 @@
-﻿
-CREATE PROCEDURE [test_Views].[test_VI_ReadableAssetTransfer]
+﻿CREATE PROCEDURE [test_Views].[test_VI_ReadableAssetTransfer]
 AS
 BEGIN
     -- Create dummy data for Company.
-    EXEC tSQLt.FakeTable '[dbo].[Company]';
+    EXEC TSQLt.FakeTable '[dbo].[Company]';
 
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
@@ -16,7 +15,7 @@ BEGIN
     (@CompanyID02, @CompanyName02);
 
     -- Create dummy data for Product.
-    EXEC tSQLt.FakeTable '[dbo].[Product]';
+    EXEC TSQLt.FakeTable '[dbo].[Product]';
 
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
@@ -29,7 +28,7 @@ BEGIN
     (@ProductID02, @ProductName02);
 
     -- Create dummy data for Asset.
-    EXEC tSQLt.FakeTable '[dbo].[Asset]';
+    EXEC TSQLt.FakeTable '[dbo].[Asset]';
 
     DECLARE @AssetID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetID02 UNIQUEIDENTIFIER = NEWID();
@@ -39,7 +38,7 @@ BEGIN
     (@AssetID02, @ProductID02);
 
     -- Create dummy data for AssetTransfer.
-    EXEC tSQLt.FakeTable '[dbo].[AssetTransfer]';
+    EXEC TSQLt.FakeTable '[dbo].[AssetTransfer]';
 
     DECLARE @AssetTransferID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetTransferID02 UNIQUEIDENTIFIER = NEWID();
@@ -65,7 +64,7 @@ BEGIN
         @AssetID02,
         @CompanyID02,
         @CompanyID01
-    ),(
+    ), (
         @AssetTransferID02,
         @AssetTransferDate02,
         @AssetTransferPrice02,
@@ -128,5 +127,5 @@ BEGIN
     SELECT * FROM [dbo].[VI_ReadableAssetTransfer];
 
     -- Assert outputs.
-    EXEC tSQLt.AssertEqualsTable '#expected', '#actual';
+    EXEC TSQLt.AssertEqualsTable '#expected', '#actual';
 END;

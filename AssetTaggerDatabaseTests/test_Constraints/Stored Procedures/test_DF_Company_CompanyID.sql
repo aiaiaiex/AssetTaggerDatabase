@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_Company_CompanyID]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_Company_CompanyID]
 AS
 BEGIN
     -- Create dummy data for Company.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[Company]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[Company]', @Defaults = 1;
 
     DECLARE @CompanyName NVARCHAR(50) = 'Company Name 01';
 
@@ -13,8 +12,8 @@ BEGIN
 
     -- Actual output.
     DECLARE @actual UNIQUEIDENTIFIER;
-    SELECT @actual = CompanyID from [dbo].[Company];
+    SELECT @actual = CompanyID FROM [dbo].[Company];
 
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;

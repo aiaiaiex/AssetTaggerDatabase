@@ -1,10 +1,9 @@
-﻿
-CREATE PROCEDURE [test_Constraints].[test_DF_Product_ProductID]
+﻿CREATE PROCEDURE [test_Constraints].[test_DF_Product_ProductID]
 AS
 BEGIN
     -- Create dummy data for Product.
     -- Preserve default constraints.
-    EXEC tSQLt.FakeTable '[dbo].[Product]', @Defaults=1;
+    EXEC TSQLt.FakeTable '[dbo].[Product]', @Defaults = 1;
 
     DECLARE @ProductName NVARCHAR(50) = 'Product Name 01';
 
@@ -13,7 +12,7 @@ BEGIN
 
     -- Actual ouput.
     DECLARE @actual UNIQUEIDENTIFIER;
-    SELECT @actual = ProductID from [dbo].[Product];
+    SELECT @actual = ProductID FROM [dbo].[Product];
     -- Check if default value is not null.
-    EXEC tSQLt.AssertNotEquals NULL, @actual;
+    EXEC TSQLt.AssertNotEquals NULL, @actual;
 END;
