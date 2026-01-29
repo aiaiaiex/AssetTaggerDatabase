@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [test_ScalarValuedFunctions].[test_udf_CalculateAnnualDepreciationExpense_WhenAssetUsefulLifeIsZero]
+﻿CREATE PROCEDURE [test_ScalarValuedFunctions].[test_udf_CalculateAnnualDepreciationExpense_WhenAssetUsefulLifeIsZero]
 AS
 BEGIN
     -- Expected output.
