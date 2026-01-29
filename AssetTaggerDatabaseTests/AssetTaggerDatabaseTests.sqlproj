@@ -1316,6 +1316,14 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="test_ScalarValuedFunctions\Stored Procedures\test_udf_CalculateAnnualDepreciationExpense_WhenAssetUsefulLifeIsZero.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_ScalarValuedFunctions\Stored Procedures\test_udf_CalculateAnnualDepreciationExpense_WhenAssetUsefulLifeIsNegative.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
