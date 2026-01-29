@@ -1,0 +1,10 @@
+# Ignore directories with the following names
+.git/
+.vs/
+venv/
+bin/
+Import\ Schema\ Logs/
+obj/
+Assemblies/
+SQLCLR/
+tSQLt/
