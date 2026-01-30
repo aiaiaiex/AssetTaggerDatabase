@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="AssetTaggerDatabase/AssetTaggerDatabase.sqlproj" Id="9ac96bee-ba6d-4269-824e-2cca62308b67">
+    <Build />
+    <Deploy />
+  </Project>
+  <Project Path="AssetTaggerDatabaseTests/AssetTaggerDatabaseTests.sqlproj" Id="1201b8da-0abc-4d3c-8686-9e73f62a5ea6">
+    <Build />
+    <Deploy />
+  </Project>
+</Solution>
