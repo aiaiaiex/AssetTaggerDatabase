@@ -13,8 +13,8 @@
 	},
 	"extensions": {
 		"recommendations": [
-			"ms-mssql.data-workspace-vscode",
-			"sqlfluff.vscode-sqlfluff"
+			"sqlfluff.vscode-sqlfluff",
+			"ms-mssql.mssql"
 		]
 	}
 }
