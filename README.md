@@ -19,7 +19,7 @@
 
 ## Installation
 1. Terminal
-    1. `git clone https://github.com/cbysais/AssetTaggerDatabase.git`
+    1. `git clone https://github.com/aiaiaiex/AssetTaggerDatabase.git`
     2. `cd .\AssetTaggerDatabase\`
     3. `python -m venv venv`
     4. `.\venv\Scripts\activate`
