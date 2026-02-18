@@ -1320,7 +1320,7 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_RegisterEndUser.sql">
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CreateEndUser.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>

@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_RegisterEndUser]
+﻿
+CREATE PROCEDURE [test_StoredProcedures].[test_usp_CreateEndUser]
 AS
 BEGIN
     EXEC TSQLt.FakeTable '[dbo].[EndUser]', @Defaults = 1;
@@ -7,7 +8,7 @@ BEGIN
     DECLARE @EndUserPassword NVARCHAR(255) = 'End User Password';
 
     CREATE TABLE #output (EndUserID UNIQUEIDENTIFIER);
-    INSERT INTO #output EXEC [dbo].[usp_RegisterEndUser] @EndUserName, @EndUserPassword;
+    INSERT INTO #output EXEC [dbo].[usp_CreateEndUser] @EndUserName, @EndUserPassword;
 
     DECLARE @EndUserID UNIQUEIDENTIFIER = (SELECT EndUserID FROM #output);
 
