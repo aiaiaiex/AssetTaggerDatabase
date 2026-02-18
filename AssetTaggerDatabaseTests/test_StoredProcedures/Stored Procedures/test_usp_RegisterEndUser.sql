@@ -1,4 +1,5 @@
-﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_RegisterEndUser_InsertsUserWithCorrectHash]
+﻿
+CREATE PROCEDURE [test_StoredProcedures].[test_usp_RegisterEndUser]
 AS
 BEGIN
 

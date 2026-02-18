@@ -932,10 +932,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_RegisterEndUser_InsertsUserWithCorrectHash.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="test_TableValuedFunctions\Stored Procedures\test_tvf_GetSubsidiariesOfCompany.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -1321,6 +1317,10 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="test_ScalarValuedFunctions\Stored Procedures\test_udf_CalculateAnnualDepreciationExpense_WhenAssetUsefulLifeIsNegative.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_RegisterEndUser.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
