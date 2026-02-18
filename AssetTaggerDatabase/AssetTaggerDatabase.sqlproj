@@ -168,7 +168,6 @@
     <Build Include="dbo\Stored Procedures\usp_GetAssetsTranseferredByCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetProductsOfProductSet.sql" />
     <Build Include="dbo\Stored Procedures\usp_LoginEndUser.sql" />
-    <Build Include="dbo\Stored Procedures\usp_RegisterEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetEmployeesOfDepartment.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetProductsOfCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetAssetsSoldByVendor.sql" />
@@ -180,6 +179,7 @@
     <Build Include="dbo\Stored Procedures\usp_GetAssetIssuesOfProduct.sql" />
     <Build Include="dbo\Tables\EndUserRole.sql" />
     <Build Include="dbo\Tables\Manufacturer.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateEndUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">
