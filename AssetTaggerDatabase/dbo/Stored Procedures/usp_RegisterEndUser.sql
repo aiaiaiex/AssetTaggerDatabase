@@ -6,6 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     INSERT INTO [dbo].[EndUser] (EndUserName, EndUserPasswordHash)
+    OUTPUT INSERTED.EndUserID
     VALUES (
         @EndUserName,
         CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword))
