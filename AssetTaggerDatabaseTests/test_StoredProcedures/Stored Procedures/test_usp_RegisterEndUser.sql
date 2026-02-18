@@ -1,29 +1,31 @@
-﻿
-CREATE PROCEDURE [test_StoredProcedures].[test_usp_RegisterEndUser]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_RegisterEndUser]
 AS
 BEGIN
+    EXEC TSQLt.FakeTable '[dbo].[EndUser]', @Defaults = 1;
 
-    EXEC TSQLt.FakeTable '[dbo].[EndUser]';
+    DECLARE @EndUserName NVARCHAR(50) = 'End User Name';
+    DECLARE @EndUserPassword NVARCHAR(255) = 'End User Password';
 
-    DECLARE @UserName NVARCHAR(50) = 'NewUser';
-    DECLARE @PlainPassword NVARCHAR(255) = 'MyPassword123';
+    CREATE TABLE #output (EndUserID UNIQUEIDENTIFIER);
+    INSERT INTO #output EXEC [dbo].[usp_RegisterEndUser] @EndUserName, @EndUserPassword;
 
-    EXEC [dbo].[usp_RegisterEndUser]
-        @EndUserName = @UserName,
-        @EndUserPassword = @PlainPassword;
+    DECLARE @EndUserID UNIQUEIDENTIFIER = (SELECT EndUserID FROM #output);
 
     CREATE TABLE #expected (
+        EndUserID UNIQUEIDENTIFIER,
         EndUserName NVARCHAR(50),
         EndUserPasswordHash NCHAR(32)
     );
 
-    INSERT INTO #expected (EndUserName, EndUserPasswordHash)
+    INSERT INTO #expected (EndUserID, EndUserName, EndUserPasswordHash)
     VALUES (
-        @UserName,
-        CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @PlainPassword))
+        @EndUserID,
+        @EndUserName,
+        CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword))
     );
 
     SELECT
+        EndUserID,
         EndUserName,
         EndUserPasswordHash
     INTO #actual
