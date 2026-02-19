@@ -1324,11 +1324,11 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_Constraints\Stored Procedures\test_CK_EndUser_EndUserName.sql">
+    <Build Include="test_Constraints\Stored Procedures\test_CK_EndUser_EndUserName_NoWhitespace.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_Constraints\Stored Procedures\test_CK_EndUser_EndUserName_NoWhitespace.sql">
+    <Build Include="test_Constraints\Stored Procedures\test_CK_EndUser_EndUserName_OnlyLowercase.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
