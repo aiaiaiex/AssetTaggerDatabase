@@ -6,8 +6,8 @@ BEGIN
 
     DECLARE @EndUserName NVARCHAR(50) = 'End User Name';
     DECLARE @EndUserPassword NVARCHAR(255) = 'End User Password';
-    DECLARE @EndUserRoleID UNIQUEIDENTIFIER = NULL;
-    DECLARE @EmployeeID UNIQUEIDENTIFIER = NULL;
+    DECLARE @EndUserRoleID UNIQUEIDENTIFIER = NEWID();
+    DECLARE @EmployeeID UNIQUEIDENTIFIER = NEWID();
 
     CREATE TABLE #actual (
         EndUserID UNIQUEIDENTIFIER,
@@ -16,7 +16,7 @@ BEGIN
         EmployeeID UNIQUEIDENTIFIER
     );
 
-    INSERT INTO #actual EXEC [dbo].[usp_CreateEndUser] @EndUserName, @EndUserPassword;
+    INSERT INTO #actual EXEC [dbo].[usp_CreateEndUser] @EndUserName, @EndUserPassword, @EndUserRoleID, @EmployeeID;
 
     DECLARE @EndUserID UNIQUEIDENTIFIER = (SELECT EndUserID FROM #actual);
 

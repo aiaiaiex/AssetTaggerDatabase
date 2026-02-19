@@ -6,6 +6,8 @@ BEGIN
 
     DECLARE @EndUserName NVARCHAR(50) = 'End User Name';
     DECLARE @EndUserPassword NVARCHAR(255) = 'End User Password';
+    DECLARE @EndUserRoleID UNIQUEIDENTIFIER = NEWID();
+    DECLARE @EmployeeID UNIQUEIDENTIFIER = NEWID();
 
     -- Create #output table to insert the returned data of the executed stored procedure to NOT print its results.
     CREATE TABLE #output (
@@ -14,22 +16,28 @@ BEGIN
         EndUserRoleID UNIQUEIDENTIFIER,
         EmployeeID UNIQUEIDENTIFIER
     );
-    INSERT INTO #output EXEC [dbo].[usp_CreateEndUser] @EndUserName, @EndUserPassword;
+    INSERT INTO #output EXEC [dbo].[usp_CreateEndUser] @EndUserName, @EndUserPassword, @EndUserRoleID, @EmployeeID;
 
     CREATE TABLE #expected (
         EndUserName NVARCHAR(50),
-        EndUserPasswordHash NCHAR(32)
+        EndUserPasswordHash NCHAR(32),
+        EndUserRoleID UNIQUEIDENTIFIER,
+        EmployeeID UNIQUEIDENTIFIER
     );
 
-    INSERT INTO #expected (EndUserName, EndUserPasswordHash)
+    INSERT INTO #expected (EndUserName, EndUserPasswordHash, EndUserRoleID, EmployeeID)
     VALUES (
         @EndUserName,
-        CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword))
+        CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword)),
+        @EndUserRoleID,
+        @EmployeeID
     );
 
     SELECT
         EndUserName,
-        EndUserPasswordHash
+        EndUserPasswordHash,
+        EndUserRoleID,
+        EmployeeID
     INTO #actual
     FROM [dbo].[EndUser];
 
