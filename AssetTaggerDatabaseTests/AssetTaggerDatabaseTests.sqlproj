@@ -1320,15 +1320,19 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CreateEndUser.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="test_Constraints\Stored Procedures\test_CK_EndUser_EndUserName_NoWhitespace.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="test_Constraints\Stored Procedures\test_CK_EndUser_EndUserName_OnlyLowercase.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CreateEndUser_CheckReturnedData.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CreateEndUser_CheckInsertedRow.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
