@@ -6,6 +6,7 @@
     [EmployeeID] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [AK_EndUser_EndUserName] UNIQUE ([EndUserName]),
     CONSTRAINT [CK_EndUser_EndUserName] CHECK (BINARY_CHECKSUM([EndUserName]) = BINARY_CHECKSUM(LOWER([EndUserName]))),
+    CONSTRAINT [CK_EndUser_EndUserName_NoWhitespace] CHECK (CHARINDEX(' ', [EndUserName]) = 0),
     CONSTRAINT [PK_EndUser] PRIMARY KEY CLUSTERED ([EndUserID] ASC),
     CONSTRAINT [FK_EndUser_EndUserRole] FOREIGN KEY ([EndUserRoleID]) REFERENCES [dbo].[EndUserRole] ([EndUserRoleID]),
     CONSTRAINT [FK_EndUser_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID])
