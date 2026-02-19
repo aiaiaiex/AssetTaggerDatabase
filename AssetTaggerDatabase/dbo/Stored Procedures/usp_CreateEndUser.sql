@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [dbo].[usp_CreateEndUser]
+﻿CREATE PROCEDURE [dbo].[usp_CreateEndUser]
     @EndUserName NVARCHAR(50),
     @EndUserPassword NVARCHAR(255)
 AS
@@ -7,7 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     INSERT INTO [dbo].[EndUser] (EndUserName, EndUserPasswordHash)
-    OUTPUT INSERTED.EndUserID
+    OUTPUT INSERTED.EndUserID, INSERTED.EndUserName, INSERTED.EndUserRoleID, INSERTED.EmployeeID
     VALUES (
         @EndUserName,
         CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword))
