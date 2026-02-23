@@ -180,6 +180,7 @@
     <Build Include="dbo\Tables\EndUserRole.sql" />
     <Build Include="dbo\Tables\Manufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateEndUser.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteEndUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">
