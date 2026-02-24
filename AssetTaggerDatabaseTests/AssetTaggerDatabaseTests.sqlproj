@@ -1348,6 +1348,42 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithoutArguments.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNullEndUserRoleID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNullEmployeeID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNonNullEndUserRoleID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNonNullEmployeeID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithEndUserRoleID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithEndUserName.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithEndUserID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithEmployeeID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assemblies\tSQLtCLR.dll" />
