@@ -182,6 +182,7 @@
     <Build Include="dbo\Stored Procedures\usp_CreateEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateEndUser.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ReadEndUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">
