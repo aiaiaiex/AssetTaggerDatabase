@@ -11,6 +11,50 @@ AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- Validate input.
+    IF (@EndUserID IS NOT NULL AND (@EndUserName IS NOT NULL OR @EndUserRoleID IS NOT NULL OR @EmployeeID IS NOT NULL OR @GetOnlyNonNullEndUserRoleID = 1 OR @GetOnlyNonNullEmployeeID = 1 OR @GetOnlyNonNullEndUserRoleID = 1 OR @GetOnlyNonNullEmployeeID = 1))
+        BEGIN
+            RAISERROR ('Cannot get row with unique @EndUserID when non-default values are passed to other parameters!', 11, 0);
+            RETURN -1;
+        END
+
+    IF (@GetOnlyNullEndUserRoleID = 1 AND @EndUserRoleID IS NOT NULL)
+        BEGIN
+            RAISERROR ('Cannot get rows with null EndUserRoleID when @EndUserRoleID is not null!', 11, 0);
+            RETURN -1;
+        END
+
+    IF (@GetOnlyNonNullEndUserRoleID = 1 AND @EndUserRoleID IS NOT NULL)
+        BEGIN
+            RAISERROR ('Cannot get all rows with non-null EndUserRoleID when @EndUserRoleID is not null!', 11, 0);
+            RETURN -1;
+        END
+
+    IF (@GetOnlyNullEndUserRoleID = 1 AND @GetOnlyNonNullEndUserRoleID = 1)
+        BEGIN
+            RAISERROR ('@GetOnlyNullEndUserRoleID and @GetOnlyNonNullEndUserRoleID cannot be both 1!', 11, 0);
+            RETURN -1;
+        END
+
+    IF (@GetOnlyNullEmployeeID = 1 AND @EmployeeID IS NOT NULL)
+        BEGIN
+            RAISERROR ('Cannot get rows with null EmployeeID when @EmployeeID is not null!', 11, 0);
+            RETURN -1;
+        END
+
+    IF (@GetOnlyNonNullEmployeeID = 1 AND @EmployeeID IS NOT NULL)
+        BEGIN
+            RAISERROR ('Cannot get all rows with non-null EmployeeID when @EmployeeID is not null!', 11, 0);
+            RETURN -1;
+        END
+
+    IF (@GetOnlyNullEmployeeID = 1 AND @GetOnlyNonNullEmployeeID = 1)
+        BEGIN
+            RAISERROR ('@GetOnlyNullEmployeeID and @GetOnlyNonNullEmployeeID cannot be both 1!', 11, 0);
+            RETURN -1;
+        END
+
+    -- Run actual query.
     SELECT
         EndUserID,
         EndUserName,
@@ -21,6 +65,6 @@ BEGIN
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/newid-transact-sql
     -- https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.3
-    WHERE ((@EndUserID IS NOT NULL AND @EndUserName IS NULL AND @EndUserRoleID IS NULL AND @EmployeeID IS NULL AND @GetOnlyNullEndUserRoleID = 0 AND @GetOnlyNullEmployeeID = 0 AND @GetOnlyNonNullEndUserRoleID = 0 AND @GetOnlyNonNullEmployeeID = 0) OR @EndUserID IS NULL) AND (((@GetOnlyNullEndUserRoleID = 1 AND @EndUserRoleID IS NULL) OR @GetOnlyNullEndUserRoleID = 0) AND (NOT (@GetOnlyNullEndUserRoleID = 1 AND @GetOnlyNonNullEndUserRoleID = 1) AND NOT (@GetOnlyNullEmployeeID = 1 AND @GetOnlyNonNullEmployeeID = 1)) AND ((@GetOnlyNullEmployeeID = 1 AND @EmployeeID IS NULL) OR @GetOnlyNullEmployeeID = 0)) AND EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEndUserRoleID = 1, ISNULL(EndUserRoleID, '00000000-0000-0000-0000-000000000000'), IIF(@GetOnlyNullEndUserRoleID = 1, NULL, ISNULL(@EndUserRoleID, EndUserRoleID))) AND EmployeeID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEmployeeID = 1, ISNULL(EmployeeID, '00000000-0000-0000-0000-000000000000'), IIF(@GetOnlyNullEmployeeID = 1, NULL, ISNULL(@EmployeeID, EmployeeID)));
+    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEndUserRoleID = 1, ISNULL(EndUserRoleID, '00000000-0000-0000-0000-000000000000'), IIF(@GetOnlyNullEndUserRoleID = 1, NULL, ISNULL(@EndUserRoleID, EndUserRoleID))) AND EmployeeID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEmployeeID = 1, ISNULL(EmployeeID, '00000000-0000-0000-0000-000000000000'), IIF(@GetOnlyNullEmployeeID = 1, NULL, ISNULL(@EmployeeID, EmployeeID)));
 
 END
