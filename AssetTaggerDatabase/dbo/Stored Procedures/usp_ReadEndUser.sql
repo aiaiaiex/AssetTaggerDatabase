@@ -54,6 +54,10 @@ BEGIN
             RETURN -1;
         END
 
+    -- Get CONSTANTS.
+    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER;
+    SELECT @NULLISH_UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
+
     -- Run actual query.
     SELECT
         EndUserID,
@@ -61,10 +65,10 @@ BEGIN
         EndUserRoleID,
         EmployeeID
     FROM [dbo].[EndUser]
-    -- 00000000-0000-0000-0000-000000000000 will never be equal to NEWID() because it complies with RFC4122 which should always include the version number in the generated UNIQUEIDENTIFIER which can't be 0 because the version number starts at 1.
+    -- @NULLISH_UNIQUEIDENTIFIER (00000000-0000-0000-0000-000000000000) will never be equal to NEWID() because NEWID() complies with RFC4122 which should always include the version number in the generated UNIQUEIDENTIFIER which can't be 0 because the version number starts at 1.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/newid-transact-sql
     -- https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.3
-    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEndUserRoleID = 1, ISNULL(EndUserRoleID, '00000000-0000-0000-0000-000000000000'), IIF(@GetOnlyNullEndUserRoleID = 1, NULL, ISNULL(@EndUserRoleID, EndUserRoleID))) AND EmployeeID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEmployeeID = 1, ISNULL(EmployeeID, '00000000-0000-0000-0000-000000000000'), IIF(@GetOnlyNullEmployeeID = 1, NULL, ISNULL(@EmployeeID, EmployeeID)));
+    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEndUserRoleID = 1, ISNULL(EndUserRoleID, @NULLISH_UNIQUEIDENTIFIER), IIF(@GetOnlyNullEndUserRoleID = 1, NULL, ISNULL(@EndUserRoleID, EndUserRoleID))) AND EmployeeID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEmployeeID = 1, ISNULL(EmployeeID, @NULLISH_UNIQUEIDENTIFIER), IIF(@GetOnlyNullEmployeeID = 1, NULL, ISNULL(@EmployeeID, EmployeeID)));
 
 END
