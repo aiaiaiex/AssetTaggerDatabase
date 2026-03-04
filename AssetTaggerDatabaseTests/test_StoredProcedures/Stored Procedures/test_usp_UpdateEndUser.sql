@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [test_StoredProcedures].[test_usp_UpdateEndUser]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_UpdateEndUser]
 AS
 BEGIN
     -- Create dummy data for EndUser.
@@ -39,9 +38,7 @@ BEGIN
         @EndUserID = @EndUserID01,
         @EndUserName = @EndUserName01B,
         @EndUserRoleID = @EndUserRoleID01B,
-        @EmployeeID = @EmployeeID01B,
-        @NullifyEndUserRoleID = 0,
-        @NullifyEmployeeID = 0;
+        @EmployeeID = @EmployeeID01B;
 
     -- Expected output.
     CREATE TABLE #expected (
