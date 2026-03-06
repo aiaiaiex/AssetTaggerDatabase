@@ -184,6 +184,7 @@
     <Build Include="dbo\Stored Procedures\usp_UpdateEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadEndUser.sql" />
     <Build Include="dbo\Views\VI_NullishConstants.sql" />
+    <Build Include="dbo\Views\VI_NonNullishConstants.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">
