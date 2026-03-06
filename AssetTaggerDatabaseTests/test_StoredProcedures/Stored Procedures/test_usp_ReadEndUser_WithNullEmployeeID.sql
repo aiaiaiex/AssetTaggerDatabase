@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_ReadEndUser_WithGetOnlyNullEmployeeID]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_ReadEndUser_WithNullEmployeeID]
 AS
 BEGIN
     -- Create dummy data for EndUser.
@@ -34,7 +34,7 @@ BEGIN
     );
 
     INSERT INTO #actual EXEC [dbo].[usp_ReadEndUser]
-        @GetOnlyNullEmployeeID = 1;
+        @EmployeeID = NULL;
 
     -- Expected output.
     CREATE TABLE #expected (

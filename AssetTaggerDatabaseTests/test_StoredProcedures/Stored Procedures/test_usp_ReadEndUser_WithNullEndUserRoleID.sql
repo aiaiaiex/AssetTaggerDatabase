@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_ReadEndUser_WithGetOnlyNonNullEndUserRoleID]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_ReadEndUser_WithNullEndUserRoleID]
 AS
 BEGIN
     -- Create dummy data for EndUser.
@@ -34,7 +34,7 @@ BEGIN
     );
 
     INSERT INTO #actual EXEC [dbo].[usp_ReadEndUser]
-        @GetOnlyNonNullEndUserRoleID = 1;
+        @EndUserRoleID = NULL;
 
     -- Expected output.
     CREATE TABLE #expected (
@@ -45,8 +45,7 @@ BEGIN
     );
 
     INSERT INTO #expected (EndUserID, EndUserName, EndUserRoleID, EmployeeID) VALUES
-    (@EndUserID01, @EndUserName01, @EndUserRoleID01, @EmployeeID01),
-    (@EndUserID03, @EndUserName03, @EndUserRoleID03, @EmployeeID03);
+    (@EndUserID02, @EndUserName02, @EndUserRoleID02, @EmployeeID02);
 
     -- Assert outputs.
     EXEC TSQLt.AssertEqualsTable '#expected', '#actual';

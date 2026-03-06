@@ -1352,22 +1352,6 @@
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNullEndUserRoleID.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNullEmployeeID.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNonNullEndUserRoleID.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithGetOnlyNonNullEmployeeID.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithEndUserRoleID.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -1385,6 +1369,22 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="test_Constraints\Stored Procedures\test_AK_EndUser_EmployeeID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithNullEndUserRoleID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithNullEmployeeID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithNonNullishEndUserRoleID.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_ReadEndUser_WithNonNullishEmployeeID.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
