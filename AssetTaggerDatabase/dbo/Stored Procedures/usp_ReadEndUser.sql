@@ -1,62 +1,25 @@
 ﻿CREATE PROCEDURE [dbo].[usp_ReadEndUser]
     @EndUserID UNIQUEIDENTIFIER = NULL,
     @EndUserName NVARCHAR(50) = NULL,
-    @EndUserRoleID UNIQUEIDENTIFIER = NULL,
-    @EmployeeID UNIQUEIDENTIFIER = NULL,
-    @GetOnlyNullEndUserRoleID BIT = 0,
-    @GetOnlyNullEmployeeID BIT = 0,
-    @GetOnlyNonNullEndUserRoleID BIT = 0,
-    @GetOnlyNonNullEmployeeID BIT = 0
+    @EndUserRoleID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @EmployeeID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000'
 AS
 BEGIN
     SET NOCOUNT ON;
 
+    -- Get CONSTANTS.
+    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER;
+    SELECT @NULLISH_UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
+
+    DECLARE @NON_NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER;
+    SELECT @NON_NULLISH_UNIQUEIDENTIFIER = (SELECT NON_NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NonNullishConstants]);
+
     -- Validate input.
-    IF (@EndUserID IS NOT NULL AND (@EndUserName IS NOT NULL OR @EndUserRoleID IS NOT NULL OR @EmployeeID IS NOT NULL OR @GetOnlyNonNullEndUserRoleID = 1 OR @GetOnlyNonNullEmployeeID = 1 OR @GetOnlyNonNullEndUserRoleID = 1 OR @GetOnlyNonNullEmployeeID = 1))
+    IF (@EndUserID IS NOT NULL AND (@EndUserName IS NOT NULL OR @EndUserRoleID != @NULLISH_UNIQUEIDENTIFIER OR @EmployeeID != @NULLISH_UNIQUEIDENTIFIER))
         BEGIN
             RAISERROR ('Cannot get row with unique @EndUserID when non-default values are passed to other parameters!', 11, 0);
             RETURN -1;
         END
-
-    IF (@GetOnlyNullEndUserRoleID = 1 AND @EndUserRoleID IS NOT NULL)
-        BEGIN
-            RAISERROR ('Cannot get rows with null EndUserRoleID when @EndUserRoleID is not null!', 11, 0);
-            RETURN -1;
-        END
-
-    IF (@GetOnlyNonNullEndUserRoleID = 1 AND @EndUserRoleID IS NOT NULL)
-        BEGIN
-            RAISERROR ('Cannot get all rows with non-null EndUserRoleID when @EndUserRoleID is not null!', 11, 0);
-            RETURN -1;
-        END
-
-    IF (@GetOnlyNullEndUserRoleID = 1 AND @GetOnlyNonNullEndUserRoleID = 1)
-        BEGIN
-            RAISERROR ('@GetOnlyNullEndUserRoleID and @GetOnlyNonNullEndUserRoleID cannot be both 1!', 11, 0);
-            RETURN -1;
-        END
-
-    IF (@GetOnlyNullEmployeeID = 1 AND @EmployeeID IS NOT NULL)
-        BEGIN
-            RAISERROR ('Cannot get rows with null EmployeeID when @EmployeeID is not null!', 11, 0);
-            RETURN -1;
-        END
-
-    IF (@GetOnlyNonNullEmployeeID = 1 AND @EmployeeID IS NOT NULL)
-        BEGIN
-            RAISERROR ('Cannot get all rows with non-null EmployeeID when @EmployeeID is not null!', 11, 0);
-            RETURN -1;
-        END
-
-    IF (@GetOnlyNullEmployeeID = 1 AND @GetOnlyNonNullEmployeeID = 1)
-        BEGIN
-            RAISERROR ('@GetOnlyNullEmployeeID and @GetOnlyNonNullEmployeeID cannot be both 1!', 11, 0);
-            RETURN -1;
-        END
-
-    -- Get CONSTANTS.
-    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER;
-    SELECT @NULLISH_UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
 
     -- Run actual query.
     SELECT
@@ -65,10 +28,9 @@ BEGIN
         EndUserRoleID,
         EmployeeID
     FROM [dbo].[EndUser]
-    -- @NULLISH_UNIQUEIDENTIFIER (00000000-0000-0000-0000-000000000000) will never be equal to NEWID() because NEWID() complies with RFC4122 which should always include the version number in the generated UNIQUEIDENTIFIER which can't be 0 because the version number starts at 1.
+    -- @NON_NULLISH_UNIQUEIDENTIFIER (11111111-1111-1111-1111-111111111111) will never be equal to NEWID() because NEWID() complies with RFC4122 which should always include the version number in the generated UNIQUEIDENTIFIER which can't be 1 because the version number of random UUIDs is 4.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/newid-transact-sql
     -- https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.3
-    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEndUserRoleID = 1, ISNULL(EndUserRoleID, @NULLISH_UNIQUEIDENTIFIER), IIF(@GetOnlyNullEndUserRoleID = 1, NULL, ISNULL(@EndUserRoleID, EndUserRoleID))) AND EmployeeID IS NOT DISTINCT FROM IIF(@GetOnlyNonNullEmployeeID = 1, ISNULL(EmployeeID, @NULLISH_UNIQUEIDENTIFIER), IIF(@GetOnlyNullEmployeeID = 1, NULL, ISNULL(@EmployeeID, EmployeeID)));
-
+    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID IS NOT DISTINCT FROM IIF(@EndUserRoleID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserRoleID, @NON_NULLISH_UNIQUEIDENTIFIER), IIF(@EndUserRoleID = @NULLISH_UNIQUEIDENTIFIER, EndUserRoleID, @EndUserRoleID)) AND EmployeeID IS NOT DISTINCT FROM IIF(@EmployeeID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EmployeeID, @NON_NULLISH_UNIQUEIDENTIFIER), IIF(@EmployeeID = @NULLISH_UNIQUEIDENTIFIER, EmployeeID, @EmployeeID));
 END
