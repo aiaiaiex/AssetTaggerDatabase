@@ -19,3 +19,18 @@ GO;
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductModelNumber_ManufacturerID]
     ON [dbo].[Product] ([ProductModelNumber], [ManufacturerID])
     WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NOT NULL;
+GO;
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ProductModelNumberIsNull]
+    ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
+    WHERE [ProductModelNumber] IS NULL AND [ManufacturerID] IS NOT NULL;
+GO;
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ManufacturerIDIsNull]
+    ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
+    WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NULL;
+GO;
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ProductModelNumberAndManufacturerIDAreNull]
+    ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
+    WHERE [ProductModelNumber] IS NULL AND [ManufacturerID] IS NULL;
