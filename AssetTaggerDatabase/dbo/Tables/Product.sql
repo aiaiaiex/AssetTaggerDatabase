@@ -4,7 +4,6 @@
     [ProductModelNumber] NVARCHAR(4000) NULL,
     [ManufacturerID] UNIQUEIDENTIFIER NULL,
     [CategoryID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [AK_Product_ProductModelNumber_ManufacturerID] UNIQUE ([ProductModelNumber], [ManufacturerID]),
     CONSTRAINT [CK_Product_ProductName_Exclude] CHECK ([ProductName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ProductName_MinimumLength] CHECK (LEN([ProductName]) > 0),
     CONSTRAINT [CK_Product_ProductName_NoTrailingSpace] CHECK ([ProductName] NOT LIKE ' %' AND [ProductName] NOT LIKE '% '),
@@ -15,3 +14,8 @@
     CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerID]) REFERENCES [dbo].[Manufacturer] ([ManufacturerID]),
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])
 );
+GO;
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductModelNumber_ManufacturerID]
+    ON [dbo].[Product] ([ProductModelNumber], [ManufacturerID])
+    WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NOT NULL;
