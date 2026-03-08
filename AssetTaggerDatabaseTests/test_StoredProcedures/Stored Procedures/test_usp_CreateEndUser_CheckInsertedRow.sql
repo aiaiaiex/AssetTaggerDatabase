@@ -19,7 +19,7 @@ BEGIN
 
     CREATE TABLE #expected (
         EndUserName NVARCHAR(4000),
-        EndUserPasswordHash NCHAR(32),
+        EndUserPasswordHash NCHAR(64),
         EndUserRoleID UNIQUEIDENTIFIER,
         EmployeeID UNIQUEIDENTIFIER
     );
