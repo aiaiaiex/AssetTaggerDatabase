@@ -46,8 +46,8 @@ BEGIN
     DECLARE @AssetIssueTitle01 NVARCHAR(50) = 'Asset Issue Title 01';
     DECLARE @AssetIssueTitle02 NVARCHAR(50) = 'Asset Issue Title 02';
 
-    DECLARE @AssetIssueDesc01 NVARCHAR(MAX) = 'Asset Issue Desc 01';
-    DECLARE @AssetIssueDesc02 NVARCHAR(MAX) = 'Asset Issue Desc 02';
+    DECLARE @AssetIssueDescription01 NVARCHAR(MAX) = 'Asset Issue Description 01';
+    DECLARE @AssetIssueDescription02 NVARCHAR(MAX) = 'Asset Issue Description 02';
 
     DECLARE @AssetIssueDate01 DATETIME = '2000-01-01';
     DECLARE @AssetIssueDate02 DATETIME = '2000-01-02';
@@ -55,7 +55,7 @@ BEGIN
     INSERT INTO [dbo].[AssetIssue] (
         AssetIssueID,
         AssetIssueTitle,
-        AssetIssueDesc,
+        AssetIssueDescription,
         AssetIssueDate,
         AssetID,
         EmployeeID
@@ -63,7 +63,7 @@ BEGIN
     (
         @AssetIssueID01,
         @AssetIssueTitle01,
-        @AssetIssueDesc01,
+        @AssetIssueDescription01,
         @AssetIssueDate01,
         @AssetID02,
         @EmployeeID02
@@ -71,7 +71,7 @@ BEGIN
     (
         @AssetIssueID02,
         @AssetIssueTitle02,
-        @AssetIssueDesc02,
+        @AssetIssueDescription02,
         @AssetIssueDate02,
         @AssetID01,
         @EmployeeID01
@@ -81,7 +81,7 @@ BEGIN
     CREATE TABLE #expected (
         AssetIssueID UNIQUEIDENTIFIER,
         AssetIssueTitle NVARCHAR(50),
-        AssetIssueDesc NVARCHAR(MAX),
+        AssetIssueDescription NVARCHAR(MAX),
         AssetIssueDate DATETIME,
         AssetID UNIQUEIDENTIFIER,
         ProductName NVARCHAR(50),
@@ -93,7 +93,7 @@ BEGIN
     (
         @AssetIssueID01,
         @AssetIssueTitle01,
-        @AssetIssueDesc01,
+        @AssetIssueDescription01,
         @AssetIssueDate01,
         @AssetID02,
         @ProductName02,
@@ -103,7 +103,7 @@ BEGIN
     (
         @AssetIssueID02,
         @AssetIssueTitle02,
-        @AssetIssueDesc02,
+        @AssetIssueDescription02,
         @AssetIssueDate02,
         @AssetID01,
         @ProductName01,
@@ -115,7 +115,7 @@ BEGIN
     CREATE TABLE #actual (
         AssetIssueID UNIQUEIDENTIFIER,
         AssetIssueTitle NVARCHAR(50),
-        AssetIssueDesc NVARCHAR(MAX),
+        AssetIssueDescription NVARCHAR(MAX),
         AssetIssueDate DATETIME,
         AssetID UNIQUEIDENTIFIER,
         ProductName NVARCHAR(50),

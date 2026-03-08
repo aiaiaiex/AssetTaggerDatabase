@@ -3,7 +3,7 @@ AS
 SELECT
     Ai.AssetIssueID,
     Ai.AssetIssueTitle,
-    Ai.AssetIssueDesc,
+    Ai.AssetIssueDescription,
     Ai.AssetIssueDate,
     Ai.AssetID,
     P.ProductName,

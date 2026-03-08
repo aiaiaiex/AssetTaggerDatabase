@@ -1,13 +1,13 @@
 ﻿CREATE TABLE [dbo].[AssetIssue] (
     [AssetIssueID] UNIQUEIDENTIFIER CONSTRAINT [DF_AssetIssue_AssetIssueID] DEFAULT (NEWID()) NOT NULL,
     [AssetIssueTitle] NVARCHAR(50) NOT NULL,
-    [AssetIssueDesc] NVARCHAR(MAX) NULL,
+    [AssetIssueDescription] NVARCHAR(MAX) NULL,
     [AssetIssueDate] DATETIME CONSTRAINT [DF_AssetIssue_AssetIssueDate] DEFAULT (GETDATE()) NOT NULL,
     [AssetID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [PK_AssetIssue] PRIMARY KEY CLUSTERED ([AssetIssueID] ASC),
     CONSTRAINT [CK_AssetIssue_AssetIssueTitle_NoTrailingSpace] CHECK ([AssetIssueTitle] NOT LIKE ' %' AND [AssetIssueTitle] NOT LIKE '% '),
-    CONSTRAINT [CK_AssetIssue_AssetIssueDesc_NoTrailingSpace] CHECK ([AssetIssueDesc] NOT LIKE ' %' AND [AssetIssueDesc] NOT LIKE '% '),
+    CONSTRAINT [CK_AssetIssue_AssetIssueDescription_NoTrailingSpace] CHECK ([AssetIssueDescription] NOT LIKE ' %' AND [AssetIssueDescription] NOT LIKE '% '),
     CONSTRAINT [FK_AssetIssue_Asset] FOREIGN KEY ([AssetID]) REFERENCES [dbo].[Asset] ([AssetID]),
     CONSTRAINT [FK_AssetIssue_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID])
 );
