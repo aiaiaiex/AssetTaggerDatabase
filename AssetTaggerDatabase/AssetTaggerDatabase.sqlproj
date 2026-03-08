@@ -129,6 +129,7 @@
   <ItemGroup>
     <Build Include="dbo\Functions\tvf_GetCRUDPermissionsOfEndUser.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
+    <Build Include="dbo\Stored Procedures\usp_LogInEndUser.sql" />
     <Build Include="dbo\Tables\AssetTransfer.sql" />
     <Build Include="dbo\Tables\Company.sql" />
     <Build Include="dbo\Tables\Asset.sql" />
@@ -169,7 +170,6 @@
     <Build Include="dbo\Stored Procedures\usp_GetAssetsReceivedByCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetAssetsTranseferredByCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetProductsOfProductSet.sql" />
-    <Build Include="dbo\Stored Procedures\usp_LoginEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetEmployeesOfDepartment.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetProductsOfCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_GetAssetsSoldByVendor.sql" />

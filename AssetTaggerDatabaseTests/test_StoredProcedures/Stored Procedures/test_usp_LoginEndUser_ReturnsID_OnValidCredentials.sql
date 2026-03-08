@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_LoginEndUser_ReturnsID_OnValidCredentials]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_LogInEndUser_ReturnsID_OnValidCredentials]
 AS
 BEGIN
 
@@ -17,7 +17,7 @@ BEGIN
     CREATE TABLE #actual (EndUserID UNIQUEIDENTIFIER);
 
     INSERT INTO #actual (EndUserID)
-    EXEC [dbo].[usp_LoginEndUser]
+    EXEC [dbo].[usp_LogInEndUser]
         @EndUserName = @UserName,
         @EndUserPassword = @PlainPassword;
 

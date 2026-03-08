@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="test_Constraints\Stored Procedures\test_DF_AssetIssue_AssetIssueID.sql" />
+    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_LogInEndUser_ReturnsID_OnValidCredentials.sql" />
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -925,10 +926,6 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetSubsidiariesOfCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_LoginEndUser_ReturnsID_OnValidCredentials.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
