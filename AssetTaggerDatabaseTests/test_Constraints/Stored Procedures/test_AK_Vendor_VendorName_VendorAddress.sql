@@ -4,8 +4,8 @@ BEGIN
     -- Create dummy data for Vendor.
     EXEC TSQLt.FakeTable '[dbo].[Vendor]';
 
-    DECLARE @VendorName NVARCHAR(50) = 'Vendor Name 01';
-    DECLARE @VendorAddress NVARCHAR(50) = 'Vendor Address 01';
+    DECLARE @VendorName NVARCHAR(4000) = 'Vendor Name 01';
+    DECLARE @VendorAddress NVARCHAR(4000) = 'Vendor Address 01';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Vendor]', '[AK_Vendor_VendorName_VendorAddress]';

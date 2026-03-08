@@ -3,7 +3,7 @@ AS
 BEGIN
     -- Create dummy data for EndUser.
     EXEC TSQLt.FakeTable '[dbo].[EndUser]';
-    DECLARE @EndUserName NVARCHAR(50) = 'End User Name 1';
+    DECLARE @EndUserName NVARCHAR(4000) = 'End User Name 1';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[EndUser]', '[AK_EndUser_EndUserName]';

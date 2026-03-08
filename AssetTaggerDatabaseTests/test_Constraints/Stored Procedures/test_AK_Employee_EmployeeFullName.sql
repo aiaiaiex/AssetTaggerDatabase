@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Employee.
     EXEC TSQLt.FakeTable '[dbo].[Employee]';
 
-    DECLARE @EmployeeFullName NVARCHAR(50) = 'John Doe';
+    DECLARE @EmployeeFullName NVARCHAR(4000) = 'John Doe';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Employee]', '[AK_Employee_EmployeeFullName]';

@@ -7,8 +7,8 @@ BEGIN
     DECLARE @RoleID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @RoleID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @RoleName01 NVARCHAR(50) = 'Role Name 01';
-    DECLARE @RoleName02 NVARCHAR(50) = 'Role Name 02';
+    DECLARE @RoleName01 NVARCHAR(4000) = 'Role Name 01';
+    DECLARE @RoleName02 NVARCHAR(4000) = 'Role Name 02';
 
     INSERT INTO [dbo].[Role] (
         RoleID,
@@ -29,8 +29,8 @@ BEGIN
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @CompanyName01 NVARCHAR(50) = 'Company Name 01';
-    DECLARE @CompanyName02 NVARCHAR(50) = 'Company Name 02';
+    DECLARE @CompanyName01 NVARCHAR(4000) = 'Company Name 01';
+    DECLARE @CompanyName02 NVARCHAR(4000) = 'Company Name 02';
 
     INSERT INTO [dbo].[Company] (
         CompanyID,
@@ -51,8 +51,8 @@ BEGIN
     DECLARE @DepartmentID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @DepartmentID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @DepartmentName01 NVARCHAR(50) = 'Department Name 01';
-    DECLARE @DepartmentName02 NVARCHAR(50) = 'Department Name 02';
+    DECLARE @DepartmentName01 NVARCHAR(4000) = 'Department Name 01';
+    DECLARE @DepartmentName02 NVARCHAR(4000) = 'Department Name 02';
 
     INSERT INTO [dbo].[Department] (
         DepartmentID,
@@ -73,8 +73,8 @@ BEGIN
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EmployeeID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @EmployeeFullName01 NVARCHAR(50) = 'Employee Full Name 01';
-    DECLARE @EmployeeFullName02 NVARCHAR(50) = 'Employee Full Name 02';
+    DECLARE @EmployeeFullName01 NVARCHAR(4000) = 'Employee Full Name 01';
+    DECLARE @EmployeeFullName02 NVARCHAR(4000) = 'Employee Full Name 02';
 
     INSERT INTO [dbo].[Employee] (
         EmployeeID,
@@ -101,13 +101,13 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50),
+        EmployeeFullName NVARCHAR(4000),
         RoleID UNIQUEIDENTIFIER,
-        RoleName NVARCHAR(50),
+        RoleName NVARCHAR(4000),
         CompanyID UNIQUEIDENTIFIER,
-        CompanyName NVARCHAR(50),
+        CompanyName NVARCHAR(4000),
         DepartmentID UNIQUEIDENTIFIER,
-        DepartmentName NVARCHAR(50)
+        DepartmentName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -135,13 +135,13 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50),
+        EmployeeFullName NVARCHAR(4000),
         RoleID UNIQUEIDENTIFIER,
-        RoleName NVARCHAR(50),
+        RoleName NVARCHAR(4000),
         CompanyID UNIQUEIDENTIFIER,
-        CompanyName NVARCHAR(50),
+        CompanyName NVARCHAR(4000),
         DepartmentID UNIQUEIDENTIFIER,
-        DepartmentName NVARCHAR(50)
+        DepartmentName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

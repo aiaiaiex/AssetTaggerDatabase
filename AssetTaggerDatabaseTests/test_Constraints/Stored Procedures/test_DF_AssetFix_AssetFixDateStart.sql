@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[AssetFix]', @Defaults = 1;
 
-    DECLARE @AssetFixTitle NVARCHAR(50) = 'Hardware Repair';
+    DECLARE @AssetFixTitle NVARCHAR(4000) = 'Hardware Repair';
 
     INSERT INTO [dbo].[AssetFix] (AssetFixTitle) VALUES
     (@AssetFixTitle);

@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[Location]', @Defaults = 1;
 
-    DECLARE @LocationAddress NVARCHAR(50) = 'Location Address 01';
+    DECLARE @LocationAddress NVARCHAR(4000) = 'Location Address 01';
 
     INSERT INTO [dbo].[Location] (LocationAddress) VALUES
     (@LocationAddress);

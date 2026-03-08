@@ -7,8 +7,8 @@ BEGIN
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @CompanyName01 NVARCHAR(50) = 'Company Name 01';
-    DECLARE @CompanyName02 NVARCHAR(50) = 'Company Name 02';
+    DECLARE @CompanyName01 NVARCHAR(4000) = 'Company Name 01';
+    DECLARE @CompanyName02 NVARCHAR(4000) = 'Company Name 02';
 
     INSERT INTO [dbo].[Company] (CompanyID, CompanyName) VALUES
     (@CompanyID01, @CompanyName01),
@@ -20,8 +20,8 @@ BEGIN
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ProductName01 NVARCHAR(50) = 'Product Name 01';
-    DECLARE @ProductName02 NVARCHAR(50) = 'Product Name 02';
+    DECLARE @ProductName01 NVARCHAR(4000) = 'Product Name 01';
+    DECLARE @ProductName02 NVARCHAR(4000) = 'Product Name 02';
 
     INSERT INTO [dbo].[Product] (ProductID, ProductName) VALUES
     (@ProductID01, @ProductName01),
@@ -79,11 +79,11 @@ BEGIN
         AssetTransferDate DATETIME,
         AssetTransferPrice MONEY,
         AssetID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
+        ProductName NVARCHAR(4000),
         CompanyID UNIQUEIDENTIFIER,
-        CompanyName NVARCHAR(50),
+        CompanyName NVARCHAR(4000),
         ReceivingCompanyID UNIQUEIDENTIFIER,
-        ReceivingCompanyName NVARCHAR(50)
+        ReceivingCompanyName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -116,11 +116,11 @@ BEGIN
         AssetTransferDate DATETIME,
         AssetTransferPrice MONEY,
         AssetID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
+        ProductName NVARCHAR(4000),
         CompanyID UNIQUEIDENTIFIER,
-        CompanyName NVARCHAR(50),
+        CompanyName NVARCHAR(4000),
         ReceivingCompanyID UNIQUEIDENTIFIER,
-        ReceivingCompanyName NVARCHAR(50)
+        ReceivingCompanyName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

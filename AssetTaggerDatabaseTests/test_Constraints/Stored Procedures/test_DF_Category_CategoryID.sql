@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[Category]', @Defaults = 1;
 
-    DECLARE @CategoryName NVARCHAR(50) = 'Category Name 01';
+    DECLARE @CategoryName NVARCHAR(4000) = 'Category Name 01';
 
     INSERT INTO [dbo].[Category] (CategoryName) VALUES
     (@CategoryName);

@@ -8,9 +8,9 @@ BEGIN
     DECLARE @EndUserID02 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EndUserID03 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @EndUserName01 NVARCHAR(50) = 'End User Name 01';
-    DECLARE @EndUserName02 NVARCHAR(50) = 'End User Name 02';
-    DECLARE @EndUserName03 NVARCHAR(50) = 'End User Name 03';
+    DECLARE @EndUserName01 NVARCHAR(4000) = 'End User Name 01';
+    DECLARE @EndUserName02 NVARCHAR(4000) = 'End User Name 02';
+    DECLARE @EndUserName03 NVARCHAR(4000) = 'End User Name 03';
 
     DECLARE @EndUserRoleID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EndUserRoleID02 UNIQUEIDENTIFIER = NULL;
@@ -28,7 +28,7 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         EndUserID UNIQUEIDENTIFIER,
-        EndUserName NVARCHAR(50),
+        EndUserName NVARCHAR(4000),
         EndUserRoleID UNIQUEIDENTIFIER,
         EmployeeID UNIQUEIDENTIFIER,
     );
@@ -38,7 +38,7 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         EndUserID UNIQUEIDENTIFIER,
-        EndUserName NVARCHAR(50),
+        EndUserName NVARCHAR(4000),
         EndUserRoleID UNIQUEIDENTIFIER,
         EmployeeID UNIQUEIDENTIFIER,
     );

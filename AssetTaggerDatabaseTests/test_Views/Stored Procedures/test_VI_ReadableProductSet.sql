@@ -14,15 +14,15 @@ BEGIN
     DECLARE @ProductID08 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID09 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ProductName01 NVARCHAR(50) = 'Product Name 01';
-    DECLARE @ProductName02 NVARCHAR(50) = 'Product Name 02';
-    DECLARE @ProductName03 NVARCHAR(50) = 'Product Name 03';
-    DECLARE @ProductName04 NVARCHAR(50) = 'Product Name 04';
-    DECLARE @ProductName05 NVARCHAR(50) = 'Product Name 05';
-    DECLARE @ProductName06 NVARCHAR(50) = 'Product Name 06';
-    DECLARE @ProductName07 NVARCHAR(50) = 'Product Name 07';
-    DECLARE @ProductName08 NVARCHAR(50) = 'Product Name 08';
-    DECLARE @ProductName09 NVARCHAR(50) = 'Product Name 09';
+    DECLARE @ProductName01 NVARCHAR(4000) = 'Product Name 01';
+    DECLARE @ProductName02 NVARCHAR(4000) = 'Product Name 02';
+    DECLARE @ProductName03 NVARCHAR(4000) = 'Product Name 03';
+    DECLARE @ProductName04 NVARCHAR(4000) = 'Product Name 04';
+    DECLARE @ProductName05 NVARCHAR(4000) = 'Product Name 05';
+    DECLARE @ProductName06 NVARCHAR(4000) = 'Product Name 06';
+    DECLARE @ProductName07 NVARCHAR(4000) = 'Product Name 07';
+    DECLARE @ProductName08 NVARCHAR(4000) = 'Product Name 08';
+    DECLARE @ProductName09 NVARCHAR(4000) = 'Product Name 09';
 
     INSERT INTO [dbo].[Product] (ProductID, ProductName) VALUES
     (@ProductID01, @ProductName01),
@@ -49,9 +49,9 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         ParentProductID UNIQUEIDENTIFIER,
-        ParentProductName NVARCHAR(50),
+        ParentProductName NVARCHAR(4000),
         ProductID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50)
+        ProductName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -83,9 +83,9 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         ParentProductID UNIQUEIDENTIFIER,
-        ParentProductName NVARCHAR(50),
+        ParentProductName NVARCHAR(4000),
         ProductID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50)
+        ProductName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

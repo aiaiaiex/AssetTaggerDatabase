@@ -7,11 +7,11 @@ BEGIN
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @CompanyName01 NVARCHAR(50) = 'Company Name 01';
-    DECLARE @CompanyName02 NVARCHAR(50) = 'Company Name 02';
+    DECLARE @CompanyName01 NVARCHAR(4000) = 'Company Name 01';
+    DECLARE @CompanyName02 NVARCHAR(4000) = 'Company Name 02';
 
-    DECLARE @CompanyAddress01 NVARCHAR(50) = 'Company Address 01';
-    DECLARE @CompanyAddress02 NVARCHAR(50) = 'Company Address 02';
+    DECLARE @CompanyAddress01 NVARCHAR(4000) = 'Company Address 01';
+    DECLARE @CompanyAddress02 NVARCHAR(4000) = 'Company Address 02';
 
     DECLARE @CompanyCode01 NVARCHAR(5) = 'Code1';
     DECLARE @CompanyCode02 NVARCHAR(5) = 'Code2';
@@ -42,9 +42,9 @@ BEGIN
     CREATE TABLE #expected (
         CompanyID UNIQUEIDENTIFIER,
         ParentCompanyID UNIQUEIDENTIFIER,
-        ParentCompanyName NVARCHAR(50),
-        CompanyName NVARCHAR(50),
-        CompanyAddress NVARCHAR(50),
+        ParentCompanyName NVARCHAR(4000),
+        CompanyName NVARCHAR(4000),
+        CompanyAddress NVARCHAR(4000),
         CompanyCode NVARCHAR(5)
     );
 
@@ -70,9 +70,9 @@ BEGIN
     CREATE TABLE #actual (
         CompanyID UNIQUEIDENTIFIER,
         ParentCompanyID UNIQUEIDENTIFIER,
-        ParentCompanyName NVARCHAR(50),
-        CompanyName NVARCHAR(50),
-        CompanyAddress NVARCHAR(50),
+        ParentCompanyName NVARCHAR(4000),
+        CompanyName NVARCHAR(4000),
+        CompanyAddress NVARCHAR(4000),
         CompanyCode NVARCHAR(5)
     );
 

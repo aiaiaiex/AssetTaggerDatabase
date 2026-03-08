@@ -7,8 +7,8 @@ BEGIN
     DECLARE @ManufacturerID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ManufacturerID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ManufacturerName01 NVARCHAR(50) = 'Manufacturer Name 01';
-    DECLARE @ManufacturerName02 NVARCHAR(50) = 'Manufacturer Name 02';
+    DECLARE @ManufacturerName01 NVARCHAR(4000) = 'Manufacturer Name 01';
+    DECLARE @ManufacturerName02 NVARCHAR(4000) = 'Manufacturer Name 02';
 
     INSERT INTO [dbo].[Manufacturer] (
         ManufacturerID,
@@ -29,8 +29,8 @@ BEGIN
     DECLARE @CategoryID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CategoryID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @CategoryName01 NVARCHAR(50) = 'Category Name 01';
-    DECLARE @CategoryName02 NVARCHAR(50) = 'Category Name 02';
+    DECLARE @CategoryName01 NVARCHAR(4000) = 'Category Name 01';
+    DECLARE @CategoryName02 NVARCHAR(4000) = 'Category Name 02';
 
     INSERT INTO [dbo].[Category] (
         CategoryID,
@@ -51,11 +51,11 @@ BEGIN
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ProductName01 NVARCHAR(50) = 'Product Name 01';
-    DECLARE @ProductName02 NVARCHAR(50) = 'Product Name 02';
+    DECLARE @ProductName01 NVARCHAR(4000) = 'Product Name 01';
+    DECLARE @ProductName02 NVARCHAR(4000) = 'Product Name 02';
 
-    DECLARE @ProductModelNumber01 NVARCHAR(50) = 'Product Model Number 01';
-    DECLARE @ProductModelNumber02 NVARCHAR(50) = 'Product Model Number 02';
+    DECLARE @ProductModelNumber01 NVARCHAR(4000) = 'Product Model Number 01';
+    DECLARE @ProductModelNumber02 NVARCHAR(4000) = 'Product Model Number 02';
 
     INSERT INTO [dbo].[Product] (
         ProductID,
@@ -82,12 +82,12 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         ProductID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
-        ProductModelNumber NVARCHAR(50),
+        ProductName NVARCHAR(4000),
+        ProductModelNumber NVARCHAR(4000),
         ManufacturerID UNIQUEIDENTIFIER,
-        ManufacturerName NVARCHAR(50),
+        ManufacturerName NVARCHAR(4000),
         CategoryID UNIQUEIDENTIFIER,
-        CategoryName NVARCHAR(50)
+        CategoryName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -113,12 +113,12 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         ProductID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
-        ProductModelNumber NVARCHAR(50),
+        ProductName NVARCHAR(4000),
+        ProductModelNumber NVARCHAR(4000),
         ManufacturerID UNIQUEIDENTIFIER,
-        ManufacturerName NVARCHAR(50),
+        ManufacturerName NVARCHAR(4000),
         CategoryID UNIQUEIDENTIFIER,
-        CategoryName NVARCHAR(50)
+        CategoryName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

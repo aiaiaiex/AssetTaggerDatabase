@@ -7,8 +7,8 @@ BEGIN
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EmployeeID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @EmployeeFullName01 NVARCHAR(50) = 'Employee Full Name 01';
-    DECLARE @EmployeeFullName02 NVARCHAR(50) = 'Employee Full Name 02';
+    DECLARE @EmployeeFullName01 NVARCHAR(4000) = 'Employee Full Name 01';
+    DECLARE @EmployeeFullName02 NVARCHAR(4000) = 'Employee Full Name 02';
 
     INSERT INTO [dbo].[Employee] (EmployeeID, EmployeeFullName) VALUES
     (@EmployeeID01, @EmployeeFullName01),
@@ -20,8 +20,8 @@ BEGIN
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ProductName01 NVARCHAR(50) = 'Product Name 01';
-    DECLARE @ProductName02 NVARCHAR(50) = 'Product Name 02';
+    DECLARE @ProductName01 NVARCHAR(4000) = 'Product Name 01';
+    DECLARE @ProductName02 NVARCHAR(4000) = 'Product Name 02';
 
     INSERT INTO [dbo].[Product] (ProductID, ProductName) VALUES
     (@ProductID01, @ProductName01),
@@ -43,8 +43,8 @@ BEGIN
     DECLARE @AssetIssueID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetIssueID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @AssetIssueTitle01 NVARCHAR(50) = 'Asset Issue Title 01';
-    DECLARE @AssetIssueTitle02 NVARCHAR(50) = 'Asset Issue Title 02';
+    DECLARE @AssetIssueTitle01 NVARCHAR(4000) = 'Asset Issue Title 01';
+    DECLARE @AssetIssueTitle02 NVARCHAR(4000) = 'Asset Issue Title 02';
 
     INSERT INTO [dbo].[AssetIssue] (AssetIssueID, AssetIssueTitle, AssetID) VALUES
     (@AssetIssueID01, @AssetIssueTitle01, @AssetID01),
@@ -65,8 +65,8 @@ BEGIN
     DECLARE @AssetFixDateEnd01 DATETIME = '2000-01-01';
     DECLARE @AssetFixDateEnd02 DATETIME = '2000-01-02';
 
-    DECLARE @AssetFixTitle01 NVARCHAR(50) = 'Asset Fix Title 01';
-    DECLARE @AssetFixTitle02 NVARCHAR(50) = 'Asset Fix Title 02';
+    DECLARE @AssetFixTitle01 NVARCHAR(4000) = 'Asset Fix Title 01';
+    DECLARE @AssetFixTitle02 NVARCHAR(4000) = 'Asset Fix Title 02';
 
     DECLARE @AssetFixDescription01 NVARCHAR(MAX) = 'Asset Fix Description 01';
     DECLARE @AssetFixDescription02 NVARCHAR(MAX) = 'Asset Fix Description 02';
@@ -112,16 +112,16 @@ BEGIN
     CREATE TABLE #expected (
         AssetFixID UNIQUEIDENTIFIER,
         AssetIssueID UNIQUEIDENTIFIER,
-        AssetIssueTitle NVARCHAR(50),
-        ProductName NVARCHAR(50),
+        AssetIssueTitle NVARCHAR(4000),
+        ProductName NVARCHAR(4000),
         AssetFixDateStart DATETIME,
         AssetFixCost MONEY,
         AssetFixDateEnd DATETIME,
-        AssetFixTitle NVARCHAR(50),
+        AssetFixTitle NVARCHAR(4000),
         AssetFixDescription NVARCHAR(MAX),
         AssetFixed BIT,
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50)
+        EmployeeFullName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -158,16 +158,16 @@ BEGIN
     CREATE TABLE #actual (
         AssetFixID UNIQUEIDENTIFIER,
         AssetIssueID UNIQUEIDENTIFIER,
-        AssetIssueTitle NVARCHAR(50),
-        ProductName NVARCHAR(50),
+        AssetIssueTitle NVARCHAR(4000),
+        ProductName NVARCHAR(4000),
         AssetFixDateStart DATETIME,
         AssetFixCost MONEY,
         AssetFixDateEnd DATETIME,
-        AssetFixTitle NVARCHAR(50),
+        AssetFixTitle NVARCHAR(4000),
         AssetFixDescription NVARCHAR(MAX),
         AssetFixed BIT,
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50)
+        EmployeeFullName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

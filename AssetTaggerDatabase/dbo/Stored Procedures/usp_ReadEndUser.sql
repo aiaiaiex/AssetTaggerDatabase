@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[usp_ReadEndUser]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @EndUserID UNIQUEIDENTIFIER = NULL,
-    @EndUserName NVARCHAR(50) = NULL,
+    @EndUserName NVARCHAR(4000) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL
 AS

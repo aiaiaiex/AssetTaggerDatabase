@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[EndUserRole]', @Defaults = 1;
 
-    DECLARE @EndUserRoleName NVARCHAR(50) = 'End User Role Name 01';
+    DECLARE @EndUserRoleName NVARCHAR(4000) = 'End User Role Name 01';
 
     INSERT INTO [dbo].[EndUserRole] (EndUserRoleName) VALUES
     (@EndUserRoleName);

@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[usp_CreateEndUser]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EndUserName NVARCHAR(50),
-    @EndUserPassword NVARCHAR(255),
+    @EndUserName NVARCHAR(4000),
+    @EndUserPassword NVARCHAR(4000),
     @EndUserRoleID UNIQUEIDENTIFIER,
     @EmployeeID UNIQUEIDENTIFIER
 AS

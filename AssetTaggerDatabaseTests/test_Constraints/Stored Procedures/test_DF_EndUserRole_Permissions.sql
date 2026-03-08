@@ -6,7 +6,7 @@ BEGIN
     EXEC TSQLt.FakeTable '[dbo].[EndUserRole]', @Defaults = 1;
 
     DECLARE @EndUserRoleID UNIQUEIDENTIFIER = NEWID();
-    DECLARE @EndUserRoleName NVARCHAR(50) = 'End User Role Name 01';
+    DECLARE @EndUserRoleName NVARCHAR(4000) = 'End User Role Name 01';
 
     INSERT INTO [dbo].[EndUserRole] (EndUserRoleID, EndUserRoleName) VALUES
     (@EndUserRoleID, @EndUserRoleName);
@@ -14,7 +14,7 @@ BEGIN
     -- Expected ouput.
     CREATE TABLE #expected (
         [EndUserRoleID] UNIQUEIDENTIFIER,
-        [EndUserRoleName] NVARCHAR(50),
+        [EndUserRoleName] NVARCHAR(4000),
         -- Asset Permissions
         [CreateAsset] BIT,
         [ReadAsset] BIT,
@@ -107,7 +107,7 @@ BEGIN
     -- Actual ouput.
     CREATE TABLE #actual (
         [EndUserRoleID] UNIQUEIDENTIFIER,
-        [EndUserRoleName] NVARCHAR(50),
+        [EndUserRoleName] NVARCHAR(4000),
         -- Asset Permissions
         [CreateAsset] BIT,
         [ReadAsset] BIT,

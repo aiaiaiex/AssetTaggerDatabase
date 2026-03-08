@@ -4,7 +4,7 @@
     [AssetFixDateStart] DATETIME CONSTRAINT [DF_AssetFix_AssetFixDateStart] DEFAULT (GETDATE()) NOT NULL,
     [AssetFixCost] MONEY NULL,
     [AssetFixDateEnd] DATETIME NULL,
-    [AssetFixTitle] NVARCHAR(50) NOT NULL,
+    [AssetFixTitle] NVARCHAR(4000) NOT NULL,
     [AssetFixDescription] NVARCHAR(MAX) NULL,
     [AssetFixed] BIT NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,

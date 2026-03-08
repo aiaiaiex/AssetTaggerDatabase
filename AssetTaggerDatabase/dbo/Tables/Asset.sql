@@ -3,7 +3,7 @@
     [AssetTagDate] DATETIME CONSTRAINT [DF_Asset_AssetTagDate] DEFAULT (GETDATE()) NOT NULL,
     [AssetPurchaseDate] DATETIME NULL,
     [AssetPurchasePrice] MONEY NULL,
-    [AssetSerialNumber] NVARCHAR(50) NULL,
+    [AssetSerialNumber] NVARCHAR(4000) NULL,
     -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql

@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Product.
     EXEC TSQLt.FakeTable '[dbo].[Product]';
 
-    DECLARE @ProductModelNumber NVARCHAR(50) = 'Product Model Number 01';
+    DECLARE @ProductModelNumber NVARCHAR(4000) = 'Product Model Number 01';
     DECLARE @ManufacturerID UNIQUEIDENTIFIER = NEWID();
 
     -- Apply unique (alternate key) constraint.

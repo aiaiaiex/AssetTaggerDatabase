@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[Building]', @Defaults = 1;
 
-    DECLARE @BuildingName NVARCHAR(50) = 'eNtec 1';
+    DECLARE @BuildingName NVARCHAR(4000) = 'eNtec 1';
 
     INSERT INTO [dbo].[Building] (BuildingName) VALUES
     (@BuildingName);

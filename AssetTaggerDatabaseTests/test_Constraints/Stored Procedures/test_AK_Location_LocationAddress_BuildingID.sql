@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Location.
     EXEC TSQLt.FakeTable '[dbo].[Location]';
 
-    DECLARE @LocationAddress NVARCHAR(50) = 'Location Address 01';
+    DECLARE @LocationAddress NVARCHAR(4000) = 'Location Address 01';
     DECLARE @BuildingID UNIQUEIDENTIFIER = NEWID();
 
     -- Apply unique (alternate key) constraint.

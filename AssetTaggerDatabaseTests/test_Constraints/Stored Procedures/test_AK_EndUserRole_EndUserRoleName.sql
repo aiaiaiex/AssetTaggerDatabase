@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for EndUserRole.
     EXEC TSQLt.FakeTable '[dbo].[EndUserRole]';
 
-    DECLARE @EndUserRoleName NVARCHAR(50) = 'End User Role Name 01';
+    DECLARE @EndUserRoleName NVARCHAR(4000) = 'End User Role Name 01';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[EndUserRole]', '[AK_EndUserRole_EndUserRoleName]';

@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[Employee]', @Defaults = 1;
 
-    DECLARE @EmployeeFullName NVARCHAR(50) = 'Guil Pobre';
+    DECLARE @EmployeeFullName NVARCHAR(4000) = 'Guil Pobre';
 
     INSERT INTO [dbo].[Employee] (EmployeeFullName) VALUES
     (@EmployeeFullName);

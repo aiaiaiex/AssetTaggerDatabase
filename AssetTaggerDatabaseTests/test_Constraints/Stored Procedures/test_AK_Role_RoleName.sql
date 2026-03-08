@@ -3,7 +3,7 @@ AS
 BEGIN
     -- Create dummy data for Role.
     EXEC TSQLt.FakeTable '[dbo].[Role]';
-    DECLARE @RoleName NVARCHAR(50) = 'Role Name 1';
+    DECLARE @RoleName NVARCHAR(4000) = 'Role Name 1';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Role]', '[AK_Role_RoleName]';

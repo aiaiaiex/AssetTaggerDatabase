@@ -7,8 +7,8 @@ BEGIN
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @EmployeeID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @EmployeeFullName01 NVARCHAR(50) = 'Employee Full Name 01';
-    DECLARE @EmployeeFullName02 NVARCHAR(50) = 'Employee Full Name 02';
+    DECLARE @EmployeeFullName01 NVARCHAR(4000) = 'Employee Full Name 01';
+    DECLARE @EmployeeFullName02 NVARCHAR(4000) = 'Employee Full Name 02';
 
     INSERT INTO [dbo].[Employee] (EmployeeID, EmployeeFullName) VALUES
     (@EmployeeID01, @EmployeeFullName01),
@@ -20,8 +20,8 @@ BEGIN
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ProductName01 NVARCHAR(50) = 'Product Name 01';
-    DECLARE @ProductName02 NVARCHAR(50) = 'Product Name 02';
+    DECLARE @ProductName01 NVARCHAR(4000) = 'Product Name 01';
+    DECLARE @ProductName02 NVARCHAR(4000) = 'Product Name 02';
 
     INSERT INTO [dbo].[Product] (ProductID, ProductName) VALUES
     (@ProductID01, @ProductName01),
@@ -43,8 +43,8 @@ BEGIN
     DECLARE @AssetIssueID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @AssetIssueID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @AssetIssueTitle01 NVARCHAR(50) = 'Asset Issue Title 01';
-    DECLARE @AssetIssueTitle02 NVARCHAR(50) = 'Asset Issue Title 02';
+    DECLARE @AssetIssueTitle01 NVARCHAR(4000) = 'Asset Issue Title 01';
+    DECLARE @AssetIssueTitle02 NVARCHAR(4000) = 'Asset Issue Title 02';
 
     DECLARE @AssetIssueDescription01 NVARCHAR(MAX) = 'Asset Issue Description 01';
     DECLARE @AssetIssueDescription02 NVARCHAR(MAX) = 'Asset Issue Description 02';
@@ -80,13 +80,13 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         AssetIssueID UNIQUEIDENTIFIER,
-        AssetIssueTitle NVARCHAR(50),
+        AssetIssueTitle NVARCHAR(4000),
         AssetIssueDescription NVARCHAR(MAX),
         AssetIssueDate DATETIME,
         AssetID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
+        ProductName NVARCHAR(4000),
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50)
+        EmployeeFullName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -114,13 +114,13 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         AssetIssueID UNIQUEIDENTIFIER,
-        AssetIssueTitle NVARCHAR(50),
+        AssetIssueTitle NVARCHAR(4000),
         AssetIssueDescription NVARCHAR(MAX),
         AssetIssueDate DATETIME,
         AssetID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
+        ProductName NVARCHAR(4000),
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50)
+        EmployeeFullName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

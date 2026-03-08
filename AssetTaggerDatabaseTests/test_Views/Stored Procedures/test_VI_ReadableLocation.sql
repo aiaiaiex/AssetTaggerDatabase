@@ -7,8 +7,8 @@ BEGIN
     DECLARE @BuildingID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @BuildingName01 NVARCHAR(50) = 'Building Name 01';
-    DECLARE @BuildingName02 NVARCHAR(50) = 'Building Name 02';
+    DECLARE @BuildingName01 NVARCHAR(4000) = 'Building Name 01';
+    DECLARE @BuildingName02 NVARCHAR(4000) = 'Building Name 02';
 
     INSERT INTO [dbo].[Building] (
         BuildingID,
@@ -29,8 +29,8 @@ BEGIN
     DECLARE @LocationID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @LocationID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @LocationAddress01 NVARCHAR(50) = 'Location Address 01';
-    DECLARE @LocationAddress02 NVARCHAR(50) = 'Location Address 02';
+    DECLARE @LocationAddress01 NVARCHAR(4000) = 'Location Address 01';
+    DECLARE @LocationAddress02 NVARCHAR(4000) = 'Location Address 02';
 
     INSERT INTO [dbo].[Location] (
         LocationID,
@@ -51,9 +51,9 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         LocationID UNIQUEIDENTIFIER,
-        LocationAddress NVARCHAR(50),
+        LocationAddress NVARCHAR(4000),
         BuildingID UNIQUEIDENTIFIER,
-        BuildingName NVARCHAR(50)
+        BuildingName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -73,9 +73,9 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         LocationID UNIQUEIDENTIFIER,
-        LocationAddress NVARCHAR(50),
+        LocationAddress NVARCHAR(4000),
         BuildingID UNIQUEIDENTIFIER,
-        BuildingName NVARCHAR(50)
+        BuildingName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

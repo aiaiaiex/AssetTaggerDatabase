@@ -7,8 +7,8 @@ BEGIN
     DECLARE @ProductID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @ProductID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @ProductName01 NVARCHAR(50) = 'Product Name 01';
-    DECLARE @ProductName02 NVARCHAR(50) = 'Product Name 02';
+    DECLARE @ProductName01 NVARCHAR(4000) = 'Product Name 01';
+    DECLARE @ProductName02 NVARCHAR(4000) = 'Product Name 02';
 
     INSERT INTO [dbo].[Product] (ProductID, ProductName) VALUES
     (@ProductID01, @ProductName01),
@@ -20,8 +20,8 @@ BEGIN
     DECLARE @VendorID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @VendorID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @VendorName01 NVARCHAR(50) = 'Vendor Name 01';
-    DECLARE @VendorName02 NVARCHAR(50) = 'Vendor Name 02';
+    DECLARE @VendorName01 NVARCHAR(4000) = 'Vendor Name 01';
+    DECLARE @VendorName02 NVARCHAR(4000) = 'Vendor Name 02';
 
     INSERT INTO [dbo].[Vendor] (VendorID, VendorName) VALUES
     (@VendorID01, @VendorName01),
@@ -33,8 +33,8 @@ BEGIN
     DECLARE @LocationID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @LocationID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @LocationAddress01 NVARCHAR(50) = 'Location Address 01';
-    DECLARE @LocationAddress02 NVARCHAR(50) = 'Location Address 02';
+    DECLARE @LocationAddress01 NVARCHAR(4000) = 'Location Address 01';
+    DECLARE @LocationAddress02 NVARCHAR(4000) = 'Location Address 02';
 
     INSERT INTO [dbo].[Location] (LocationID, LocationAddress) VALUES
     (@LocationID01, @LocationAddress01),
@@ -45,7 +45,7 @@ BEGIN
 
     DECLARE @EmployeeID01 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @EmployeeFullName01 NVARCHAR(50) = 'Employee Full Name 01';
+    DECLARE @EmployeeFullName01 NVARCHAR(4000) = 'Employee Full Name 01';
 
     INSERT INTO [dbo].[Employee] (EmployeeID, EmployeeFullName) VALUES
     (@EmployeeID01, @EmployeeFullName01);
@@ -65,8 +65,8 @@ BEGIN
     DECLARE @AssetPurchasePrice01 MONEY = 1000;
     DECLARE @AssetPurchasePrice02 MONEY = 2000;
 
-    DECLARE @AssetSerialNumber01 NVARCHAR(50) = '01';
-    DECLARE @AssetSerialNumber02 NVARCHAR(50) = '02';
+    DECLARE @AssetSerialNumber01 NVARCHAR(4000) = '01';
+    DECLARE @AssetSerialNumber02 NVARCHAR(4000) = '02';
 
     DECLARE @AssetWarrantyUnitOfMeasure01 NCHAR(2) = 'yy';
     DECLARE @AssetWarrantyUnitOfMeasure02 NCHAR(2) = 'mm';
@@ -107,19 +107,19 @@ BEGIN
         AssetTagDate DATETIME,
         AssetPurchaseDate DATETIME,
         AssetPurchasePrice MONEY,
-        AssetSerialNumber NVARCHAR(50),
+        AssetSerialNumber NVARCHAR(4000),
         AssetWarrantyUnitOfMeasure NCHAR(2),
         AssetWarrantyDuration INT,
         AssetUsefulLife INT,
         AssetSalvageValue MONEY,
         ProductID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
+        ProductName NVARCHAR(4000),
         VendorID UNIQUEIDENTIFIER,
-        VendorName NVARCHAR(50),
+        VendorName NVARCHAR(4000),
         LocationID UNIQUEIDENTIFIER,
-        LocationAddress NVARCHAR(50),
+        LocationAddress NVARCHAR(4000),
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50)
+        EmployeeFullName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -135,19 +135,19 @@ BEGIN
         AssetTagDate DATETIME,
         AssetPurchaseDate DATETIME,
         AssetPurchasePrice MONEY,
-        AssetSerialNumber NVARCHAR(50),
+        AssetSerialNumber NVARCHAR(4000),
         AssetWarrantyUnitOfMeasure NCHAR(2),
         AssetWarrantyDuration INT,
         AssetUsefulLife INT,
         AssetSalvageValue MONEY,
         ProductID UNIQUEIDENTIFIER,
-        ProductName NVARCHAR(50),
+        ProductName NVARCHAR(4000),
         VendorID UNIQUEIDENTIFIER,
-        VendorName NVARCHAR(50),
+        VendorName NVARCHAR(4000),
         LocationID UNIQUEIDENTIFIER,
-        LocationAddress NVARCHAR(50),
+        LocationAddress NVARCHAR(4000),
         EmployeeID UNIQUEIDENTIFIER,
-        EmployeeFullName NVARCHAR(50)
+        EmployeeFullName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

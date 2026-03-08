@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[AssetIssue]', @Defaults = 1;
 
-    DECLARE @AssetIssueTitle NVARCHAR(50) = 'Asset Issue Title 01';
+    DECLARE @AssetIssueTitle NVARCHAR(4000) = 'Asset Issue Title 01';
 
     INSERT INTO [dbo].[AssetIssue] (AssetIssueTitle) VALUES
     (@AssetIssueTitle);

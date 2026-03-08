@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Department.
     EXEC TSQLt.FakeTable '[dbo].[Department]';
 
-    DECLARE @DepartmentName NVARCHAR(50) = 'Department Name 1';
+    DECLARE @DepartmentName NVARCHAR(4000) = 'Department Name 1';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Department]', '[AK_Department_DepartmentName]';

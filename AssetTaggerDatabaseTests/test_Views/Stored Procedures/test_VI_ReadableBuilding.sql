@@ -7,8 +7,8 @@ BEGIN
     DECLARE @CompanyID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @CompanyID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @CompanyName01 NVARCHAR(50) = 'Company Name 01';
-    DECLARE @CompanyName02 NVARCHAR(50) = 'Company Name 02';
+    DECLARE @CompanyName01 NVARCHAR(4000) = 'Company Name 01';
+    DECLARE @CompanyName02 NVARCHAR(4000) = 'Company Name 02';
 
     INSERT INTO [dbo].[Company] (CompanyID, CompanyName) VALUES
     (@CompanyID01, @CompanyName01),
@@ -20,11 +20,11 @@ BEGIN
     DECLARE @BuildingID01 UNIQUEIDENTIFIER = NEWID();
     DECLARE @BuildingID02 UNIQUEIDENTIFIER = NEWID();
 
-    DECLARE @BuildingName01 NVARCHAR(50) = 'Building Name 01';
-    DECLARE @BuildingName02 NVARCHAR(50) = 'Building Name 02';
+    DECLARE @BuildingName01 NVARCHAR(4000) = 'Building Name 01';
+    DECLARE @BuildingName02 NVARCHAR(4000) = 'Building Name 02';
 
-    DECLARE @BuildingAddress01 NVARCHAR(50) = 'Building Address 01';
-    DECLARE @BuildingAddress02 NVARCHAR(50) = 'Building Address 02';
+    DECLARE @BuildingAddress01 NVARCHAR(4000) = 'Building Address 01';
+    DECLARE @BuildingAddress02 NVARCHAR(4000) = 'Building Address 02';
 
     INSERT INTO [dbo].[Building] (
         BuildingID,
@@ -48,10 +48,10 @@ BEGIN
     -- Expected output.
     CREATE TABLE #expected (
         BuildingID UNIQUEIDENTIFIER,
-        BuildingName NVARCHAR(50),
-        BuildingAddress NVARCHAR(50),
+        BuildingName NVARCHAR(4000),
+        BuildingAddress NVARCHAR(4000),
         CompanyID UNIQUEIDENTIFIER,
-        CompanyName NVARCHAR(50)
+        CompanyName NVARCHAR(4000)
     );
 
     INSERT INTO #expected VALUES
@@ -73,10 +73,10 @@ BEGIN
     -- Actual output.
     CREATE TABLE #actual (
         BuildingID UNIQUEIDENTIFIER,
-        BuildingName NVARCHAR(50),
-        BuildingAddress NVARCHAR(50),
+        BuildingName NVARCHAR(4000),
+        BuildingAddress NVARCHAR(4000),
         CompanyID UNIQUEIDENTIFIER,
-        CompanyName NVARCHAR(50)
+        CompanyName NVARCHAR(4000)
     );
 
     INSERT INTO #actual

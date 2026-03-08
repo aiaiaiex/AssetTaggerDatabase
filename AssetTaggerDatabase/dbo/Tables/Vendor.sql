@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Vendor] (
     [VendorID] UNIQUEIDENTIFIER CONSTRAINT [DF_Vendor_VendorID] DEFAULT (NEWID()) NOT NULL,
-    [VendorName] NVARCHAR(50) NOT NULL,
-    [VendorAddress] NVARCHAR(50) NOT NULL,
+    [VendorName] NVARCHAR(4000) NOT NULL,
+    [VendorAddress] NVARCHAR(4000) NOT NULL,
     CONSTRAINT [AK_Vendor_VendorName_VendorAddress] UNIQUE ([VendorName], [VendorAddress]),
     CONSTRAINT [CK_Vendor_VendorName_MinimumLength] CHECK (LEN([VendorName]) > 0),
     CONSTRAINT [CK_Vendor_VendorName_NoTrailingSpace] CHECK ([VendorName] NOT LIKE ' %' AND [VendorName] NOT LIKE '% '),

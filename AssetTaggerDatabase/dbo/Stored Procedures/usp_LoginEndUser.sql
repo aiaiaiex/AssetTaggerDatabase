@@ -1,6 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[usp_LoginEndUser]
-    @EndUserName NVARCHAR(50),
-    @EndUserPassword NVARCHAR(255)
+    @EndUserName NVARCHAR(4000),
+    @EndUserPassword NVARCHAR(4000)
 AS
 BEGIN
     SET NOCOUNT ON;

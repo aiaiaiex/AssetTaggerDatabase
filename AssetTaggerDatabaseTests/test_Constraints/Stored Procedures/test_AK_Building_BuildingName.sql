@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Building.
     EXEC TSQLt.FakeTable '[dbo].[Building]';
 
-    DECLARE @BuildingName NVARCHAR(50) = 'Building Name 1';
+    DECLARE @BuildingName NVARCHAR(4000) = 'Building Name 1';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Building]', '[AK_Building_BuildingName]';

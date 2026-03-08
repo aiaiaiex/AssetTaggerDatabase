@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Company.
     EXEC TSQLt.FakeTable '[dbo].[Company]';
 
-    DECLARE @CompanyName NVARCHAR(50) = 'Company Name 01';
+    DECLARE @CompanyName NVARCHAR(4000) = 'Company Name 01';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Company]', '[AK_Company_CompanyName]';

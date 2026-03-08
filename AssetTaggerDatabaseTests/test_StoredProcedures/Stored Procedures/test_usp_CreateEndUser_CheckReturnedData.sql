@@ -4,14 +4,14 @@ AS
 BEGIN
     EXEC TSQLt.FakeTable '[dbo].[EndUser]', @Defaults = 1;
 
-    DECLARE @EndUserName NVARCHAR(50) = 'End User Name';
-    DECLARE @EndUserPassword NVARCHAR(255) = 'End User Password';
+    DECLARE @EndUserName NVARCHAR(4000) = 'End User Name';
+    DECLARE @EndUserPassword NVARCHAR(4000) = 'End User Password';
     DECLARE @EndUserRoleID UNIQUEIDENTIFIER = NEWID();
     DECLARE @EmployeeID UNIQUEIDENTIFIER = NEWID();
 
     CREATE TABLE #actual (
         EndUserID UNIQUEIDENTIFIER,
-        EndUserName NVARCHAR(50),
+        EndUserName NVARCHAR(4000),
         EndUserRoleID UNIQUEIDENTIFIER,
         EmployeeID UNIQUEIDENTIFIER
     );
@@ -22,7 +22,7 @@ BEGIN
 
     CREATE TABLE #expected (
         EndUserID UNIQUEIDENTIFIER,
-        EndUserName NVARCHAR(50),
+        EndUserName NVARCHAR(4000),
         EndUserRoleID UNIQUEIDENTIFIER,
         EmployeeID UNIQUEIDENTIFIER,
     );

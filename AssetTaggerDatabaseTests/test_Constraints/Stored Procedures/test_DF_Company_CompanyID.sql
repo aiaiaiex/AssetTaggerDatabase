@@ -5,7 +5,7 @@ BEGIN
     -- Preserve default constraints.
     EXEC TSQLt.FakeTable '[dbo].[Company]', @Defaults = 1;
 
-    DECLARE @CompanyName NVARCHAR(50) = 'Company Name 01';
+    DECLARE @CompanyName NVARCHAR(4000) = 'Company Name 01';
 
     INSERT INTO [dbo].[Company] (CompanyName) VALUES
     (@CompanyName);

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Location] (
     [LocationID] UNIQUEIDENTIFIER CONSTRAINT [DF_Location_LocationID] DEFAULT (NEWID()) NOT NULL,
-    [LocationAddress] NVARCHAR(50) NOT NULL,
+    [LocationAddress] NVARCHAR(4000) NOT NULL,
     [BuildingID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_Location_LocationAddress_BuildingID] UNIQUE ([LocationAddress], [BuildingID]),
     CONSTRAINT [CK_Location_LocationAddress_MinimumLength] CHECK (LEN([LocationAddress]) > 0),

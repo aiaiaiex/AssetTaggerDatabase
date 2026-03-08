@@ -4,7 +4,7 @@ BEGIN
     -- Create dummy data for Manufacturer.
     EXEC TSQLt.FakeTable '[dbo].[Manufacturer]';
 
-    DECLARE @ManufacturerName NVARCHAR(50) = 'Manufacturer Name 01';
+    DECLARE @ManufacturerName NVARCHAR(4000) = 'Manufacturer Name 01';
 
     -- Apply unique (alternate key) constraint.
     EXEC TSQLt.ApplyConstraint '[dbo].[Manufacturer]', '[AK_Manufacturer_ManufacturerName]';

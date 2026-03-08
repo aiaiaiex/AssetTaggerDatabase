@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[usp_UpdateEndUser]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @EndUserID UNIQUEIDENTIFIER,
-    @EndUserName NVARCHAR(50) = NULL,
+    @EndUserName NVARCHAR(4000) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL
 AS
