@@ -5,7 +5,7 @@
     [AssetFixCost] MONEY NULL,
     [AssetFixDateEnd] DATETIME NULL,
     [AssetFixTitle] NVARCHAR(50) NOT NULL,
-    [AssetFixDesc] NTEXT NULL,
+    [AssetFixDesc] NVARCHAR(MAX) NULL,
     [AssetFixed] BIT NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [PK_AssetFix] PRIMARY KEY CLUSTERED ([AssetFixID] ASC),
