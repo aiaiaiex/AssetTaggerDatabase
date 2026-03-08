@@ -5,6 +5,7 @@
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [DepartmentID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_Employee_EmployeeFullName] UNIQUE ([EmployeeFullName]),
+    CONSTRAINT [CK_Employee_EmployeeFullName_NoTrailingSpace] CHECK ([EmployeeFullName] NOT LIKE ' %' AND [EmployeeFullName] NOT LIKE '% '),
     CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([EmployeeID] ASC),
     CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
     CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentID]) REFERENCES [dbo].[Department] ([DepartmentID]),

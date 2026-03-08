@@ -16,6 +16,7 @@
     [LocationID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [PK_Asset] PRIMARY KEY CLUSTERED ([AssetID] ASC),
+    CONSTRAINT [CK_Asset_AssetSerialNumber_NoTrailingSpace] CHECK ([AssetSerialNumber] NOT LIKE ' %' AND [AssetSerialNumber] NOT LIKE '% '),
     CONSTRAINT [CK_Asset_AssetUsefulLife] CHECK ([AssetUsefulLife] >= (0)),
     CONSTRAINT [CK_Asset_AssetWarrantyDuration] CHECK ([AssetWarrantyDuration] >= (0)),
     CONSTRAINT [CK_Asset_AssetWarrantyUnitOfMeasure] CHECK ([AssetWarrantyUnitOfMeasure] IN ('yy', 'mm', 'ww', 'dd')),

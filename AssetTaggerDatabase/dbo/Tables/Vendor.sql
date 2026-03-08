@@ -3,5 +3,7 @@
     [VendorName] NVARCHAR(50) NOT NULL,
     [VendorAddress] NVARCHAR(50) NOT NULL,
     CONSTRAINT [AK_Vendor_VendorName_VendorAddress] UNIQUE ([VendorName], [VendorAddress]),
+    CONSTRAINT [CK_Vendor_VendorName_NoTrailingSpace] CHECK ([VendorName] NOT LIKE ' %' AND [VendorName] NOT LIKE '% '),
+    CONSTRAINT [CK_Vendor_VendorAddress_NoTrailingSpace] CHECK ([VendorAddress] NOT LIKE ' %' AND [VendorAddress] NOT LIKE '% '),
     CONSTRAINT [PK_Vendor] PRIMARY KEY CLUSTERED ([VendorID] ASC)
 );

@@ -2,5 +2,6 @@
     [RoleID] UNIQUEIDENTIFIER CONSTRAINT [DF_Role_RoleID] DEFAULT (NEWID()) NOT NULL,
     [RoleName] NVARCHAR(50) NOT NULL,
     CONSTRAINT [AK_Role_RoleName] UNIQUE ([RoleName]),
+    CONSTRAINT [CK_Role_RoleName_NoTrailingSpace] CHECK ([RoleName] NOT LIKE ' %' AND [RoleName] NOT LIKE '% '),
     CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED ([RoleID] ASC)
 );

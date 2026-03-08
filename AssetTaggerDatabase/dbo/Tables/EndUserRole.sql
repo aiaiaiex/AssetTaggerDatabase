@@ -88,5 +88,6 @@
     [DeleteVendor] BIT DEFAULT 0 NOT NULL,
     -- Constraints
     CONSTRAINT [PK_EndUserRole] PRIMARY KEY CLUSTERED ([EndUserRoleID] ASC),
+    CONSTRAINT [CK_EndUserRole_EndUserRoleName_NoTrailingSpace] CHECK ([EndUserRoleName] NOT LIKE ' %' AND [EndUserRoleName] NOT LIKE '% '),
     CONSTRAINT [AK_EndUserRole_EndUserRoleName] UNIQUE NONCLUSTERED ([EndUserRoleName] ASC)
 );
