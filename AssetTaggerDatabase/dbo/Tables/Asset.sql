@@ -14,7 +14,7 @@
     [ProductID] UNIQUEIDENTIFIER NOT NULL,
     [VendorID] UNIQUEIDENTIFIER NOT NULL,
     [LocationID] UNIQUEIDENTIFIER NOT NULL,
-    [EmployeeID] UNIQUEIDENTIFIER NULL,
+    [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [PK_Asset] PRIMARY KEY CLUSTERED ([AssetID] ASC),
     CONSTRAINT [CK_Asset_AssetUsefulLife] CHECK ([AssetUsefulLife] >= (0)),
     CONSTRAINT [CK_Asset_AssetWarrantyDuration] CHECK ([AssetWarrantyDuration] >= (0)),
