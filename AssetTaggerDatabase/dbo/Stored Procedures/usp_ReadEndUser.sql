@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[usp_ReadEndUser]
+    @CallingEndUserID UNIQUEIDENTIFIER,
     @EndUserID UNIQUEIDENTIFIER = NULL,
     @EndUserName NVARCHAR(50) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
@@ -6,6 +7,21 @@
 AS
 BEGIN
     SET NOCOUNT ON;
+
+    -- Check reading permission of the calling EndUser.
+    DECLARE @ReadEndUser BIT;
+    SELECT @ReadEndUser = (SELECT ReadEndUser FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+
+    IF (@ReadEndUser IS NULL)
+        BEGIN
+            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RETURN -1;
+        END
+    IF (@ReadEndUser = 0)
+        BEGIN
+            RAISERROR ('@CallingEndUserID has no permission to read EndUser!', 11, 0);
+            RETURN -1;
+        END
 
     -- Get CONSTANTS.
     DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER;

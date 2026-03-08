@@ -1,4 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[usp_UpdateEndUser]
+    @CallingEndUserID UNIQUEIDENTIFIER,
     @EndUserID UNIQUEIDENTIFIER,
     @EndUserName NVARCHAR(50) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
@@ -6,6 +7,21 @@
 AS
 BEGIN
     SET NOCOUNT ON;
+
+    -- Check updating permission of the calling EndUser.
+    DECLARE @UpdateEndUser BIT;
+    SELECT @UpdateEndUser = (SELECT UpdateEndUser FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+
+    IF (@UpdateEndUser IS NULL)
+        BEGIN
+            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RETURN -1;
+        END
+    IF (@UpdateEndUser = 0)
+        BEGIN
+            RAISERROR ('@CallingEndUserID has no permission to update an EndUser!', 11, 0);
+            RETURN -1;
+        END
 
     -- Get CONSTANTS.
     DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER;
