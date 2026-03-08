@@ -4,6 +4,9 @@
     [AssetPurchaseDate] DATETIME NULL,
     [AssetPurchasePrice] MONEY NULL,
     [AssetSerialNumber] NVARCHAR(50) NULL,
+    -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
+    -- See more:
+    -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
     [AssetWarrantyUnitOfMeasure] NCHAR(2) NULL,
     [AssetWarrantyDuration] INT NULL,
     [AssetUsefulLife] INT NULL,
@@ -22,7 +25,3 @@
     CONSTRAINT [FK_Asset_Product] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Product] ([ProductID]),
     CONSTRAINT [FK_Asset_Vendor] FOREIGN KEY ([VendorID]) REFERENCES [dbo].[Vendor] ([VendorID])
 );
-
-
-GO
-EXECUTE Sp_Addextendedproperty @name = N'MS_Description', @value = N'datepart abbreviation', @level0type = N'SCHEMA', @level0name = N'dbo', @level1type = N'TABLE', @level1name = N'Asset', @level2type = N'COLUMN', @level2name = N'AssetWarrantyUnitOfMeasure';
