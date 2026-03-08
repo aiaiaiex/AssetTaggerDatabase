@@ -6,6 +6,7 @@
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_EndUser_EndUserName] UNIQUE ([EndUserName]),
     CONSTRAINT [AK_EndUser_EmployeeID] UNIQUE ([EmployeeID]),
+    CONSTRAINT [CK_EndUser_EndUserName_Exclude] CHECK ([EndUserName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_EndUser_EndUserName_MinimumLength] CHECK (LEN([EndUserName]) > 0),
     CONSTRAINT [CK_EndUser_EndUserName_NoWhitespace] CHECK (CHARINDEX(' ', [EndUserName]) = 0),
     CONSTRAINT [PK_EndUser] PRIMARY KEY CLUSTERED ([EndUserID] ASC),
