@@ -9,7 +9,7 @@ SELECT
     Af.AssetFixCost,
     Af.AssetFixDateEnd,
     Af.AssetFixTitle,
-    Af.AssetFixDesc,
+    Af.AssetFixDescription,
     Af.AssetFixed,
     Af.EmployeeID,
     E.EmployeeFullName

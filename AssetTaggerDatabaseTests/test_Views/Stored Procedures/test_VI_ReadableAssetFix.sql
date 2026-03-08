@@ -68,8 +68,8 @@ BEGIN
     DECLARE @AssetFixTitle01 NVARCHAR(50) = 'Asset Fix Title 01';
     DECLARE @AssetFixTitle02 NVARCHAR(50) = 'Asset Fix Title 02';
 
-    DECLARE @AssetFixDesc01 NVARCHAR(MAX) = 'Asset Fix Desc 01';
-    DECLARE @AssetFixDesc02 NVARCHAR(MAX) = 'Asset Fix Desc 02';
+    DECLARE @AssetFixDescription01 NVARCHAR(MAX) = 'Asset Fix Description 01';
+    DECLARE @AssetFixDescription02 NVARCHAR(MAX) = 'Asset Fix Description 02';
 
     DECLARE @AssetFixed01 BIT = 0;
     DECLARE @AssetFixed02 BIT = 1;
@@ -81,7 +81,7 @@ BEGIN
         AssetFixCost,
         AssetFixDateEnd,
         AssetFixTitle,
-        AssetFixDesc,
+        AssetFixDescription,
         AssetFixed,
         EmployeeID
     ) VALUES
@@ -92,7 +92,7 @@ BEGIN
         @AssetFixCost01,
         @AssetFixDateEnd01,
         @AssetFixTitle01,
-        CAST(@AssetFixDesc01 AS NTEXT),
+        CAST(@AssetFixDescription01 AS NTEXT),
         @AssetFixed01,
         @EmployeeID02
     ),
@@ -103,7 +103,7 @@ BEGIN
         @AssetFixCost02,
         @AssetFixDateEnd02,
         @AssetFixTitle02,
-        CAST(@AssetFixDesc02 AS NTEXT),
+        CAST(@AssetFixDescription02 AS NTEXT),
         @AssetFixed02,
         @EmployeeID01
     );
@@ -118,7 +118,7 @@ BEGIN
         AssetFixCost MONEY,
         AssetFixDateEnd DATETIME,
         AssetFixTitle NVARCHAR(50),
-        AssetFixDesc NVARCHAR(MAX),
+        AssetFixDescription NVARCHAR(MAX),
         AssetFixed BIT,
         EmployeeID UNIQUEIDENTIFIER,
         EmployeeFullName NVARCHAR(50)
@@ -134,7 +134,7 @@ BEGIN
         @AssetFixCost01,
         @AssetFixDateEnd01,
         @AssetFixTitle01,
-        @AssetFixDesc01,
+        @AssetFixDescription01,
         @AssetFixed01,
         @EmployeeID02,
         @EmployeeFullName02
@@ -148,7 +148,7 @@ BEGIN
         @AssetFixCost02,
         @AssetFixDateEnd02,
         @AssetFixTitle02,
-        @AssetFixDesc02,
+        @AssetFixDescription02,
         @AssetFixed02,
         @EmployeeID01,
         @EmployeeFullName01
@@ -164,7 +164,7 @@ BEGIN
         AssetFixCost MONEY,
         AssetFixDateEnd DATETIME,
         AssetFixTitle NVARCHAR(50),
-        AssetFixDesc NVARCHAR(MAX),
+        AssetFixDescription NVARCHAR(MAX),
         AssetFixed BIT,
         EmployeeID UNIQUEIDENTIFIER,
         EmployeeFullName NVARCHAR(50)
