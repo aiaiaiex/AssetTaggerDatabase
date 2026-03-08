@@ -28,8 +28,7 @@ BEGIN
     OUTPUT INSERTED.EndUserID, INSERTED.EndUserName, INSERTED.EndUserRoleID, INSERTED.EmployeeID
     VALUES (
         @EndUserName,
-        CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword)),
-        -- CAST(HASHBYTES('SHA2_256', @EndUserPassword) AS NCHAR(32)),
+        [dbo].[udf_HashPassword](@EndUserPassword),
         @EndUserRoleID,
         @EmployeeID
     );

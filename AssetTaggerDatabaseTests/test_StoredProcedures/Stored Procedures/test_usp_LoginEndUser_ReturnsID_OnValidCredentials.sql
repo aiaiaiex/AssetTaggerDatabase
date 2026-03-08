@@ -9,7 +9,7 @@ BEGIN
     DECLARE @PlainPassword NVARCHAR(4000) = 'Secret123!';
 
     DECLARE @PasswordHash NCHAR(32);
-    SET @PasswordHash = CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @PlainPassword));
+    SET @PasswordHash = [dbo].[udf_HashPassword](@PlainPassword);
 
     INSERT INTO [dbo].[EndUser] (EndUserID, EndUserName, EndUserPasswordHash)
     VALUES (@TargetUserID, @UserName, @PasswordHash);

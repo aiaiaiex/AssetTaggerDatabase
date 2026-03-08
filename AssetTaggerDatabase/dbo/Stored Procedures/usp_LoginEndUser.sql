@@ -9,5 +9,5 @@ BEGIN
     FROM [dbo].[EndUser]
     WHERE
         EndUserName = @EndUserName
-        AND EndUserPasswordHash = CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword));
+        AND EndUserPasswordHash = [dbo].[udf_HashPassword](@EndUserPassword);
 END

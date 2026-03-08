@@ -1,5 +1,4 @@
-﻿
-CREATE PROCEDURE [test_StoredProcedures].[test_usp_CreateEndUser_CheckInsertedRow]
+﻿CREATE PROCEDURE [test_StoredProcedures].[test_usp_CreateEndUser_CheckInsertedRow]
 AS
 BEGIN
     EXEC TSQLt.FakeTable '[dbo].[EndUser]';
@@ -28,7 +27,7 @@ BEGIN
     INSERT INTO #expected (EndUserName, EndUserPasswordHash, EndUserRoleID, EmployeeID)
     VALUES (
         @EndUserName,
-        CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @EndUserPassword)),
+        [dbo].[udf_HashPassword](@EndUserPassword),
         @EndUserRoleID,
         @EmployeeID
     );
