@@ -25,3 +25,8 @@
     CONSTRAINT [FK_Asset_Product] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Product] ([ProductID]),
     CONSTRAINT [FK_Asset_Vendor] FOREIGN KEY ([VendorID]) REFERENCES [dbo].[Vendor] ([VendorID])
 );
+GO;
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Asset_AssetSerialNumber_ProductID]
+    ON [dbo].[Asset] ([AssetSerialNumber], [ProductID])
+    WHERE [AssetSerialNumber] IS NOT NULL;
