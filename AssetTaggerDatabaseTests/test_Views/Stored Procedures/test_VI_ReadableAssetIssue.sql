@@ -63,7 +63,7 @@ BEGIN
     (
         @AssetIssueID01,
         @AssetIssueTitle01,
-        CAST(@AssetIssueDesc01 AS NTEXT),
+        @AssetIssueDesc01,
         @AssetIssueDate01,
         @AssetID02,
         @EmployeeID02
@@ -71,7 +71,7 @@ BEGIN
     (
         @AssetIssueID02,
         @AssetIssueTitle02,
-        CAST(@AssetIssueDesc02 AS NTEXT),
+        @AssetIssueDesc02,
         @AssetIssueDate02,
         @AssetID01,
         @EmployeeID01

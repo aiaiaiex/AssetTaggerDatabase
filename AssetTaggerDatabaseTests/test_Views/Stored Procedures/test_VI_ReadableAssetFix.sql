@@ -92,7 +92,7 @@ BEGIN
         @AssetFixCost01,
         @AssetFixDateEnd01,
         @AssetFixTitle01,
-        CAST(@AssetFixDescription01 AS NTEXT),
+        @AssetFixDescription01,
         @AssetFixed01,
         @EmployeeID02
     ),
@@ -103,7 +103,7 @@ BEGIN
         @AssetFixCost02,
         @AssetFixDateEnd02,
         @AssetFixTitle02,
-        CAST(@AssetFixDescription02 AS NTEXT),
+        @AssetFixDescription02,
         @AssetFixed02,
         @EmployeeID01
     );
