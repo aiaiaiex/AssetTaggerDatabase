@@ -1,0 +1,7 @@
+CREATE FUNCTION [dbo].[udf_HashPassword](
+    @Password NVARCHAR(4000)
+)
+RETURNS NCHAR(32) AS
+BEGIN
+    RETURN CONVERT(NCHAR(32), HASHBYTES('SHA2_256', @Password));
+END;
