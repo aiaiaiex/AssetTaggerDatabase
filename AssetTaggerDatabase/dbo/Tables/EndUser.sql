@@ -5,7 +5,7 @@
     [EndUserPasswordHash] NCHAR(64) NOT NULL,
     [EndUserRoleID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
-    [EndUserRegisterDate] DATETIME CONSTRAINT [DF_EndUser_EndUserInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [EndUserRegisterDate] DATETIME CONSTRAINT [DF_EndUser_EndUserRegisterDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_EndUser_EndUserNumber] UNIQUE CLUSTERED ([EndUserNumber] ASC),
     CONSTRAINT [AK_EndUser_EndUserName] UNIQUE ([EndUserName]),
     CONSTRAINT [AK_EndUser_EmployeeID] UNIQUE ([EmployeeID]),
