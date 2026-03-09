@@ -3,6 +3,7 @@
     [BuildingName] NVARCHAR(4000) NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [BuildingAddress] NVARCHAR(4000) NOT NULL,
+    [BuildingInsertDate] DATETIME CONSTRAINT [DF_Building_BuildingInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Building_BuildingAddress] UNIQUE ([BuildingAddress]),
     CONSTRAINT [AK_Building_BuildingName] UNIQUE ([BuildingName]),
     CONSTRAINT [CK_Building_BuildingName_Exclude] CHECK ([BuildingName] NOT IN ('', '!', 'NULL')),

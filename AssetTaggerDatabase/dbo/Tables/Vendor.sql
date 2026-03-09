@@ -2,6 +2,7 @@
     [VendorID] UNIQUEIDENTIFIER CONSTRAINT [DF_Vendor_VendorID] DEFAULT (NEWID()) NOT NULL,
     [VendorName] NVARCHAR(4000) NOT NULL,
     [VendorAddress] NVARCHAR(4000) NOT NULL,
+    [VendorInsertDate] DATETIME CONSTRAINT [DF_Vendor_VendorInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Vendor_VendorName_VendorAddress] UNIQUE ([VendorName], [VendorAddress]),
     CONSTRAINT [CK_Vendor_VendorName_Exclude] CHECK ([VendorName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Vendor_VendorName_MinimumLength] CHECK (LEN([VendorName]) > 0),

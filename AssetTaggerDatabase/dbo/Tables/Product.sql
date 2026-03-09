@@ -4,6 +4,7 @@
     [ProductModelNumber] NVARCHAR(4000) NULL,
     [ManufacturerID] UNIQUEIDENTIFIER NULL,
     [CategoryID] UNIQUEIDENTIFIER NOT NULL,
+    [ProductInsertDate] DATETIME CONSTRAINT [DF_Product_ProductInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [CK_Product_ProductName_Exclude] CHECK ([ProductName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ProductName_MinimumLength] CHECK (LEN([ProductName]) > 0),
     CONSTRAINT [CK_Product_ProductName_NoTrailingSpace] CHECK ([ProductName] NOT LIKE ' %' AND [ProductName] NOT LIKE '% '),

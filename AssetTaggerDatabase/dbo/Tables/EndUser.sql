@@ -4,6 +4,7 @@
     [EndUserPasswordHash] NCHAR(64) NOT NULL,
     [EndUserRoleID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
+    [EndUserRegisterDate] DATETIME CONSTRAINT [DF_EndUser_EndUserInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_EndUser_EndUserName] UNIQUE ([EndUserName]),
     CONSTRAINT [AK_EndUser_EmployeeID] UNIQUE ([EmployeeID]),
     CONSTRAINT [CK_EndUser_EndUserName_Exclude] CHECK ([EndUserName] NOT IN ('', '!', 'NULL')),

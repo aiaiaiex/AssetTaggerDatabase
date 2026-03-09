@@ -4,6 +4,7 @@
     [CompanyName] NVARCHAR(4000) NOT NULL,
     [CompanyAddress] NVARCHAR(4000) NOT NULL,
     [CompanyCode] NVARCHAR(5) NOT NULL,
+    [CompanyInsertDate] DATETIME CONSTRAINT [DF_Company_CompanyInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Company_CompanyName] UNIQUE ([CompanyName]),
     CONSTRAINT [AK_Company_CompanyAddress] UNIQUE ([CompanyAddress]),
     CONSTRAINT [AK_Company_CompanyCode] UNIQUE ([CompanyCode]),

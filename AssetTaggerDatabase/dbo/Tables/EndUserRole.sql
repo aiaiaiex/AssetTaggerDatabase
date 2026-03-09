@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[EndUserRole] (
     [EndUserRoleID] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_EndUserRoleID] DEFAULT (NEWID()) NOT NULL,
     [EndUserRoleName] NVARCHAR(4000) NOT NULL,
+    [EndUserRoleCreationDate] DATETIME CONSTRAINT [DF_EndUserRole_EndUserRoleCreationDate] DEFAULT (GETDATE()) NOT NULL,
     -- Asset CRUD Permissions
     [CreateAsset] BIT DEFAULT 0 NOT NULL,
     [ReadAsset] BIT DEFAULT 0 NOT NULL,

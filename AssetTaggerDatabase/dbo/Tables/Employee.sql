@@ -4,6 +4,7 @@
     [RoleID] UNIQUEIDENTIFIER NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [DepartmentID] UNIQUEIDENTIFIER NOT NULL,
+    [EmployeeInsertDate] DATETIME CONSTRAINT [DF_Employee_EmployeeInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Employee_EmployeeFullName] UNIQUE ([EmployeeFullName]),
     CONSTRAINT [CK_Employee_EmployeeFullName_Exclude] CHECK ([EmployeeFullName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Employee_EmployeeFullName_MinimumLength] CHECK (LEN([EmployeeFullName]) > 0),

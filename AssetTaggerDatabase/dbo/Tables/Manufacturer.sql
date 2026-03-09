@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[Manufacturer] (
     [ManufacturerID] UNIQUEIDENTIFIER CONSTRAINT [DF_Manufacturer_ManufacturerID] DEFAULT (NEWID()) NOT NULL,
     [ManufacturerName] NVARCHAR(4000) NOT NULL,
+    [ManufacturerInsertDate] DATETIME CONSTRAINT [DF_Manufacturer_ManufacturerInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [PK_Manufacturer] PRIMARY KEY CLUSTERED ([ManufacturerID] ASC),
     CONSTRAINT [CK_Manufacturer_ManufacturerName_Exclude] CHECK ([ManufacturerName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Manufacturer_ManufacturerName_MinimumLength] CHECK (LEN([ManufacturerName]) > 0),
