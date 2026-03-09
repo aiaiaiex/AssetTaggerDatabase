@@ -1,10 +1,12 @@
 ﻿CREATE TABLE [dbo].[Company] (
+    [CompanyNumber] INT IDENTITY (1, 1),
     [CompanyID] UNIQUEIDENTIFIER CONSTRAINT [DF_Company_CompanyID] DEFAULT (NEWID()) NOT NULL,
     [ParentCompanyID] UNIQUEIDENTIFIER NULL,
     [CompanyName] NVARCHAR(4000) NOT NULL,
     [CompanyAddress] NVARCHAR(4000) NOT NULL,
     [CompanyCode] NVARCHAR(5) NOT NULL,
     [CompanyInsertDate] DATETIME CONSTRAINT [DF_Company_CompanyInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    CONSTRAINT [AK_Company_CompanyNumber] UNIQUE CLUSTERED ([CompanyNumber] ASC),
     CONSTRAINT [AK_Company_CompanyName] UNIQUE ([CompanyName]),
     CONSTRAINT [AK_Company_CompanyAddress] UNIQUE ([CompanyAddress]),
     CONSTRAINT [AK_Company_CompanyCode] UNIQUE ([CompanyCode]),
@@ -17,7 +19,7 @@
     CONSTRAINT [CK_Company_CompanyCode_Exclude] CHECK ([CompanyCode] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Company_CompanyCode_MinimumLength] CHECK (LEN([CompanyCode]) > 0),
     CONSTRAINT [CK_Company_CompanyCode_NoTrailingSpace] CHECK ([CompanyCode] NOT LIKE ' %' AND [CompanyCode] NOT LIKE '% '),
-    CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED ([CompanyID] ASC),
+    CONSTRAINT [PK_Company] PRIMARY KEY NONCLUSTERED ([CompanyID] ASC),
     CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
     CONSTRAINT [CTK_Company_CompanyID_ParentCompanyID] CHECK ([CompanyID] != [ParentCompanyID])
 );

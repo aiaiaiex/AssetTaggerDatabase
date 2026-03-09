@@ -1,4 +1,5 @@
 ﻿CREATE TABLE [dbo].[Asset] (
+    [AssetNumber] INT IDENTITY (1, 1),
     [AssetID] UNIQUEIDENTIFIER CONSTRAINT [DF_Asset_AssetID] DEFAULT (NEWID()) NOT NULL,
     [AssetTagDate] DATETIME CONSTRAINT [DF_Asset_AssetTagDate] DEFAULT (GETDATE()) NOT NULL,
     [AssetPurchaseDate] DATETIME NULL,
@@ -15,7 +16,8 @@
     [VendorID] UNIQUEIDENTIFIER NULL,
     [LocationID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [PK_Asset] PRIMARY KEY CLUSTERED ([AssetID] ASC),
+    CONSTRAINT [AK_Asset_AssetNumber] UNIQUE CLUSTERED ([AssetNumber] ASC),
+    CONSTRAINT [PK_Asset] PRIMARY KEY NONCLUSTERED ([AssetID] ASC),
     CONSTRAINT [CK_Asset_AssetSerialNumber_Exclude] CHECK ([AssetSerialNumber] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Asset_AssetSerialNumber_MinimumLength] CHECK (LEN([AssetSerialNumber]) > 0),
     CONSTRAINT [CK_Asset_AssetSerialNumber_NoTrailingSpace] CHECK ([AssetSerialNumber] NOT LIKE ' %' AND [AssetSerialNumber] NOT LIKE '% '),

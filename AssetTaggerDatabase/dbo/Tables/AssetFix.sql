@@ -1,4 +1,5 @@
 ﻿CREATE TABLE [dbo].[AssetFix] (
+    [AssetFixNumber] INT IDENTITY (1, 1),
     [AssetFixID] UNIQUEIDENTIFIER CONSTRAINT [DF_AssetFix_AssetFixID] DEFAULT (NEWID()) NOT NULL,
     [AssetIssueID] UNIQUEIDENTIFIER NOT NULL,
     [AssetFixDateStart] DATETIME CONSTRAINT [DF_AssetFix_AssetFixDateStart] DEFAULT (GETDATE()) NOT NULL,
@@ -8,7 +9,8 @@
     [AssetFixDescription] NVARCHAR(MAX) NULL,
     [AssetFixed] BIT NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [PK_AssetFix] PRIMARY KEY CLUSTERED ([AssetFixID] ASC),
+    CONSTRAINT [AK_AssetFix_AssetFixNumber] UNIQUE CLUSTERED ([AssetFixNumber] ASC),
+    CONSTRAINT [PK_AssetFix] PRIMARY KEY NONCLUSTERED ([AssetFixID] ASC),
     CONSTRAINT [CK_AssetFix_AssetFixCost] CHECK ([AssetFixCost] >= (0)),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_Exclude] CHECK ([AssetFixTitle] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_MinimumLength] CHECK (LEN([AssetFixTitle]) > 0),
