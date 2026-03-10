@@ -4,6 +4,8 @@
     @EndUserName NVARCHAR(4000) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL,
+    @FromEndUserRegisterDate DATETIME = NULL,
+    @ToEndUserRegisterDate DATETIME = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL
 AS
@@ -32,14 +34,21 @@ BEGIN
             RETURN -1;
         END
 
+    IF (@FromEndUserRegisterDate > @ToEndUserRegisterDate)
+        BEGIN
+            RAISERROR ('@FromEndUserRegisterDate cannot be later than @ToEndUserRegisterDate!', 11, 0);
+            RETURN -1;
+        END
+
     -- Run actual query.
     SELECT
         EndUserID,
         EndUserName,
         EndUserRoleID,
-        EmployeeID
+        EmployeeID,
+        EndUserRegisterDate
     FROM [dbo].[EndUser]
-    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID) AND EmployeeID = ISNULL(@EmployeeID, EmployeeID)
+    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID) AND EmployeeID = ISNULL(@EmployeeID, EmployeeID) AND ISNULL(@FromEndUserRegisterDate, EndUserRegisterDate) <= EndUserRegisterDate AND EndUserRegisterDate <= ISNULL(@ToEndUserRegisterDate, EndUserRegisterDate)
     ORDER BY
         EndUserNumber ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
