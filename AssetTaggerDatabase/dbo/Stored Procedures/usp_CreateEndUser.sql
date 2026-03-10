@@ -25,7 +25,7 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[EndUser] (EndUserName, EndUserPasswordHash, EndUserRoleID, EmployeeID)
-    OUTPUT INSERTED.EndUserID, INSERTED.EndUserName, INSERTED.EndUserRoleID, INSERTED.EmployeeID
+    OUTPUT INSERTED.EndUserID, INSERTED.EndUserName, INSERTED.EndUserRoleID, INSERTED.EmployeeID, INSERTED.EndUserRegisterDate
     VALUES (
         @EndUserName,
         [dbo].[udf_HashPassword](@EndUserPassword),
