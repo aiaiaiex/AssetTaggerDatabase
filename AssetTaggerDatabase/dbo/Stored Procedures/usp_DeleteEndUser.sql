@@ -22,7 +22,7 @@ BEGIN
 
     -- Run actual query.
     DELETE [dbo].[EndUser]
-    OUTPUT DELETED.EndUserID, DELETED.EndUserName, DELETED.EndUserRoleID, DELETED.EmployeeID
+    OUTPUT DELETED.EndUserID, DELETED.EndUserName, DELETED.EndUserRoleID, DELETED.EmployeeID, DELETED.EndUserRegisterDate
     FROM [dbo].[EndUser]
     WHERE EndUserID = @EndUserID;
 END
