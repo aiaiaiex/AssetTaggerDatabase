@@ -28,7 +28,7 @@ BEGIN
         END
 
     -- Validate input.
-    IF (@EndUserID IS NOT NULL AND (@EndUserName IS NOT NULL OR @EndUserRoleID IS NOT NULL OR @EmployeeID IS NOT NULL))
+    IF (@EndUserID IS NOT NULL AND (@EndUserName IS NOT NULL OR @EndUserRoleID IS NOT NULL OR @EmployeeID IS NOT NULL OR @FromEndUserRegisterDate IS NOT NULL OR @ToEndUserRegisterDate IS NOT NULL OR @RowsToSkip IS NOT NULL OR @RowsToReturn IS NOT NULL))
         BEGIN
             RAISERROR ('Cannot get row with unique @EndUserID when non-default values are passed to other parameters!', 11, 0);
             RETURN -1;
