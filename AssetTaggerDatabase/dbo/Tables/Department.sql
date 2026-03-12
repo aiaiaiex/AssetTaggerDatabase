@@ -7,6 +7,6 @@
     CONSTRAINT [AK_Department_DepartmentName] UNIQUE ([DepartmentName]),
     CONSTRAINT [CK_Department_DepartmentName_Exclude] CHECK ([DepartmentName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Department_DepartmentName_MinimumLength] CHECK (LEN([DepartmentName]) > 0),
-    CONSTRAINT [CK_Department_DepartmentName_NoTrailingSpace] CHECK ([DepartmentName] NOT LIKE ' %' AND [DepartmentName] NOT LIKE '% '),
+    CONSTRAINT [CK_Department_DepartmentName_NoTrailingWhitespace] CHECK ([DepartmentName] NOT LIKE ' %' AND [DepartmentName] NOT LIKE '% '),
     CONSTRAINT [PK_Department] PRIMARY KEY NONCLUSTERED ([DepartmentID] ASC)
 );

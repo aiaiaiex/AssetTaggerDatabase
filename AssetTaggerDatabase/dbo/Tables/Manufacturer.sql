@@ -7,6 +7,6 @@
     CONSTRAINT [PK_Manufacturer] PRIMARY KEY NONCLUSTERED ([ManufacturerID] ASC),
     CONSTRAINT [CK_Manufacturer_ManufacturerName_Exclude] CHECK ([ManufacturerName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Manufacturer_ManufacturerName_MinimumLength] CHECK (LEN([ManufacturerName]) > 0),
-    CONSTRAINT [CK_Manufacturer_ManufacturerName_NoTrailingSpace] CHECK ([ManufacturerName] NOT LIKE ' %' AND [ManufacturerName] NOT LIKE '% '),
+    CONSTRAINT [CK_Manufacturer_ManufacturerName_NoTrailingWhitespace] CHECK ([ManufacturerName] NOT LIKE ' %' AND [ManufacturerName] NOT LIKE '% '),
     CONSTRAINT [AK_Manufacturer_ManufacturerName] UNIQUE NONCLUSTERED ([ManufacturerName] ASC)
 );

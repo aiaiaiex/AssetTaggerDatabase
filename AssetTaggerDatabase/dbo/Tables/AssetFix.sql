@@ -14,10 +14,10 @@
     CONSTRAINT [CK_AssetFix_AssetFixCost] CHECK ([AssetFixCost] >= (0)),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_Exclude] CHECK ([AssetFixTitle] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_MinimumLength] CHECK (LEN([AssetFixTitle]) > 0),
-    CONSTRAINT [CK_AssetFix_AssetFixTitle_NoTrailingSpace] CHECK ([AssetFixTitle] NOT LIKE ' %' AND [AssetFixTitle] NOT LIKE '% '),
+    CONSTRAINT [CK_AssetFix_AssetFixTitle_NoTrailingWhitespace] CHECK ([AssetFixTitle] NOT LIKE ' %' AND [AssetFixTitle] NOT LIKE '% '),
     CONSTRAINT [CK_AssetFix_AssetFixDescription_Exclude] CHECK ([AssetFixDescription] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetFix_AssetFixDescription_MinimumLength] CHECK (LEN([AssetFixDescription]) > 0),
-    CONSTRAINT [CK_AssetFix_AssetFixDescription_NoTrailingSpace] CHECK ([AssetFixDescription] NOT LIKE ' %' AND [AssetFixDescription] NOT LIKE '% '),
+    CONSTRAINT [CK_AssetFix_AssetFixDescription_NoTrailingWhitespace] CHECK ([AssetFixDescription] NOT LIKE ' %' AND [AssetFixDescription] NOT LIKE '% '),
     CONSTRAINT [CTK_AssetFix_AssetFixDateEnd_AssetFixDateStart] CHECK ([AssetFixDateEnd] >= [AssetFixDateStart]),
     CONSTRAINT [FK_AssetFix_AssetIssue] FOREIGN KEY ([AssetIssueID]) REFERENCES [dbo].[AssetIssue] ([AssetIssueID]),
     CONSTRAINT [FK_AssetFix_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID])

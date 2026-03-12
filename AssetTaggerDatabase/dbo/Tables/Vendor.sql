@@ -8,9 +8,9 @@
     CONSTRAINT [AK_Vendor_VendorName_VendorAddress] UNIQUE ([VendorName], [VendorAddress]),
     CONSTRAINT [CK_Vendor_VendorName_Exclude] CHECK ([VendorName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Vendor_VendorName_MinimumLength] CHECK (LEN([VendorName]) > 0),
-    CONSTRAINT [CK_Vendor_VendorName_NoTrailingSpace] CHECK ([VendorName] NOT LIKE ' %' AND [VendorName] NOT LIKE '% '),
+    CONSTRAINT [CK_Vendor_VendorName_NoTrailingWhitespace] CHECK ([VendorName] NOT LIKE ' %' AND [VendorName] NOT LIKE '% '),
     CONSTRAINT [CK_Vendor_VendorAddress_Exclude] CHECK ([VendorAddress] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Vendor_VendorAddress_MinimumLength] CHECK (LEN([VendorAddress]) > 0),
-    CONSTRAINT [CK_Vendor_VendorAddress_NoTrailingSpace] CHECK ([VendorAddress] NOT LIKE ' %' AND [VendorAddress] NOT LIKE '% '),
+    CONSTRAINT [CK_Vendor_VendorAddress_NoTrailingWhitespace] CHECK ([VendorAddress] NOT LIKE ' %' AND [VendorAddress] NOT LIKE '% '),
     CONSTRAINT [PK_Vendor] PRIMARY KEY NONCLUSTERED ([VendorID] ASC)
 );

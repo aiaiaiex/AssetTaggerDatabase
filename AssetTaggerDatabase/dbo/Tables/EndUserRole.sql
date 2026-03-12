@@ -93,6 +93,6 @@
     CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([EndUserRoleID] ASC),
     CONSTRAINT [CK_EndUserRole_EndUserRoleName_Exclude] CHECK ([EndUserRoleName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_EndUserRole_EndUserRoleName_MinimumLength] CHECK (LEN([EndUserRoleName]) > 0),
-    CONSTRAINT [CK_EndUserRole_EndUserRoleName_NoTrailingSpace] CHECK ([EndUserRoleName] NOT LIKE ' %' AND [EndUserRoleName] NOT LIKE '% '),
+    CONSTRAINT [CK_EndUserRole_EndUserRoleName_NoTrailingWhitespace] CHECK ([EndUserRoleName] NOT LIKE ' %' AND [EndUserRoleName] NOT LIKE '% '),
     CONSTRAINT [AK_EndUserRole_EndUserRoleName] UNIQUE NONCLUSTERED ([EndUserRoleName] ASC)
 );

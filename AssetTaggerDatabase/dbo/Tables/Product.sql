@@ -9,10 +9,10 @@
     CONSTRAINT [AK_Product_ProductNumber] UNIQUE CLUSTERED ([ProductNumber] ASC),
     CONSTRAINT [CK_Product_ProductName_Exclude] CHECK ([ProductName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ProductName_MinimumLength] CHECK (LEN([ProductName]) > 0),
-    CONSTRAINT [CK_Product_ProductName_NoTrailingSpace] CHECK ([ProductName] NOT LIKE ' %' AND [ProductName] NOT LIKE '% '),
+    CONSTRAINT [CK_Product_ProductName_NoTrailingWhitespace] CHECK ([ProductName] NOT LIKE ' %' AND [ProductName] NOT LIKE '% '),
     CONSTRAINT [CK_Product_ProductModelNumber_Exclude] CHECK ([ProductModelNumber] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ProductModelNumber_MinimumLength] CHECK (LEN([ProductModelNumber]) > 0),
-    CONSTRAINT [CK_Product_ProductModelNumber_NoTrailingSpace] CHECK ([ProductModelNumber] NOT LIKE ' %' AND [ProductModelNumber] NOT LIKE '% '),
+    CONSTRAINT [CK_Product_ProductModelNumber_NoTrailingWhitespace] CHECK ([ProductModelNumber] NOT LIKE ' %' AND [ProductModelNumber] NOT LIKE '% '),
     CONSTRAINT [PK_Product] PRIMARY KEY NONCLUSTERED ([ProductID] ASC),
     CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerID]) REFERENCES [dbo].[Manufacturer] ([ManufacturerID]),
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])

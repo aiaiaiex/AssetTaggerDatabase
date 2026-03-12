@@ -10,7 +10,7 @@
     CONSTRAINT [AK_Employee_EmployeeFullName] UNIQUE ([EmployeeFullName]),
     CONSTRAINT [CK_Employee_EmployeeFullName_Exclude] CHECK ([EmployeeFullName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Employee_EmployeeFullName_MinimumLength] CHECK (LEN([EmployeeFullName]) > 0),
-    CONSTRAINT [CK_Employee_EmployeeFullName_NoTrailingSpace] CHECK ([EmployeeFullName] NOT LIKE ' %' AND [EmployeeFullName] NOT LIKE '% '),
+    CONSTRAINT [CK_Employee_EmployeeFullName_NoTrailingWhitespace] CHECK ([EmployeeFullName] NOT LIKE ' %' AND [EmployeeFullName] NOT LIKE '% '),
     CONSTRAINT [PK_Employee] PRIMARY KEY NONCLUSTERED ([EmployeeID] ASC),
     CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
     CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentID]) REFERENCES [dbo].[Department] ([DepartmentID]),

@@ -7,6 +7,6 @@
     CONSTRAINT [AK_Category_CategoryName] UNIQUE ([CategoryName]),
     CONSTRAINT [CK_Category_CategoryName_Exclude] CHECK ([CategoryName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Category_CategoryName_MinimumLength] CHECK (LEN([CategoryName]) > 0),
-    CONSTRAINT [CK_Category_CategoryName_NoTrailingSpace] CHECK ([CategoryName] NOT LIKE ' %' AND [CategoryName] NOT LIKE '% '),
+    CONSTRAINT [CK_Category_CategoryName_NoTrailingWhitespace] CHECK ([CategoryName] NOT LIKE ' %' AND [CategoryName] NOT LIKE '% '),
     CONSTRAINT [PK_Category] PRIMARY KEY NONCLUSTERED ([CategoryID] ASC)
 );
