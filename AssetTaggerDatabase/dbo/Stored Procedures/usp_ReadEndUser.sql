@@ -34,6 +34,12 @@ BEGIN
             RETURN -1;
         END
 
+    IF (UPPER(@EndUserName) IN ('', '!', 'NULL'))
+        BEGIN
+            RAISERROR (N'@EndUserName cannot be ''%s''!', 11, 0, @EndUserName);
+            RETURN -1;
+        END
+
     IF (@FromEndUserRegisterDate > @ToEndUserRegisterDate)
         BEGIN
             RAISERROR ('@FromEndUserRegisterDate cannot be later than @ToEndUserRegisterDate!', 11, 0);
