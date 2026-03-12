@@ -10,10 +10,10 @@
     CONSTRAINT [AK_Building_BuildingName] UNIQUE ([BuildingName]),
     CONSTRAINT [CK_Building_BuildingName_Exclude] CHECK ([BuildingName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Building_BuildingName_MinimumLength] CHECK (LEN([BuildingName]) > 0),
-    CONSTRAINT [CK_Building_BuildingName_NoTrailingWhitespace] CHECK ([BuildingName] NOT LIKE ' %' AND [BuildingName] NOT LIKE '% '),
+    CONSTRAINT [CK_Building_BuildingName_NoLeadingAndTrailingWhitespace] CHECK ([BuildingName] NOT LIKE ' %' AND [BuildingName] NOT LIKE '% '),
     CONSTRAINT [CK_Building_BuildingAddress_Exclude] CHECK ([BuildingAddress] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Building_BuildingAddress_MinimumLength] CHECK (LEN([BuildingAddress]) > 0),
-    CONSTRAINT [CK_Building_BuildingAddress_NoTrailingWhitespace] CHECK ([BuildingAddress] NOT LIKE ' %' AND [BuildingAddress] NOT LIKE '% '),
+    CONSTRAINT [CK_Building_BuildingAddress_NoLeadingAndTrailingWhitespace] CHECK ([BuildingAddress] NOT LIKE ' %' AND [BuildingAddress] NOT LIKE '% '),
     CONSTRAINT [PK_Building] PRIMARY KEY NONCLUSTERED ([BuildingID] ASC),
     CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID])
 );

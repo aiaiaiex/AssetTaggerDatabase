@@ -20,7 +20,7 @@
     CONSTRAINT [PK_Asset] PRIMARY KEY NONCLUSTERED ([AssetID] ASC),
     CONSTRAINT [CK_Asset_AssetSerialNumber_Exclude] CHECK ([AssetSerialNumber] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Asset_AssetSerialNumber_MinimumLength] CHECK (LEN([AssetSerialNumber]) > 0),
-    CONSTRAINT [CK_Asset_AssetSerialNumber_NoTrailingWhitespace] CHECK ([AssetSerialNumber] NOT LIKE ' %' AND [AssetSerialNumber] NOT LIKE '% '),
+    CONSTRAINT [CK_Asset_AssetSerialNumber_NoLeadingAndTrailingWhitespace] CHECK ([AssetSerialNumber] NOT LIKE ' %' AND [AssetSerialNumber] NOT LIKE '% '),
     CONSTRAINT [CK_Asset_AssetUsefulLife] CHECK ([AssetUsefulLife] >= (0)),
     CONSTRAINT [CK_Asset_AssetWarrantyDuration] CHECK ([AssetWarrantyDuration] >= (0)),
     CONSTRAINT [CK_Asset_AssetWarrantyUnitOfMeasure] CHECK ([AssetWarrantyUnitOfMeasure] IN ('yy', 'mm', 'ww', 'dd')),

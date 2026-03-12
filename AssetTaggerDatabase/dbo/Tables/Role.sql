@@ -7,6 +7,6 @@
     CONSTRAINT [AK_Role_RoleName] UNIQUE ([RoleName]),
     CONSTRAINT [CK_Role_RoleName_Exclude] CHECK ([RoleName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Role_RoleName_MinimumLength] CHECK (LEN([RoleName]) > 0),
-    CONSTRAINT [CK_Role_RoleName_NoTrailingWhitespace] CHECK ([RoleName] NOT LIKE ' %' AND [RoleName] NOT LIKE '% '),
+    CONSTRAINT [CK_Role_RoleName_NoLeadingAndTrailingWhitespace] CHECK ([RoleName] NOT LIKE ' %' AND [RoleName] NOT LIKE '% '),
     CONSTRAINT [PK_Role] PRIMARY KEY NONCLUSTERED ([RoleID] ASC)
 );
