@@ -23,12 +23,16 @@ BEGIN
             RETURN -1;
         END
 
+    -- Create password salt.
+    DECLARE @EndUserPasswordSalt UNIQUEIDENTIFIER = NEWID();
+
     -- Run actual query.
-    INSERT INTO [dbo].[EndUser] (EndUserName, EndUserPasswordHash, EndUserRoleID, EmployeeID)
+    INSERT INTO [dbo].[EndUser] (EndUserName, EndUserPasswordHash, EndUserPasswordSalt, EndUserRoleID, EmployeeID)
     OUTPUT INSERTED.EndUserID, INSERTED.EndUserName, INSERTED.EndUserRoleID, INSERTED.EmployeeID, INSERTED.EndUserRegisterDate
     VALUES (
         @EndUserName,
-        [dbo].[udf_HashPassword](@EndUserPassword),
+        [dbo].[udf_HashPassword](CONCAT(@EndUserPassword, CONVERT(NVARCHAR(36), @EndUserPasswordSalt))),
+        @EndUserPasswordSalt,
         @EndUserRoleID,
         @EmployeeID
     );
