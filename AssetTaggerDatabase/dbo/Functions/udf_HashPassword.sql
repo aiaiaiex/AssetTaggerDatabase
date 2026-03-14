@@ -1,5 +1,5 @@
 CREATE FUNCTION [dbo].[udf_HashPassword](
-    @Password NVARCHAR(4000)
+    @Password NVARCHAR(MAX)
 )
 RETURNS NCHAR(64) AS
 BEGIN
