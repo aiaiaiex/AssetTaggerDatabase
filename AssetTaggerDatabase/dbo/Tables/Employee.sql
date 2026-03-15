@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Employee] (
     [EmployeeNumber] INT IDENTITY (1, 1),
     [EmployeeID] UNIQUEIDENTIFIER CONSTRAINT [DF_Employee_EmployeeID] DEFAULT (NEWID()) NOT NULL,
-    [EmployeeFullName] NVARCHAR(4000) NOT NULL,
+    [EmployeeFullName] NVARCHAR(850) NOT NULL,
     [RoleID] UNIQUEIDENTIFIER NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [DepartmentID] UNIQUEIDENTIFIER NOT NULL,

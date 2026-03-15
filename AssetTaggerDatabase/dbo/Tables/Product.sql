@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Product] (
     [ProductNumber] INT IDENTITY (1, 1),
     [ProductID] UNIQUEIDENTIFIER CONSTRAINT [DF_Product_ProductID] DEFAULT (NEWID()) NOT NULL,
-    [ProductName] NVARCHAR(4000) NULL,
-    [ProductModelNumber] NVARCHAR(4000) NULL,
+    [ProductName] NVARCHAR(421) NULL,
+    [ProductModelNumber] NVARCHAR(421) NULL,
     [ManufacturerID] UNIQUEIDENTIFIER NULL,
     [CategoryID] UNIQUEIDENTIFIER NOT NULL,
     [ProductInsertDate] DATETIME CONSTRAINT [DF_Product_ProductInsertDate] DEFAULT (GETDATE()) NOT NULL,
@@ -17,22 +17,22 @@
     CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerID]) REFERENCES [dbo].[Manufacturer] ([ManufacturerID]),
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])
 );
-GO;
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductModelNumber_ManufacturerID]
     ON [dbo].[Product] ([ProductModelNumber], [ManufacturerID])
     WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NOT NULL;
-GO;
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ProductModelNumberIsNull]
     ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
     WHERE [ProductModelNumber] IS NULL AND [ManufacturerID] IS NOT NULL;
-GO;
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ManufacturerIDIsNull]
     ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
     WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NULL;
-GO;
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ProductModelNumberAndManufacturerIDAreNull]
     ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])

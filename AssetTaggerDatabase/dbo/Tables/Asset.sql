@@ -4,7 +4,7 @@
     [AssetTagDate] DATETIME CONSTRAINT [DF_Asset_AssetTagDate] DEFAULT (GETDATE()) NOT NULL,
     [AssetPurchaseDate] DATETIME NULL,
     [AssetPurchasePrice] MONEY NULL,
-    [AssetSerialNumber] NVARCHAR(4000) NULL,
+    [AssetSerialNumber] NVARCHAR(842) NULL,
     -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
@@ -30,7 +30,7 @@
     CONSTRAINT [FK_Asset_Product] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Product] ([ProductID]),
     CONSTRAINT [FK_Asset_Vendor] FOREIGN KEY ([VendorID]) REFERENCES [dbo].[Vendor] ([VendorID])
 );
-GO;
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Asset_AssetSerialNumber_ProductID]
     ON [dbo].[Asset] ([AssetSerialNumber], [ProductID])

@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Role] (
     [RoleNumber] INT IDENTITY (1, 1),
     [RoleID] UNIQUEIDENTIFIER CONSTRAINT [DF_Role_RoleID] DEFAULT (NEWID()) NOT NULL,
-    [RoleName] NVARCHAR(4000) NOT NULL,
+    [RoleName] NVARCHAR(850) NOT NULL,
     [RoleInsertDate] DATETIME CONSTRAINT [DF_Role_RoleInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Role_RoleNumber] UNIQUE CLUSTERED ([RoleNumber] ASC),
     CONSTRAINT [AK_Role_RoleName] UNIQUE ([RoleName]),

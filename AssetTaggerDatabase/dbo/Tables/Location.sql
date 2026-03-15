@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Location] (
     [LocationNumber] INT IDENTITY (1, 1),
     [LocationID] UNIQUEIDENTIFIER CONSTRAINT [DF_Location_LocationID] DEFAULT (NEWID()) NOT NULL,
-    [LocationAddress] NVARCHAR(4000) NOT NULL,
+    [LocationAddress] NVARCHAR(842) NOT NULL,
     [BuildingID] UNIQUEIDENTIFIER NOT NULL,
     [LocationInsertDate] DATETIME CONSTRAINT [DF_Location_LocationInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Location_LocationNumber] UNIQUE CLUSTERED ([LocationNumber] ASC),

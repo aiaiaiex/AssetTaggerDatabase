@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[EndUser] (
     [EndUserNumber] INT IDENTITY (1, 1),
     [EndUserID] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUser_EndUserID] DEFAULT (NEWID()) NOT NULL,
-    [EndUserName] NVARCHAR(4000) NOT NULL,
+    [EndUserName] NVARCHAR(850) NOT NULL,
     [EndUserPasswordHash] NCHAR(64) NOT NULL,
     [EndUserPasswordSalt] UNIQUEIDENTIFIER NOT NULL,
     [EndUserRoleID] UNIQUEIDENTIFIER NOT NULL,

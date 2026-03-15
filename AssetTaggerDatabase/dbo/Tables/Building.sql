@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[Building] (
     [BuildingNumber] INT IDENTITY (1, 1),
     [BuildingID] UNIQUEIDENTIFIER CONSTRAINT [DF_Building_BuildingID] DEFAULT (NEWID()) NOT NULL,
-    [BuildingName] NVARCHAR(4000) NOT NULL,
+    [BuildingName] NVARCHAR(850) NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
-    [BuildingAddress] NVARCHAR(4000) NOT NULL,
+    [BuildingAddress] NVARCHAR(850) NOT NULL,
     [BuildingInsertDate] DATETIME CONSTRAINT [DF_Building_BuildingInsertDate] DEFAULT (GETDATE()) NOT NULL,
     CONSTRAINT [AK_Building_BuildingNumber] UNIQUE CLUSTERED ([BuildingNumber] ASC),
     CONSTRAINT [AK_Building_BuildingAddress] UNIQUE ([BuildingAddress]),
