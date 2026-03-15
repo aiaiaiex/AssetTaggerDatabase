@@ -3,6 +3,7 @@
     [ProductID] UNIQUEIDENTIFIER CONSTRAINT [DF_Product_ProductID] DEFAULT (NEWID()) NOT NULL,
     [ProductName] NVARCHAR(421) NULL,
     [ProductModelNumber] NVARCHAR(421) NULL,
+    [ProductDocumentationURL] NVARCHAR(4000) NULL,
     [ManufacturerID] UNIQUEIDENTIFIER NULL,
     [CategoryID] UNIQUEIDENTIFIER NOT NULL,
     [ProductInsertDate] DATETIME CONSTRAINT [DF_Product_ProductInsertDate] DEFAULT (GETDATE()) NOT NULL,
@@ -13,6 +14,9 @@
     CONSTRAINT [CK_Product_ProductModelNumber_Exclude] CHECK ([ProductModelNumber] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ProductModelNumber_MinimumLength] CHECK (LEN([ProductModelNumber]) > 0),
     CONSTRAINT [CK_Product_ProductModelNumber_NoLeadingAndTrailingWhitespace] CHECK ([ProductModelNumber] NOT LIKE ' %' AND [ProductModelNumber] NOT LIKE '% '),
+    CONSTRAINT [CK_Asset_ProductDocumentationURL_Exclude] CHECK ([ProductDocumentationURL] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Asset_ProductDocumentationURL_MinimumLength] CHECK (LEN([ProductDocumentationURL]) > 0),
+    CONSTRAINT [CK_Asset_ProductDocumentationURL_NoLeadingAndTrailingWhitespace] CHECK ([ProductDocumentationURL] NOT LIKE ' %' AND [ProductDocumentationURL] NOT LIKE '% '),
     CONSTRAINT [PK_Product] PRIMARY KEY NONCLUSTERED ([ProductID] ASC),
     CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerID]) REFERENCES [dbo].[Manufacturer] ([ManufacturerID]),
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])
