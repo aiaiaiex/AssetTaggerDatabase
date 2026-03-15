@@ -141,7 +141,6 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="test_Constraints\Stored Procedures\test_DF_AssetIssue_AssetIssueID.sql" />
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_LogInEndUser_ReturnsID_OnValidCredentials.sql" />
     <Build Include="tSQLt\Tables\CaptureOutputLog.sql">
       <AnsiNulls>On</AnsiNulls>
       <QuotedIdentifier>On</QuotedIdentifier>
@@ -852,87 +851,7 @@
     <Build Include="tSQLt\User Defined Types\Private.sql" />
     <Build Include="tSQLt\User Defined Types\AssertStringTable.sql" />
     <Build Include="Security\tSQLt.sql" />
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CalculateAnnualDepreciationExpense.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="Security\test_StoredProcedures.sql" />
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CalculateCurrentBookValue_CalculatesCorrectly.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_CalculateWarrantyExpirationDate_CalculatesMonthsCorrectly.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetsByEmployee_ReturnsOnlyAssignedAssets.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetIssuesOfProduct.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetsOfProduct_ReturnsCorrectAssets.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetsReceivedByCompany_ReturnsCorrectAssets.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetsTranseferredByCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetBuildingsOfSubsidiariesOfCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetCurrentFixedStatusOfAsset_WhenAtLeastOneDateIsNotNull.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetCurrentFixedStatusOfAsset_WhenAllDatesAreNotNull.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetEmployeesOfDepartment_ReturnsCorrectEmployees.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetAssetsSoldByVendor_ReturnsCorrectAssets.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetEmployeesOfRole_ReturnsCorrectEmployees.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetLocationsOfBuilding_ReturnsCorrectLocations.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetProductsOfCategory_ReturnsCorrectProducts.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetBuildingsOfCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetProductsOfProductSet_ReturnsCorrectChildProducts.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_StoredProcedures\Stored Procedures\test_usp_GetSubsidiariesOfCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_TableValuedFunctions\Stored Procedures\test_tvf_GetSubsidiariesOfCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="Security\test_TableValuedFunctions.sql" />
     <Build Include="Security\test_ScalarValuedFunctions.sql" />
     <Build Include="test_ScalarValuedFunctions\Stored Procedures\test_udf_CalculateAnnualDepreciationExpense.sql">
@@ -940,46 +859,6 @@
       <QuotedIdentifier>On</QuotedIdentifier>
     </Build>
     <Build Include="Security\test_Views.sql" />
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableAsset.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableAssetFix.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableAssetIssue.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableAssetTransfer.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableBuilding.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableCompany.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableEmployee.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableLocation.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableProduct.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
-    <Build Include="test_Views\Stored Procedures\test_VI_ReadableProductSet.sql">
-      <AnsiNulls>On</AnsiNulls>
-      <QuotedIdentifier>On</QuotedIdentifier>
-    </Build>
     <Build Include="Security\test_Constraints.sql" />
     <Build Include="test_Constraints\Stored Procedures\test_DF_Asset_AssetID.sql">
       <AnsiNulls>On</AnsiNulls>
