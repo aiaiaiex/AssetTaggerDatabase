@@ -3,7 +3,7 @@
     [AssetFixID] UNIQUEIDENTIFIER CONSTRAINT [DF_AssetFix_AssetFixID] DEFAULT (NEWID()) NOT NULL,
     [AssetIssueID] UNIQUEIDENTIFIER NOT NULL,
     [AssetFixDateStart] DATETIME CONSTRAINT [DF_AssetFix_AssetFixDateStart] DEFAULT (GETDATE()) NOT NULL,
-    [AssetFixCost] MONEY NULL,
+    [AssetFixCost] DECIMAL(19, 4) NULL,
     [AssetFixDateEnd] DATETIME NULL,
     [AssetFixTitle] NVARCHAR(4000) NOT NULL,
     [AssetFixDescription] NVARCHAR(MAX) NULL,

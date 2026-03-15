@@ -1,16 +1,13 @@
 ﻿CREATE FUNCTION [dbo].[udf_CalculateAnnualDepreciationExpense](
-    @AssetPurchasePrice MONEY,
-    @AssetSalvageValue MONEY,
+    @AssetPurchasePrice DECIMAL(19, 4),
+    @AssetSalvageValue DECIMAL(19, 4),
     @AssetUsefulLife INT
 )
-RETURNS MONEY AS
+RETURNS DECIMAL(19, 4) AS
 BEGIN
     IF (@AssetUsefulLife <= 0)
         RETURN NULL
 
-    DECLARE @AnnualDepreciationExpense MONEY;
+    RETURN (@AssetPurchasePrice - @AssetSalvageValue) / @AssetUsefulLife;
 
-    SET @AnnualDepreciationExpense = CAST(ROUND((@AssetPurchasePrice - @AssetSalvageValue) / @AssetUsefulLife, 2) AS MONEY);
-
-    RETURN @AnnualDepreciationExpense;
 END;

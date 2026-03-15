@@ -3,7 +3,7 @@
     [AssetID] UNIQUEIDENTIFIER CONSTRAINT [DF_Asset_AssetID] DEFAULT (NEWID()) NOT NULL,
     [AssetTagDate] DATETIME CONSTRAINT [DF_Asset_AssetTagDate] DEFAULT (GETDATE()) NOT NULL,
     [AssetPurchaseDate] DATETIME NULL,
-    [AssetPurchasePrice] MONEY NULL,
+    [AssetPurchasePrice] DECIMAL(19, 4) NULL,
     [AssetSerialNumber] NVARCHAR(842) NULL,
     -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
     -- See more:
@@ -11,7 +11,7 @@
     [AssetWarrantyUnitOfMeasure] NCHAR(2) NULL,
     [AssetWarrantyDuration] INT NULL,
     [AssetUsefulLife] INT NULL,
-    [AssetSalvageValue] MONEY NULL,
+    [AssetSalvageValue] DECIMAL(19, 4) NULL,
     [AssetDocumentationURL] NVARCHAR(4000) NULL,
     [ProductID] UNIQUEIDENTIFIER NOT NULL,
     [VendorID] UNIQUEIDENTIFIER NULL,
