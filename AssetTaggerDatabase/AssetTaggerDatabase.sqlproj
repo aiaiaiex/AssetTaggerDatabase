@@ -147,40 +147,7 @@
     <Build Include="dbo\Tables\ProductSet.sql" />
     <Build Include="dbo\Tables\Role.sql" />
     <Build Include="dbo\Tables\Vendor.sql" />
-    <Build Include="dbo\Views\VI_ReadableCompany.sql" />
-    <Build Include="dbo\Views\VI_ReadableAsset.sql" />
-    <Build Include="dbo\Views\VI_ReadableAssetFix.sql" />
-    <Build Include="dbo\Views\VI_ReadableAssetIssue.sql" />
-    <Build Include="dbo\Views\VI_ReadableAssetTransfer.sql" />
-    <Build Include="dbo\Views\VI_ReadableBuilding.sql">
-      <AnsiNulls>Off</AnsiNulls>
-    </Build>
-    <Build Include="dbo\Views\VI_ReadableEmployee.sql" />
-    <Build Include="dbo\Views\VI_ReadableLocation.sql">
-      <AnsiNulls>Off</AnsiNulls>
-    </Build>
-    <Build Include="dbo\Views\VI_ReadableProduct.sql" />
-    <Build Include="dbo\Views\VI_ReadableProductSet.sql" />
     <Build Include="dbo\Functions\udf_CalculateAnnualDepreciationExpense.sql" />
-    <Build Include="dbo\Functions\tvf_GetSubsidiariesOfCompany.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetEmployeesOfRole.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetBuildingsOfSubsidiariesOfCompany.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetSubsidiariesOfCompany.sql" />
-    <Build Include="dbo\Stored Procedures\usp_CalculateAnnualDepreciationExpense.sql" />
-    <Build Include="dbo\Stored Procedures\usp_CalculateCurrentBookValue.sql" />
-    <Build Include="dbo\Stored Procedures\usp_CalculateWarrantyExpirationDate.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetAssetsReceivedByCompany.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetAssetsTranseferredByCompany.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetProductsOfProductSet.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetEmployeesOfDepartment.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetProductsOfCategory.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetAssetsSoldByVendor.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetAssetsByEmployee.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetAssetsOfProduct.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetCurrentFixedStatusOfAsset.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetBuildingsOfCompany.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetLocationsOfBuilding.sql" />
-    <Build Include="dbo\Stored Procedures\usp_GetAssetIssuesOfProduct.sql" />
     <Build Include="dbo\Tables\EndUserRole.sql" />
     <Build Include="dbo\Tables\Manufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateEndUser.sql" />
