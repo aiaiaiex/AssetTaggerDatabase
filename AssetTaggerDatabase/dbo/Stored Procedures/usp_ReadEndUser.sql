@@ -54,7 +54,7 @@ BEGIN
         EmployeeID,
         EndUserRegisterDate
     FROM [dbo].[EndUser]
-    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND EndUserName = ISNULL(@EndUserName, EndUserName) AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID) AND EmployeeID = ISNULL(@EmployeeID, EmployeeID) AND ISNULL(@FromEndUserRegisterDate, EndUserRegisterDate) <= EndUserRegisterDate AND EndUserRegisterDate <= ISNULL(@ToEndUserRegisterDate, EndUserRegisterDate)
+    WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND (EndUserName = ISNULL(@EndUserName, EndUserName) OR EndUserName LIKE ISNULL(@EndUserName, EndUserName)) AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID) AND EmployeeID = ISNULL(@EmployeeID, EmployeeID) AND ISNULL(@FromEndUserRegisterDate, EndUserRegisterDate) <= EndUserRegisterDate AND EndUserRegisterDate <= ISNULL(@ToEndUserRegisterDate, EndUserRegisterDate)
     ORDER BY
         EndUserNumber ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
