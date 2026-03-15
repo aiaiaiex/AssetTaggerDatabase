@@ -5,9 +5,6 @@
     [AssetPurchaseDate] DATETIME NULL,
     [AssetPurchasePrice] DECIMAL(19, 4) NULL,
     [AssetSerialNumber] NVARCHAR(842) NULL,
-    -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
-    -- See more:
-    -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
     [AssetWarrantyUnitOfMeasure] NCHAR(2) NULL,
     [AssetWarrantyDuration] INT NULL,
     [AssetUsefulLife] INT NULL,
@@ -24,6 +21,9 @@
     CONSTRAINT [CK_Asset_AssetSerialNumber_NoLeadingAndTrailingWhitespace] CHECK ([AssetSerialNumber] NOT LIKE ' %' AND [AssetSerialNumber] NOT LIKE '% '),
     CONSTRAINT [CK_Asset_AssetUsefulLife] CHECK ([AssetUsefulLife] >= (0)),
     CONSTRAINT [CK_Asset_AssetWarrantyDuration] CHECK ([AssetWarrantyDuration] >= (0)),
+    -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
+    -- See more:
+    -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
     CONSTRAINT [CK_Asset_AssetWarrantyUnitOfMeasure] CHECK ([AssetWarrantyUnitOfMeasure] IN ('yy', 'mm', 'ww', 'dd')),
     CONSTRAINT [CTK_Asset_AssetWarrantyUnitOfMeasure_AssetWarrantyDuration] CHECK ([AssetWarrantyUnitOfMeasure] IS NOT NULL AND [AssetWarrantyDuration] IS NOT NULL OR [AssetWarrantyUnitOfMeasure] IS NULL AND [AssetWarrantyDuration] IS NULL),
     CONSTRAINT [CK_Asset_AssetDocumentationURL_Exclude] CHECK ([AssetDocumentationURL] NOT IN ('', '!', 'NULL')),
