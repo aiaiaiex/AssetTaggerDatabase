@@ -3,7 +3,7 @@
     @AssetSalvageValue DECIMAL(19, 4),
     @AssetUsefulLife INT
 )
-RETURNS DECIMAL(19, 4) AS
+RETURNS DECIMAL(19, 4) WITH SCHEMABINDING AS
 BEGIN
     IF (@AssetUsefulLife <= 0)
         RETURN NULL

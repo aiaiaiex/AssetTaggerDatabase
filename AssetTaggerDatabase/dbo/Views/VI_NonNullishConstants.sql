@@ -1,4 +1,4 @@
-﻿CREATE VIEW [dbo].[VI_NonNullishConstants]
+﻿CREATE VIEW [dbo].[VI_NonNullishConstants] WITH SCHEMABINDING
 AS
 SELECT
     -- @NON_NULLISH_UNIQUEIDENTIFIER (11111111-1111-1111-1111-111111111111) will never be equal to NEWID() because NEWID() complies with RFC4122 which should always include the version number in the generated UNIQUEIDENTIFIER which can't be 1 because the version number of random UUIDs is 4.

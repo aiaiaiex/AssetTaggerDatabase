@@ -3,7 +3,7 @@ CREATE FUNCTION [dbo].[udf_CalculateWarrantyExpirationDate](
     @AssetWarrantyDuration INT,
     @AssetPurchaseDate DATETIME
 )
-RETURNS DATETIME AS
+RETURNS DATETIME WITH SCHEMABINDING AS
 BEGIN
     IF (@AssetWarrantyDuration < 0)
         RETURN NULL

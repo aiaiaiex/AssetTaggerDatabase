@@ -4,7 +4,7 @@ CREATE FUNCTION [dbo].[udf_CalculateCurrentBookValue](
     @AssetUsefulLife INT,
     @AssetPurchaseDate DATETIME
 )
-RETURNS DECIMAL(19, 4) AS
+RETURNS DECIMAL(19, 4) WITH SCHEMABINDING AS
 BEGIN
     DECLARE @YearsPassed INT = DATEDIFF(DD, @AssetPurchaseDate, GETDATE()) / 365;
 
