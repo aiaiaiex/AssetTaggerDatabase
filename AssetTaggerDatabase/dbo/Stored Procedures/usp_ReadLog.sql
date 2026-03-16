@@ -1,6 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_ReadLog]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @LogID UNIQUEIDENTIFIER = NULL,
+    @EndUserID UNIQUEIDENTIFIER = NULL,
     @LogEndUserIP NVARCHAR(4000) = '',
     @LogStoredProcedureSuccess BIT = NULL,
     @LogStoredProcedureName NVARCHAR(4000) = NULL,
@@ -47,9 +48,7 @@ BEGIN
         LogStoredProcedureName,
         LogStoredProcedureParameters
     FROM [dbo].[Log]
-    -- @RowsToSkip INT = NULL,
-    -- @RowsToReturn INT = NULL
-    WHERE LogID = ISNULL(@LogID, LogID) AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP) AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess) AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName) AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters) AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart) AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd) AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
+    WHERE LogID = ISNULL(@LogID, LogID) AND EndUserID = ISNULL(@EndUserID, EndUserID) AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP) AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess) AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName) AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters) AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart) AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd) AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
     ORDER BY
         LogNumber ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
