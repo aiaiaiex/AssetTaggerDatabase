@@ -40,6 +40,18 @@ BEGIN
             RETURN -1;
         END
 
+    IF (LEN(@EndUserName) < 1)
+        BEGIN
+            RAISERROR (N'@EndUserName''s length cannot be less than 1!', 11, 0, @EndUserName);
+            RETURN -1;
+        END
+
+    IF (CHARINDEX(' ', @EndUserName) != 0)
+        BEGIN
+            RAISERROR (N'@EndUserName cannot have whitespace!', 11, 0, @EndUserName);
+            RETURN -1;
+        END
+
     IF (@FromEndUserRegisterDate > @ToEndUserRegisterDate)
         BEGIN
             RAISERROR ('@FromEndUserRegisterDate cannot be later than @ToEndUserRegisterDate!', 11, 0);
