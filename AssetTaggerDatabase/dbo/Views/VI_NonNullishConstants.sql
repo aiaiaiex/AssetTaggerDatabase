@@ -6,4 +6,4 @@ SELECT
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/newid-transact-sql
     -- https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.3
     CAST('11111111-1111-1111-1111-111111111111' AS UNIQUEIDENTIFIER) AS NON_NULLISH_UNIQUEIDENTIFIER,
-    CAST('!' AS NVARCHAR) AS NON_NULLISH_NVARCHAR
+    CAST('!' AS NVARCHAR(4000)) AS NON_NULLISH_NVARCHAR

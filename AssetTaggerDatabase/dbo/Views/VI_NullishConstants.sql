@@ -6,4 +6,4 @@ SELECT
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/newid-transact-sql
     -- https://datatracker.ietf.org/doc/html/rfc4122#section-4.1.3
     CAST('00000000-0000-0000-0000-000000000000' AS UNIQUEIDENTIFIER) AS NULLISH_UNIQUEIDENTIFIER,
-    CAST('' AS NVARCHAR) AS NULLISH_NVARCHAR
+    CAST('' AS NVARCHAR(4000)) AS NULLISH_NVARCHAR
