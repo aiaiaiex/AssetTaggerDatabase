@@ -5,7 +5,7 @@ CREATE TABLE [dbo].[Log] (
     [LogEndUserIP] NVARCHAR(4000) NULL,
     [LogStoredProcedureStart] DATETIME NOT NULL,
     [LogStoredProcedureEnd] DATETIME NOT NULL,
-    [LogStoredProcedureSuccess] BIT DEFAULT 0 NOT NULL,
+    [LogStoredProcedureSuccess] BIT NOT NULL,
     [LogStoredProcedureName] NVARCHAR(4000) NOT NULL,
     [LogStoredProcedureParameters] NVARCHAR(MAX) NOT NULL,
     CONSTRAINT [AK_Log_LogNumber] UNIQUE CLUSTERED ([LogNumber] ASC),
