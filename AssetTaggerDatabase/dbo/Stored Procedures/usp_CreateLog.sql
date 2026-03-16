@@ -20,7 +20,7 @@ BEGIN
         END;
     IF (@CreateLog = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to create Log!', 11, 0);
+            RAISERROR ('@CallingEndUserID has no permission to create a Log!', 11, 0);
             RETURN -1;
         END;
 
