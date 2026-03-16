@@ -70,7 +70,7 @@ BEGIN
     ORDER BY
         EndUserNumber ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
-        -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT.
+        -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
         FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
