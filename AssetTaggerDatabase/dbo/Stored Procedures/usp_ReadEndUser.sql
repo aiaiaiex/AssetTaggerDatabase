@@ -34,7 +34,7 @@ BEGIN
             RETURN -1;
         END
 
-    IF (UPPER(@EndUserName) IN ('', '!', 'NULL'))
+    IF (@EndUserName IN ('', '!', 'NULL'))
         BEGIN
             RAISERROR (N'@EndUserName cannot be ''%s''!', 11, 0, @EndUserName);
             RETURN -1;
