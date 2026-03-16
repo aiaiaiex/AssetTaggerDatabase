@@ -4,7 +4,7 @@ CREATE TABLE [dbo].[Log] (
     [EndUserID] UNIQUEIDENTIFIER NOT NULL,
     [LogEndUserIP] NVARCHAR(4000) NULL,
     [LogStoredProcedureStart] DATETIME NOT NULL,
-    [LogStoredProcedureEnd] DATETIME NULL,
+    [LogStoredProcedureEnd] DATETIME NOT NULL,
     [LogStoredProcedureSuccess] BIT DEFAULT 0 NOT NULL,
     [LogStoredProcedureName] NVARCHAR(4000) NOT NULL,
     [LogStoredProcedureParameters] NVARCHAR(MAX) NOT NULL,
