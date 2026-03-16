@@ -63,6 +63,11 @@
     [ReadLocation] BIT DEFAULT 0 NOT NULL,
     [UpdateLocation] BIT DEFAULT 0 NOT NULL,
     [DeleteLocation] BIT DEFAULT 0 NOT NULL,
+    -- Log CRUD Permissions
+    [CreateLog] BIT DEFAULT 1 NOT NULL,
+    [ReadLog] BIT DEFAULT 0 NOT NULL,
+    [UpdateLog] BIT DEFAULT 1 NOT NULL,
+    [DeleteLog] BIT DEFAULT 0 NOT NULL,
     -- Manufacturer CRUD Permissions
     [CreateManufacturer] BIT DEFAULT 0 NOT NULL,
     [ReadManufacturer] BIT DEFAULT 0 NOT NULL,
