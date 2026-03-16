@@ -1,0 +1,25 @@
+DROP TABLE IF EXISTS [dbo].[Log];
+GO
+CREATE TABLE [dbo].[Log] (
+    [LogNumber] BIGINT IDENTITY (1, 1),
+    [LogID] UNIQUEIDENTIFIER CONSTRAINT [DF_Log_LogID] DEFAULT (NEWID()) NOT NULL,
+    [EndUserID] UNIQUEIDENTIFIER NOT NULL,
+    [LogEndUserIP] NVARCHAR(4000) NULL,
+    [LogStoredProcedureStart] DATETIME NOT NULL,
+    [LogStoredProcedureEnd] DATETIME NULL,
+    [LogStoredProcedureSuccess] BIT DEFAULT 0 NOT NULL,
+    [LogStoredProcedureName] NVARCHAR(4000) NOT NULL,
+    [LogStoredProcedureParameters] NVARCHAR(4000) NOT NULL,
+    CONSTRAINT [AK_Log_LogNumber] UNIQUE CLUSTERED ([LogNumber] ASC),
+    CONSTRAINT [CK_Log_LogEndUserIP_Exclude] CHECK ([LogEndUserIP] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Log_LogEndUserIP_MinimumLength] CHECK (LEN([LogEndUserIP]) > 0),
+    CONSTRAINT [CK_Log_LogEndUserIP_NoLeadingAndTrailingWhitespace] CHECK ([LogEndUserIP] NOT LIKE ' %' AND [LogEndUserIP] NOT LIKE '% '),
+    CONSTRAINT [CK_Log_LogStoredProcedureName_Exclude] CHECK ([LogStoredProcedureName] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Log_LogStoredProcedureName_MinimumLength] CHECK (LEN([LogStoredProcedureName]) > 0),
+    CONSTRAINT [CK_Log_LogStoredProcedureName_NoLeadingAndTrailingWhitespace] CHECK ([LogStoredProcedureName] NOT LIKE ' %' AND [LogStoredProcedureName] NOT LIKE '% '),
+    CONSTRAINT [CK_Log_LogStoredProcedureParameters_Exclude] CHECK ([LogStoredProcedureParameters] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Log_LogStoredProcedureParameters_MinimumLength] CHECK (LEN([LogStoredProcedureParameters]) > 0),
+    CONSTRAINT [CK_Log_LogStoredProcedureParameters_NoLeadingAndTrailingWhitespace] CHECK ([LogStoredProcedureParameters] NOT LIKE ' %' AND [LogStoredProcedureParameters] NOT LIKE '% '),
+    CONSTRAINT [FK_Log_EndUser] FOREIGN KEY ([EndUserID]) REFERENCES [dbo].[EndUser] ([EndUserID]),
+    CONSTRAINT [PK_Log] PRIMARY KEY NONCLUSTERED ([LogID] ASC)
+);
