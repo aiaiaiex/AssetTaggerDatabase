@@ -26,7 +26,7 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Log] (EndUserID, LogEndUserIP, LogStoredProcedureStart, LogStoredProcedureEnd, LogStoredProcedureSuccess, LogStoredProcedureName, LogStoredProcedureParameters)
-    OUTPUT INSERTED.LogID, INSERTED.EndUserID, INSERTED.LogEndUserIP, INSERTED.LogStoredProcedureStart, INSERTED.LogStoredProcedureEnd, INSERTED.LogStoredProcedureSuccess, INSERTED.LogStoredProcedureName, INSERTED.LogStoredProcedureParameters
+    OUTPUT INSERTED.LogID, INSERTED.EndUserID, INSERTED.LogEndUserIP, INSERTED.LogStoredProcedureStart, INSERTED.LogStoredProcedureEnd, INSERTED.LogStoredProcedureMilliseconds, INSERTED.LogStoredProcedureSuccess, INSERTED.LogStoredProcedureName, INSERTED.LogStoredProcedureParameters
     VALUES (
         @CallingEndUserID,
         @LogEndUserIP,

@@ -21,7 +21,7 @@ BEGIN
 
     -- Run actual query.
     DELETE [dbo].[Log]
-    OUTPUT DELETED.LogID, DELETED.EndUserID, DELETED.LogEndUserIP, DELETED.LogStoredProcedureStart, DELETED.LogStoredProcedureEnd, DELETED.LogStoredProcedureSuccess, DELETED.LogStoredProcedureName, DELETED.LogStoredProcedureParameters
+    OUTPUT DELETED.LogID, DELETED.EndUserID, DELETED.LogEndUserIP, DELETED.LogStoredProcedureStart, DELETED.LogStoredProcedureEnd, DELETED.LogStoredProcedureMilliseconds, DELETED.LogStoredProcedureSuccess, DELETED.LogStoredProcedureName, DELETED.LogStoredProcedureParameters
     FROM [dbo].[Log]
     WHERE LogID = @LogID;
 END;
