@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateLog]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserID UNIQUEIDENTIFIER = NULL,
     @LogEndUserIP NVARCHAR(4000) = NULL,
     @LogStoredProcedureStart DATETIME,
     @LogStoredProcedureEnd DATETIME,
@@ -11,9 +11,13 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateLog BIT = (SELECT CreateLog FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @CreateLog BIT = CASE
+        WHEN @CallingEndUserID IS NULL THEN NULL
+        ELSE (SELECT CreateLog FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID))
+    END;
 
-    IF (@CreateLog IS NULL)
+    -- Only raise error when @CreateLog is NULL when @CallingEndUserID is not NULL so that a NULL @CallingEndUserID can be logged as EndUserID in Log in 'unprotected' stored procedures.
+    IF (@CallingEndUserID IS NOT NULL AND @CreateLog IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;

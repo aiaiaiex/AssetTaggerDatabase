@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_ReadLog]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @LogID UNIQUEIDENTIFIER = NULL,
-    @EndUserID UNIQUEIDENTIFIER = NULL,
+    @EndUserID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
     @LogEndUserIP NVARCHAR(4000) = '',
     @LogStoredProcedureSuccess BIT = NULL,
     @LogStoredProcedureName NVARCHAR(4000) = NULL,
@@ -34,7 +34,10 @@ BEGIN
         END;
 
     -- Get CONSTANTS.
+    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
+
+    DECLARE @NON_NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NON_NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NON_NULLISH_NVARCHAR FROM [dbo].[VI_NonNullishConstants]);
 
     -- Run actual query.
@@ -49,7 +52,7 @@ BEGIN
         LogStoredProcedureName,
         LogStoredProcedureParameters
     FROM [dbo].[Log]
-    WHERE LogID = ISNULL(@LogID, LogID) AND EndUserID = ISNULL(@EndUserID, EndUserID) AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP) AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess) AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName) AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters) AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart) AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd) AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
+    WHERE LogID = ISNULL(@LogID, LogID) AND EndUserID IS NOT DISTINCT FROM IIF(@EndUserID = @NULLISH_UNIQUEIDENTIFIER, EndUserID, IIF(@EndUserID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserID, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserID)) AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP) AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess) AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName) AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters) AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart) AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd) AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
     ORDER BY
         CASE WHEN @NewestRowsFirst IS NULL OR @NewestRowsFirst = 1 THEN LogNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN LogNumber END ASC
