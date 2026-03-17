@@ -142,6 +142,7 @@
     <Build Include="dbo\Stored Procedures\usp_DeleteManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ReadEndUserRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadRole.sql" />
