@@ -5,7 +5,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateProduct]
     @ProductModelNumber NVARCHAR(421) = '',
     @ProductDocumentationURL NVARCHAR(4000) = '',
     @ManufacturerID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
-    @CategoryID UNIQUEIDENTIFIER
+    @CategoryID UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
