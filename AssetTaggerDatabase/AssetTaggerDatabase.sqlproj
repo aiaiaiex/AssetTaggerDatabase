@@ -173,6 +173,7 @@
     <Build Include="dbo\Stored Procedures\usp_UpdateDepartment.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateEmployee.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateEndUserRole.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateLocation.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateProduct.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateRole.sql" />
