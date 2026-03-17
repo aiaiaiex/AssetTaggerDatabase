@@ -155,6 +155,7 @@
     <Build Include="dbo\Stored Procedures\usp_ReadManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateDepartment.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateEndUserRole.sql" />
