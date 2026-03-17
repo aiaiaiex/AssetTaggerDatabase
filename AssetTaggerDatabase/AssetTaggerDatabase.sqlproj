@@ -132,6 +132,7 @@
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAuthentication.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateDepartment.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateEndUserRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateManufacturer.sql" />
