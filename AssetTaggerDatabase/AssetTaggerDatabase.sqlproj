@@ -146,6 +146,7 @@
     <Build Include="dbo\Stored Procedures\usp_ReadManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateEndUserRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateVendor.sql" />
