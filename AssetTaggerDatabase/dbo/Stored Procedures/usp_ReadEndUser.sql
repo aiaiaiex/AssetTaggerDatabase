@@ -43,13 +43,13 @@ BEGIN
 
     IF (LEN(@EndUserName) < 1)
         BEGIN
-            RAISERROR (N'@EndUserName''s length cannot be less than 1!', 11, 0, @EndUserName);
+            RAISERROR ('@EndUserName''s length cannot be less than 1!', 11, 0);
             RETURN -1;
         END
 
     IF (CHARINDEX(' ', @EndUserName) != 0)
         BEGIN
-            RAISERROR (N'@EndUserName cannot have whitespace!', 11, 0, @EndUserName);
+            RAISERROR ('@EndUserName cannot have whitespace!', 11, 0);
             RETURN -1;
         END
 
