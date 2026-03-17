@@ -138,6 +138,7 @@
     <Build Include="dbo\Stored Procedures\usp_CreateManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteDepartment.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteEndUserRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteManufacturer.sql" />
