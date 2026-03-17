@@ -13,7 +13,8 @@ CREATE PROCEDURE [dbo].[usp_ReadLog]
     @FromLogStoredProcedureMilliseconds INT = NULL,
     @ToLogStoredProcedureMilliseconds INT = NULL,
     @RowsToSkip BIGINT = NULL,
-    @RowsToReturn BIGINT = NULL
+    @RowsToReturn BIGINT = NULL,
+    @NewestRowsFirst BIT = NULL -- Defaults to 1 when NULL.
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -50,7 +51,8 @@ BEGIN
     FROM [dbo].[Log]
     WHERE LogID = ISNULL(@LogID, LogID) AND EndUserID = ISNULL(@EndUserID, EndUserID) AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP) AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess) AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName) AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters) AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart) AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd) AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
     ORDER BY
-        LogNumber ASC
+        CASE WHEN @NewestRowsFirst IS NULL OR @NewestRowsFirst = 1 THEN LogNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN LogNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 9,223,372,036,854,775,807 rows which is the upper limit of BIGINT, the data type of LogNumber.
         -- See more:
