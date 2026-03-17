@@ -155,6 +155,7 @@
     <Build Include="dbo\Stored Procedures\usp_ReadCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadDepartment.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ReadEmployee.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadEndUserRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadManufacturer.sql" />
