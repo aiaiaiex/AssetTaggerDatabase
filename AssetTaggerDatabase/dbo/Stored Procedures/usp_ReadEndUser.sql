@@ -8,7 +8,7 @@
     @ToEndUserRegisterDate DATETIME = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
-    @NewestRowsFirst BIT = NULL -- Defaults to 1 when NULL.
+    @NewestRowsFirst BIT = 1
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -69,7 +69,7 @@ BEGIN
     FROM [dbo].[EndUser]
     WHERE EndUserID = ISNULL(@EndUserID, EndUserID) AND (EndUserName = ISNULL(@EndUserName, EndUserName) OR EndUserName LIKE @EndUserName) AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID) AND EmployeeID = ISNULL(@EmployeeID, EmployeeID) AND ISNULL(@FromEndUserRegisterDate, EndUserRegisterDate) <= EndUserRegisterDate AND EndUserRegisterDate <= ISNULL(@ToEndUserRegisterDate, EndUserRegisterDate)
     ORDER BY
-        CASE WHEN @NewestRowsFirst IS NULL OR @NewestRowsFirst = 1 THEN EndUserNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 1 THEN EndUserNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN EndUserNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
