@@ -168,6 +168,7 @@
     <Build Include="dbo\Stored Procedures\usp_ReadLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadProduct.sql" />
+    <Build Include="dbo\Stored Procedures\usp_ReadProductSet.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateBuilding.sql" />
