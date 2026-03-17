@@ -34,7 +34,7 @@ BEGIN
         [dbo].[Manufacturer]
     WHERE
         ManufacturerID = ISNULL(@ManufacturerID, ManufacturerID)
-        AND ManufacturerName = ISNULL(@ManufacturerName, ManufacturerName)
+        AND (ManufacturerName = ISNULL(@ManufacturerName, ManufacturerName) OR ManufacturerName LIKE @ManufacturerName)
         AND ISNULL(@FromManufacturerInsertDate, ManufacturerInsertDate) <= ManufacturerInsertDate
         AND ManufacturerInsertDate <= ISNULL(@ToManufacturerInsertDate, ManufacturerInsertDate)
     ORDER BY

@@ -34,7 +34,7 @@ BEGIN
         [dbo].[Department]
     WHERE
         DepartmentID = ISNULL(@DepartmentID, DepartmentID)
-        AND DepartmentName = ISNULL(@DepartmentName, DepartmentName)
+        AND (DepartmentName = ISNULL(@DepartmentName, DepartmentName) OR DepartmentName LIKE @DepartmentName)
         AND ISNULL(@FromDepartmentInsertDate, DepartmentInsertDate) <= DepartmentInsertDate
         AND DepartmentInsertDate <= ISNULL(@ToDepartmentInsertDate, DepartmentInsertDate)
     ORDER BY

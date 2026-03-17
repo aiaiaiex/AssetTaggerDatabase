@@ -174,7 +174,7 @@ BEGIN
         [dbo].[EndUserRole]
     WHERE
         EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID)
-        AND EndUserRoleName = ISNULL(@EndUserRoleName, EndUserRoleName)
+        AND (EndUserRoleName = ISNULL(@EndUserRoleName, EndUserRoleName) OR EndUserRoleName LIKE @EndUserRoleName)
         AND CreateAsset = ISNULL(@CreateAsset, CreateAsset)
         AND ReadAsset = ISNULL(@ReadAsset, ReadAsset)
         AND UpdateAsset = ISNULL(@UpdateAsset, UpdateAsset)

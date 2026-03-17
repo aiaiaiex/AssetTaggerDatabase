@@ -34,7 +34,7 @@ BEGIN
         [dbo].[Category]
     WHERE
         CategoryID = ISNULL(@CategoryID, CategoryID)
-        AND CategoryName = ISNULL(@CategoryName, CategoryName)
+        AND (CategoryName = ISNULL(@CategoryName, CategoryName) OR CategoryName LIKE @CategoryName)
         AND ISNULL(@FromCategoryInsertDate, CategoryInsertDate) <= CategoryInsertDate
         AND CategoryInsertDate <= ISNULL(@ToCategoryInsertDate, CategoryInsertDate)
     ORDER BY

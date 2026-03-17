@@ -36,8 +36,8 @@ BEGIN
         [dbo].[Vendor]
     WHERE
         VendorID = ISNULL(@VendorID, VendorID)
-        AND VendorName = ISNULL(@VendorName, VendorName)
-        AND VendorAddress = ISNULL(@VendorAddress, VendorAddress)
+        AND (VendorName = ISNULL(@VendorName, VendorName) OR VendorName LIKE @VendorName)
+        AND (VendorAddress = ISNULL(@VendorAddress, VendorAddress) OR VendorAddress LIKE @VendorAddress)
         AND ISNULL(@FromVendorInsertDate, VendorInsertDate) <= VendorInsertDate
         AND VendorInsertDate <= ISNULL(@ToVendorInsertDate, VendorInsertDate)
     ORDER BY

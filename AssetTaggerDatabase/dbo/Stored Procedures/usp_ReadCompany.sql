@@ -45,9 +45,9 @@ BEGIN
         [dbo].[Company]
     WHERE
         CompanyID = ISNULL(@CompanyID, CompanyID)
-        AND CompanyName = ISNULL(@CompanyName, CompanyName)
-        AND CompanyAddress = ISNULL(@CompanyAddress, CompanyAddress)
-        AND CompanyCode = ISNULL(@CompanyCode, CompanyCode)
+        AND (CompanyName = ISNULL(@CompanyName, CompanyName) OR CompanyName LIKE @CompanyName)
+        AND (CompanyAddress = ISNULL(@CompanyAddress, CompanyAddress) OR CompanyAddress LIKE @CompanyAddress)
+        AND (CompanyCode = ISNULL(@CompanyCode, CompanyCode) OR CompanyCode LIKE @CompanyCode)
         AND ParentCompanyID IS NOT DISTINCT FROM IIF(@ParentCompanyID = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyID, IIF(@ParentCompanyID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(ParentCompanyID, @NON_NULLISH_UNIQUEIDENTIFIER), @ParentCompanyID))
         AND ISNULL(@FromCompanyInsertDate, CompanyInsertDate) <= CompanyInsertDate
         AND CompanyInsertDate <= ISNULL(@ToCompanyInsertDate, CompanyInsertDate)

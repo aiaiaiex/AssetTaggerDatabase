@@ -34,7 +34,7 @@ BEGIN
         [dbo].[Role]
     WHERE
         RoleID = ISNULL(@RoleID, RoleID)
-        AND RoleName = ISNULL(@RoleName, RoleName)
+        AND (RoleName = ISNULL(@RoleName, RoleName) OR RoleName LIKE @RoleName)
         AND ISNULL(@FromRoleInsertDate, RoleInsertDate) <= RoleInsertDate
         AND RoleInsertDate <= ISNULL(@ToRoleInsertDate, RoleInsertDate)
     ORDER BY
