@@ -66,10 +66,8 @@ SELECT
     EUR.ReadLocation,
     EUR.UpdateLocation,
     EUR.DeleteLocation,
-    -- Log CRUD Permissions
-    EUR.CreateLog,
+    -- Log RD Permissions
     EUR.ReadLog,
-    EUR.UpdateLog,
     EUR.DeleteLog,
     -- Manufacturer CRUD Permissions
     EUR.CreateManufacturer,

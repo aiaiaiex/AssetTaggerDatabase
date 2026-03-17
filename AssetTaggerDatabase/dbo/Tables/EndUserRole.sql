@@ -63,10 +63,11 @@
     [ReadLocation] BIT DEFAULT 0 NOT NULL,
     [UpdateLocation] BIT DEFAULT 0 NOT NULL,
     [DeleteLocation] BIT DEFAULT 0 NOT NULL,
-    -- Log CRUD Permissions
-    [CreateLog] BIT DEFAULT 1 NOT NULL,
+    -- Log RD Permissions
+    -- Log has no create permission because every call to stored procedures should be logged even if CallingEndUserID doesn't exist.
+    -- Log has no update permission because to make logs immutable.
+    -- Log has a delete permission but the call to usp_DeleteLog should be logged.
     [ReadLog] BIT DEFAULT 0 NOT NULL,
-    [UpdateLog] BIT DEFAULT 0 NOT NULL,
     [DeleteLog] BIT DEFAULT 0 NOT NULL,
     -- Manufacturer CRUD Permissions
     [CreateManufacturer] BIT DEFAULT 0 NOT NULL,
