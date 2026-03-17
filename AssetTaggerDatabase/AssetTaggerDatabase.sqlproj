@@ -142,6 +142,7 @@
     <Build Include="dbo\Stored Procedures\usp_CreateLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateProduct.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateProductSet.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteBuilding.sql" />
