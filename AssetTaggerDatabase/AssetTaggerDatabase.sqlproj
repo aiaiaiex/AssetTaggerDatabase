@@ -133,6 +133,7 @@
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAuthentication.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateLog.sql" />
+    <Build Include="dbo\Stored Procedures\usp_CreateManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteLog.sql" />
