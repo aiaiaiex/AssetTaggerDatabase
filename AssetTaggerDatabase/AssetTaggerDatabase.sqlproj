@@ -143,6 +143,7 @@
     <Build Include="dbo\Stored Procedures\usp_CreateProduct.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteDepartment.sql" />
