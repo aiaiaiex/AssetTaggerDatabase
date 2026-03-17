@@ -7,32 +7,36 @@ CREATE PROCEDURE [dbo].[usp_ReadManufacturer]
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = 1
-AS
+AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadManufacturer BIT;
-    SELECT @ReadManufacturer = (SELECT ReadManufacturer FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @ReadManufacturer BIT = (SELECT ReadManufacturer FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
     IF (@ReadManufacturer IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
-        END
+        END;
     IF (@ReadManufacturer = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Manufacturer!', 11, 0);
             RETURN -1;
-        END
+        END;
 
     -- Run actual query.
     SELECT
         ManufacturerID,
         ManufacturerName,
         ManufacturerInsertDate
-    FROM [dbo].[Manufacturer]
-    WHERE ManufacturerID = ISNULL(@ManufacturerID, ManufacturerID) AND ManufacturerName = ISNULL(@ManufacturerName, ManufacturerName) AND ISNULL(@FromManufacturerInsertDate, ManufacturerInsertDate) <= ManufacturerInsertDate AND ManufacturerInsertDate <= ISNULL(@ToManufacturerInsertDate, ManufacturerInsertDate)
+    FROM
+        [dbo].[Manufacturer]
+    WHERE
+        ManufacturerID = ISNULL(@ManufacturerID, ManufacturerID)
+        AND ManufacturerName = ISNULL(@ManufacturerName, ManufacturerName)
+        AND ISNULL(@FromManufacturerInsertDate, ManufacturerInsertDate) <= ManufacturerInsertDate
+        AND ManufacturerInsertDate <= ISNULL(@ToManufacturerInsertDate, ManufacturerInsertDate)
     ORDER BY
         CASE WHEN @NewestRowsFirst = 1 THEN ManufacturerNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN ManufacturerNumber END ASC
@@ -41,4 +45,4 @@ BEGIN
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
         FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
-END
+END;

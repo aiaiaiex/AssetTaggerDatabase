@@ -1,11 +1,8 @@
 CREATE FUNCTION [dbo].[tvf_GetCRUDPermissionsOfEndUser](
     @EndUserID UNIQUEIDENTIFIER
 )
-
-RETURNS TABLE WITH SCHEMABINDING
-AS
-RETURN
-SELECT
+RETURNS TABLE WITH SCHEMABINDING AS
+RETURN SELECT
     -- Asset CRUD Permissions
     EUR.CreateAsset,
     EUR.ReadAsset,
@@ -94,7 +91,10 @@ SELECT
     EUR.ReadVendor,
     EUR.UpdateVendor,
     EUR.DeleteVendor
-FROM [dbo].[EndUserRole] AS EUR
-INNER JOIN [dbo].[EndUser] AS EU
+FROM
+    [dbo].[EndUserRole] AS EUR
+INNER JOIN
+    [dbo].[EndUser] AS EU
     ON EUR.EndUserRoleID = EU.EndUserRoleID
-WHERE EU.EndUserID = @EndUserID;
+WHERE
+    EU.EndUserID = @EndUserID;

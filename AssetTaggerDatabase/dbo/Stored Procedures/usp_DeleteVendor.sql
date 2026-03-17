@@ -21,7 +21,13 @@ BEGIN
 
     -- Run actual query.
     DELETE [dbo].[Vendor]
-    OUTPUT DELETED.VendorID, DELETED.VendorName, DELETED.VendorAddress, DELETED.VendorInsertDate
-    FROM [dbo].[Vendor]
-    WHERE VendorID = @VendorID;
+    OUTPUT
+        DELETED.VendorID,
+        DELETED.VendorName,
+        DELETED.VendorAddress,
+        DELETED.VendorInsertDate
+    FROM
+        [dbo].[Vendor]
+    WHERE
+        VendorID = @VendorID;
 END;

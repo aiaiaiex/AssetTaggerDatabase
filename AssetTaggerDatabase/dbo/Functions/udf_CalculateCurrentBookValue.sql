@@ -9,12 +9,20 @@ BEGIN
     DECLARE @YearsPassed INT = DATEDIFF(DD, @AssetPurchaseDate, GETDATE()) / 365;
 
     IF (@YearsPassed < 0)
-        RETURN NULL
+        RETURN NULL;
 
-    DECLARE @CurrentBookValue DECIMAL(19, 4) = @AssetPurchasePrice - [dbo].[udf_CalculateAnnualDepreciationExpense](@AssetPurchasePrice, @AssetSalvageValue, @AssetUsefulLife) * @YearsPassed;
+    DECLARE
+        @CurrentBookValue DECIMAL(19, 4)
+        = @AssetPurchasePrice
+        - [dbo].[udf_CalculateAnnualDepreciationExpense](
+            @AssetPurchasePrice,
+            @AssetSalvageValue,
+            @AssetUsefulLife
+        )
+        * @YearsPassed;
 
     IF (@CurrentBookValue < @AssetSalvageValue)
-        RETURN @AssetSalvageValue
+        RETURN @AssetSalvageValue;
 
     RETURN @CurrentBookValue;
 END;

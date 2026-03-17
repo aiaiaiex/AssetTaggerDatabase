@@ -72,7 +72,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateEndUserRole]
     @ReadVendor BIT = NULL,
     @UpdateVendor BIT = NULL,
     @DeleteVendor BIT = NULL
-AS
+AS;
 BEGIN
     SET NOCOUNT ON;
 
@@ -83,15 +83,16 @@ BEGIN
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
-        END
+        END;
     IF (@UpdateEndUserRolePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to update an EndUserRole!', 11, 0);
             RETURN -1;
-        END
+        END;
 
     -- Run actual query.
-    UPDATE [dbo].[EndUserRole]
+    UPDATE
+        [dbo].[EndUserRole]
     SET
         EndUserRoleName = ISNULL(@EndUserRoleName, EndUserRoleName),
         CreateAsset = ISNULL(@CreateAsset, CreateAsset),
@@ -309,6 +310,8 @@ BEGIN
         DELETED.ReadVendor AS OldReadVendor,
         DELETED.UpdateVendor AS OldUpdateVendor,
         DELETED.DeleteVendor AS OldDeleteVendor
-    FROM [dbo].[EndUserRole]
-    WHERE EndUserRoleID = @EndUserRoleID;
-END
+    FROM
+        [dbo].[EndUserRole]
+    WHERE
+        EndUserRoleID = @EndUserRoleID;
+END;

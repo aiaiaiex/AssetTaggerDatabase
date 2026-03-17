@@ -77,7 +77,7 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = 1
-AS
+AS;
 BEGIN
     SET NOCOUNT ON;
 
@@ -170,7 +170,8 @@ BEGIN
         UpdateVendor,
         DeleteVendor,
         EndUserRoleCreationDate
-    FROM [dbo].[EndUserRole]
+    FROM
+        [dbo].[EndUserRole]
     WHERE
         EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID)
         AND EndUserRoleName = ISNULL(@EndUserRoleName, EndUserRoleName)

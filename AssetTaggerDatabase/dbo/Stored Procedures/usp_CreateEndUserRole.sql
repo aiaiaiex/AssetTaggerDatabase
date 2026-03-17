@@ -82,12 +82,12 @@ BEGIN
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
-        END
+        END;
     IF (@CreateEndUserRolePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create an EndUserRole!', 11, 0);
             RETURN -1;
-        END
+        END;
 
     -- Run actual query.
     INSERT INTO [dbo].[EndUserRole] (

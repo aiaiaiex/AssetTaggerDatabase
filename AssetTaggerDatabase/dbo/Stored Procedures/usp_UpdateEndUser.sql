@@ -4,36 +4,49 @@
     @EndUserName NVARCHAR(4000) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL
-AS
+AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @UpdateEndUser BIT;
-    SELECT @UpdateEndUser = (SELECT UpdateEndUser FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @UpdateEndUser BIT = (SELECT UpdateEndUser FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
     IF (@UpdateEndUser IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
-        END
+        END;
     IF (@UpdateEndUser = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to update an EndUser!', 11, 0);
             RETURN -1;
-        END
+        END;
 
     -- Validate input.
     IF (@EndUserName IS NULL AND @EndUserRoleID IS NULL AND @EmployeeID IS NULL)
         BEGIN
             RAISERROR ('Cannot update row with @EndUserID when no non-default values are passed to other parameters!', 11, 0);
             RETURN -1;
-        END
+        END;
 
     -- Run actual query.
-    UPDATE [dbo].[EndUser]
-    SET EndUserName = ISNULL(@EndUserName, EndUserName), EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID), EmployeeID = ISNULL(@EmployeeID, EmployeeID)
-    OUTPUT INSERTED.EndUserID, INSERTED.EndUserName, INSERTED.EndUserRoleID, INSERTED.EmployeeID, INSERTED.EndUserRegisterDate, DELETED.EndUserName AS OldEndUserName, DELETED.EndUserRoleID AS OldEndUserRoleID, DELETED.EmployeeID AS OldEmployeeID
-    FROM [dbo].[EndUser]
-    WHERE EndUserID = @EndUserID;
-END
+    UPDATE
+        [dbo].[EndUser]
+    SET
+        EndUserName = ISNULL(@EndUserName, EndUserName),
+        EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID),
+        EmployeeID = ISNULL(@EmployeeID, EmployeeID)
+    OUTPUT
+        INSERTED.EndUserID,
+        INSERTED.EndUserName,
+        INSERTED.EndUserRoleID,
+        INSERTED.EmployeeID,
+        INSERTED.EndUserRegisterDate,
+        DELETED.EndUserName AS OldEndUserName,
+        DELETED.EndUserRoleID AS OldEndUserRoleID,
+        DELETED.EmployeeID AS OldEmployeeID
+    FROM
+        [dbo].[EndUser]
+    WHERE
+        EndUserID = @EndUserID;
+END;

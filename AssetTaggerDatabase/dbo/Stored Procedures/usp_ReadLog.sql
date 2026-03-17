@@ -51,8 +51,21 @@ BEGIN
         LogStoredProcedureSuccess,
         LogStoredProcedureName,
         LogStoredProcedureParameters
-    FROM [dbo].[Log]
-    WHERE LogID = ISNULL(@LogID, LogID) AND EndUserID IS NOT DISTINCT FROM IIF(@EndUserID = @NULLISH_UNIQUEIDENTIFIER, EndUserID, IIF(@EndUserID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserID, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserID)) AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP) AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess) AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName) AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters) AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart) AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd) AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
+    FROM
+        [dbo].[Log]
+    WHERE
+        LogID = ISNULL(@LogID, LogID)
+        AND EndUserID IS NOT DISTINCT FROM IIF(@EndUserID = @NULLISH_UNIQUEIDENTIFIER, EndUserID, IIF(@EndUserID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserID, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserID))
+        AND (LogEndUserIP IS NOT DISTINCT FROM IIF(@LogEndUserIP = @NULLISH_NVARCHAR, LogEndUserIP, IIF(@LogEndUserIP = @NON_NULLISH_NVARCHAR, ISNULL(LogEndUserIP, @NON_NULLISH_NVARCHAR), @LogEndUserIP)) OR LogEndUserIP LIKE @LogEndUserIP)
+        AND LogStoredProcedureSuccess = ISNULL(@LogStoredProcedureSuccess, LogStoredProcedureSuccess)
+        AND (LogStoredProcedureName = ISNULL(@LogStoredProcedureName, LogStoredProcedureName) OR LogStoredProcedureName LIKE @LogStoredProcedureName)
+        AND (LogStoredProcedureParameters = ISNULL(@LogStoredProcedureParameters, LogStoredProcedureParameters) OR LogStoredProcedureParameters LIKE @LogStoredProcedureParameters)
+        AND ISNULL(@FromLogStoredProcedureStart, LogStoredProcedureStart) <= LogStoredProcedureStart
+        AND LogStoredProcedureStart <= ISNULL(@ToLogStoredProcedureStart, LogStoredProcedureStart)
+        AND ISNULL(@FromLogStoredProcedureEnd, LogStoredProcedureEnd) <= LogStoredProcedureEnd
+        AND LogStoredProcedureEnd <= ISNULL(@ToLogStoredProcedureEnd, LogStoredProcedureEnd)
+        AND ISNULL(@FromLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds) <= LogStoredProcedureMilliseconds
+        AND LogStoredProcedureMilliseconds <= ISNULL(@ToLogStoredProcedureMilliseconds, LogStoredProcedureMilliseconds)
     ORDER BY
         CASE WHEN @NewestRowsFirst = 1 THEN LogNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN LogNumber END ASC

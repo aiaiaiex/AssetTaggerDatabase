@@ -12,15 +12,22 @@ BEGIN
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
-        END
+        END;
     IF (@CreateManufacturer = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create a Manufacturer!', 11, 0);
             RETURN -1;
-        END
+        END;
 
     -- Run actual query.
-    INSERT INTO [dbo].[Manufacturer] (ManufacturerName)
-    OUTPUT INSERTED.ManufacturerID, INSERTED.ManufacturerName, INSERTED.ManufacturerInsertDate
-    VALUES (@ManufacturerName);
+    INSERT INTO [dbo].[Manufacturer] (
+        ManufacturerName
+    )
+    OUTPUT
+        INSERTED.ManufacturerID,
+        INSERTED.ManufacturerName,
+        INSERTED.ManufacturerInsertDate
+    VALUES (
+        @ManufacturerName
+    );
 END;

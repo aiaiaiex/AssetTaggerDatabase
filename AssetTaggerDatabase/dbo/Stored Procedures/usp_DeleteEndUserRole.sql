@@ -95,6 +95,8 @@ BEGIN
         DELETED.ReadVendor,
         DELETED.UpdateVendor,
         DELETED.DeleteVendor
-    FROM [dbo].[EndUserRole]
-    WHERE EndUserRoleID = @EndUserRoleID;
+    FROM
+        [dbo].[EndUserRole]
+    WHERE
+        EndUserRoleID = @EndUserRoleID;
 END;

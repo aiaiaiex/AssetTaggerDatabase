@@ -21,7 +21,12 @@ BEGIN
 
     -- Run actual query.
     DELETE [dbo].[Manufacturer]
-    OUTPUT DELETED.ManufacturerID, DELETED.ManufacturerName, DELETED.ManufacturerInsertDate
-    FROM [dbo].[Manufacturer]
-    WHERE ManufacturerID = @ManufacturerID;
+    OUTPUT
+        DELETED.ManufacturerID,
+        DELETED.ManufacturerName,
+        DELETED.ManufacturerInsertDate
+    FROM
+        [dbo].[Manufacturer]
+    WHERE
+        ManufacturerID = @ManufacturerID;
 END;

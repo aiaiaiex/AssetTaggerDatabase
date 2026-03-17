@@ -8,19 +8,18 @@ CREATE PROCEDURE [dbo].[usp_ReadVendor]
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = 1
-AS
+AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadVendor BIT;
-    SELECT @ReadVendor = (SELECT ReadVendor FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @ReadVendor BIT = (SELECT ReadVendor FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
     IF (@ReadVendor IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
-        END
+        END;
     IF (@ReadVendor = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Vendor!', 11, 0);
@@ -33,8 +32,14 @@ BEGIN
         VendorName,
         VendorAddress,
         VendorInsertDate
-    FROM [dbo].[Vendor]
-    WHERE VendorID = ISNULL(@VendorID, VendorID) AND VendorName = ISNULL(@VendorName, VendorName) AND VendorAddress = ISNULL(@VendorAddress, VendorAddress) AND ISNULL(@FromVendorInsertDate, VendorInsertDate) <= VendorInsertDate AND VendorInsertDate <= ISNULL(@ToVendorInsertDate, VendorInsertDate)
+    FROM
+        [dbo].[Vendor]
+    WHERE
+        VendorID = ISNULL(@VendorID, VendorID)
+        AND VendorName = ISNULL(@VendorName, VendorName)
+        AND VendorAddress = ISNULL(@VendorAddress, VendorAddress)
+        AND ISNULL(@FromVendorInsertDate, VendorInsertDate) <= VendorInsertDate
+        AND VendorInsertDate <= ISNULL(@ToVendorInsertDate, VendorInsertDate)
     ORDER BY
         CASE WHEN @NewestRowsFirst = 1 THEN VendorNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN VendorNumber END ASC
@@ -43,4 +48,4 @@ BEGIN
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
         FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
-END
+END;

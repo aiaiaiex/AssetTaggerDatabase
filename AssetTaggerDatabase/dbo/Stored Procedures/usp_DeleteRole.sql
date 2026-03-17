@@ -21,7 +21,12 @@ BEGIN
 
     -- Run actual query.
     DELETE [dbo].[Role]
-    OUTPUT DELETED.RoleID, DELETED.RoleName, DELETED.RoleInsertDate
-    FROM [dbo].[Role]
-    WHERE RoleID = @RoleID;
+    OUTPUT
+        DELETED.RoleID,
+        DELETED.RoleName,
+        DELETED.RoleInsertDate
+    FROM
+        [dbo].[Role]
+    WHERE
+        RoleID = @RoleID;
 END;

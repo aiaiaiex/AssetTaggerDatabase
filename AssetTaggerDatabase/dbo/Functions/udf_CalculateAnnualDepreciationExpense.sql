@@ -6,7 +6,7 @@
 RETURNS DECIMAL(19, 4) WITH SCHEMABINDING AS
 BEGIN
     IF (@AssetUsefulLife <= 0)
-        RETURN NULL
+        RETURN NULL;
 
     RETURN (@AssetPurchasePrice - @AssetSalvageValue) / @AssetUsefulLife;
 
