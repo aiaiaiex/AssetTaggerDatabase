@@ -135,6 +135,7 @@
     <Build Include="dbo\Stored Procedures\usp_CreateLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteLog.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadLog.sql" />
     <Build Include="dbo\Tables\AssetTransfer.sql" />
     <Build Include="dbo\Tables\Company.sql" />
