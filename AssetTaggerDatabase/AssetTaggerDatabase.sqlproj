@@ -143,6 +143,7 @@
     <Build Include="dbo\Stored Procedures\usp_ReadLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_UpdateManufacturer.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateVendor.sql" />
     <Build Include="dbo\Tables\AssetTransfer.sql" />
