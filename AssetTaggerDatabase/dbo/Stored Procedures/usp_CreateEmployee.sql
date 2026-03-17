@@ -18,7 +18,7 @@ BEGIN
         END;
     IF (@CreateEmployee = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to create a Employee!', 11, 0);
+            RAISERROR ('@CallingEndUserID has no permission to create an Employee!', 11, 0);
             RETURN -1;
         END;
 
