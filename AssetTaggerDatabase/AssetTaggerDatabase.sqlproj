@@ -145,6 +145,7 @@
     <Build Include="dbo\Stored Procedures\usp_DeleteCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteCompany.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteDepartment.sql" />
+    <Build Include="dbo\Stored Procedures\usp_DeleteEmployee.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteEndUserRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteManufacturer.sql" />
