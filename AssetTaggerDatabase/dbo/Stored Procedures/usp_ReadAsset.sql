@@ -129,7 +129,3 @@ BEGIN
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
         FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
 END;
-
-GO
-IF (NULL <= NULL)
-    PRINT 'TRUE'
