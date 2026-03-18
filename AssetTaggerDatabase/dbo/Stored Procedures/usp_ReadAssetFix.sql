@@ -46,7 +46,7 @@ BEGIN
     -- Run actual query.
     SELECT
         AssetFixID,
-        AssetAssetIssueID,
+        AssetIssueID,
         EmployeeID,
         AssetFixDateStart,
         AssetFixDateEnd,
