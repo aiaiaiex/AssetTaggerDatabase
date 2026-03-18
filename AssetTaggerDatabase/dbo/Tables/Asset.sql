@@ -35,7 +35,14 @@
     CONSTRAINT [FK_Asset_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID]),
     CONSTRAINT [FK_Asset_Location] FOREIGN KEY ([LocationID]) REFERENCES [dbo].[Location] ([LocationID]),
     CONSTRAINT [FK_Asset_Product] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Product] ([ProductID]),
-    CONSTRAINT [FK_Asset_Vendor] FOREIGN KEY ([VendorID]) REFERENCES [dbo].[Vendor] ([VendorID])
+    CONSTRAINT [FK_Asset_Vendor] FOREIGN KEY ([VendorID]) REFERENCES [dbo].[Vendor] ([VendorID]),
+    CONSTRAINT [CK_Asset_AssetPurchaseDate_Exclude] CHECK ([AssetPurchaseDate] NOT IN (CONVERT(DATETIME, '1753-01-01 00:00:00.000'), CONVERT(DATETIME, '9999-12-31 23:59:59.997'))),
+    CONSTRAINT [CK_Asset_AssetPurchasePrice_Exclude] CHECK ([AssetPurchasePrice] NOT IN (CONVERT(DECIMAL(19, 4), -999999999999999.9999), CONVERT(DECIMAL(19, 4), 999999999999999.9999))),
+    CONSTRAINT [CK_Asset_AssetSalvageValue_Exclude] CHECK ([AssetSalvageValue] NOT IN (CONVERT(DECIMAL(19, 4), -999999999999999.9999), CONVERT(DECIMAL(19, 4), 999999999999999.9999))),
+    CONSTRAINT [CK_Asset_AssetWarrantyDuration_Exclude] CHECK ([AssetSalvageValue] NOT IN (CONVERT(INT, -2147483648), CONVERT(INT, 2147483647))),
+    CONSTRAINT [CK_Asset_AssetUsefulLife_Exclude] CHECK ([AssetUsefulLife] NOT IN (CONVERT(INT, -2147483648), CONVERT(INT, 2147483647))),
+    CONSTRAINT [CK_Asset_AssetWarrantyExpirationDate_Exclude] CHECK ([AssetWarrantyExpirationDate] NOT IN (CONVERT(DATETIME, '1753-01-01 00:00:00.000'), CONVERT(DATETIME, '9999-12-31 23:59:59.997'))),
+    CONSTRAINT [CK_Asset_AssetAnnualDepreciationExpense_Exclude] CHECK ([AssetAnnualDepreciationExpense] NOT IN (CONVERT(DECIMAL(19, 4), -999999999999999.9999), CONVERT(DECIMAL(19, 4), 999999999999999.9999)))
 );
 GO
 
