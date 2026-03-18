@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_CreateAssetIssue]
     @EmployeeID UNIQUEIDENTIFIER,
     @AssetIssueDate DATETIME = NULL,
     @AssetIssueTitle NVARCHAR(4000),
-    @AssetIssueDescription NVARCHAR(MAX),
+    @AssetIssueDescription NVARCHAR(MAX) = NULL,
     @AssetIssueDocumentationURL NVARCHAR(4000) = NULL
 AS;
 BEGIN
