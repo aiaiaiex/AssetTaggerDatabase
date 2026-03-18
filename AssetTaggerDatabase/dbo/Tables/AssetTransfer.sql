@@ -11,6 +11,7 @@
     CONSTRAINT [CK_AssetTransfer_AssetTransferDocumentationURL_Exclude] CHECK ([AssetTransferDocumentationURL] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetTransfer_AssetTransferDocumentationURL_MinimumLength] CHECK (LEN([AssetTransferDocumentationURL]) > 0),
     CONSTRAINT [CK_AssetTransfer_AssetTransferDocumentationURL_NoLeadingAndTrailingWhitespace] CHECK ([AssetTransferDocumentationURL] NOT LIKE ' %' AND [AssetTransferDocumentationURL] NOT LIKE '% '),
+    CONSTRAINT [CK_AssetTransfer_AssetTransferPrice_Exclude] CHECK ([AssetTransferPrice] NOT IN (CONVERT(DECIMAL(19, 4), -999999999999999.9999), CONVERT(DECIMAL(19, 4), 999999999999999.9999))),
     CONSTRAINT [PK_AssetTransfer] PRIMARY KEY NONCLUSTERED ([AssetTransferID] ASC),
     CONSTRAINT [FK_AssetTransfer_Asset] FOREIGN KEY ([AssetID]) REFERENCES [dbo].[Asset] ([AssetID]),
     CONSTRAINT [FK_AssetTransfer_Company_CompanyID] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
