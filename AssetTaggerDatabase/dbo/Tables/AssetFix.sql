@@ -7,6 +7,7 @@
     [AssetFixDateEnd] DATETIME NULL,
     [AssetFixTitle] NVARCHAR(4000) NOT NULL,
     [AssetFixDescription] NVARCHAR(MAX) NULL,
+    [AssetFixDocumentationURL] NVARCHAR(4000) NULL,
     [AssetFixed] BIT NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_AssetFix_AssetFixNumber] UNIQUE CLUSTERED ([AssetFixNumber] ASC),

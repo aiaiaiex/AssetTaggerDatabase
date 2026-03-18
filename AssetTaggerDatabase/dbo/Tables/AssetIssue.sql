@@ -3,6 +3,7 @@
     [AssetIssueID] UNIQUEIDENTIFIER CONSTRAINT [DF_AssetIssue_AssetIssueID] DEFAULT (NEWID()) NOT NULL,
     [AssetIssueTitle] NVARCHAR(4000) NOT NULL,
     [AssetIssueDescription] NVARCHAR(MAX) NULL,
+    [AssetIssueDocumentationURL] NVARCHAR(4000) NULL,
     [AssetIssueDate] DATETIME CONSTRAINT [DF_AssetIssue_AssetIssueDate] DEFAULT (GETDATE()) NOT NULL,
     [AssetID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,

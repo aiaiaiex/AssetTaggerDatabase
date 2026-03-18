@@ -3,6 +3,7 @@
     [AssetTransferID] UNIQUEIDENTIFIER CONSTRAINT [DF_AssetTransfer_AssetTransferID] DEFAULT (NEWID()) NOT NULL,
     [AssetTransferDate] DATETIME NOT NULL,
     [AssetTransferPrice] DECIMAL(19, 4) NULL,
+    [AssetTransferDocumentationURL] NVARCHAR(4000) NULL,
     [AssetID] UNIQUEIDENTIFIER NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [ReceivingCompanyID] UNIQUEIDENTIFIER NOT NULL,
