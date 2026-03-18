@@ -15,6 +15,9 @@
     CONSTRAINT [CK_AssetIssue_AssetIssueDescription_Exclude] CHECK ([AssetIssueDescription] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetIssue_AssetIssueDescription_MinimumLength] CHECK (LEN([AssetIssueDescription]) > 0),
     CONSTRAINT [CK_AssetIssue_AssetIssueDescription_NoLeadingAndTrailingWhitespace] CHECK ([AssetIssueDescription] NOT LIKE ' %' AND [AssetIssueDescription] NOT LIKE '% '),
+    CONSTRAINT [CK_AssetIssue_AssetIssueDocumentationURL_Exclude] CHECK ([AssetIssueDocumentationURL] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_AssetIssue_AssetIssueDocumentationURL_MinimumLength] CHECK (LEN([AssetIssueDocumentationURL]) > 0),
+    CONSTRAINT [CK_AssetIssue_AssetIssueDocumentationURL_NoLeadingAndTrailingWhitespace] CHECK ([AssetIssueDocumentationURL] NOT LIKE ' %' AND [AssetIssueDocumentationURL] NOT LIKE '% '),
     CONSTRAINT [FK_AssetIssue_Asset] FOREIGN KEY ([AssetID]) REFERENCES [dbo].[Asset] ([AssetID]),
     CONSTRAINT [FK_AssetIssue_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID])
 );

@@ -21,6 +21,9 @@
     CONSTRAINT [CK_AssetFix_AssetFixDescription_NoLeadingAndTrailingWhitespace] CHECK ([AssetFixDescription] NOT LIKE ' %' AND [AssetFixDescription] NOT LIKE '% '),
     CONSTRAINT [CK_AssetFix_AssetFixDateEnd_Exclude] CHECK ([AssetFixDateEnd] NOT IN (CONVERT(DATETIME, '1753-01-01 00:00:00.000'), CONVERT(DATETIME, '9999-12-31 23:59:59.997'))),
     CONSTRAINT [CK_AssetFix_AssetFixCost_Exclude] CHECK ([AssetFixCost] NOT IN (CONVERT(DECIMAL(19, 4), -999999999999999.9999), CONVERT(DECIMAL(19, 4), 999999999999999.9999))),
+    CONSTRAINT [CK_AssetFix_AssetFixDocumentationURL_Exclude] CHECK ([AssetFixDocumentationURL] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_AssetFix_AssetFixDocumentationURL_MinimumLength] CHECK (LEN([AssetFixDocumentationURL]) > 0),
+    CONSTRAINT [CK_AssetFix_AssetFixDocumentationURL_NoLeadingAndTrailingWhitespace] CHECK ([AssetFixDocumentationURL] NOT LIKE ' %' AND [AssetFixDocumentationURL] NOT LIKE '% '),
     CONSTRAINT [CTK_AssetFix_AssetFixDateEnd_AssetFixDateStart] CHECK ([AssetFixDateEnd] >= [AssetFixDateStart]),
     CONSTRAINT [FK_AssetFix_AssetIssue] FOREIGN KEY ([AssetIssueID]) REFERENCES [dbo].[AssetIssue] ([AssetIssueID]),
     CONSTRAINT [FK_AssetFix_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID])
