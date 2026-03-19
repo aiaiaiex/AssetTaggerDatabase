@@ -1,21 +1,21 @@
 CREATE PROCEDURE [dbo].[usp_ReadAssetFix]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @AssetFixID UNIQUEIDENTIFIER = NULL, --
-    @AssetIssueID UNIQUEIDENTIFIER = NULL, --
-    @EmployeeID UNIQUEIDENTIFIER = NULL, --
-    @AssetFixTitle NVARCHAR(4000) = NULL, --
-    @AssetFixDescription NVARCHAR(MAX) = '', --
-    @AssetFixDocumentationURL NVARCHAR(4000) = '', --
-    @AssetFixed BIT = NULL, --
-    @FromAssetFixDateStart DATETIME = NULL, --
-    @ToAssetFixDateStart DATETIME = NULL, --
-    @FromAssetFixDateEnd DATETIME = '1753-01-01 00:00:00.000', --
-    @ToAssetFixDateEnd DATETIME = '1753-01-01 00:00:00.000', --
+    @AssetFixID UNIQUEIDENTIFIER = NULL,
+    @AssetIssueID UNIQUEIDENTIFIER = NULL,
+    @EmployeeID UNIQUEIDENTIFIER = NULL,
+    @AssetFixTitle NVARCHAR(4000) = NULL,
+    @AssetFixDescription NVARCHAR(MAX) = '',
+    @AssetFixDocumentationURL NVARCHAR(4000) = '',
+    @AssetFixed BIT = NULL,
+    @FromAssetFixDateStart DATETIME = NULL,
+    @ToAssetFixDateStart DATETIME = NULL,
+    @FromAssetFixDateEnd DATETIME = '1753-01-01 00:00:00.000',
+    @ToAssetFixDateEnd DATETIME = '1753-01-01 00:00:00.000',
     @FromAssetFixCost DECIMAL(19, 4) = -999999999999999.9999,
     @ToAssetFixCost DECIMAL(19, 4) = -999999999999999.9999,
-    @RowsToSkip INT = NULL, --
-    @RowsToReturn INT = NULL, --
-    @NewestRowsFirst BIT = 1 --
+    @RowsToSkip INT = NULL,
+    @RowsToReturn INT = NULL,
+    @NewestRowsFirst BIT = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -72,7 +72,7 @@ BEGIN
         AND (IIF(@FromAssetFixCost IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetFixCost, @FromAssetFixCost) <= AssetFixCost OR AssetFixCost IS NOT DISTINCT FROM IIF(@FromAssetFixCost = @NON_NULLISH_DECIMAL, @NON_NULLISH_DECIMAL, NULL))
         AND (AssetFixCost <= IIF(@ToAssetFixCost IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetFixCost, @ToAssetFixCost) OR AssetFixCost IS NOT DISTINCT FROM IIF(@ToAssetFixCost = @NON_NULLISH_DECIMAL, @NON_NULLISH_DECIMAL, NULL))
     ORDER BY
-        CASE WHEN @NewestRowsFirst = 1 THEN AssetFixNumber END DESC,
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN AssetFixNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN AssetFixNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.

@@ -8,7 +8,7 @@
     @ToEndUserRegisterDate DATETIME = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
-    @NewestRowsFirst BIT = 1
+    @NewestRowsFirst BIT = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -86,7 +86,7 @@ BEGIN
         AND ISNULL(@FromEndUserRegisterDate, EndUserRegisterDate) <= EndUserRegisterDate
         AND EndUserRegisterDate <= ISNULL(@ToEndUserRegisterDate, EndUserRegisterDate)
     ORDER BY
-        CASE WHEN @NewestRowsFirst = 1 THEN EndUserNumber END DESC,
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN EndUserNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN EndUserNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.

@@ -8,7 +8,7 @@ CREATE PROCEDURE [dbo].[usp_ReadProductSet]
     @ToProductSetInsertDate DATETIME = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
-    @NewestRowsFirst BIT = 1
+    @NewestRowsFirst BIT = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -43,7 +43,7 @@ BEGIN
         AND ISNULL(@FromProductSetInsertDate, ProductSetInsertDate) <= ProductSetInsertDate
         AND ProductSetInsertDate <= ISNULL(@ToProductSetInsertDate, ProductSetInsertDate)
     ORDER BY
-        CASE WHEN @NewestRowsFirst = 1 THEN ProductSetNumber END DESC,
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN ProductSetNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN ProductSetNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
