@@ -57,14 +57,14 @@ BEGIN
     DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NCHAR NCHAR(1) = (SELECT NULLISH_NCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DATETIMEOFFSET DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_INT INT = (SELECT NULLISH_INT FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
 
     DECLARE @NON_NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NON_NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NON_NULLISH_NVARCHAR FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_NCHAR NCHAR(1) = (SELECT NON_NULLISH_NCHAR FROM [dbo].[VI_NonNullishConstants]);
-    DECLARE @NON_NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NON_NULLISH_DATETIME FROM [dbo].[VI_NonNullishConstants]);
+    DECLARE @NON_NULLISH_DATETIMEOFFSET DATETIMEOFFSET(3) = (SELECT NON_NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_INT INT = (SELECT NON_NULLISH_INT FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NON_NULLISH_DECIMAL FROM [dbo].[VI_NonNullishConstants]);
 
@@ -113,10 +113,10 @@ BEGIN
         AND (IIF(@FromAssetCurrentBookValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetCurrentBookValue, @FromAssetCurrentBookValue) <= AssetCurrentBookValue OR AssetCurrentBookValue IS NOT DISTINCT FROM IIF(@FromAssetCurrentBookValue = @NON_NULLISH_DECIMAL, @NON_NULLISH_DECIMAL, NULL))
         AND (AssetCurrentBookValue <= IIF(@ToAssetCurrentBookValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetCurrentBookValue, @ToAssetCurrentBookValue) OR AssetCurrentBookValue IS NOT DISTINCT FROM IIF(@ToAssetCurrentBookValue = @NON_NULLISH_DECIMAL, @NON_NULLISH_DECIMAL, NULL))
         -- 
-        AND (IIF(@FromAssetPurchaseDate IN (@NULLISH_DATETIME, @NON_NULLISH_DATETIME), AssetPurchaseDate, @FromAssetPurchaseDate) <= AssetPurchaseDate OR AssetPurchaseDate IS NOT DISTINCT FROM IIF(@FromAssetPurchaseDate = @NON_NULLISH_DATETIME, @NON_NULLISH_DATETIME, NULL))
-        AND (AssetPurchaseDate <= IIF(@ToAssetPurchaseDate IN (@NULLISH_DATETIME, @NON_NULLISH_DATETIME), AssetPurchaseDate, @ToAssetPurchaseDate) OR AssetPurchaseDate IS NOT DISTINCT FROM IIF(@ToAssetPurchaseDate = @NON_NULLISH_DATETIME, @NON_NULLISH_DATETIME, NULL))
-        AND (IIF(@FromAssetWarrantyExpirationDate IN (@NULLISH_DATETIME, @NON_NULLISH_DATETIME), AssetWarrantyExpirationDate, @FromAssetWarrantyExpirationDate) <= AssetWarrantyExpirationDate OR AssetWarrantyExpirationDate IS NOT DISTINCT FROM IIF(@FromAssetWarrantyExpirationDate = @NON_NULLISH_DATETIME, @NON_NULLISH_DATETIME, NULL))
-        AND (AssetWarrantyExpirationDate <= IIF(@ToAssetWarrantyExpirationDate IN (@NULLISH_DATETIME, @NON_NULLISH_DATETIME), AssetWarrantyExpirationDate, @ToAssetWarrantyExpirationDate) OR AssetWarrantyExpirationDate IS NOT DISTINCT FROM IIF(@ToAssetWarrantyExpirationDate = @NON_NULLISH_DATETIME, @NON_NULLISH_DATETIME, NULL))
+        AND (IIF(@FromAssetPurchaseDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetPurchaseDate, @FromAssetPurchaseDate) <= AssetPurchaseDate OR AssetPurchaseDate IS NOT DISTINCT FROM IIF(@FromAssetPurchaseDate = @NON_NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET, NULL))
+        AND (AssetPurchaseDate <= IIF(@ToAssetPurchaseDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetPurchaseDate, @ToAssetPurchaseDate) OR AssetPurchaseDate IS NOT DISTINCT FROM IIF(@ToAssetPurchaseDate = @NON_NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET, NULL))
+        AND (IIF(@FromAssetWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetWarrantyExpirationDate, @FromAssetWarrantyExpirationDate) <= AssetWarrantyExpirationDate OR AssetWarrantyExpirationDate IS NOT DISTINCT FROM IIF(@FromAssetWarrantyExpirationDate = @NON_NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET, NULL))
+        AND (AssetWarrantyExpirationDate <= IIF(@ToAssetWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetWarrantyExpirationDate, @ToAssetWarrantyExpirationDate) OR AssetWarrantyExpirationDate IS NOT DISTINCT FROM IIF(@ToAssetWarrantyExpirationDate = @NON_NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET, NULL))
         -- 
         AND ISNULL(@FromAssetTagDate, AssetTagDate) <= AssetTagDate
         AND AssetTagDate <= ISNULL(@ToAssetTagDate, AssetTagDate)

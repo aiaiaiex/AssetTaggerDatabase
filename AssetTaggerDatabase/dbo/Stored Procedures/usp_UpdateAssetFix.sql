@@ -30,7 +30,7 @@ BEGIN
 
     -- Get CONSTANTS.
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DATETIMEOFFSET DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
 
     -- Run actual query.
@@ -40,7 +40,7 @@ BEGIN
         AssetIssueID = ISNULL(@AssetIssueID, AssetIssueID),
         EmployeeID = ISNULL(@EmployeeID, EmployeeID),
         AssetFixDateStart = ISNULL(@AssetFixDateStart, AssetFixDateStart),
-        AssetFixDateEnd = IIF(@AssetFixDateEnd = @NULLISH_DATETIME, AssetFixDateEnd, @AssetFixDateEnd),
+        AssetFixDateEnd = IIF(@AssetFixDateEnd = @NULLISH_DATETIMEOFFSET, AssetFixDateEnd, @AssetFixDateEnd),
         AssetFixTitle = ISNULL(@AssetFixTitle, AssetFixTitle),
         AssetFixDescription = IIF(@AssetFixDescription = @NULLISH_NVARCHAR, AssetFixDescription, @AssetFixDescription),
         AssetFixDocumentationURL = IIF(@AssetFixDocumentationURL = @NULLISH_NVARCHAR, AssetFixDocumentationURL, @AssetFixDocumentationURL),

@@ -34,7 +34,7 @@ BEGIN
     DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NCHAR NCHAR(1) = (SELECT NULLISH_NCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DATETIMEOFFSET DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_INT INT = (SELECT NULLISH_INT FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
 
@@ -46,7 +46,7 @@ BEGIN
         LocationID = ISNULL(@LocationID, LocationID),
         EmployeeID = ISNULL(@EmployeeID, EmployeeID),
         VendorID = IIF(@VendorID = @NULLISH_UNIQUEIDENTIFIER, VendorID, @VendorID),
-        AssetPurchaseDate = IIF(@AssetPurchaseDate = @NULLISH_DATETIME, AssetPurchaseDate, @AssetPurchaseDate),
+        AssetPurchaseDate = IIF(@AssetPurchaseDate = @NULLISH_DATETIMEOFFSET, AssetPurchaseDate, @AssetPurchaseDate),
         AssetPurchasePrice = IIF(@AssetPurchasePrice = @NULLISH_DECIMAL, AssetPurchasePrice, @AssetPurchasePrice),
         AssetSerialNumber = IIF(@AssetSerialNumber = @NULLISH_NVARCHAR, AssetSerialNumber, @AssetSerialNumber),
         AssetWarrantyUnitOfMeasure = IIF(@AssetWarrantyUnitOfMeasure = @NULLISH_NCHAR, AssetWarrantyUnitOfMeasure, @AssetWarrantyUnitOfMeasure),
