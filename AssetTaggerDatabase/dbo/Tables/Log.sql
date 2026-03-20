@@ -5,7 +5,7 @@ CREATE TABLE [dbo].[Log] (
     [LogEndUserIP] NVARCHAR(4000) NULL,
     [LogStoredProcedureStart] DATETIMEOFFSET(3) NOT NULL,
     [LogStoredProcedureEnd] DATETIMEOFFSET(3) NOT NULL,
-    [LogStoredProcedureMilliseconds] AS DATEDIFF(MS, LogStoredProcedureStart, LogStoredProcedureEnd) PERSISTED NOT NULL,
+    [LogStoredProcedureMilliseconds] AS DATEDIFF_BIG(MS, LogStoredProcedureStart, LogStoredProcedureEnd) PERSISTED NOT NULL,
     [LogStoredProcedureSuccess] BIT NOT NULL,
     [LogStoredProcedureName] NVARCHAR(4000) NOT NULL,
     [LogStoredProcedureParameters] NVARCHAR(MAX) NOT NULL,

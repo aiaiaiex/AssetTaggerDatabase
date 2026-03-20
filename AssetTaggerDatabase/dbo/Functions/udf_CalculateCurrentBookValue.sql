@@ -6,7 +6,7 @@ CREATE FUNCTION [dbo].[udf_CalculateCurrentBookValue](
 )
 RETURNS DECIMAL(15, 4) WITH SCHEMABINDING AS
 BEGIN
-    DECLARE @YearsPassed INT = DATEDIFF(DD, @AssetPurchaseDate, SYSDATETIMEOFFSET()) / 365;
+    DECLARE @YearsPassed BIGINT = DATEDIFF_BIG(DD, @AssetPurchaseDate, SYSDATETIMEOFFSET()) / 365;
 
     IF (@YearsPassed < 0)
         RETURN NULL;

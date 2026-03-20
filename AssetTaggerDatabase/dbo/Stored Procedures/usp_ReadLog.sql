@@ -10,8 +10,8 @@ CREATE PROCEDURE [dbo].[usp_ReadLog]
     @ToLogStoredProcedureStart DATETIMEOFFSET(3) = NULL,
     @FromLogStoredProcedureEnd DATETIMEOFFSET(3) = NULL,
     @ToLogStoredProcedureEnd DATETIMEOFFSET(3) = NULL,
-    @FromLogStoredProcedureMilliseconds INT = NULL,
-    @ToLogStoredProcedureMilliseconds INT = NULL,
+    @FromLogStoredProcedureMilliseconds BIGINT = NULL,
+    @ToLogStoredProcedureMilliseconds BIGINT = NULL,
     @RowsToSkip BIGINT = NULL,
     @RowsToReturn BIGINT = NULL,
     @NewestRowsFirst BIT = NULL
