@@ -72,8 +72,8 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @ReadVendor BIT = NULL,
     @UpdateVendor BIT = NULL,
     @DeleteVendor BIT = NULL,
-    @FromEndUserRoleCreationDate DATETIME = NULL,
-    @ToEndUserRoleCreationDate DATETIME = NULL,
+    @FromEndUserRoleCreationDate DATETIMEOFFSET(3) = NULL,
+    @ToEndUserRoleCreationDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

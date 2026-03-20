@@ -5,7 +5,7 @@
     [RoleID] UNIQUEIDENTIFIER NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [DepartmentID] UNIQUEIDENTIFIER NOT NULL,
-    [EmployeeInsertDate] DATETIME CONSTRAINT [DF_Employee_EmployeeInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [EmployeeInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Employee_EmployeeInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Employee_EmployeeNumber] UNIQUE CLUSTERED ([EmployeeNumber] ASC),
     CONSTRAINT [AK_Employee_EmployeeFullName] UNIQUE ([EmployeeFullName]),
     CONSTRAINT [CK_Employee_EmployeeFullName_Exclude] CHECK ([EmployeeFullName] NOT IN ('', '!', 'NULL')),

@@ -4,8 +4,8 @@
     @EndUserName NVARCHAR(4000) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL,
-    @FromEndUserRegisterDate DATETIME = NULL,
-    @ToEndUserRegisterDate DATETIME = NULL,
+    @FromEndUserRegisterDate DATETIMEOFFSET(3) = NULL,
+    @ToEndUserRegisterDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

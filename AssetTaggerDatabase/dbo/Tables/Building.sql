@@ -4,7 +4,7 @@
     [BuildingName] NVARCHAR(850) NOT NULL,
     [CompanyID] UNIQUEIDENTIFIER NOT NULL,
     [BuildingAddress] NVARCHAR(850) NOT NULL,
-    [BuildingInsertDate] DATETIME CONSTRAINT [DF_Building_BuildingInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [BuildingInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Building_BuildingInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Building_BuildingNumber] UNIQUE CLUSTERED ([BuildingNumber] ASC),
     CONSTRAINT [AK_Building_BuildingAddress] UNIQUE ([BuildingAddress]),
     CONSTRAINT [AK_Building_BuildingName] UNIQUE ([BuildingName]),

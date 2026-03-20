@@ -4,8 +4,8 @@ CREATE PROCEDURE [dbo].[usp_ReadProductSet]
     @ProductID UNIQUEIDENTIFIER = NULL,
     @FromProductSetProductQuantity INT = NULL,
     @ToProductSetProductQuantity INT = NULL,
-    @FromProductSetInsertDate DATETIME = NULL,
-    @ToProductSetInsertDate DATETIME = NULL,
+    @FromProductSetInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToProductSetInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

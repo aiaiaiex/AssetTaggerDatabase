@@ -4,13 +4,13 @@ CREATE PROCEDURE [dbo].[usp_CreateAsset]
     @LocationID UNIQUEIDENTIFIER,
     @EmployeeID UNIQUEIDENTIFIER,
     @VendorID UNIQUEIDENTIFIER = NULL,
-    @AssetPurchaseDate DATETIME = NULL,
-    @AssetPurchasePrice DECIMAL(19, 4) = NULL,
+    @AssetPurchaseDate DATETIMEOFFSET(3) = NULL,
+    @AssetPurchasePrice DECIMAL(15, 4) = NULL,
     @AssetSerialNumber NVARCHAR(842) = NULL,
     @AssetWarrantyUnitOfMeasure NCHAR(2) = NULL,
     @AssetWarrantyDuration INT = NULL,
     @AssetUsefulLife INT = NULL,
-    @AssetSalvageValue DECIMAL(19, 4) = NULL
+    @AssetSalvageValue DECIMAL(15, 4) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;

@@ -3,7 +3,7 @@
     [LocationID] UNIQUEIDENTIFIER CONSTRAINT [DF_Location_LocationID] DEFAULT (NEWID()) NOT NULL,
     [LocationAddress] NVARCHAR(842) NOT NULL,
     [BuildingID] UNIQUEIDENTIFIER NOT NULL,
-    [LocationInsertDate] DATETIME CONSTRAINT [DF_Location_LocationInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [LocationInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Location_LocationInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Location_LocationNumber] UNIQUE CLUSTERED ([LocationNumber] ASC),
     CONSTRAINT [AK_Location_LocationAddress_BuildingID] UNIQUE ([LocationAddress], [BuildingID]),
     CONSTRAINT [CK_Location_LocationAddress_Exclude] CHECK ([LocationAddress] NOT IN ('', '!', 'NULL')),

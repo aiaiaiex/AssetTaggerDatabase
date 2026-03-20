@@ -3,13 +3,13 @@ CREATE PROCEDURE [dbo].[usp_UpdateAssetFix]
     @AssetFixID UNIQUEIDENTIFIER,
     @AssetIssueID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL,
-    @AssetFixDateStart DATETIME = NULL,
-    @AssetFixDateEnd DATETIME = '1753-01-01 00:00:00.000',
+    @AssetFixDateStart DATETIMEOFFSET(3) = NULL,
+    @AssetFixDateEnd DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
     @AssetFixTitle NVARCHAR(4000) = NULL,
     @AssetFixDescription NVARCHAR(MAX) = '',
     @AssetFixDocumentationURL NVARCHAR(4000) = '',
     @AssetFixed BIT = NULL,
-    @AssetFixCost DECIMAL(19, 4) = -999999999999999.9999
+    @AssetFixCost DECIMAL(15, 4) = -99999999999.9999
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -30,8 +30,8 @@ BEGIN
 
     -- Get CONSTANTS.
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DATETIME DATETIME = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DECIMAL DECIMAL(19, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
 
     -- Run actual query.
     UPDATE

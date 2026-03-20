@@ -5,7 +5,7 @@
     [CompanyName] NVARCHAR(850) NOT NULL,
     [CompanyAddress] NVARCHAR(850) NOT NULL,
     [CompanyCode] NVARCHAR(5) NOT NULL,
-    [CompanyInsertDate] DATETIME CONSTRAINT [DF_Company_CompanyInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [CompanyInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Company_CompanyInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Company_CompanyNumber] UNIQUE CLUSTERED ([CompanyNumber] ASC),
     CONSTRAINT [AK_Company_CompanyName] UNIQUE ([CompanyName]),
     CONSTRAINT [AK_Company_CompanyAddress] UNIQUE ([CompanyAddress]),

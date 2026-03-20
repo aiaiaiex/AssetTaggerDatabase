@@ -5,8 +5,8 @@ CREATE PROCEDURE [dbo].[usp_ReadCompany]
     @CompanyAddress NVARCHAR(850) = NULL,
     @CompanyCode NVARCHAR(5) = NULL,
     @ParentCompanyID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
-    @FromCompanyInsertDate DATETIME = NULL,
-    @ToCompanyInsertDate DATETIME = NULL,
+    @FromCompanyInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToCompanyInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

@@ -6,7 +6,7 @@
     [ProductDocumentationURL] NVARCHAR(4000) NULL,
     [ManufacturerID] UNIQUEIDENTIFIER NULL,
     [CategoryID] UNIQUEIDENTIFIER NOT NULL,
-    [ProductInsertDate] DATETIME CONSTRAINT [DF_Product_ProductInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [ProductInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Product_ProductInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Product_ProductNumber] UNIQUE CLUSTERED ([ProductNumber] ASC),
     CONSTRAINT [CK_Product_ProductName_Exclude] CHECK ([ProductName] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ProductName_MinimumLength] CHECK (LEN([ProductName]) > 0),

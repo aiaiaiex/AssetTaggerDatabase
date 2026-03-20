@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_CreateAssetIssue]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @AssetID UNIQUEIDENTIFIER,
     @EmployeeID UNIQUEIDENTIFIER,
-    @AssetIssueDate DATETIME = NULL,
+    @AssetIssueDate DATETIMEOFFSET(3) = NULL,
     @AssetIssueTitle NVARCHAR(4000),
     @AssetIssueDescription NVARCHAR(MAX) = NULL,
     @AssetIssueDocumentationURL NVARCHAR(4000) = NULL
@@ -44,7 +44,7 @@ BEGIN
     VALUES (
         @AssetID,
         @EmployeeID,
-        ISNULL(@AssetIssueDate, GETDATE()),
+        ISNULL(@AssetIssueDate, SYSDATETIMEOFFSET()),
         @AssetIssueTitle,
         @AssetIssueDescription,
         @AssetIssueDocumentationURL

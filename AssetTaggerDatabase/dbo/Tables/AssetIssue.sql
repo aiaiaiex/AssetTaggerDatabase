@@ -4,7 +4,7 @@
     [AssetIssueTitle] NVARCHAR(4000) NOT NULL,
     [AssetIssueDescription] NVARCHAR(MAX) NULL,
     [AssetIssueDocumentationURL] NVARCHAR(4000) NULL,
-    [AssetIssueDate] DATETIME CONSTRAINT [DF_AssetIssue_AssetIssueDate] DEFAULT (GETDATE()) NOT NULL,
+    [AssetIssueDate] DATETIMEOFFSET(3) CONSTRAINT [DF_AssetIssue_AssetIssueDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     [AssetID] UNIQUEIDENTIFIER NOT NULL,
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_AssetIssue_AssetIssueNumber] UNIQUE CLUSTERED ([AssetIssueNumber] ASC),

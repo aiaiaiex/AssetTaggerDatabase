@@ -5,8 +5,8 @@ CREATE PROCEDURE [dbo].[usp_ReadEmployee]
     @RoleID UNIQUEIDENTIFIER = NULL,
     @CompanyID UNIQUEIDENTIFIER = NULL,
     @DepartmentID UNIQUEIDENTIFIER = NULL,
-    @FromEmployeeInsertDate DATETIME = NULL,
-    @ToEmployeeInsertDate DATETIME = NULL,
+    @FromEmployeeInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToEmployeeInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

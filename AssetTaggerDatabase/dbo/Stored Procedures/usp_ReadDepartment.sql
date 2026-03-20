@@ -2,8 +2,8 @@ CREATE PROCEDURE [dbo].[usp_ReadDepartment]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @DepartmentID UNIQUEIDENTIFIER = NULL,
     @DepartmentName NVARCHAR(850) = NULL,
-    @FromDepartmentInsertDate DATETIME = NULL,
-    @ToDepartmentInsertDate DATETIME = NULL,
+    @FromDepartmentInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToDepartmentInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

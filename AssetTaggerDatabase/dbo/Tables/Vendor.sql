@@ -3,7 +3,7 @@
     [VendorID] UNIQUEIDENTIFIER CONSTRAINT [DF_Vendor_VendorID] DEFAULT (NEWID()) NOT NULL,
     [VendorName] NVARCHAR(850) NOT NULL,
     [VendorAddress] NVARCHAR(850) NOT NULL,
-    [VendorInsertDate] DATETIME CONSTRAINT [DF_Vendor_VendorInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [VendorInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Vendor_VendorInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Vendor_VendorNumber] UNIQUE CLUSTERED ([VendorNumber] ASC),
     CONSTRAINT [AK_Vendor_VendorName] UNIQUE ([VendorName]),
     CONSTRAINT [AK_Vendor_VendorAddress] UNIQUE ([VendorAddress]),

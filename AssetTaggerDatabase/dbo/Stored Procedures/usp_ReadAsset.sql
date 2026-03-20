@@ -15,22 +15,22 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @FromAssetUsefulLife INT = -2147483648,
     @ToAssetUsefulLife INT = -2147483648,
     -- 
-    @FromAssetPurchasePrice DECIMAL(19, 4) = -999999999999999.9999,
-    @ToAssetPurchasePrice DECIMAL(19, 4) = -999999999999999.9999,
-    @FromAssetSalvageValue DECIMAL(19, 4) = -999999999999999.9999,
-    @ToAssetSalvageValue DECIMAL(19, 4) = -999999999999999.9999,
-    @FromAssetAnnualDepreciationExpense DECIMAL(19, 4) = -999999999999999.9999,
-    @ToAssetAnnualDepreciationExpense DECIMAL(19, 4) = -999999999999999.9999,
-    @FromAssetCurrentBookValue DECIMAL(19, 4) = -999999999999999.9999,
-    @ToAssetCurrentBookValue DECIMAL(19, 4) = -999999999999999.9999,
+    @FromAssetPurchasePrice DECIMAL(15, 4) = -99999999999.9999,
+    @ToAssetPurchasePrice DECIMAL(15, 4) = -99999999999.9999,
+    @FromAssetSalvageValue DECIMAL(15, 4) = -99999999999.9999,
+    @ToAssetSalvageValue DECIMAL(15, 4) = -99999999999.9999,
+    @FromAssetAnnualDepreciationExpense DECIMAL(15, 4) = -99999999999.9999,
+    @ToAssetAnnualDepreciationExpense DECIMAL(15, 4) = -99999999999.9999,
+    @FromAssetCurrentBookValue DECIMAL(15, 4) = -99999999999.9999,
+    @ToAssetCurrentBookValue DECIMAL(15, 4) = -99999999999.9999,
     -- 
-    @FromAssetPurchaseDate DATETIME = '1753-01-01 00:00:00.000',
-    @ToAssetPurchaseDate DATETIME = '1753-01-01 00:00:00.000',
-    @FromAssetWarrantyExpirationDate DATETIME = '1753-01-01 00:00:00.000',
-    @ToAssetWarrantyExpirationDate DATETIME = '1753-01-01 00:00:00.000',
+    @FromAssetPurchaseDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @ToAssetPurchaseDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @FromAssetWarrantyExpirationDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @ToAssetWarrantyExpirationDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
     -- 
-    @FromAssetTagDate DATETIME = NULL,
-    @ToAssetTagDate DATETIME = NULL,
+    @FromAssetTagDate DATETIMEOFFSET(3) = NULL,
+    @ToAssetTagDate DATETIMEOFFSET(3) = NULL,
     -- 
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
@@ -57,16 +57,16 @@ BEGIN
     DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_NCHAR NCHAR(1) = (SELECT NULLISH_NCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DATETIME DATETIME = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIME FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_INT INT = (SELECT NULLISH_INT FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DECIMAL DECIMAL(19, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
 
     DECLARE @NON_NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NON_NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NON_NULLISH_NVARCHAR FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_NCHAR NCHAR(1) = (SELECT NON_NULLISH_NCHAR FROM [dbo].[VI_NonNullishConstants]);
-    DECLARE @NON_NULLISH_DATETIME DATETIME = (SELECT NON_NULLISH_DATETIME FROM [dbo].[VI_NonNullishConstants]);
+    DECLARE @NON_NULLISH_DATETIME DATETIMEOFFSET(3) = (SELECT NON_NULLISH_DATETIME FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_INT INT = (SELECT NON_NULLISH_INT FROM [dbo].[VI_NonNullishConstants]);
-    DECLARE @NON_NULLISH_DECIMAL DECIMAL(19, 4) = (SELECT NON_NULLISH_DECIMAL FROM [dbo].[VI_NonNullishConstants]);
+    DECLARE @NON_NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NON_NULLISH_DECIMAL FROM [dbo].[VI_NonNullishConstants]);
 
     -- Run actual query.
     SELECT

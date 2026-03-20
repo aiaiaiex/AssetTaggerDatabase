@@ -6,8 +6,8 @@ CREATE PROCEDURE [dbo].[usp_ReadProduct]
     @ProductDocumentationURL NVARCHAR(4000) = '',
     @ManufacturerID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
     @CategoryID UNIQUEIDENTIFIER = NULL,
-    @FromProductInsertDate DATETIME = NULL,
-    @ToProductInsertDate DATETIME = NULL,
+    @FromProductInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToProductInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

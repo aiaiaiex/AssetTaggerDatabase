@@ -3,7 +3,7 @@
     [ParentProductID] UNIQUEIDENTIFIER NOT NULL,
     [ProductID] UNIQUEIDENTIFIER NOT NULL,
     [ProductSetProductQuantity] INT DEFAULT 1 NOT NULL,
-    [ProductSetInsertDate] DATETIME CONSTRAINT [DF_ProductSet_ProductSetInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [ProductSetInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_ProductSet_ProductSetInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_ProductSet_ProductSetNumber] UNIQUE CLUSTERED ([ProductSetNumber] ASC),
     CONSTRAINT [PK_ProductSet] PRIMARY KEY NONCLUSTERED ([ParentProductID] ASC, [ProductID] ASC),
     CONSTRAINT [FK_ProductSet_Product_ParentProductID] FOREIGN KEY ([ParentProductID]) REFERENCES [dbo].[Product] ([ProductID]),

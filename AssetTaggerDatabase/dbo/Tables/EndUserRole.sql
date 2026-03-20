@@ -2,7 +2,7 @@
     [EndUserRoleNumber] INT IDENTITY (1, 1),
     [EndUserRoleID] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_EndUserRoleID] DEFAULT (NEWID()) NOT NULL,
     [EndUserRoleName] NVARCHAR(850) NOT NULL,
-    [EndUserRoleCreationDate] DATETIME CONSTRAINT [DF_EndUserRole_EndUserRoleCreationDate] DEFAULT (GETDATE()) NOT NULL,
+    [EndUserRoleCreationDate] DATETIMEOFFSET(3) CONSTRAINT [DF_EndUserRole_EndUserRoleCreationDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     -- Asset CRUD Permissions
     [CreateAsset] BIT DEFAULT 0 NOT NULL,
     [ReadAsset] BIT DEFAULT 0 NOT NULL,

@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateAssetIssue]
     @AssetIssueID UNIQUEIDENTIFIER,
     @AssetID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL,
-    @AssetIssueDate DATETIME = NULL,
+    @AssetIssueDate DATETIMEOFFSET(3) = NULL,
     @AssetIssueTitle NVARCHAR(4000) = NULL,
     @AssetIssueDescription NVARCHAR(MAX) = '',
     @AssetIssueDocumentationURL NVARCHAR(4000) = ''

@@ -1,18 +1,18 @@
 CREATE FUNCTION [dbo].[udf_CalculateCurrentBookValue](
-    @AssetPurchasePrice DECIMAL(19, 4),
-    @AssetSalvageValue DECIMAL(19, 4),
+    @AssetPurchasePrice DECIMAL(15, 4),
+    @AssetSalvageValue DECIMAL(15, 4),
     @AssetUsefulLife INT,
-    @AssetPurchaseDate DATETIME
+    @AssetPurchaseDate DATETIMEOFFSET(3)
 )
-RETURNS DECIMAL(19, 4) WITH SCHEMABINDING AS
+RETURNS DECIMAL(15, 4) WITH SCHEMABINDING AS
 BEGIN
-    DECLARE @YearsPassed INT = DATEDIFF(DD, @AssetPurchaseDate, GETDATE()) / 365;
+    DECLARE @YearsPassed INT = DATEDIFF(DD, @AssetPurchaseDate, SYSDATETIMEOFFSET()) / 365;
 
     IF (@YearsPassed < 0)
         RETURN NULL;
 
     DECLARE
-        @CurrentBookValue DECIMAL(19, 4)
+        @CurrentBookValue DECIMAL(15, 4)
         = @AssetPurchasePrice
         - [dbo].[udf_CalculateAnnualDepreciationExpense](
             @AssetPurchasePrice,

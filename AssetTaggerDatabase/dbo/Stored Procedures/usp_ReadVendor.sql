@@ -3,8 +3,8 @@ CREATE PROCEDURE [dbo].[usp_ReadVendor]
     @VendorID UNIQUEIDENTIFIER = NULL,
     @VendorName NVARCHAR(850) = NULL,
     @VendorAddress NVARCHAR(850) = NULL,
-    @FromVendorInsertDate DATETIME = NULL,
-    @ToVendorInsertDate DATETIME = NULL,
+    @FromVendorInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToVendorInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

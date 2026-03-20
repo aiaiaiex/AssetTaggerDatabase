@@ -2,8 +2,8 @@ CREATE PROCEDURE [dbo].[usp_ReadRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @RoleID UNIQUEIDENTIFIER = NULL,
     @RoleName NVARCHAR(850) = NULL,
-    @FromRoleInsertDate DATETIME = NULL,
-    @ToRoleInsertDate DATETIME = NULL,
+    @FromRoleInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToRoleInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

@@ -6,8 +6,8 @@ CREATE PROCEDURE [dbo].[usp_ReadAssetIssue]
     @AssetIssueTitle NVARCHAR(4000) = NULL,
     @AssetIssueDescription NVARCHAR(MAX) = '',
     @AssetIssueDocumentationURL NVARCHAR(4000) = '',
-    @FromAssetIssueDate DATETIME = NULL,
-    @ToAssetIssueDate DATETIME = NULL,
+    @FromAssetIssueDate DATETIMEOFFSET(3) = NULL,
+    @ToAssetIssueDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

@@ -2,7 +2,7 @@
     [DepartmentNumber] INT IDENTITY (1, 1),
     [DepartmentID] UNIQUEIDENTIFIER CONSTRAINT [DF_Department_DepartmentID] DEFAULT (NEWID()) NOT NULL,
     [DepartmentName] NVARCHAR(850) NOT NULL,
-    [DepartmentInsertDate] DATETIME CONSTRAINT [DF_Department_DepartmentInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [DepartmentInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Department_DepartmentInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Department_DepartmentNumber] UNIQUE CLUSTERED ([DepartmentNumber] ASC),
     CONSTRAINT [AK_Department_DepartmentName] UNIQUE ([DepartmentName]),
     CONSTRAINT [CK_Department_DepartmentName_Exclude] CHECK ([DepartmentName] NOT IN ('', '!', 'NULL')),

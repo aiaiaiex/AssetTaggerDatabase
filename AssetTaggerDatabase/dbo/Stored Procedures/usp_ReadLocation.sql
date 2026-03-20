@@ -3,8 +3,8 @@ CREATE PROCEDURE [dbo].[usp_ReadLocation]
     @LocationID UNIQUEIDENTIFIER = NULL,
     @LocationAddress NVARCHAR(842) = NULL,
     @BuildingID UNIQUEIDENTIFIER = NULL,
-    @FromLocationInsertDate DATETIME = NULL,
-    @ToLocationInsertDate DATETIME = NULL,
+    @FromLocationInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToLocationInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

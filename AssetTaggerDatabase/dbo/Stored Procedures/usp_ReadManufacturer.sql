@@ -2,8 +2,8 @@ CREATE PROCEDURE [dbo].[usp_ReadManufacturer]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @ManufacturerID UNIQUEIDENTIFIER = NULL,
     @ManufacturerName NVARCHAR(850) = NULL,
-    @FromManufacturerInsertDate DATETIME = NULL,
-    @ToManufacturerInsertDate DATETIME = NULL,
+    @FromManufacturerInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToManufacturerInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

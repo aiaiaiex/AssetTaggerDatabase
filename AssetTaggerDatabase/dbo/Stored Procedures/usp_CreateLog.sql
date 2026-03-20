@@ -1,8 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_CreateLog]
     @CallingEndUserID UNIQUEIDENTIFIER = NULL,
     @LogEndUserIP NVARCHAR(4000) = NULL,
-    @LogStoredProcedureStart DATETIME,
-    @LogStoredProcedureEnd DATETIME,
+    @LogStoredProcedureStart DATETIMEOFFSET(3),
+    @LogStoredProcedureEnd DATETIMEOFFSET(3),
     @LogStoredProcedureSuccess BIT,
     @LogStoredProcedureName NVARCHAR(4000),
     @LogStoredProcedureParameters NVARCHAR(MAX)

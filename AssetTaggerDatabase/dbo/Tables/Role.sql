@@ -2,7 +2,7 @@
     [RoleNumber] INT IDENTITY (1, 1),
     [RoleID] UNIQUEIDENTIFIER CONSTRAINT [DF_Role_RoleID] DEFAULT (NEWID()) NOT NULL,
     [RoleName] NVARCHAR(850) NOT NULL,
-    [RoleInsertDate] DATETIME CONSTRAINT [DF_Role_RoleInsertDate] DEFAULT (GETDATE()) NOT NULL,
+    [RoleInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Role_RoleInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     CONSTRAINT [AK_Role_RoleNumber] UNIQUE CLUSTERED ([RoleNumber] ASC),
     CONSTRAINT [AK_Role_RoleName] UNIQUE ([RoleName]),
     CONSTRAINT [CK_Role_RoleName_Exclude] CHECK ([RoleName] NOT IN ('', '!', 'NULL')),

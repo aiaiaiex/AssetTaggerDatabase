@@ -2,13 +2,13 @@ CREATE PROCEDURE [dbo].[usp_CreateAssetFix]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @AssetIssueID UNIQUEIDENTIFIER,
     @EmployeeID UNIQUEIDENTIFIER,
-    @AssetFixDateStart DATETIME = NULL,
-    @AssetFixDateEnd DATETIME = NULL,
+    @AssetFixDateStart DATETIMEOFFSET(3) = NULL,
+    @AssetFixDateEnd DATETIMEOFFSET(3) = NULL,
     @AssetFixTitle NVARCHAR(4000),
     @AssetFixDescription NVARCHAR(MAX) = NULL,
     @AssetFixDocumentationURL NVARCHAR(4000) = NULL,
     @AssetFixed BIT,
-    @AssetFixCost DECIMAL(19, 4) = NULL
+    @AssetFixCost DECIMAL(15, 4) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -53,7 +53,7 @@ BEGIN
     VALUES (
         @AssetIssueID,
         @EmployeeID,
-        ISNULL(@AssetFixDateStart, GETDATE()),
+        ISNULL(@AssetFixDateStart, SYSDATETIMEOFFSET()),
         @AssetFixDateEnd,
         @AssetFixTitle,
         @AssetFixDescription,

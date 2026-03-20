@@ -4,8 +4,8 @@ CREATE PROCEDURE [dbo].[usp_ReadBuilding]
     @BuildingName NVARCHAR(850) = NULL,
     @BuildingAddress NVARCHAR(850) = NULL,
     @CompanyID UNIQUEIDENTIFIER = NULL,
-    @FromBuildingInsertDate DATETIME = NULL,
-    @ToBuildingInsertDate DATETIME = NULL,
+    @FromBuildingInsertDate DATETIMEOFFSET(3) = NULL,
+    @ToBuildingInsertDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
