@@ -195,7 +195,6 @@
     <Build Include="dbo\Stored Procedures\usp_UpdateProductSet.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateVendor.sql" />
-    <Build Include="dbo\Tables\AssetTransfer.sql" />
     <Build Include="dbo\Tables\Company.sql" />
     <Build Include="dbo\Tables\Asset.sql" />
     <Build Include="dbo\Tables\AssetFix.sql" />
