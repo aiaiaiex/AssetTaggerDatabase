@@ -67,8 +67,8 @@ BEGIN
         AND AssetFixed = ISNULL(@AssetFixed, AssetFixed)
         AND ISNULL(@FromAssetFixDateStart, AssetFixDateStart) <= AssetFixDateStart
         AND AssetFixDateStart <= ISNULL(@ToAssetFixDateStart, AssetFixDateStart)
-        AND (IIF(@FromAssetFixDateEnd IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetFixDateEnd, @FromAssetFixDateEnd) <= AssetFixDateEnd OR AssetFixDateEnd IS NOT DISTINCT FROM IIF(@FromAssetFixDateEnd = @NON_NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET, NULL))
-        AND (AssetFixDateEnd <= IIF(@ToAssetFixDateEnd IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetFixDateEnd, @ToAssetFixDateEnd) OR AssetFixDateEnd IS NOT DISTINCT FROM IIF(@ToAssetFixDateEnd = @NON_NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET, NULL))
+        AND (IIF(@FromAssetFixDateEnd IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetFixDateEnd, @FromAssetFixDateEnd) <= AssetFixDateEnd OR AssetFixDateEnd IS NOT DISTINCT FROM IIF(@FromAssetFixDateEnd = @NULLISH_DATETIMEOFFSET OR @FromAssetFixDateEnd IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
+        AND (AssetFixDateEnd <= IIF(@ToAssetFixDateEnd IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetFixDateEnd, @ToAssetFixDateEnd) OR AssetFixDateEnd IS NOT DISTINCT FROM IIF(@ToAssetFixDateEnd = @NULLISH_DATETIMEOFFSET OR @ToAssetFixDateEnd IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
         AND (IIF(@FromAssetFixCost IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetFixCost, @FromAssetFixCost) <= AssetFixCost OR AssetFixCost IS NOT DISTINCT FROM IIF(@FromAssetFixCost = @NON_NULLISH_DECIMAL, @NON_NULLISH_DECIMAL, NULL))
         AND (AssetFixCost <= IIF(@ToAssetFixCost IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetFixCost, @ToAssetFixCost) OR AssetFixCost IS NOT DISTINCT FROM IIF(@ToAssetFixCost = @NON_NULLISH_DECIMAL, @NON_NULLISH_DECIMAL, NULL))
     ORDER BY
