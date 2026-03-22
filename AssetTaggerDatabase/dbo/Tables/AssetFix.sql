@@ -5,6 +5,7 @@
     [AssetFixDateStart] DATETIMEOFFSET(3) CONSTRAINT [DF_AssetFix_AssetFixDateStart] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
     [AssetFixCost] DECIMAL(15, 4) NULL,
     [AssetFixDateEnd] DATETIMEOFFSET(3) NULL,
+    [AssetFixDateDays] AS DATEDIFF_BIG(DD, AssetFixDateStart, AssetFixDateEnd) PERSISTED,
     [AssetFixTitle] NVARCHAR(4000) NOT NULL,
     [AssetFixDescription] NVARCHAR(MAX) NULL,
     [AssetFixDocumentationURL] NVARCHAR(4000) NULL,
@@ -24,6 +25,7 @@
     CONSTRAINT [CK_AssetFix_AssetFixDocumentationURL_Exclude] CHECK ([AssetFixDocumentationURL] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetFix_AssetFixDocumentationURL_MinimumLength] CHECK (LEN([AssetFixDocumentationURL]) > 0),
     CONSTRAINT [CK_AssetFix_AssetFixDocumentationURL_NoLeadingAndTrailingWhitespace] CHECK ([AssetFixDocumentationURL] NOT LIKE ' %' AND [AssetFixDocumentationURL] NOT LIKE '% '),
+    CONSTRAINT [CK_AssetFix_AssetFixDateDays_Exclude] CHECK ([AssetFixDateDays] NOT IN (CONVERT(BIGINT, -9223372036854775808), CONVERT(BIGINT, 9223372036854775807))),
     CONSTRAINT [CTK_AssetFix_AssetFixDateEnd_AssetFixDateStart] CHECK ([AssetFixDateEnd] >= [AssetFixDateStart]),
     CONSTRAINT [FK_AssetFix_AssetIssue] FOREIGN KEY ([AssetIssueID]) REFERENCES [dbo].[AssetIssue] ([AssetIssueID]),
     CONSTRAINT [FK_AssetFix_Employee] FOREIGN KEY ([EmployeeID]) REFERENCES [dbo].[Employee] ([EmployeeID])

@@ -13,6 +13,8 @@ CREATE PROCEDURE [dbo].[usp_ReadAssetFix]
     @ToAssetFixDateEnd DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
     @FromAssetFixCost DECIMAL(15, 4) = -99999999999.9999,
     @ToAssetFixCost DECIMAL(15, 4) = -99999999999.9999,
+    @FromAssetFixDateDays BIGINT = -9223372036854775808,
+    @ToAssetFixDateDays BIGINT = -9223372036854775808,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -38,10 +40,12 @@ BEGIN
     DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_DATETIMEOFFSET DATETIMEOFFSET(3) = (SELECT NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NullishConstants]);
     DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
+    DECLARE @NULLISH_BIGINT BIGINT = (SELECT NULLISH_BIGINT FROM [dbo].[VI_NullishConstants]);
 
     DECLARE @NON_NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NON_NULLISH_NVARCHAR FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_DATETIMEOFFSET DATETIMEOFFSET(3) = (SELECT NON_NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NonNullishConstants]);
     DECLARE @NON_NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NON_NULLISH_DECIMAL FROM [dbo].[VI_NonNullishConstants]);
+    DECLARE @NON_NULLISH_BIGINT BIGINT = (SELECT NON_NULLISH_BIGINT FROM [dbo].[VI_NonNullishConstants]);
 
     -- Run actual query.
     SELECT
@@ -50,6 +54,7 @@ BEGIN
         EmployeeID,
         AssetFixDateStart,
         AssetFixDateEnd,
+        AssetFixDateDays,
         AssetFixTitle,
         AssetFixDescription,
         AssetFixDocumentationURL,
@@ -71,6 +76,8 @@ BEGIN
         AND (AssetFixDateEnd <= IIF(@ToAssetFixDateEnd IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetFixDateEnd, @ToAssetFixDateEnd) OR AssetFixDateEnd IS NOT DISTINCT FROM IIF(@ToAssetFixDateEnd = @NULLISH_DATETIMEOFFSET OR @ToAssetFixDateEnd IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
         AND (IIF(@FromAssetFixCost IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetFixCost, @FromAssetFixCost) <= AssetFixCost OR AssetFixCost IS NOT DISTINCT FROM IIF(@FromAssetFixCost = @NULLISH_DECIMAL OR @FromAssetFixCost IS NULL, NULL, @NON_NULLISH_DECIMAL))
         AND (AssetFixCost <= IIF(@ToAssetFixCost IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetFixCost, @ToAssetFixCost) OR AssetFixCost IS NOT DISTINCT FROM IIF(@ToAssetFixCost = @NULLISH_DECIMAL OR @ToAssetFixCost IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (IIF(@FromAssetFixDateDays IN (@NULLISH_BIGINT, @NON_NULLISH_BIGINT), AssetFixDateDays, @FromAssetFixDateDays) <= AssetFixDateDays OR AssetFixDateDays IS NOT DISTINCT FROM IIF(@FromAssetFixDateDays = @NULLISH_BIGINT OR @FromAssetFixDateDays IS NULL, NULL, @NON_NULLISH_BIGINT))
+        AND (AssetFixDateDays <= IIF(@ToAssetFixDateDays IN (@NULLISH_BIGINT, @NON_NULLISH_BIGINT), AssetFixDateDays, @ToAssetFixDateDays) OR AssetFixDateDays IS NOT DISTINCT FROM IIF(@ToAssetFixDateDays = @NULLISH_BIGINT OR @ToAssetFixDateDays IS NULL, NULL, @NON_NULLISH_BIGINT))
     ORDER BY
         CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN AssetFixNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN AssetFixNumber END ASC

@@ -27,6 +27,7 @@ BEGIN
         DELETED.EmployeeID,
         DELETED.AssetFixDateStart,
         DELETED.AssetFixDateEnd,
+        DELETED.AssetFixDateDays,
         DELETED.AssetFixTitle,
         DELETED.AssetFixDescription,
         DELETED.AssetFixDocumentationURL,

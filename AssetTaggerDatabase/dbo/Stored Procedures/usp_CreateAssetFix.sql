@@ -45,6 +45,7 @@ BEGIN
         INSERTED.EmployeeID,
         INSERTED.AssetFixDateStart,
         INSERTED.AssetFixDateEnd,
+        INSERTED.AssetFixDateDays,
         INSERTED.AssetFixTitle,
         INSERTED.AssetFixDescription,
         INSERTED.AssetFixDocumentationURL,
