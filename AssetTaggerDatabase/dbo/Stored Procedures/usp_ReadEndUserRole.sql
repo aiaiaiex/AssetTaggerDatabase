@@ -14,10 +14,6 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @ReadAssetIssue BIT = NULL,
     @UpdateAssetIssue BIT = NULL,
     @DeleteAssetIssue BIT = NULL,
-    @CreateAssetTransfer BIT = NULL,
-    @ReadAssetTransfer BIT = NULL,
-    @UpdateAssetTransfer BIT = NULL,
-    @DeleteAssetTransfer BIT = NULL,
     @CreateBuilding BIT = NULL,
     @ReadBuilding BIT = NULL,
     @UpdateBuilding BIT = NULL,
@@ -111,10 +107,6 @@ BEGIN
         ReadAssetIssue,
         UpdateAssetIssue,
         DeleteAssetIssue,
-        CreateAssetTransfer,
-        ReadAssetTransfer,
-        UpdateAssetTransfer,
-        DeleteAssetTransfer,
         CreateBuilding,
         ReadBuilding,
         UpdateBuilding,
@@ -187,10 +179,6 @@ BEGIN
         AND ReadAssetIssue = ISNULL(@ReadAssetIssue, ReadAssetIssue)
         AND UpdateAssetIssue = ISNULL(@UpdateAssetIssue, UpdateAssetIssue)
         AND DeleteAssetIssue = ISNULL(@DeleteAssetIssue, DeleteAssetIssue)
-        AND CreateAssetTransfer = ISNULL(@CreateAssetTransfer, CreateAssetTransfer)
-        AND ReadAssetTransfer = ISNULL(@ReadAssetTransfer, ReadAssetTransfer)
-        AND UpdateAssetTransfer = ISNULL(@UpdateAssetTransfer, UpdateAssetTransfer)
-        AND DeleteAssetTransfer = ISNULL(@DeleteAssetTransfer, DeleteAssetTransfer)
         AND CreateBuilding = ISNULL(@CreateBuilding, CreateBuilding)
         AND ReadBuilding = ISNULL(@ReadBuilding, ReadBuilding)
         AND UpdateBuilding = ISNULL(@UpdateBuilding, UpdateBuilding)

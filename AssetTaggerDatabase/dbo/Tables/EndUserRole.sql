@@ -18,11 +18,6 @@
     [ReadAssetIssue] BIT DEFAULT 0 NOT NULL,
     [UpdateAssetIssue] BIT DEFAULT 0 NOT NULL,
     [DeleteAssetIssue] BIT DEFAULT 0 NOT NULL,
-    -- AssetTransfer CRUD Permissions
-    [CreateAssetTransfer] BIT DEFAULT 0 NOT NULL,
-    [ReadAssetTransfer] BIT DEFAULT 0 NOT NULL,
-    [UpdateAssetTransfer] BIT DEFAULT 0 NOT NULL,
-    [DeleteAssetTransfer] BIT DEFAULT 0 NOT NULL,
     -- Building CRUD Permissions
     [CreateBuilding] BIT DEFAULT 0 NOT NULL,
     [ReadBuilding] BIT DEFAULT 0 NOT NULL,

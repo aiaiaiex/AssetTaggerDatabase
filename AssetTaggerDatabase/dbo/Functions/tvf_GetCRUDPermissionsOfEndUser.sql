@@ -18,11 +18,6 @@ RETURN SELECT
     EUR.ReadAssetIssue,
     EUR.UpdateAssetIssue,
     EUR.DeleteAssetIssue,
-    -- AssetTransfer CRUD Permissions
-    EUR.CreateAssetTransfer,
-    EUR.ReadAssetTransfer,
-    EUR.UpdateAssetTransfer,
-    EUR.DeleteAssetTransfer,
     -- Building CRUD Permissions
     EUR.CreateBuilding,
     EUR.ReadBuilding,
