@@ -22,8 +22,8 @@
     CONSTRAINT [CK_Asset_AssetSerialNumber_Exclude] CHECK ([AssetSerialNumber] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Asset_AssetSerialNumber_MinimumLength] CHECK (LEN([AssetSerialNumber]) > 0),
     CONSTRAINT [CK_Asset_AssetSerialNumber_NoLeadingAndTrailingWhitespace] CHECK ([AssetSerialNumber] NOT LIKE ' %' AND [AssetSerialNumber] NOT LIKE '% '),
-    CONSTRAINT [CK_Asset_AssetUsefulLife] CHECK ([AssetUsefulLife] >= (0)),
-    CONSTRAINT [CK_Asset_AssetWarrantyDuration] CHECK ([AssetWarrantyDuration] >= (0)),
+    CONSTRAINT [CK_Asset_AssetUsefulLife] CHECK ([AssetUsefulLife] >= 0),
+    CONSTRAINT [CK_Asset_AssetWarrantyDuration] CHECK ([AssetWarrantyDuration] >= 0),
     -- Allowed values of AssetWarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql

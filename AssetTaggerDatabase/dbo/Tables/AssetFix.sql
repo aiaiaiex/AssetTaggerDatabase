@@ -13,7 +13,7 @@
     [EmployeeID] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [AK_AssetFix_AssetFixNumber] UNIQUE CLUSTERED ([AssetFixNumber] ASC),
     CONSTRAINT [PK_AssetFix] PRIMARY KEY NONCLUSTERED ([AssetFixID] ASC),
-    CONSTRAINT [CK_AssetFix_AssetFixCost] CHECK ([AssetFixCost] >= (0)),
+    CONSTRAINT [CK_AssetFix_AssetFixCost] CHECK ([AssetFixCost] >= 0),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_Exclude] CHECK ([AssetFixTitle] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_MinimumLength] CHECK (LEN([AssetFixTitle]) > 0),
     CONSTRAINT [CK_AssetFix_AssetFixTitle_NoLeadingAndTrailingWhitespace] CHECK ([AssetFixTitle] NOT LIKE ' %' AND [AssetFixTitle] NOT LIKE '% '),
