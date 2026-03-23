@@ -8,6 +8,7 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     -- 
     @VendorID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
     @AssetSerialNumber NVARCHAR(842) = '',
+    @AssetDocumentationURL NVARCHAR(4000) = '',
     @AssetWarrantyUnitOfMeasure NCHAR(2) = '',
     -- 
     @FromAssetWarrantyDuration INT = -2147483648,
@@ -79,6 +80,7 @@ BEGIN
         AssetPurchaseDate,
         AssetPurchasePrice,
         AssetSerialNumber,
+        AssetDocumentationURL,
         AssetWarrantyUnitOfMeasure,
         AssetWarrantyDuration,
         AssetUsefulLife,
@@ -97,6 +99,7 @@ BEGIN
         -- 
         AND VendorID IS NOT DISTINCT FROM IIF(@VendorID = @NULLISH_UNIQUEIDENTIFIER, VendorID, IIF(@VendorID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(VendorID, @NON_NULLISH_UNIQUEIDENTIFIER), @VendorID))
         AND (AssetSerialNumber IS NOT DISTINCT FROM IIF(@AssetSerialNumber = @NULLISH_NVARCHAR, AssetSerialNumber, IIF(@AssetSerialNumber = @NON_NULLISH_NVARCHAR, ISNULL(AssetSerialNumber, @NON_NULLISH_NVARCHAR), @AssetSerialNumber)) OR AssetSerialNumber LIKE @AssetSerialNumber)
+        AND (AssetDocumentationURL IS NOT DISTINCT FROM IIF(@AssetDocumentationURL = @NULLISH_NVARCHAR, AssetDocumentationURL, IIF(@AssetDocumentationURL = @NON_NULLISH_NVARCHAR, ISNULL(AssetDocumentationURL, @NON_NULLISH_NVARCHAR), @AssetDocumentationURL)) OR AssetDocumentationURL LIKE @AssetDocumentationURL)
         AND (AssetWarrantyUnitOfMeasure IS NOT DISTINCT FROM IIF(@AssetWarrantyUnitOfMeasure = @NULLISH_NCHAR, AssetWarrantyUnitOfMeasure, IIF(@AssetWarrantyUnitOfMeasure = @NON_NULLISH_NCHAR, ISNULL(AssetWarrantyUnitOfMeasure, @NON_NULLISH_NCHAR), @AssetWarrantyUnitOfMeasure)) OR AssetWarrantyUnitOfMeasure LIKE @AssetWarrantyUnitOfMeasure)
         -- 
         AND (IIF(@FromAssetWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), AssetWarrantyDuration, @FromAssetWarrantyDuration) <= AssetWarrantyDuration OR AssetWarrantyDuration IS NOT DISTINCT FROM IIF(@FromAssetWarrantyDuration = @NULLISH_INT OR @FromAssetWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))

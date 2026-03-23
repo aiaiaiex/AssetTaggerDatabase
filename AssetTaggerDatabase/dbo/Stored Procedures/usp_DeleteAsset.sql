@@ -31,6 +31,7 @@ BEGIN
         DELETED.AssetPurchaseDate,
         DELETED.AssetPurchasePrice,
         DELETED.AssetSerialNumber,
+        DELETED.AssetDocumentationURL,
         DELETED.AssetWarrantyUnitOfMeasure,
         DELETED.AssetWarrantyDuration,
         DELETED.AssetUsefulLife,
