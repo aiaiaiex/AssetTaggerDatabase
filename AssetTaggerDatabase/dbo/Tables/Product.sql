@@ -1,43 +1,53 @@
 ﻿CREATE TABLE [dbo].[Product] (
-    [ProductNumber] INT IDENTITY (1, 1),
-    [ProductID] UNIQUEIDENTIFIER CONSTRAINT [DF_Product_ProductID] DEFAULT (NEWID()) NOT NULL,
-    [ProductName] NVARCHAR(421) NULL,
-    [ProductModelNumber] NVARCHAR(421) NULL,
-    [ProductDocumentationURL] NVARCHAR(4000) NULL,
-    [ManufacturerID] UNIQUEIDENTIFIER NULL,
-    [CategoryID] UNIQUEIDENTIFIER NOT NULL,
-    [ProductInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Product_ProductInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
-    CONSTRAINT [AK_Product_ProductNumber] UNIQUE CLUSTERED ([ProductNumber] ASC),
-    CONSTRAINT [CK_Product_ProductName_Exclude] CHECK ([ProductName] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Product_ProductName_MinimumLength] CHECK (LEN([ProductName]) > 0),
-    CONSTRAINT [CK_Product_ProductName_NoLeadingAndTrailingWhitespace] CHECK ([ProductName] NOT LIKE ' %' AND [ProductName] NOT LIKE '% '),
-    CONSTRAINT [CK_Product_ProductModelNumber_Exclude] CHECK ([ProductModelNumber] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Product_ProductModelNumber_MinimumLength] CHECK (LEN([ProductModelNumber]) > 0),
-    CONSTRAINT [CK_Product_ProductModelNumber_NoLeadingAndTrailingWhitespace] CHECK ([ProductModelNumber] NOT LIKE ' %' AND [ProductModelNumber] NOT LIKE '% '),
-    CONSTRAINT [CK_Asset_ProductDocumentationURL_Exclude] CHECK ([ProductDocumentationURL] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Asset_ProductDocumentationURL_MinimumLength] CHECK (LEN([ProductDocumentationURL]) > 0),
-    CONSTRAINT [CK_Asset_ProductDocumentationURL_NoLeadingAndTrailingWhitespace] CHECK ([ProductDocumentationURL] NOT LIKE ' %' AND [ProductDocumentationURL] NOT LIKE '% '),
-    CONSTRAINT [PK_Product] PRIMARY KEY NONCLUSTERED ([ProductID] ASC),
-    CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerID]) REFERENCES [dbo].[Manufacturer] ([ManufacturerID]),
-    CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Category] ([CategoryID])
+    -- Columns with default values.
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Product_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
+
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Product_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_Product] PRIMARY KEY NONCLUSTERED ([Id]),
+
+    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Product_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+
+    -- Foreign keys.
+    [CategoryId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id]),
+
+    [ManufacturerId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerId]) REFERENCES [dbo].[Manufacturer] ([Id]),
+
+    -- Nullable columns.
+    [Name] NVARCHAR(421) NULL,
+    CONSTRAINT [CK_Product_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Product_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Product_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% '),
+
+    [ModelNumber] NVARCHAR(421) NULL,
+    CONSTRAINT [CK_Product_ModelNumber_Exclude] CHECK ([ModelNumber] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Product_ModelNumber_MinimumLength] CHECK (LEN([ModelNumber]) > 0),
+    CONSTRAINT [CK_Product_ModelNumber_NoLeadingAndTrailingWhitespace] CHECK ([ModelNumber] NOT LIKE ' %' AND [ModelNumber] NOT LIKE '% '),
+
+    [DocumentationUrl] NVARCHAR(4000) NULL,
+    CONSTRAINT [CK_Asset_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Asset_DocumentationUrl_MinimumLength] CHECK (LEN([DocumentationUrl]) > 0),
+    CONSTRAINT [CK_Asset_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% ')
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductModelNumber_ManufacturerID]
-    ON [dbo].[Product] ([ProductModelNumber], [ManufacturerID])
-    WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NOT NULL;
+CREATE UNIQUE INDEX [IX_Product_ModelNumber_ManufacturerId]
+    ON [dbo].[Product] ([ModelNumber], [ManufacturerId])
+    WHERE [ModelNumber] IS NOT NULL AND [ManufacturerId] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ProductModelNumberIsNull]
-    ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
-    WHERE [ProductModelNumber] IS NULL AND [ManufacturerID] IS NOT NULL;
+CREATE UNIQUE INDEX [IX_Product_Name_ModelNumber_ManufacturerId_ModelNumberIsNull]
+    ON [dbo].[Product] ([Name], [ModelNumber], [ManufacturerId])
+    WHERE [ModelNumber] IS NULL AND [ManufacturerId] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ManufacturerIDIsNull]
-    ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
-    WHERE [ProductModelNumber] IS NOT NULL AND [ManufacturerID] IS NULL;
+CREATE UNIQUE INDEX [IX_Product_Name_ModelNumber_ManufacturerId_ManufacturerIdIsNull]
+    ON [dbo].[Product] ([Name], [ModelNumber], [ManufacturerId])
+    WHERE [ModelNumber] IS NOT NULL AND [ManufacturerId] IS NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ProductName_ProductModelNumber_ManufacturerID_ProductModelNumberAndManufacturerIDAreNull]
-    ON [dbo].[Product] ([ProductName], [ProductModelNumber], [ManufacturerID])
-    WHERE [ProductModelNumber] IS NULL AND [ManufacturerID] IS NULL;
+CREATE UNIQUE INDEX [IX_Product_Name_ModelNumber_ManufacturerId_ModelNumberAndManufacturerIdAreNull]
+    ON [dbo].[Product] ([Name], [ModelNumber], [ManufacturerId])
+    WHERE [ModelNumber] IS NULL AND [ManufacturerId] IS NULL;

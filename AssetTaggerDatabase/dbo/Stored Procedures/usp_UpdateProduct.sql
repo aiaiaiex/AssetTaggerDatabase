@@ -1,11 +1,11 @@
 CREATE PROCEDURE [dbo].[usp_UpdateProduct]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @ProductID UNIQUEIDENTIFIER,
-    @ProductName NVARCHAR(421) = '',
-    @ProductModelNumber NVARCHAR(421) = '',
-    @ProductDocumentationURL NVARCHAR(4000) = '',
-    @ManufacturerID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
-    @CategoryID UNIQUEIDENTIFIER = NULL
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(421) = '',
+    @ModelNumber NVARCHAR(421) = '',
+    @DocumentationUrl NVARCHAR(4000) = '',
+    @ManufacturerId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @CategoryId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -32,26 +32,26 @@ BEGIN
     UPDATE
         [dbo].[Product]
     SET
-        ProductName = IIF(@ProductName = @NULLISH_NVARCHAR, ProductName, @ProductName),
-        ProductModelNumber = IIF(@ProductModelNumber = @NULLISH_NVARCHAR, ProductModelNumber, @ProductModelNumber),
-        ProductDocumentationURL = IIF(@ProductDocumentationURL = @NULLISH_NVARCHAR, ProductDocumentationURL, @ProductDocumentationURL),
-        ManufacturerID = IIF(@ManufacturerID = @NULLISH_UNIQUEIDENTIFIER, ManufacturerID, @ManufacturerID),
-        CategoryID = ISNULL(@CategoryID, CategoryID)
+        Name = IIF(@Name = @NULLISH_NVARCHAR, Name, @Name),
+        ModelNumber = IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, @ModelNumber),
+        DocumentationUrl = IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, @DocumentationUrl),
+        ManufacturerId = IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, @ManufacturerId),
+        CategoryId = ISNULL(@CategoryId, CategoryId)
     OUTPUT
-        INSERTED.ProductID,
-        INSERTED.ProductName,
-        INSERTED.ProductModelNumber,
-        INSERTED.ProductDocumentationURL,
-        INSERTED.ManufacturerID,
-        INSERTED.CategoryID,
-        INSERTED.ProductInsertDate,
-        DELETED.ProductName AS OldProductName,
-        DELETED.ProductModelNumber AS OldProductModelNumber,
-        DELETED.ProductDocumentationURL AS OldProductDocumentationURL,
-        DELETED.ManufacturerID AS OldManufacturerID,
-        DELETED.CategoryID AS OldCategoryID
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.ModelNumber,
+        INSERTED.DocumentationUrl,
+        INSERTED.ManufacturerId,
+        INSERTED.CategoryId,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName,
+        DELETED.ModelNumber AS OldModelNumber,
+        DELETED.DocumentationUrl AS OldDocumentationUrl,
+        DELETED.ManufacturerId AS OldManufacturerId,
+        DELETED.CategoryId AS OldCategoryId
     FROM
         [dbo].[Product]
     WHERE
-        ProductID = @ProductID;
+        Id = @Id;
 END;

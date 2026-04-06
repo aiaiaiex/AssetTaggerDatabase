@@ -1,13 +1,13 @@
 CREATE PROCEDURE [dbo].[usp_ReadProduct]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @ProductID UNIQUEIDENTIFIER = NULL,
-    @ProductName NVARCHAR(421) = '',
-    @ProductModelNumber NVARCHAR(421) = '',
-    @ProductDocumentationURL NVARCHAR(4000) = '',
-    @ManufacturerID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
-    @CategoryID UNIQUEIDENTIFIER = NULL,
-    @FromProductInsertDate DATETIMEOFFSET(3) = NULL,
-    @ToProductInsertDate DATETIMEOFFSET(3) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Name NVARCHAR(421) = '',
+    @ModelNumber NVARCHAR(421) = '',
+    @DocumentationUrl NVARCHAR(4000) = '',
+    @ManufacturerId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @CategoryId UNIQUEIDENTIFIER = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -38,27 +38,27 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        ProductID,
-        ProductName,
-        ProductModelNumber,
-        ProductDocumentationURL,
-        ManufacturerID,
-        CategoryID,
-        ProductInsertDate
+        Id,
+        Name,
+        ModelNumber,
+        DocumentationUrl,
+        ManufacturerId,
+        CategoryId,
+        CreatedAt
     FROM
         [dbo].[Product]
     WHERE
-        ProductID = ISNULL(@ProductID, ProductID)
-        AND (ProductName IS NOT DISTINCT FROM IIF(@ProductName = @NULLISH_NVARCHAR, ProductName, IIF(@ProductName = @NON_NULLISH_NVARCHAR, ISNULL(ProductName, @NON_NULLISH_NVARCHAR), @ProductName)) OR ProductName LIKE @ProductName)
-        AND (ProductModelNumber IS NOT DISTINCT FROM IIF(@ProductModelNumber = @NULLISH_NVARCHAR, ProductModelNumber, IIF(@ProductModelNumber = @NON_NULLISH_NVARCHAR, ISNULL(ProductModelNumber, @NON_NULLISH_NVARCHAR), @ProductModelNumber)) OR ProductModelNumber LIKE @ProductModelNumber)
-        AND (ProductDocumentationURL IS NOT DISTINCT FROM IIF(@ProductDocumentationURL = @NULLISH_NVARCHAR, ProductDocumentationURL, IIF(@ProductDocumentationURL = @NON_NULLISH_NVARCHAR, ISNULL(ProductDocumentationURL, @NON_NULLISH_NVARCHAR), @ProductDocumentationURL)) OR ProductDocumentationURL LIKE @ProductDocumentationURL)
-        AND ManufacturerID IS NOT DISTINCT FROM IIF(@ManufacturerID = @NULLISH_UNIQUEIDENTIFIER, ManufacturerID, IIF(@ManufacturerID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(ManufacturerID, @NON_NULLISH_UNIQUEIDENTIFIER), @ManufacturerID))
-        AND CategoryID = ISNULL(@CategoryID, CategoryID)
-        AND ISNULL(@FromProductInsertDate, ProductInsertDate) <= ProductInsertDate
-        AND ProductInsertDate <= ISNULL(@ToProductInsertDate, ProductInsertDate)
+        Id = ISNULL(@Id, Id)
+        AND (Name IS NOT DISTINCT FROM IIF(@Name = @NULLISH_NVARCHAR, Name, IIF(@Name = @NON_NULLISH_NVARCHAR, ISNULL(Name, @NON_NULLISH_NVARCHAR), @Name)) OR Name LIKE @Name)
+        AND (ModelNumber IS NOT DISTINCT FROM IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, IIF(@ModelNumber = @NON_NULLISH_NVARCHAR, ISNULL(ModelNumber, @NON_NULLISH_NVARCHAR), @ModelNumber)) OR ModelNumber LIKE @ModelNumber)
+        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, ISNULL(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
+        AND ManufacturerId IS NOT DISTINCT FROM IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, IIF(@ManufacturerId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(ManufacturerId, @NON_NULLISH_UNIQUEIDENTIFIER), @ManufacturerId))
+        AND CategoryId = ISNULL(@CategoryId, CategoryId)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN ProductNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN ProductNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:
