@@ -4,92 +4,92 @@ CREATE FUNCTION [dbo].[tvf_GetCRUDPermissionsOfEndUser](
 RETURNS TABLE WITH SCHEMABINDING AS
 RETURN SELECT
     -- Asset CRUD Permissions
-    EUR.HasCreatingAssetPermission,
-    EUR.HasReadingAssetPermission,
-    EUR.HasUpdatingAssetPermission,
-    EUR.HasDeletingAssetPermission,
+    EndUserRole.HasCreatingAssetPermission,
+    EndUserRole.HasReadingAssetPermission,
+    EndUserRole.HasUpdatingAssetPermission,
+    EndUserRole.HasDeletingAssetPermission,
     -- AssetFix CRUD Permissions
-    EUR.HasCreatingAssetFixPermission,
-    EUR.HasReadingAssetFixPermission,
-    EUR.HasUpdatingAssetFixPermission,
-    EUR.HasDeletingAssetFixPermission,
+    EndUserRole.HasCreatingAssetFixPermission,
+    EndUserRole.HasReadingAssetFixPermission,
+    EndUserRole.HasUpdatingAssetFixPermission,
+    EndUserRole.HasDeletingAssetFixPermission,
     -- AssetIssue CRUD Permissions
-    EUR.HasCreatingAssetIssuePermission,
-    EUR.HasReadingAssetIssuePermission,
-    EUR.HasUpdatingAssetIssuePermission,
-    EUR.HasDeletingAssetIssuePermission,
+    EndUserRole.HasCreatingAssetIssuePermission,
+    EndUserRole.HasReadingAssetIssuePermission,
+    EndUserRole.HasUpdatingAssetIssuePermission,
+    EndUserRole.HasDeletingAssetIssuePermission,
     -- Building CRUD Permissions
-    EUR.HasCreatingBuildingPermission,
-    EUR.HasReadingBuildingPermission,
-    EUR.HasUpdatingBuildingPermission,
-    EUR.HasDeletingBuildingPermission,
+    EndUserRole.HasCreatingBuildingPermission,
+    EndUserRole.HasReadingBuildingPermission,
+    EndUserRole.HasUpdatingBuildingPermission,
+    EndUserRole.HasDeletingBuildingPermission,
     -- Category CRUD Permissions
-    EUR.HasCreatingCategoryPermission,
-    EUR.HasReadingCategoryPermission,
-    EUR.HasUpdatingCategoryPermission,
-    EUR.HasDeletingCategoryPermission,
+    EndUserRole.HasCreatingCategoryPermission,
+    EndUserRole.HasReadingCategoryPermission,
+    EndUserRole.HasUpdatingCategoryPermission,
+    EndUserRole.HasDeletingCategoryPermission,
     -- Company CRUD Permissions
-    EUR.HasCreatingCompanyPermission,
-    EUR.HasReadingCompanyPermission,
-    EUR.HasUpdatingCompanyPermission,
-    EUR.HasDeletingCompanyPermission,
+    EndUserRole.HasCreatingCompanyPermission,
+    EndUserRole.HasReadingCompanyPermission,
+    EndUserRole.HasUpdatingCompanyPermission,
+    EndUserRole.HasDeletingCompanyPermission,
     -- Department CRUD Permissions
-    EUR.HasCreatingDepartmentPermission,
-    EUR.HasReadingDepartmentPermission,
-    EUR.HasUpdatingDepartmentPermission,
-    EUR.HasDeletingDepartmentPermission,
+    EndUserRole.HasCreatingDepartmentPermission,
+    EndUserRole.HasReadingDepartmentPermission,
+    EndUserRole.HasUpdatingDepartmentPermission,
+    EndUserRole.HasDeletingDepartmentPermission,
     -- Employee CRUD Permissions
-    EUR.HasCreatingEmployeePermission,
-    EUR.HasReadingEmployeePermission,
-    EUR.HasUpdatingEmployeePermission,
-    EUR.HasDeletingEmployeePermission,
+    EndUserRole.HasCreatingEmployeePermission,
+    EndUserRole.HasReadingEmployeePermission,
+    EndUserRole.HasUpdatingEmployeePermission,
+    EndUserRole.HasDeletingEmployeePermission,
     -- EndUser CRUD Permissions
-    EUR.HasCreatingEndUserPermission,
-    EUR.HasReadingEndUserPermission,
-    EUR.HasUpdatingEndUserPermission,
-    EUR.HasDeletingEndUserPermission,
+    EndUserRole.HasCreatingEndUserPermission,
+    EndUserRole.HasReadingEndUserPermission,
+    EndUserRole.HasUpdatingEndUserPermission,
+    EndUserRole.HasDeletingEndUserPermission,
     -- EndUserRole CRUD Permissions
-    EUR.HasCreatingEndUserRolePermission,
-    EUR.HasReadingEndUserRolePermission,
-    EUR.HasUpdatingEndUserRolePermission,
-    EUR.HasDeletingEndUserRolePermission,
+    EndUserRole.HasCreatingEndUserRolePermission,
+    EndUserRole.HasReadingEndUserRolePermission,
+    EndUserRole.HasUpdatingEndUserRolePermission,
+    EndUserRole.HasDeletingEndUserRolePermission,
     -- Location CRUD Permissions
-    EUR.HasCreatingLocationPermission,
-    EUR.HasReadingLocationPermission,
-    EUR.HasUpdatingLocationPermission,
-    EUR.HasDeletingLocationPermission,
+    EndUserRole.HasCreatingLocationPermission,
+    EndUserRole.HasReadingLocationPermission,
+    EndUserRole.HasUpdatingLocationPermission,
+    EndUserRole.HasDeletingLocationPermission,
     -- Log RD Permissions
-    EUR.HasReadingLogPermission,
-    EUR.HasDeletingLogPermission,
+    EndUserRole.HasReadingLogPermission,
+    EndUserRole.HasDeletingLogPermission,
     -- Manufacturer CRUD Permissions
-    EUR.HasCreatingManufacturerPermission,
-    EUR.HasReadingManufacturerPermission,
-    EUR.HasUpdatingManufacturerPermission,
-    EUR.HasDeletingManufacturerPermission,
+    EndUserRole.HasCreatingManufacturerPermission,
+    EndUserRole.HasReadingManufacturerPermission,
+    EndUserRole.HasUpdatingManufacturerPermission,
+    EndUserRole.HasDeletingManufacturerPermission,
     -- Product CRUD Permissions
-    EUR.HasCreatingProductPermission,
-    EUR.HasReadingProductPermission,
-    EUR.HasUpdatingProductPermission,
-    EUR.HasDeletingProductPermission,
+    EndUserRole.HasCreatingProductPermission,
+    EndUserRole.HasReadingProductPermission,
+    EndUserRole.HasUpdatingProductPermission,
+    EndUserRole.HasDeletingProductPermission,
     -- ProductSet CRUD Permissions
-    EUR.HasCreatingProductSetPermission,
-    EUR.HasReadingProductSetPermission,
-    EUR.HasUpdatingProductSetPermission,
-    EUR.HasDeletingProductSetPermission,
+    EndUserRole.HasCreatingProductSetPermission,
+    EndUserRole.HasReadingProductSetPermission,
+    EndUserRole.HasUpdatingProductSetPermission,
+    EndUserRole.HasDeletingProductSetPermission,
     -- Role CRUD Permissions
-    EUR.HasCreatingRolePermission,
-    EUR.HasReadingRolePermission,
-    EUR.HasUpdatingRolePermission,
-    EUR.HasDeletingRolePermission,
+    EndUserRole.HasCreatingRolePermission,
+    EndUserRole.HasReadingRolePermission,
+    EndUserRole.HasUpdatingRolePermission,
+    EndUserRole.HasDeletingRolePermission,
     -- Vendor CRUD Permissions
-    EUR.HasCreatingVendorPermission,
-    EUR.HasReadingVendorPermission,
-    EUR.HasUpdatingVendorPermission,
-    EUR.HasDeletingVendorPermission
+    EndUserRole.HasCreatingVendorPermission,
+    EndUserRole.HasReadingVendorPermission,
+    EndUserRole.HasUpdatingVendorPermission,
+    EndUserRole.HasDeletingVendorPermission
 FROM
-    [dbo].[EndUserRole] AS EUR
+    [dbo].[EndUserRole] AS EndUserRole
 INNER JOIN
-    [dbo].[EndUser] AS EU
-    ON EUR.Id = EU.EndUserRoleID
+    [dbo].[EndUser] AS EndUser
+    ON EndUserRole.Id = EndUser.EndUserRoleID
 WHERE
-    EU.EndUserID = @EndUserID;
+    EndUser.EndUserID = @EndUserID;
