@@ -14,7 +14,8 @@
 	"extensions": {
 		"recommendations": [
 			"sqlfluff.vscode-sqlfluff",
-			"ms-mssql.mssql"
+			"ms-mssql.mssql",
+			"streetsidesoftware.code-spell-checker"
 		]
 	}
 }
