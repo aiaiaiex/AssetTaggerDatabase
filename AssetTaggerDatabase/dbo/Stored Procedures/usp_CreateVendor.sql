@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_CreateVendor]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @VendorName NVARCHAR(850),
-    @VendorAddress NVARCHAR(850)
+    @Name NVARCHAR(850),
+    @Address NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,16 +22,16 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Vendor] (
-        VendorName,
-        VendorAddress
+        Name,
+        Address
     )
     OUTPUT
-        INSERTED.VendorID,
-        INSERTED.VendorName,
-        INSERTED.VendorAddress,
-        INSERTED.VendorInsertDate
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.Address,
+        INSERTED.CreatedAt
     VALUES (
-        @VendorName,
-        @VendorAddress
+        @Name,
+        @Address
     );
 END;

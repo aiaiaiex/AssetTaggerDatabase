@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteVendor]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @VendorID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,12 +22,12 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Vendor]
     OUTPUT
-        DELETED.VendorID,
-        DELETED.VendorName,
-        DELETED.VendorAddress,
-        DELETED.VendorInsertDate
+        DELETED.Id,
+        DELETED.Name,
+        DELETED.Address,
+        DELETED.CreatedAt
     FROM
         [dbo].[Vendor]
     WHERE
-        VendorID = @VendorID;
+        Id = @Id;
 END;

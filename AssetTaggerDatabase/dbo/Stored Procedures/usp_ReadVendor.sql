@@ -1,10 +1,10 @@
 CREATE PROCEDURE [dbo].[usp_ReadVendor]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @VendorID UNIQUEIDENTIFIER = NULL,
-    @VendorName NVARCHAR(850) = NULL,
-    @VendorAddress NVARCHAR(850) = NULL,
-    @FromVendorInsertDate DATETIMEOFFSET(3) = NULL,
-    @ToVendorInsertDate DATETIMEOFFSET(3) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Name NVARCHAR(850) = NULL,
+    @Address NVARCHAR(850) = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -28,21 +28,21 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        VendorID,
-        VendorName,
-        VendorAddress,
-        VendorInsertDate
+        Id,
+        Name,
+        Address,
+        CreatedAt
     FROM
         [dbo].[Vendor]
     WHERE
-        VendorID = ISNULL(@VendorID, VendorID)
-        AND (VendorName = ISNULL(@VendorName, VendorName) OR VendorName LIKE @VendorName)
-        AND (VendorAddress = ISNULL(@VendorAddress, VendorAddress) OR VendorAddress LIKE @VendorAddress)
-        AND ISNULL(@FromVendorInsertDate, VendorInsertDate) <= VendorInsertDate
-        AND VendorInsertDate <= ISNULL(@ToVendorInsertDate, VendorInsertDate)
+        Id = ISNULL(@Id, Id)
+        AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
+        AND (Address = ISNULL(@Address, Address) OR Address LIKE @Address)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN VendorNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN VendorNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:

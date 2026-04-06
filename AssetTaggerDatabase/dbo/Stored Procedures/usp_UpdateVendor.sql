@@ -1,8 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_UpdateVendor]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @VendorID UNIQUEIDENTIFIER,
-    @VendorName NVARCHAR(850) = NULL,
-    @VendorAddress NVARCHAR(850) = NULL
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL,
+    @Address NVARCHAR(850) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -25,17 +25,17 @@ BEGIN
     UPDATE
         [dbo].[Vendor]
     SET
-        VendorName = ISNULL(@VendorName, VendorName),
-        VendorAddress = ISNULL(@VendorAddress, VendorAddress)
+        Name = ISNULL(@Name, Name),
+        Address = ISNULL(@Address, Address)
     OUTPUT
-        INSERTED.VendorID,
-        INSERTED.VendorName,
-        INSERTED.VendorAddress,
-        INSERTED.VendorInsertDate,
-        DELETED.VendorName AS OldVendorName,
-        DELETED.VendorAddress AS OldVendorAddress
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.Address,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName,
+        DELETED.Address AS OldAddress
     FROM
         [dbo].[Vendor]
     WHERE
-        VendorID = @VendorID;
+        Id = @Id;
 END;
