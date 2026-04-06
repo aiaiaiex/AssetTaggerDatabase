@@ -1,12 +1,17 @@
 ﻿CREATE TABLE [dbo].[Category] (
-    [CategoryNumber] INT IDENTITY (1, 1),
-    [CategoryID] UNIQUEIDENTIFIER CONSTRAINT [DF_Category_CategoryID] DEFAULT (NEWID()) NOT NULL,
-    [CategoryName] NVARCHAR(850) NOT NULL,
-    [CategoryInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Category_CategoryInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
-    CONSTRAINT [AK_Category_CategoryNumber] UNIQUE CLUSTERED ([CategoryNumber] ASC),
-    CONSTRAINT [AK_Category_CategoryName] UNIQUE ([CategoryName]),
-    CONSTRAINT [CK_Category_CategoryName_Exclude] CHECK ([CategoryName] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Category_CategoryName_MinimumLength] CHECK (LEN([CategoryName]) > 0),
-    CONSTRAINT [CK_Category_CategoryName_NoLeadingAndTrailingWhitespace] CHECK ([CategoryName] NOT LIKE ' %' AND [CategoryName] NOT LIKE '% '),
-    CONSTRAINT [PK_Category] PRIMARY KEY NONCLUSTERED ([CategoryID] ASC)
+    -- Columns with default values.
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Category_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Category_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_Category] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+
+    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Category_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+
+    -- Non-nullable columns.
+    [Name] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_Category_Name] UNIQUE ([Name]),
+    CONSTRAINT [CK_Category_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Category_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Category_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% ')
 );

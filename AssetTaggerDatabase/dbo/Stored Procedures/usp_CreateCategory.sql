@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateCategory]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CategoryName NVARCHAR(850)
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -21,13 +21,13 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Category] (
-        CategoryName
+        Name
     )
     OUTPUT
-        INSERTED.CategoryID,
-        INSERTED.CategoryName,
-        INSERTED.CategoryInsertDate
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt
     VALUES (
-        @CategoryName
+        @Name
     );
 END;

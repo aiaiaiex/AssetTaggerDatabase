@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateCategory]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CategoryID UNIQUEIDENTIFIER,
-    @CategoryName NVARCHAR(850) = NULL
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -24,14 +24,14 @@ BEGIN
     UPDATE
         [dbo].[Category]
     SET
-        CategoryName = ISNULL(@CategoryName, CategoryName)
+        Name = ISNULL(@Name, Name)
     OUTPUT
-        INSERTED.CategoryID,
-        INSERTED.CategoryName,
-        INSERTED.CategoryInsertDate,
-        DELETED.CategoryName AS OldCategoryName
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName
     FROM
         [dbo].[Category]
     WHERE
-        CategoryID = @CategoryID;
+        Id = @Id;
 END;

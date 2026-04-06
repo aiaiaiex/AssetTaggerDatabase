@@ -1,9 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_ReadCategory]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CategoryID UNIQUEIDENTIFIER = NULL,
-    @CategoryName NVARCHAR(850) = NULL,
-    @FromCategoryInsertDate DATETIMEOFFSET(3) = NULL,
-    @ToCategoryInsertDate DATETIMEOFFSET(3) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Name NVARCHAR(850) = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -27,19 +27,19 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        CategoryID,
-        CategoryName,
-        CategoryInsertDate
+        Id,
+        Name,
+        CreatedAt
     FROM
         [dbo].[Category]
     WHERE
-        CategoryID = ISNULL(@CategoryID, CategoryID)
-        AND (CategoryName = ISNULL(@CategoryName, CategoryName) OR CategoryName LIKE @CategoryName)
-        AND ISNULL(@FromCategoryInsertDate, CategoryInsertDate) <= CategoryInsertDate
-        AND CategoryInsertDate <= ISNULL(@ToCategoryInsertDate, CategoryInsertDate)
+        Id = ISNULL(@Id, Id)
+        AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN CategoryNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN CategoryNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:

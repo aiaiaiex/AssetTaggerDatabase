@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteCategory]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CategoryID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,11 +22,11 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Category]
     OUTPUT
-        DELETED.CategoryID,
-        DELETED.CategoryName,
-        DELETED.CategoryInsertDate
+        DELETED.Id,
+        DELETED.Name,
+        DELETED.CreatedAt
     FROM
         [dbo].[Category]
     WHERE
-        CategoryID = @CategoryID;
+        Id = @Id;
 END;
