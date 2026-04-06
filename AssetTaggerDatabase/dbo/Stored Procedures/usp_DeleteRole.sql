@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @RoleID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,11 +22,11 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Role]
     OUTPUT
-        DELETED.RoleID,
-        DELETED.RoleName,
-        DELETED.RoleInsertDate
+        DELETED.Id,
+        DELETED.Name,
+        DELETED.CreatedAt
     FROM
         [dbo].[Role]
     WHERE
-        RoleID = @RoleID;
+        Id = @Id;
 END;

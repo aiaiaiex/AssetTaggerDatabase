@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @RoleID UNIQUEIDENTIFIER,
-    @RoleName NVARCHAR(850) = NULL
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -24,14 +24,14 @@ BEGIN
     UPDATE
         [dbo].[Role]
     SET
-        RoleName = ISNULL(@RoleName, RoleName)
+        Name = ISNULL(@Name, Name)
     OUTPUT
-        INSERTED.RoleID,
-        INSERTED.RoleName,
-        INSERTED.RoleInsertDate,
-        DELETED.RoleName AS OldRoleName
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName
     FROM
         [dbo].[Role]
     WHERE
-        RoleID = @RoleID;
+        Id = @Id;
 END;

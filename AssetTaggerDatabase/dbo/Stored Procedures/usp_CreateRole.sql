@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @RoleName NVARCHAR(850)
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -21,13 +21,13 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Role] (
-        RoleName
+        Name
     )
     OUTPUT
-        INSERTED.RoleID,
-        INSERTED.RoleName,
-        INSERTED.RoleInsertDate
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt
     VALUES (
-        @RoleName
+        @Name
     );
 END;
