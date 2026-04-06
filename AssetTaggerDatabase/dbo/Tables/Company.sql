@@ -1,25 +1,34 @@
 ﻿CREATE TABLE [dbo].[Company] (
-    [CompanyNumber] INT IDENTITY (1, 1),
-    [CompanyID] UNIQUEIDENTIFIER CONSTRAINT [DF_Company_CompanyID] DEFAULT (NEWID()) NOT NULL,
-    [ParentCompanyID] UNIQUEIDENTIFIER NULL,
-    [CompanyName] NVARCHAR(850) NOT NULL,
-    [CompanyAddress] NVARCHAR(850) NOT NULL,
-    [CompanyCode] NVARCHAR(5) NOT NULL,
-    [CompanyInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Company_CompanyInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
-    CONSTRAINT [AK_Company_CompanyNumber] UNIQUE CLUSTERED ([CompanyNumber] ASC),
-    CONSTRAINT [AK_Company_CompanyName] UNIQUE ([CompanyName]),
-    CONSTRAINT [AK_Company_CompanyAddress] UNIQUE ([CompanyAddress]),
-    CONSTRAINT [AK_Company_CompanyCode] UNIQUE ([CompanyCode]),
-    CONSTRAINT [CK_Company_CompanyName_Exclude] CHECK ([CompanyName] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Company_CompanyName_MinimumLength] CHECK (LEN([CompanyName]) > 0),
-    CONSTRAINT [CK_Company_CompanyName_NoLeadingAndTrailingWhitespace] CHECK ([CompanyName] NOT LIKE ' %' AND [CompanyName] NOT LIKE '% '),
-    CONSTRAINT [CK_Company_CompanyAddress_Exclude] CHECK ([CompanyAddress] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Company_CompanyAddress_MinimumLength] CHECK (LEN([CompanyAddress]) > 0),
-    CONSTRAINT [CK_Company_CompanyAddress_NoLeadingAndTrailingWhitespace] CHECK ([CompanyAddress] NOT LIKE ' %' AND [CompanyAddress] NOT LIKE '% '),
-    CONSTRAINT [CK_Company_CompanyCode_Exclude] CHECK ([CompanyCode] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Company_CompanyCode_MinimumLength] CHECK (LEN([CompanyCode]) > 0),
-    CONSTRAINT [CK_Company_CompanyCode_NoLeadingAndTrailingWhitespace] CHECK ([CompanyCode] NOT LIKE ' %' AND [CompanyCode] NOT LIKE '% '),
-    CONSTRAINT [PK_Company] PRIMARY KEY NONCLUSTERED ([CompanyID] ASC),
-    CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyID]) REFERENCES [dbo].[Company] ([CompanyID]),
-    CONSTRAINT [CTK_Company_CompanyID_ParentCompanyID] CHECK ([CompanyID] != [ParentCompanyID])
+    -- Columns with default values.
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Company_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Company_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_Company] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+
+    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Company_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+
+    -- Non-nullable columns.
+    [Name] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_Company_Name] UNIQUE ([Name]),
+    CONSTRAINT [CK_Company_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Company_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Company_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% '),
+
+    [Address] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_Company_Address] UNIQUE ([Address]),
+    CONSTRAINT [CK_Company_Address_Exclude] CHECK ([Address] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Company_Address_MinimumLength] CHECK (LEN([Address]) > 0),
+    CONSTRAINT [CK_Company_Address_NoLeadingAndTrailingWhitespace] CHECK ([Address] NOT LIKE ' %' AND [Address] NOT LIKE '% '),
+
+    [Code] NVARCHAR(5) NOT NULL,
+    CONSTRAINT [AK_Company_Code] UNIQUE ([Code]),
+    CONSTRAINT [CK_Company_Code_Exclude] CHECK ([Code] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Company_Code_MinimumLength] CHECK (LEN([Code]) > 0),
+    CONSTRAINT [CK_Company_Code_NoLeadingAndTrailingWhitespace] CHECK ([Code] NOT LIKE ' %' AND [Code] NOT LIKE '% '),
+
+    -- Nullable columns.
+    [ParentCompanyId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [CTK_Company_Id_ParentCompanyId] CHECK ([Id] != [ParentCompanyId]),
+    CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyId]) REFERENCES [dbo].[Company] ([Id])
 );

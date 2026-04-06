@@ -1,10 +1,10 @@
 CREATE PROCEDURE [dbo].[usp_UpdateCompany]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CompanyID UNIQUEIDENTIFIER,
-    @CompanyName NVARCHAR(850) = NULL,
-    @CompanyAddress NVARCHAR(850) = NULL,
-    @CompanyCode NVARCHAR(5) = NULL,
-    @ParentCompanyID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000'
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL,
+    @Address NVARCHAR(850) = NULL,
+    @Code NVARCHAR(5) = NULL,
+    @ParentCompanyId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000'
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -30,23 +30,23 @@ BEGIN
     UPDATE
         [dbo].[Company]
     SET
-        CompanyName = ISNULL(@CompanyName, CompanyName),
-        CompanyAddress = ISNULL(@CompanyAddress, CompanyAddress),
-        CompanyCode = ISNULL(@CompanyCode, CompanyCode),
-        ParentCompanyID = IIF(@ParentCompanyID = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyID, @ParentCompanyID)
+        Name = ISNULL(@Name, Name),
+        Address = ISNULL(@Address, Address),
+        Code = ISNULL(@Code, Code),
+        ParentCompanyId = IIF(@ParentCompanyId = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyId, @ParentCompanyId)
     OUTPUT
-        INSERTED.CompanyID,
-        INSERTED.CompanyName,
-        INSERTED.CompanyAddress,
-        INSERTED.CompanyCode,
-        INSERTED.ParentCompanyID,
-        INSERTED.CompanyInsertDate,
-        DELETED.CompanyName AS OldCompanyName,
-        DELETED.CompanyAddress AS OldCompanyAddress,
-        DELETED.CompanyCode AS OldCompanyCode,
-        DELETED.ParentCompanyID AS OldParentCompanyID
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.Address,
+        INSERTED.Code,
+        INSERTED.ParentCompanyId,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName,
+        DELETED.Address AS OldAddress,
+        DELETED.Code AS OldCode,
+        DELETED.ParentCompanyId AS OldParentCompanyId
     FROM
         [dbo].[Company]
     WHERE
-        CompanyID = @CompanyID;
+        Id = @Id;
 END;

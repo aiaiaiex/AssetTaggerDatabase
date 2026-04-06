@@ -1,9 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_CreateCompany]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CompanyName NVARCHAR(850),
-    @CompanyAddress NVARCHAR(850),
-    @CompanyCode NVARCHAR(5),
-    @ParentCompanyID UNIQUEIDENTIFIER = NULL
+    @Name NVARCHAR(850),
+    @Address NVARCHAR(850),
+    @Code NVARCHAR(5),
+    @ParentCompanyId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -24,22 +24,22 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Company] (
-        CompanyName,
-        CompanyAddress,
-        CompanyCode,
-        ParentCompanyID
+        Name,
+        Address,
+        Code,
+        ParentCompanyId
     )
     OUTPUT
-        INSERTED.CompanyID,
-        INSERTED.CompanyName,
-        INSERTED.CompanyAddress,
-        INSERTED.CompanyCode,
-        INSERTED.ParentCompanyID,
-        INSERTED.CompanyInsertDate
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.Address,
+        INSERTED.Code,
+        INSERTED.ParentCompanyId,
+        INSERTED.CreatedAt
     VALUES (
-        @CompanyName,
-        @CompanyAddress,
-        @CompanyCode,
-        @ParentCompanyID
+        @Name,
+        @Address,
+        @Code,
+        @ParentCompanyId
     );
 END;

@@ -1,12 +1,12 @@
 CREATE PROCEDURE [dbo].[usp_ReadCompany]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @CompanyID UNIQUEIDENTIFIER = NULL,
-    @CompanyName NVARCHAR(850) = NULL,
-    @CompanyAddress NVARCHAR(850) = NULL,
-    @CompanyCode NVARCHAR(5) = NULL,
-    @ParentCompanyID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
-    @FromCompanyInsertDate DATETIMEOFFSET(3) = NULL,
-    @ToCompanyInsertDate DATETIMEOFFSET(3) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Name NVARCHAR(850) = NULL,
+    @Address NVARCHAR(850) = NULL,
+    @Code NVARCHAR(5) = NULL,
+    @ParentCompanyId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -35,25 +35,25 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        CompanyID,
-        CompanyName,
-        CompanyAddress,
-        CompanyCode,
-        ParentCompanyID,
-        CompanyInsertDate
+        Id,
+        Name,
+        Address,
+        Code,
+        ParentCompanyId,
+        CreatedAt
     FROM
         [dbo].[Company]
     WHERE
-        CompanyID = ISNULL(@CompanyID, CompanyID)
-        AND (CompanyName = ISNULL(@CompanyName, CompanyName) OR CompanyName LIKE @CompanyName)
-        AND (CompanyAddress = ISNULL(@CompanyAddress, CompanyAddress) OR CompanyAddress LIKE @CompanyAddress)
-        AND (CompanyCode = ISNULL(@CompanyCode, CompanyCode) OR CompanyCode LIKE @CompanyCode)
-        AND ParentCompanyID IS NOT DISTINCT FROM IIF(@ParentCompanyID = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyID, IIF(@ParentCompanyID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(ParentCompanyID, @NON_NULLISH_UNIQUEIDENTIFIER), @ParentCompanyID))
-        AND ISNULL(@FromCompanyInsertDate, CompanyInsertDate) <= CompanyInsertDate
-        AND CompanyInsertDate <= ISNULL(@ToCompanyInsertDate, CompanyInsertDate)
+        Id = ISNULL(@Id, Id)
+        AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
+        AND (Address = ISNULL(@Address, Address) OR Address LIKE @Address)
+        AND (Code = ISNULL(@Code, Code) OR Code LIKE @Code)
+        AND ParentCompanyId IS NOT DISTINCT FROM IIF(@ParentCompanyId = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyId, IIF(@ParentCompanyId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(ParentCompanyId, @NON_NULLISH_UNIQUEIDENTIFIER), @ParentCompanyId))
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN CompanyNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN CompanyNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:
