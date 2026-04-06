@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteDepartment]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @DepartmentID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,11 +22,11 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Department]
     OUTPUT
-        DELETED.DepartmentID,
-        DELETED.DepartmentName,
-        DELETED.DepartmentInsertDate
+        DELETED.Id,
+        DELETED.Name,
+        DELETED.CreatedAt
     FROM
         [dbo].[Department]
     WHERE
-        DepartmentID = @DepartmentID;
+        Id = @Id;
 END;

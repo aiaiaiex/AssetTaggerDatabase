@@ -1,12 +1,17 @@
 ﻿CREATE TABLE [dbo].[Department] (
-    [DepartmentNumber] INT IDENTITY (1, 1),
-    [DepartmentID] UNIQUEIDENTIFIER CONSTRAINT [DF_Department_DepartmentID] DEFAULT (NEWID()) NOT NULL,
-    [DepartmentName] NVARCHAR(850) NOT NULL,
-    [DepartmentInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Department_DepartmentInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
-    CONSTRAINT [AK_Department_DepartmentNumber] UNIQUE CLUSTERED ([DepartmentNumber] ASC),
-    CONSTRAINT [AK_Department_DepartmentName] UNIQUE ([DepartmentName]),
-    CONSTRAINT [CK_Department_DepartmentName_Exclude] CHECK ([DepartmentName] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Department_DepartmentName_MinimumLength] CHECK (LEN([DepartmentName]) > 0),
-    CONSTRAINT [CK_Department_DepartmentName_NoLeadingAndTrailingWhitespace] CHECK ([DepartmentName] NOT LIKE ' %' AND [DepartmentName] NOT LIKE '% '),
-    CONSTRAINT [PK_Department] PRIMARY KEY NONCLUSTERED ([DepartmentID] ASC)
+    -- Columns with default values.
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Department_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Department_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_Department] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+
+    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Department_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+
+    -- Non-nullable columns.
+    [Name] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_Department_Name] UNIQUE ([Name]),
+    CONSTRAINT [CK_Department_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Department_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Department_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% ')
 );

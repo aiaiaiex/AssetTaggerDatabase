@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateDepartment]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @DepartmentName NVARCHAR(850)
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -21,13 +21,13 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Department] (
-        DepartmentName
+        Name
     )
     OUTPUT
-        INSERTED.DepartmentID,
-        INSERTED.DepartmentName,
-        INSERTED.DepartmentInsertDate
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt
     VALUES (
-        @DepartmentName
+        @Name
     );
 END;

@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateDepartment]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @DepartmentID UNIQUEIDENTIFIER,
-    @DepartmentName NVARCHAR(850) = NULL
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -24,14 +24,14 @@ BEGIN
     UPDATE
         [dbo].[Department]
     SET
-        DepartmentName = ISNULL(@DepartmentName, DepartmentName)
+        Name = ISNULL(@Name, Name)
     OUTPUT
-        INSERTED.DepartmentID,
-        INSERTED.DepartmentName,
-        INSERTED.DepartmentInsertDate,
-        DELETED.DepartmentName AS OldDepartmentName
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName
     FROM
         [dbo].[Department]
     WHERE
-        DepartmentID = @DepartmentID;
+        Id = @Id;
 END;
