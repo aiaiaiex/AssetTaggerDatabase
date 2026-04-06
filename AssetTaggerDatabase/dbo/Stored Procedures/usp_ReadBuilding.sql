@@ -14,14 +14,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadBuilding BIT = (SELECT ReadBuilding FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingBuildingPermission BIT = (SELECT HasReadingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadBuilding IS NULL)
+    IF (@HasReadingBuildingPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadBuilding = 0)
+    IF (@HasReadingBuildingPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Building!', 11, 0);
             RETURN -1;

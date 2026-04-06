@@ -12,14 +12,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadCategory BIT = (SELECT ReadCategory FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingCategoryPermission BIT = (SELECT HasReadingCategoryPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadCategory IS NULL)
+    IF (@HasReadingCategoryPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadCategory = 0)
+    IF (@HasReadingCategoryPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Category!', 11, 0);
             RETURN -1;

@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @DeleteDepartment BIT = (SELECT DeleteDepartment FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingDepartmentPermission BIT = (SELECT HasDeletingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@DeleteDepartment IS NULL)
+    IF (@HasDeletingDepartmentPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@DeleteDepartment = 0)
+    IF (@HasDeletingDepartmentPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to delete a Department!', 11, 0);
             RETURN -1;

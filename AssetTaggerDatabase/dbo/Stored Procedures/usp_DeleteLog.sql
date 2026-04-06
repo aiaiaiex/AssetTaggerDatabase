@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @DeleteLog BIT = (SELECT DeleteLog FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingLogPermission BIT = (SELECT HasDeletingLogPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@DeleteLog IS NULL)
+    IF (@HasDeletingLogPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@DeleteLog = 0)
+    IF (@HasDeletingLogPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to delete a Log!', 11, 0);
             RETURN -1;

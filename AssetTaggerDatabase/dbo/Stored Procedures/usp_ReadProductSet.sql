@@ -14,14 +14,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadProductSet BIT = (SELECT ReadProductSet FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingProductSetPermission BIT = (SELECT HasReadingProductSetPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadProductSet IS NULL)
+    IF (@HasReadingProductSetPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadProductSet = 0)
+    IF (@HasReadingProductSetPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read ProductSet!', 11, 0);
             RETURN -1;

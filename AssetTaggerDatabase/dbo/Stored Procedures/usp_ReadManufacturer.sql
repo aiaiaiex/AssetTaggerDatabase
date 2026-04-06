@@ -12,14 +12,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadManufacturer BIT = (SELECT ReadManufacturer FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingManufacturerPermission BIT = (SELECT HasReadingManufacturerPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadManufacturer IS NULL)
+    IF (@HasReadingManufacturerPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadManufacturer = 0)
+    IF (@HasReadingManufacturerPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Manufacturer!', 11, 0);
             RETURN -1;

@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateRole BIT = (SELECT CreateRole FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingRolePermission BIT = (SELECT HasCreatingRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateRole IS NULL)
+    IF (@HasCreatingRolePermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateRole = 0)
+    IF (@HasCreatingRolePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create a Role!', 11, 0);
             RETURN -1;

@@ -10,14 +10,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateProduct BIT = (SELECT CreateProduct FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingProductPermission BIT = (SELECT HasCreatingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateProduct IS NULL)
+    IF (@HasCreatingProductPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateProduct = 0)
+    IF (@HasCreatingProductPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create a Product!', 11, 0);
             RETURN -1;

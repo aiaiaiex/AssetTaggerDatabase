@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateManufacturer BIT = (SELECT CreateManufacturer FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingManufacturerPermission BIT = (SELECT HasCreatingManufacturerPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateManufacturer IS NULL)
+    IF (@HasCreatingManufacturerPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateManufacturer = 0)
+    IF (@HasCreatingManufacturerPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create a Manufacturer!', 11, 0);
             RETURN -1;

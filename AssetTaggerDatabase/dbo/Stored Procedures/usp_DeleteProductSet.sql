@@ -7,14 +7,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @DeleteProductSet BIT = (SELECT DeleteProductSet FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingProductSetPermission BIT = (SELECT HasDeletingProductSetPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@DeleteProductSet IS NULL)
+    IF (@HasDeletingProductSetPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@DeleteProductSet = 0)
+    IF (@HasDeletingProductSetPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to delete a ProductSet!', 11, 0);
             RETURN -1;

@@ -8,14 +8,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @UpdateLocation BIT = (SELECT UpdateLocation FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingLocationPermission BIT = (SELECT HasUpdatingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@UpdateLocation IS NULL)
+    IF (@HasUpdatingLocationPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@UpdateLocation = 0)
+    IF (@HasUpdatingLocationPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to update a Location!', 11, 0);
             RETURN -1;

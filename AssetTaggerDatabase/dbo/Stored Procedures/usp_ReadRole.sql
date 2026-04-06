@@ -12,14 +12,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadRole BIT = (SELECT ReadRole FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingRolePermission BIT = (SELECT HasReadingRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadRole IS NULL)
+    IF (@HasReadingRolePermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadRole = 0)
+    IF (@HasReadingRolePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Role!', 11, 0);
             RETURN -1;

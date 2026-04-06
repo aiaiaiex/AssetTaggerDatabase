@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateDepartment BIT = (SELECT CreateDepartment FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingDepartmentPermission BIT = (SELECT HasCreatingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateDepartment IS NULL)
+    IF (@HasCreatingDepartmentPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateDepartment = 0)
+    IF (@HasCreatingDepartmentPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create a Department!', 11, 0);
             RETURN -1;

@@ -1,99 +1,104 @@
 ﻿CREATE TABLE [dbo].[EndUserRole] (
-    [EndUserRoleNumber] INT IDENTITY (1, 1),
-    [EndUserRoleID] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_EndUserRoleID] DEFAULT (NEWID()) NOT NULL,
-    [EndUserRoleName] NVARCHAR(850) NOT NULL,
+    -- Columns with default values.
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_EndUserRole_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+
     [EndUserRoleCreationDate] DATETIMEOFFSET(3) CONSTRAINT [DF_EndUserRole_EndUserRoleCreationDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
-    -- Asset CRUD Permissions
-    [CreateAsset] BIT DEFAULT 0 NOT NULL,
-    [ReadAsset] BIT DEFAULT 0 NOT NULL,
-    [UpdateAsset] BIT DEFAULT 0 NOT NULL,
-    [DeleteAsset] BIT DEFAULT 0 NOT NULL,
-    -- AssetFix CRUD Permissions
-    [CreateAssetFix] BIT DEFAULT 0 NOT NULL,
-    [ReadAssetFix] BIT DEFAULT 0 NOT NULL,
-    [UpdateAssetFix] BIT DEFAULT 0 NOT NULL,
-    [DeleteAssetFix] BIT DEFAULT 0 NOT NULL,
-    -- AssetIssue CRUD Permissions
-    [CreateAssetIssue] BIT DEFAULT 0 NOT NULL,
-    [ReadAssetIssue] BIT DEFAULT 0 NOT NULL,
-    [UpdateAssetIssue] BIT DEFAULT 0 NOT NULL,
-    [DeleteAssetIssue] BIT DEFAULT 0 NOT NULL,
-    -- Building CRUD Permissions
-    [CreateBuilding] BIT DEFAULT 0 NOT NULL,
-    [ReadBuilding] BIT DEFAULT 0 NOT NULL,
-    [UpdateBuilding] BIT DEFAULT 0 NOT NULL,
-    [DeleteBuilding] BIT DEFAULT 0 NOT NULL,
-    -- Category CRUD Permissions
-    [CreateCategory] BIT DEFAULT 0 NOT NULL,
-    [ReadCategory] BIT DEFAULT 0 NOT NULL,
-    [UpdateCategory] BIT DEFAULT 0 NOT NULL,
-    [DeleteCategory] BIT DEFAULT 0 NOT NULL,
-    -- Company CRUD Permissions
-    [CreateCompany] BIT DEFAULT 0 NOT NULL,
-    [ReadCompany] BIT DEFAULT 0 NOT NULL,
-    [UpdateCompany] BIT DEFAULT 0 NOT NULL,
-    [DeleteCompany] BIT DEFAULT 0 NOT NULL,
-    -- Department CRUD Permissions
-    [CreateDepartment] BIT DEFAULT 0 NOT NULL,
-    [ReadDepartment] BIT DEFAULT 0 NOT NULL,
-    [UpdateDepartment] BIT DEFAULT 0 NOT NULL,
-    [DeleteDepartment] BIT DEFAULT 0 NOT NULL,
-    -- Employee CRUD Permissions
-    [CreateEmployee] BIT DEFAULT 0 NOT NULL,
-    [ReadEmployee] BIT DEFAULT 0 NOT NULL,
-    [UpdateEmployee] BIT DEFAULT 0 NOT NULL,
-    [DeleteEmployee] BIT DEFAULT 0 NOT NULL,
-    -- EndUser CRUD Permissions
-    [CreateEndUser] BIT DEFAULT 0 NOT NULL,
-    [ReadEndUser] BIT DEFAULT 0 NOT NULL,
-    [UpdateEndUser] BIT DEFAULT 0 NOT NULL,
-    [DeleteEndUser] BIT DEFAULT 0 NOT NULL,
-    -- EndUserRole CRUD Permissions
-    [CreateEndUserRole] BIT DEFAULT 0 NOT NULL,
-    [ReadEndUserRole] BIT DEFAULT 0 NOT NULL,
-    [UpdateEndUserRole] BIT DEFAULT 0 NOT NULL,
-    [DeleteEndUserRole] BIT DEFAULT 0 NOT NULL,
-    -- Location CRUD Permissions
-    [CreateLocation] BIT DEFAULT 0 NOT NULL,
-    [ReadLocation] BIT DEFAULT 0 NOT NULL,
-    [UpdateLocation] BIT DEFAULT 0 NOT NULL,
-    [DeleteLocation] BIT DEFAULT 0 NOT NULL,
-    -- Log RD Permissions
+
+    -- Asset CRUD Permissions.
+    [HasCreatingAssetPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingAssetPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingAssetPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingAssetPermission] BIT DEFAULT 0 NOT NULL,
+    -- AssetFix CRUD Permissions.
+    [HasCreatingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
+    -- AssetIssue CRUD Permissions.
+    [HasCreatingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
+    -- Building CRUD Permissions.
+    [HasCreatingBuildingPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingBuildingPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingBuildingPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingBuildingPermission] BIT DEFAULT 0 NOT NULL,
+    -- Category CRUD Permissions.
+    [HasCreatingCategoryPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingCategoryPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingCategoryPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingCategoryPermission] BIT DEFAULT 0 NOT NULL,
+    -- Company CRUD Permissions.
+    [HasCreatingCompanyPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingCompanyPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingCompanyPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingCompanyPermission] BIT DEFAULT 0 NOT NULL,
+    -- Department CRUD Permissions.
+    [HasCreatingDepartmentPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingDepartmentPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingDepartmentPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingDepartmentPermission] BIT DEFAULT 0 NOT NULL,
+    -- Employee CRUD Permissions.
+    [HasCreatingEmployeePermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingEmployeePermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingEmployeePermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingEmployeePermission] BIT DEFAULT 0 NOT NULL,
+    -- EndUser CRUD Permissions.
+    [HasCreatingEndUserPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingEndUserPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingEndUserPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingEndUserPermission] BIT DEFAULT 0 NOT NULL,
+    -- EndUserRole CRUD Permissions.
+    [HasCreatingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
+    -- Location CRUD Permissions.
+    [HasCreatingLocationPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingLocationPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingLocationPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingLocationPermission] BIT DEFAULT 0 NOT NULL,
+    -- Log RD Permissions.
     -- Log has no create permission because every call to stored procedures should be logged even if CallingEndUserID doesn't exist.
     -- Log has no update permission because to make logs immutable.
-    -- Log has a delete permission but the call to usp_DeleteLog should be logged.
-    [ReadLog] BIT DEFAULT 0 NOT NULL,
-    [DeleteLog] BIT DEFAULT 0 NOT NULL,
-    -- Manufacturer CRUD Permissions
-    [CreateManufacturer] BIT DEFAULT 0 NOT NULL,
-    [ReadManufacturer] BIT DEFAULT 0 NOT NULL,
-    [UpdateManufacturer] BIT DEFAULT 0 NOT NULL,
-    [DeleteManufacturer] BIT DEFAULT 0 NOT NULL,
-    -- Product CRUD Permissions
-    [CreateProduct] BIT DEFAULT 0 NOT NULL,
-    [ReadProduct] BIT DEFAULT 0 NOT NULL,
-    [UpdateProduct] BIT DEFAULT 0 NOT NULL,
-    [DeleteProduct] BIT DEFAULT 0 NOT NULL,
-    -- ProductSet CRUD Permissions
-    [CreateProductSet] BIT DEFAULT 0 NOT NULL,
-    [ReadProductSet] BIT DEFAULT 0 NOT NULL,
-    [UpdateProductSet] BIT DEFAULT 0 NOT NULL,
-    [DeleteProductSet] BIT DEFAULT 0 NOT NULL,
-    -- Role CRUD Permissions
-    [CreateRole] BIT DEFAULT 0 NOT NULL,
-    [ReadRole] BIT DEFAULT 0 NOT NULL,
-    [UpdateRole] BIT DEFAULT 0 NOT NULL,
-    [DeleteRole] BIT DEFAULT 0 NOT NULL,
-    -- Vendor CRUD Permissions
-    [CreateVendor] BIT DEFAULT 0 NOT NULL,
-    [ReadVendor] BIT DEFAULT 0 NOT NULL,
-    [UpdateVendor] BIT DEFAULT 0 NOT NULL,
-    [DeleteVendor] BIT DEFAULT 0 NOT NULL,
-    -- Constraints
-    CONSTRAINT [AK_EndUserRole_EndUserRoleNumber] UNIQUE CLUSTERED ([EndUserRoleNumber] ASC),
-    CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([EndUserRoleID] ASC),
-    CONSTRAINT [CK_EndUserRole_EndUserRoleName_Exclude] CHECK ([EndUserRoleName] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_EndUserRole_EndUserRoleName_MinimumLength] CHECK (LEN([EndUserRoleName]) > 0),
-    CONSTRAINT [CK_EndUserRole_EndUserRoleName_NoLeadingAndTrailingWhitespace] CHECK ([EndUserRoleName] NOT LIKE ' %' AND [EndUserRoleName] NOT LIKE '% '),
-    CONSTRAINT [AK_EndUserRole_EndUserRoleName] UNIQUE NONCLUSTERED ([EndUserRoleName] ASC)
+    -- Log has a delete permission but the call to usp_HasDeletingLogPermission should be logged.
+    [HasReadingLogPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingLogPermission] BIT DEFAULT 0 NOT NULL,
+    -- Manufacturer CRUD Permissions.
+    [HasCreatingManufacturerPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingManufacturerPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingManufacturerPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingManufacturerPermission] BIT DEFAULT 0 NOT NULL,
+    -- Product CRUD Permissions.
+    [HasCreatingProductPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingProductPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingProductPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingProductPermission] BIT DEFAULT 0 NOT NULL,
+    -- ProductSet CRUD Permissions.
+    [HasCreatingProductSetPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingProductSetPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingProductSetPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingProductSetPermission] BIT DEFAULT 0 NOT NULL,
+    -- Role CRUD Permissions.
+    [HasCreatingRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
+    -- Vendor CRUD Permissions.
+    [HasCreatingVendorPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingVendorPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingVendorPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingVendorPermission] BIT DEFAULT 0 NOT NULL,
+
+    -- Non-nullable columns.
+    [Name] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_EndUserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC),
+    CONSTRAINT [CK_EndUserRole_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_EndUserRole_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_EndUserRole_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% ')
 );

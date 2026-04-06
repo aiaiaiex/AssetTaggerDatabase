@@ -20,14 +20,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadLog BIT = (SELECT ReadLog FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingLogPermission BIT = (SELECT HasReadingLogPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadLog IS NULL)
+    IF (@HasReadingLogPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadLog = 0)
+    IF (@HasReadingLogPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Log!', 11, 0);
             RETURN -1;

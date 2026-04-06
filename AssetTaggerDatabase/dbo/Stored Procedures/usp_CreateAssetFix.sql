@@ -14,14 +14,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateAssetFix BIT = (SELECT CreateAssetFix FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingAssetFixPermission BIT = (SELECT HasCreatingAssetFixPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateAssetFix IS NULL)
+    IF (@HasCreatingAssetFixPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateAssetFix = 0)
+    IF (@HasCreatingAssetFixPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create an AssetFix!', 11, 0);
             RETURN -1;

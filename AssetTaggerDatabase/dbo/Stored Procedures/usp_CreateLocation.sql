@@ -7,14 +7,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateLocation BIT = (SELECT CreateLocation FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingLocationPermission BIT = (SELECT HasCreatingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateLocation IS NULL)
+    IF (@HasCreatingLocationPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateLocation = 0)
+    IF (@HasCreatingLocationPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create a Location!', 11, 0);
             RETURN -1;

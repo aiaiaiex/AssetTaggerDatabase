@@ -1,73 +1,73 @@
-CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
+CREATE PROCEDURE [dbo].[usp_HasReadingEndUserRolePermission]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EndUserRoleID UNIQUEIDENTIFIER = NULL,
-    @EndUserRoleName NVARCHAR(850) = NULL,
-    @CreateAsset BIT = NULL,
-    @ReadAsset BIT = NULL,
-    @UpdateAsset BIT = NULL,
-    @DeleteAsset BIT = NULL,
-    @CreateAssetFix BIT = NULL,
-    @ReadAssetFix BIT = NULL,
-    @UpdateAssetFix BIT = NULL,
-    @DeleteAssetFix BIT = NULL,
-    @CreateAssetIssue BIT = NULL,
-    @ReadAssetIssue BIT = NULL,
-    @UpdateAssetIssue BIT = NULL,
-    @DeleteAssetIssue BIT = NULL,
-    @CreateBuilding BIT = NULL,
-    @ReadBuilding BIT = NULL,
-    @UpdateBuilding BIT = NULL,
-    @DeleteBuilding BIT = NULL,
-    @CreateCategory BIT = NULL,
-    @ReadCategory BIT = NULL,
-    @UpdateCategory BIT = NULL,
-    @DeleteCategory BIT = NULL,
-    @CreateCompany BIT = NULL,
-    @ReadCompany BIT = NULL,
-    @UpdateCompany BIT = NULL,
-    @DeleteCompany BIT = NULL,
-    @CreateDepartment BIT = NULL,
-    @ReadDepartment BIT = NULL,
-    @UpdateDepartment BIT = NULL,
-    @DeleteDepartment BIT = NULL,
-    @CreateEmployee BIT = NULL,
-    @ReadEmployee BIT = NULL,
-    @UpdateEmployee BIT = NULL,
-    @DeleteEmployee BIT = NULL,
-    @CreateEndUser BIT = NULL,
-    @ReadEndUser BIT = NULL,
-    @UpdateEndUser BIT = NULL,
-    @DeleteEndUser BIT = NULL,
-    @CreateEndUserRole BIT = NULL,
-    @ReadEndUserRole BIT = NULL,
-    @UpdateEndUserRole BIT = NULL,
-    @DeleteEndUserRole BIT = NULL,
-    @CreateLocation BIT = NULL,
-    @ReadLocation BIT = NULL,
-    @UpdateLocation BIT = NULL,
-    @DeleteLocation BIT = NULL,
-    @ReadLog BIT = NULL,
-    @DeleteLog BIT = NULL,
-    @CreateManufacturer BIT = NULL,
-    @ReadManufacturer BIT = NULL,
-    @UpdateManufacturer BIT = NULL,
-    @DeleteManufacturer BIT = NULL,
-    @CreateProduct BIT = NULL,
-    @ReadProduct BIT = NULL,
-    @UpdateProduct BIT = NULL,
-    @DeleteProduct BIT = NULL,
-    @CreateProductSet BIT = NULL,
-    @ReadProductSet BIT = NULL,
-    @UpdateProductSet BIT = NULL,
-    @DeleteProductSet BIT = NULL,
-    @CreateRole BIT = NULL,
-    @ReadRole BIT = NULL,
-    @UpdateRole BIT = NULL,
-    @DeleteRole BIT = NULL,
-    @CreateVendor BIT = NULL,
-    @ReadVendor BIT = NULL,
-    @UpdateVendor BIT = NULL,
-    @DeleteVendor BIT = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Name NVARCHAR(850) = NULL,
+    @HasCreatingAssetPermission BIT = NULL,
+    @HasReadingAssetPermission BIT = NULL,
+    @HasUpdatingAssetPermission BIT = NULL,
+    @HasDeletingAssetPermission BIT = NULL,
+    @HasCreatingAssetFixPermission BIT = NULL,
+    @HasReadingAssetFixPermission BIT = NULL,
+    @HasUpdatingAssetFixPermission BIT = NULL,
+    @HasDeletingAssetFixPermission BIT = NULL,
+    @HasCreatingAssetIssuePermission BIT = NULL,
+    @HasReadingAssetIssuePermission BIT = NULL,
+    @HasUpdatingAssetIssuePermission BIT = NULL,
+    @HasDeletingAssetIssuePermission BIT = NULL,
+    @HasCreatingBuildingPermission BIT = NULL,
+    @HasReadingBuildingPermission BIT = NULL,
+    @HasUpdatingBuildingPermission BIT = NULL,
+    @HasDeletingBuildingPermission BIT = NULL,
+    @HasCreatingCategoryPermission BIT = NULL,
+    @HasReadingCategoryPermission BIT = NULL,
+    @HasUpdatingCategoryPermission BIT = NULL,
+    @HasDeletingCategoryPermission BIT = NULL,
+    @HasCreatingCompanyPermission BIT = NULL,
+    @HasReadingCompanyPermission BIT = NULL,
+    @HasUpdatingCompanyPermission BIT = NULL,
+    @HasDeletingCompanyPermission BIT = NULL,
+    @HasCreatingDepartmentPermission BIT = NULL,
+    @HasReadingDepartmentPermission BIT = NULL,
+    @HasUpdatingDepartmentPermission BIT = NULL,
+    @HasDeletingDepartmentPermission BIT = NULL,
+    @HasCreatingEmployeePermission BIT = NULL,
+    @HasReadingEmployeePermission BIT = NULL,
+    @HasUpdatingEmployeePermission BIT = NULL,
+    @HasDeletingEmployeePermission BIT = NULL,
+    @HasCreatingEndUserPermission BIT = NULL,
+    @HasReadingEndUserPermission BIT = NULL,
+    @HasUpdatingEndUserPermission BIT = NULL,
+    @HasDeletingEndUserPermission BIT = NULL,
+    @HasCreatingEndUserRolePermission BIT = NULL,
+    @HasReadingEndUserRolePermission BIT = NULL,
+    @HasUpdatingEndUserRolePermission BIT = NULL,
+    @HasDeletingEndUserRolePermission BIT = NULL,
+    @HasCreatingLocationPermission BIT = NULL,
+    @HasReadingLocationPermission BIT = NULL,
+    @HasUpdatingLocationPermission BIT = NULL,
+    @HasDeletingLocationPermission BIT = NULL,
+    @HasReadingLogPermission BIT = NULL,
+    @HasDeletingLogPermission BIT = NULL,
+    @HasCreatingManufacturerPermission BIT = NULL,
+    @HasReadingManufacturerPermission BIT = NULL,
+    @HasUpdatingManufacturerPermission BIT = NULL,
+    @HasDeletingManufacturerPermission BIT = NULL,
+    @HasCreatingProductPermission BIT = NULL,
+    @HasReadingProductPermission BIT = NULL,
+    @HasUpdatingProductPermission BIT = NULL,
+    @HasDeletingProductPermission BIT = NULL,
+    @HasCreatingProductSetPermission BIT = NULL,
+    @HasReadingProductSetPermission BIT = NULL,
+    @HasUpdatingProductSetPermission BIT = NULL,
+    @HasDeletingProductSetPermission BIT = NULL,
+    @HasCreatingRolePermission BIT = NULL,
+    @HasReadingRolePermission BIT = NULL,
+    @HasUpdatingRolePermission BIT = NULL,
+    @HasDeletingRolePermission BIT = NULL,
+    @HasCreatingVendorPermission BIT = NULL,
+    @HasReadingVendorPermission BIT = NULL,
+    @HasUpdatingVendorPermission BIT = NULL,
+    @HasDeletingVendorPermission BIT = NULL,
     @FromEndUserRoleCreationDate DATETIMEOFFSET(3) = NULL,
     @ToEndUserRoleCreationDate DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
@@ -78,14 +78,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadEndUserRolePermission BIT = (SELECT ReadEndUserRole FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingEndUserRolePermissionPermission BIT = (SELECT HasReadingEndUserRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadEndUserRolePermission IS NULL)
+    IF (@HasReadingEndUserRolePermissionPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadEndUserRolePermission = 0)
+    IF (@HasReadingEndUserRolePermissionPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read EndUserRole!', 11, 0);
             RETURN -1;
@@ -93,151 +93,151 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        EndUserRoleID,
-        EndUserRoleName,
-        CreateAsset,
-        ReadAsset,
-        UpdateAsset,
-        DeleteAsset,
-        CreateAssetFix,
-        ReadAssetFix,
-        UpdateAssetFix,
-        DeleteAssetFix,
-        CreateAssetIssue,
-        ReadAssetIssue,
-        UpdateAssetIssue,
-        DeleteAssetIssue,
-        CreateBuilding,
-        ReadBuilding,
-        UpdateBuilding,
-        DeleteBuilding,
-        CreateCategory,
-        ReadCategory,
-        UpdateCategory,
-        DeleteCategory,
-        CreateCompany,
-        ReadCompany,
-        UpdateCompany,
-        DeleteCompany,
-        CreateDepartment,
-        ReadDepartment,
-        UpdateDepartment,
-        DeleteDepartment,
-        CreateEmployee,
-        ReadEmployee,
-        UpdateEmployee,
-        DeleteEmployee,
-        CreateEndUser,
-        ReadEndUser,
-        UpdateEndUser,
-        DeleteEndUser,
-        CreateEndUserRole,
-        ReadEndUserRole,
-        UpdateEndUserRole,
-        DeleteEndUserRole,
-        CreateLocation,
-        ReadLocation,
-        UpdateLocation,
-        DeleteLocation,
-        ReadLog,
-        DeleteLog,
-        CreateManufacturer,
-        ReadManufacturer,
-        UpdateManufacturer,
-        DeleteManufacturer,
-        CreateProduct,
-        ReadProduct,
-        UpdateProduct,
-        DeleteProduct,
-        CreateProductSet,
-        ReadProductSet,
-        UpdateProductSet,
-        DeleteProductSet,
-        CreateRole,
-        ReadRole,
-        UpdateRole,
-        DeleteRole,
-        CreateVendor,
-        ReadVendor,
-        UpdateVendor,
-        DeleteVendor,
+        Id,
+        Name,
+        HasCreatingAssetPermission,
+        HasReadingAssetPermission,
+        HasUpdatingAssetPermission,
+        HasDeletingAssetPermission,
+        HasCreatingAssetFixPermission,
+        HasReadingAssetFixPermission,
+        HasUpdatingAssetFixPermission,
+        HasDeletingAssetFixPermission,
+        HasCreatingAssetIssuePermission,
+        HasReadingAssetIssuePermission,
+        HasUpdatingAssetIssuePermission,
+        HasDeletingAssetIssuePermission,
+        HasCreatingBuildingPermission,
+        HasReadingBuildingPermission,
+        HasUpdatingBuildingPermission,
+        HasDeletingBuildingPermission,
+        HasCreatingCategoryPermission,
+        HasReadingCategoryPermission,
+        HasUpdatingCategoryPermission,
+        HasDeletingCategoryPermission,
+        HasCreatingCompanyPermission,
+        HasReadingCompanyPermission,
+        HasUpdatingCompanyPermission,
+        HasDeletingCompanyPermission,
+        HasCreatingDepartmentPermission,
+        HasReadingDepartmentPermission,
+        HasUpdatingDepartmentPermission,
+        HasDeletingDepartmentPermission,
+        HasCreatingEmployeePermission,
+        HasReadingEmployeePermission,
+        HasUpdatingEmployeePermission,
+        HasDeletingEmployeePermission,
+        HasCreatingEndUserPermission,
+        HasReadingEndUserPermission,
+        HasUpdatingEndUserPermission,
+        HasDeletingEndUserPermission,
+        HasCreatingEndUserRolePermission,
+        HasReadingEndUserRolePermission,
+        HasUpdatingEndUserRolePermission,
+        HasDeletingEndUserRolePermission,
+        HasCreatingLocationPermission,
+        HasReadingLocationPermission,
+        HasUpdatingLocationPermission,
+        HasDeletingLocationPermission,
+        HasReadingLogPermission,
+        HasDeletingLogPermission,
+        HasCreatingManufacturerPermission,
+        HasReadingManufacturerPermission,
+        HasUpdatingManufacturerPermission,
+        HasDeletingManufacturerPermission,
+        HasCreatingProductPermission,
+        HasReadingProductPermission,
+        HasUpdatingProductPermission,
+        HasDeletingProductPermission,
+        HasCreatingProductSetPermission,
+        HasReadingProductSetPermission,
+        HasUpdatingProductSetPermission,
+        HasDeletingProductSetPermission,
+        HasCreatingRolePermission,
+        HasReadingRolePermission,
+        HasUpdatingRolePermission,
+        HasDeletingRolePermission,
+        HasCreatingVendorPermission,
+        HasReadingVendorPermission,
+        HasUpdatingVendorPermission,
+        HasDeletingVendorPermission,
         EndUserRoleCreationDate
     FROM
         [dbo].[EndUserRole]
     WHERE
-        EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID)
-        AND (EndUserRoleName = ISNULL(@EndUserRoleName, EndUserRoleName) OR EndUserRoleName LIKE @EndUserRoleName)
-        AND CreateAsset = ISNULL(@CreateAsset, CreateAsset)
-        AND ReadAsset = ISNULL(@ReadAsset, ReadAsset)
-        AND UpdateAsset = ISNULL(@UpdateAsset, UpdateAsset)
-        AND DeleteAsset = ISNULL(@DeleteAsset, DeleteAsset)
-        AND CreateAssetFix = ISNULL(@CreateAssetFix, CreateAssetFix)
-        AND ReadAssetFix = ISNULL(@ReadAssetFix, ReadAssetFix)
-        AND UpdateAssetFix = ISNULL(@UpdateAssetFix, UpdateAssetFix)
-        AND DeleteAssetFix = ISNULL(@DeleteAssetFix, DeleteAssetFix)
-        AND CreateAssetIssue = ISNULL(@CreateAssetIssue, CreateAssetIssue)
-        AND ReadAssetIssue = ISNULL(@ReadAssetIssue, ReadAssetIssue)
-        AND UpdateAssetIssue = ISNULL(@UpdateAssetIssue, UpdateAssetIssue)
-        AND DeleteAssetIssue = ISNULL(@DeleteAssetIssue, DeleteAssetIssue)
-        AND CreateBuilding = ISNULL(@CreateBuilding, CreateBuilding)
-        AND ReadBuilding = ISNULL(@ReadBuilding, ReadBuilding)
-        AND UpdateBuilding = ISNULL(@UpdateBuilding, UpdateBuilding)
-        AND DeleteBuilding = ISNULL(@DeleteBuilding, DeleteBuilding)
-        AND CreateCategory = ISNULL(@CreateCategory, CreateCategory)
-        AND ReadCategory = ISNULL(@ReadCategory, ReadCategory)
-        AND UpdateCategory = ISNULL(@UpdateCategory, UpdateCategory)
-        AND DeleteCategory = ISNULL(@DeleteCategory, DeleteCategory)
-        AND CreateCompany = ISNULL(@CreateCompany, CreateCompany)
-        AND ReadCompany = ISNULL(@ReadCompany, ReadCompany)
-        AND UpdateCompany = ISNULL(@UpdateCompany, UpdateCompany)
-        AND DeleteCompany = ISNULL(@DeleteCompany, DeleteCompany)
-        AND CreateDepartment = ISNULL(@CreateDepartment, CreateDepartment)
-        AND ReadDepartment = ISNULL(@ReadDepartment, ReadDepartment)
-        AND UpdateDepartment = ISNULL(@UpdateDepartment, UpdateDepartment)
-        AND DeleteDepartment = ISNULL(@DeleteDepartment, DeleteDepartment)
-        AND CreateEmployee = ISNULL(@CreateEmployee, CreateEmployee)
-        AND ReadEmployee = ISNULL(@ReadEmployee, ReadEmployee)
-        AND UpdateEmployee = ISNULL(@UpdateEmployee, UpdateEmployee)
-        AND DeleteEmployee = ISNULL(@DeleteEmployee, DeleteEmployee)
-        AND CreateEndUser = ISNULL(@CreateEndUser, CreateEndUser)
-        AND ReadEndUser = ISNULL(@ReadEndUser, ReadEndUser)
-        AND UpdateEndUser = ISNULL(@UpdateEndUser, UpdateEndUser)
-        AND DeleteEndUser = ISNULL(@DeleteEndUser, DeleteEndUser)
-        AND CreateEndUserRole = ISNULL(@CreateEndUserRole, CreateEndUserRole)
-        AND ReadEndUserRole = ISNULL(@ReadEndUserRole, ReadEndUserRole)
-        AND UpdateEndUserRole = ISNULL(@UpdateEndUserRole, UpdateEndUserRole)
-        AND DeleteEndUserRole = ISNULL(@DeleteEndUserRole, DeleteEndUserRole)
-        AND CreateLocation = ISNULL(@CreateLocation, CreateLocation)
-        AND ReadLocation = ISNULL(@ReadLocation, ReadLocation)
-        AND UpdateLocation = ISNULL(@UpdateLocation, UpdateLocation)
-        AND DeleteLocation = ISNULL(@DeleteLocation, DeleteLocation)
-        AND ReadLog = ISNULL(@ReadLog, ReadLog)
-        AND DeleteLog = ISNULL(@DeleteLog, DeleteLog)
-        AND CreateManufacturer = ISNULL(@CreateManufacturer, CreateManufacturer)
-        AND ReadManufacturer = ISNULL(@ReadManufacturer, ReadManufacturer)
-        AND UpdateManufacturer = ISNULL(@UpdateManufacturer, UpdateManufacturer)
-        AND DeleteManufacturer = ISNULL(@DeleteManufacturer, DeleteManufacturer)
-        AND CreateProduct = ISNULL(@CreateProduct, CreateProduct)
-        AND ReadProduct = ISNULL(@ReadProduct, ReadProduct)
-        AND UpdateProduct = ISNULL(@UpdateProduct, UpdateProduct)
-        AND DeleteProduct = ISNULL(@DeleteProduct, DeleteProduct)
-        AND CreateProductSet = ISNULL(@CreateProductSet, CreateProductSet)
-        AND ReadProductSet = ISNULL(@ReadProductSet, ReadProductSet)
-        AND UpdateProductSet = ISNULL(@UpdateProductSet, UpdateProductSet)
-        AND DeleteProductSet = ISNULL(@DeleteProductSet, DeleteProductSet)
-        AND CreateRole = ISNULL(@CreateRole, CreateRole)
-        AND ReadRole = ISNULL(@ReadRole, ReadRole)
-        AND UpdateRole = ISNULL(@UpdateRole, UpdateRole)
-        AND DeleteRole = ISNULL(@DeleteRole, DeleteRole)
-        AND CreateVendor = ISNULL(@CreateVendor, CreateVendor)
-        AND ReadVendor = ISNULL(@ReadVendor, ReadVendor)
-        AND UpdateVendor = ISNULL(@UpdateVendor, UpdateVendor)
-        AND DeleteVendor = ISNULL(@DeleteVendor, DeleteVendor)
+        Id = ISNULL(@Id, Id)
+        AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
+        AND HasCreatingAssetPermission = ISNULL(@HasCreatingAssetPermission, HasCreatingAssetPermission)
+        AND HasReadingAssetPermission = ISNULL(@HasReadingAssetPermission, HasReadingAssetPermission)
+        AND HasUpdatingAssetPermission = ISNULL(@HasUpdatingAssetPermission, HasUpdatingAssetPermission)
+        AND HasDeletingAssetPermission = ISNULL(@HasDeletingAssetPermission, HasDeletingAssetPermission)
+        AND HasCreatingAssetFixPermission = ISNULL(@HasCreatingAssetFixPermission, HasCreatingAssetFixPermission)
+        AND HasReadingAssetFixPermission = ISNULL(@HasReadingAssetFixPermission, HasReadingAssetFixPermission)
+        AND HasUpdatingAssetFixPermission = ISNULL(@HasUpdatingAssetFixPermission, HasUpdatingAssetFixPermission)
+        AND HasDeletingAssetFixPermission = ISNULL(@HasDeletingAssetFixPermission, HasDeletingAssetFixPermission)
+        AND HasCreatingAssetIssuePermission = ISNULL(@HasCreatingAssetIssuePermission, HasCreatingAssetIssuePermission)
+        AND HasReadingAssetIssuePermission = ISNULL(@HasReadingAssetIssuePermission, HasReadingAssetIssuePermission)
+        AND HasUpdatingAssetIssuePermission = ISNULL(@HasUpdatingAssetIssuePermission, HasUpdatingAssetIssuePermission)
+        AND HasDeletingAssetIssuePermission = ISNULL(@HasDeletingAssetIssuePermission, HasDeletingAssetIssuePermission)
+        AND HasCreatingBuildingPermission = ISNULL(@HasCreatingBuildingPermission, HasCreatingBuildingPermission)
+        AND HasReadingBuildingPermission = ISNULL(@HasReadingBuildingPermission, HasReadingBuildingPermission)
+        AND HasUpdatingBuildingPermission = ISNULL(@HasUpdatingBuildingPermission, HasUpdatingBuildingPermission)
+        AND HasDeletingBuildingPermission = ISNULL(@HasDeletingBuildingPermission, HasDeletingBuildingPermission)
+        AND HasCreatingCategoryPermission = ISNULL(@HasCreatingCategoryPermission, HasCreatingCategoryPermission)
+        AND HasReadingCategoryPermission = ISNULL(@HasReadingCategoryPermission, HasReadingCategoryPermission)
+        AND HasUpdatingCategoryPermission = ISNULL(@HasUpdatingCategoryPermission, HasUpdatingCategoryPermission)
+        AND HasDeletingCategoryPermission = ISNULL(@HasDeletingCategoryPermission, HasDeletingCategoryPermission)
+        AND HasCreatingCompanyPermission = ISNULL(@HasCreatingCompanyPermission, HasCreatingCompanyPermission)
+        AND HasReadingCompanyPermission = ISNULL(@HasReadingCompanyPermission, HasReadingCompanyPermission)
+        AND HasUpdatingCompanyPermission = ISNULL(@HasUpdatingCompanyPermission, HasUpdatingCompanyPermission)
+        AND HasDeletingCompanyPermission = ISNULL(@HasDeletingCompanyPermission, HasDeletingCompanyPermission)
+        AND HasCreatingDepartmentPermission = ISNULL(@HasCreatingDepartmentPermission, HasCreatingDepartmentPermission)
+        AND HasReadingDepartmentPermission = ISNULL(@HasReadingDepartmentPermission, HasReadingDepartmentPermission)
+        AND HasUpdatingDepartmentPermission = ISNULL(@HasUpdatingDepartmentPermission, HasUpdatingDepartmentPermission)
+        AND HasDeletingDepartmentPermission = ISNULL(@HasDeletingDepartmentPermission, HasDeletingDepartmentPermission)
+        AND HasCreatingEmployeePermission = ISNULL(@HasCreatingEmployeePermission, HasCreatingEmployeePermission)
+        AND HasReadingEmployeePermission = ISNULL(@HasReadingEmployeePermission, HasReadingEmployeePermission)
+        AND HasUpdatingEmployeePermission = ISNULL(@HasUpdatingEmployeePermission, HasUpdatingEmployeePermission)
+        AND HasDeletingEmployeePermission = ISNULL(@HasDeletingEmployeePermission, HasDeletingEmployeePermission)
+        AND HasCreatingEndUserPermission = ISNULL(@HasCreatingEndUserPermission, HasCreatingEndUserPermission)
+        AND HasReadingEndUserPermission = ISNULL(@HasReadingEndUserPermission, HasReadingEndUserPermission)
+        AND HasUpdatingEndUserPermission = ISNULL(@HasUpdatingEndUserPermission, HasUpdatingEndUserPermission)
+        AND HasDeletingEndUserPermission = ISNULL(@HasDeletingEndUserPermission, HasDeletingEndUserPermission)
+        AND HasCreatingEndUserRolePermission = ISNULL(@HasCreatingEndUserRolePermission, HasCreatingEndUserRolePermission)
+        AND HasReadingEndUserRolePermission = ISNULL(@HasReadingEndUserRolePermission, HasReadingEndUserRolePermission)
+        AND HasUpdatingEndUserRolePermission = ISNULL(@HasUpdatingEndUserRolePermission, HasUpdatingEndUserRolePermission)
+        AND HasDeletingEndUserRolePermission = ISNULL(@HasDeletingEndUserRolePermission, HasDeletingEndUserRolePermission)
+        AND HasCreatingLocationPermission = ISNULL(@HasCreatingLocationPermission, HasCreatingLocationPermission)
+        AND HasReadingLocationPermission = ISNULL(@HasReadingLocationPermission, HasReadingLocationPermission)
+        AND HasUpdatingLocationPermission = ISNULL(@HasUpdatingLocationPermission, HasUpdatingLocationPermission)
+        AND HasDeletingLocationPermission = ISNULL(@HasDeletingLocationPermission, HasDeletingLocationPermission)
+        AND HasReadingLogPermission = ISNULL(@HasReadingLogPermission, HasReadingLogPermission)
+        AND HasDeletingLogPermission = ISNULL(@HasDeletingLogPermission, HasDeletingLogPermission)
+        AND HasCreatingManufacturerPermission = ISNULL(@HasCreatingManufacturerPermission, HasCreatingManufacturerPermission)
+        AND HasReadingManufacturerPermission = ISNULL(@HasReadingManufacturerPermission, HasReadingManufacturerPermission)
+        AND HasUpdatingManufacturerPermission = ISNULL(@HasUpdatingManufacturerPermission, HasUpdatingManufacturerPermission)
+        AND HasDeletingManufacturerPermission = ISNULL(@HasDeletingManufacturerPermission, HasDeletingManufacturerPermission)
+        AND HasCreatingProductPermission = ISNULL(@HasCreatingProductPermission, HasCreatingProductPermission)
+        AND HasReadingProductPermission = ISNULL(@HasReadingProductPermission, HasReadingProductPermission)
+        AND HasUpdatingProductPermission = ISNULL(@HasUpdatingProductPermission, HasUpdatingProductPermission)
+        AND HasDeletingProductPermission = ISNULL(@HasDeletingProductPermission, HasDeletingProductPermission)
+        AND HasCreatingProductSetPermission = ISNULL(@HasCreatingProductSetPermission, HasCreatingProductSetPermission)
+        AND HasReadingProductSetPermission = ISNULL(@HasReadingProductSetPermission, HasReadingProductSetPermission)
+        AND HasUpdatingProductSetPermission = ISNULL(@HasUpdatingProductSetPermission, HasUpdatingProductSetPermission)
+        AND HasDeletingProductSetPermission = ISNULL(@HasDeletingProductSetPermission, HasDeletingProductSetPermission)
+        AND HasCreatingRolePermission = ISNULL(@HasCreatingRolePermission, HasCreatingRolePermission)
+        AND HasReadingRolePermission = ISNULL(@HasReadingRolePermission, HasReadingRolePermission)
+        AND HasUpdatingRolePermission = ISNULL(@HasUpdatingRolePermission, HasUpdatingRolePermission)
+        AND HasDeletingRolePermission = ISNULL(@HasDeletingRolePermission, HasDeletingRolePermission)
+        AND HasCreatingVendorPermission = ISNULL(@HasCreatingVendorPermission, HasCreatingVendorPermission)
+        AND HasReadingVendorPermission = ISNULL(@HasReadingVendorPermission, HasReadingVendorPermission)
+        AND HasUpdatingVendorPermission = ISNULL(@HasUpdatingVendorPermission, HasUpdatingVendorPermission)
+        AND HasDeletingVendorPermission = ISNULL(@HasDeletingVendorPermission, HasDeletingVendorPermission)
         AND ISNULL(@FromEndUserRoleCreationDate, EndUserRoleCreationDate) <= EndUserRoleCreationDate
         AND EndUserRoleCreationDate <= ISNULL(@ToEndUserRoleCreationDate, EndUserRoleCreationDate)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN EndUserRoleNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN EndUserRoleNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:

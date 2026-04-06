@@ -12,14 +12,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @UpdateAssetIssue BIT = (SELECT UpdateAssetIssue FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingAssetIssuePermission BIT = (SELECT HasUpdatingAssetIssuePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@UpdateAssetIssue IS NULL)
+    IF (@HasUpdatingAssetIssuePermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@UpdateAssetIssue = 0)
+    IF (@HasUpdatingAssetIssuePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to update an AssetIssue!', 11, 0);
             RETURN -1;

@@ -23,14 +23,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadAssetFix BIT = (SELECT ReadAssetFix FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingAssetFixPermission BIT = (SELECT HasReadingAssetFixPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadAssetFix IS NULL)
+    IF (@HasReadingAssetFixPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadAssetFix = 0)
+    IF (@HasReadingAssetFixPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read AssetFix!', 11, 0);
             RETURN -1;

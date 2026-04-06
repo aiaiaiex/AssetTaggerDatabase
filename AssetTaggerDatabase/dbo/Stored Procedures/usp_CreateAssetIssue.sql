@@ -11,14 +11,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @CreateAssetIssue BIT = (SELECT CreateAssetIssue FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingAssetIssuePermission BIT = (SELECT HasCreatingAssetIssuePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@CreateAssetIssue IS NULL)
+    IF (@HasCreatingAssetIssuePermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@CreateAssetIssue = 0)
+    IF (@HasCreatingAssetIssuePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to create an AssetIssue!', 11, 0);
             RETURN -1;

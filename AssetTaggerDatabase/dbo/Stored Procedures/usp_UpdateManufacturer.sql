@@ -7,14 +7,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @UpdateManufacturer BIT = (SELECT UpdateManufacturer FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingManufacturerPermission BIT = (SELECT HasUpdatingManufacturerPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@UpdateManufacturer IS NULL)
+    IF (@HasUpdatingManufacturerPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@UpdateManufacturer = 0)
+    IF (@HasUpdatingManufacturerPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to update a Manufacturer!', 11, 0);
             RETURN -1;

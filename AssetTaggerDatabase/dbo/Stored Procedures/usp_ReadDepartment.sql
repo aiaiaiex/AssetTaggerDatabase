@@ -12,14 +12,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @ReadDepartment BIT = (SELECT ReadDepartment FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingDepartmentPermission BIT = (SELECT HasReadingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@ReadDepartment IS NULL)
+    IF (@HasReadingDepartmentPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@ReadDepartment = 0)
+    IF (@HasReadingDepartmentPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to read Department!', 11, 0);
             RETURN -1;

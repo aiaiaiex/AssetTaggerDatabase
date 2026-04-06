@@ -9,14 +9,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @UpdateBuilding BIT = (SELECT UpdateBuilding FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingBuildingPermission BIT = (SELECT HasUpdatingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@UpdateBuilding IS NULL)
+    IF (@HasUpdatingBuildingPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@UpdateBuilding = 0)
+    IF (@HasUpdatingBuildingPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to update a Building!', 11, 0);
             RETURN -1;

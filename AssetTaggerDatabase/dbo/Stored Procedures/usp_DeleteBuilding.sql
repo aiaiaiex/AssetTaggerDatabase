@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @DeleteBuilding BIT = (SELECT DeleteBuilding FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingBuildingPermission BIT = (SELECT HasDeletingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@DeleteBuilding IS NULL)
+    IF (@HasDeletingBuildingPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@DeleteBuilding = 0)
+    IF (@HasDeletingBuildingPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to delete a Building!', 11, 0);
             RETURN -1;

@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @DeleteCompany BIT = (SELECT DeleteCompany FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingCompanyPermission BIT = (SELECT HasDeletingCompanyPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@DeleteCompany IS NULL)
+    IF (@HasDeletingCompanyPermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@DeleteCompany = 0)
+    IF (@HasDeletingCompanyPermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to delete a Company!', 11, 0);
             RETURN -1;

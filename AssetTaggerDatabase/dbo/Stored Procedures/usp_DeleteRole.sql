@@ -6,14 +6,14 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @DeleteRole BIT = (SELECT DeleteRole FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingRolePermission BIT = (SELECT HasDeletingRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
 
-    IF (@DeleteRole IS NULL)
+    IF (@HasDeletingRolePermission IS NULL)
         BEGIN
             RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
             RETURN -1;
         END;
-    IF (@DeleteRole = 0)
+    IF (@HasDeletingRolePermission = 0)
         BEGIN
             RAISERROR ('@CallingEndUserID has no permission to delete a Role!', 11, 0);
             RETURN -1;
