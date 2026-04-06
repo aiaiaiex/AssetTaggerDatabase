@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateManufacturer]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @ManufacturerID UNIQUEIDENTIFIER,
-    @ManufacturerName NVARCHAR(850) = NULL
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -24,14 +24,14 @@ BEGIN
     UPDATE
         [dbo].[Manufacturer]
     SET
-        ManufacturerName = ISNULL(@ManufacturerName, ManufacturerName)
+        Name = ISNULL(@Name, Name)
     OUTPUT
-        INSERTED.ManufacturerID,
-        INSERTED.ManufacturerName,
-        INSERTED.ManufacturerInsertDate,
-        DELETED.ManufacturerName AS OldManufacturerName
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName
     FROM
         [dbo].[Manufacturer]
     WHERE
-        ManufacturerID = @ManufacturerID;
+        Id = @Id;
 END;

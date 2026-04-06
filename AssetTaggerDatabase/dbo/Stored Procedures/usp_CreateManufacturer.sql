@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateManufacturer]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @ManufacturerName NVARCHAR(850)
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -21,13 +21,13 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Manufacturer] (
-        ManufacturerName
+        Name
     )
     OUTPUT
-        INSERTED.ManufacturerID,
-        INSERTED.ManufacturerName,
-        INSERTED.ManufacturerInsertDate
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.CreatedAt
     VALUES (
-        @ManufacturerName
+        @Name
     );
 END;

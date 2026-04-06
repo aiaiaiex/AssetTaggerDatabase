@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteManufacturer]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @ManufacturerID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,11 +22,11 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Manufacturer]
     OUTPUT
-        DELETED.ManufacturerID,
-        DELETED.ManufacturerName,
-        DELETED.ManufacturerInsertDate
+        DELETED.Id,
+        DELETED.Name,
+        DELETED.CreatedAt
     FROM
         [dbo].[Manufacturer]
     WHERE
-        ManufacturerID = @ManufacturerID;
+        Id = @Id;
 END;
