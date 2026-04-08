@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateEmployee]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EmployeeID UNIQUEIDENTIFIER,
-    @EmployeeFullName NVARCHAR(850) = NULL,
+    @Id UNIQUEIDENTIFIER,
+    @FullName NVARCHAR(850) = NULL,
     @RoleID UNIQUEIDENTIFIER = NULL,
     @CompanyID UNIQUEIDENTIFIER = NULL,
     @DepartmentID UNIQUEIDENTIFIER = NULL
@@ -27,23 +27,23 @@ BEGIN
     UPDATE
         [dbo].[Employee]
     SET
-        EmployeeFullName = ISNULL(@EmployeeFullName, EmployeeFullName),
+        FullName = ISNULL(@FullName, FullName),
         RoleID = ISNULL(@RoleID, RoleID),
         CompanyID = ISNULL(@CompanyID, CompanyID),
         DepartmentID = ISNULL(@DepartmentID, DepartmentID)
     OUTPUT
-        INSERTED.EmployeeID,
-        INSERTED.EmployeeFullName,
+        INSERTED.Id,
+        INSERTED.FullName,
         INSERTED.RoleID,
         INSERTED.CompanyID,
         INSERTED.DepartmentID,
-        INSERTED.EmployeeInsertDate,
-        DELETED.EmployeeFullName AS OldEmployeeFullName,
+        INSERTED.CreatedAt,
+        DELETED.FullName AS OldFullName,
         DELETED.RoleID AS OldRoleID,
         DELETED.CompanyID AS OldCompanyID,
         DELETED.DepartmentID AS OldDepartmentID
     FROM
         [dbo].[Employee]
     WHERE
-        EmployeeID = @EmployeeID;
+        Id = @Id;
 END;

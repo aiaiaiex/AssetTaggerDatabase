@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteEmployee]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EmployeeID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,14 +22,14 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Employee]
     OUTPUT
-        DELETED.EmployeeID,
-        DELETED.EmployeeFullName,
+        DELETED.Id,
+        DELETED.FullName,
         DELETED.RoleID,
         DELETED.CompanyID,
         DELETED.DepartmentID,
-        DELETED.EmployeeInsertDate
+        DELETED.CreatedAt
     FROM
         [dbo].[Employee]
     WHERE
-        EmployeeID = @EmployeeID;
+        Id = @Id;
 END;

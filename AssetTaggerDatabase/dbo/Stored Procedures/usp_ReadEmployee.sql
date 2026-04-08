@@ -1,12 +1,12 @@
 CREATE PROCEDURE [dbo].[usp_ReadEmployee]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EmployeeID UNIQUEIDENTIFIER = NULL,
-    @EmployeeFullName NVARCHAR(850) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @FullName NVARCHAR(850) = NULL,
     @RoleID UNIQUEIDENTIFIER = NULL,
     @CompanyID UNIQUEIDENTIFIER = NULL,
     @DepartmentID UNIQUEIDENTIFIER = NULL,
-    @FromEmployeeInsertDate DATETIMEOFFSET(3) = NULL,
-    @ToEmployeeInsertDate DATETIMEOFFSET(3) = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -30,25 +30,25 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        EmployeeID,
-        EmployeeFullName,
+        Id,
+        FullName,
         RoleID,
         CompanyID,
         DepartmentID,
-        EmployeeInsertDate
+        CreatedAt
     FROM
         [dbo].[Employee]
     WHERE
-        EmployeeID = ISNULL(@EmployeeID, EmployeeID)
-        AND (EmployeeFullName = ISNULL(@EmployeeFullName, EmployeeFullName) OR EmployeeFullName LIKE @EmployeeFullName)
+        Id = ISNULL(@Id, Id)
+        AND (FullName = ISNULL(@FullName, FullName) OR FullName LIKE @FullName)
         AND RoleID = ISNULL(@RoleID, RoleID)
         AND CompanyID = ISNULL(@CompanyID, CompanyID)
         AND DepartmentID = ISNULL(@DepartmentID, DepartmentID)
-        AND ISNULL(@FromEmployeeInsertDate, EmployeeInsertDate) <= EmployeeInsertDate
-        AND EmployeeInsertDate <= ISNULL(@ToEmployeeInsertDate, EmployeeInsertDate)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN EmployeeNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN EmployeeNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:
