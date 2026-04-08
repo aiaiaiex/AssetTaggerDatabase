@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_HasReadingEndUserRolePermission]
+CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,

@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_HasDeletingEndUserRolePermission]
+CREATE PROCEDURE [dbo].[usp_DeleteEndUserRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER
 AS;

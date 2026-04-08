@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_HasUpdatingEndUserRolePermission]
+CREATE PROCEDURE [dbo].[usp_UpdateEndUserRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER,
     @Name NVARCHAR(850) = NULL,

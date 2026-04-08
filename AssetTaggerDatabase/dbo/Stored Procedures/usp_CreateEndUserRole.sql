@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_HasCreatingEndUserRolePermission]
+CREATE PROCEDURE [dbo].[usp_CreateEndUserRole]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @Name NVARCHAR(850),
     @HasCreatingAssetPermission BIT = 0,
