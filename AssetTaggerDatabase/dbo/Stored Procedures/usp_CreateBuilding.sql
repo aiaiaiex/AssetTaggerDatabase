@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_CreateBuilding]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @BuildingName NVARCHAR(850),
-    @BuildingAddress NVARCHAR(850),
+    @Name NVARCHAR(850),
+    @Address NVARCHAR(850),
     @CompanyID UNIQUEIDENTIFIER
 AS;
 BEGIN
@@ -23,19 +23,19 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Building] (
-        BuildingName,
-        BuildingAddress,
+        Name,
+        Address,
         CompanyID
     )
     OUTPUT
-        INSERTED.BuildingID,
-        INSERTED.BuildingName,
-        INSERTED.BuildingAddress,
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.Address,
         INSERTED.CompanyID,
-        INSERTED.BuildingInsertDate
+        INSERTED.CreatedAt
     VALUES (
-        @BuildingName,
-        @BuildingAddress,
+        @Name,
+        @Address,
         @CompanyID
     );
 END;

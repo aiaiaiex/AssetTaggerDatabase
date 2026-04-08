@@ -1,11 +1,11 @@
 CREATE PROCEDURE [dbo].[usp_ReadBuilding]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @BuildingID UNIQUEIDENTIFIER = NULL,
-    @BuildingName NVARCHAR(850) = NULL,
-    @BuildingAddress NVARCHAR(850) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Name NVARCHAR(850) = NULL,
+    @Address NVARCHAR(850) = NULL,
     @CompanyID UNIQUEIDENTIFIER = NULL,
-    @FromBuildingInsertDate DATETIMEOFFSET(3) = NULL,
-    @ToBuildingInsertDate DATETIMEOFFSET(3) = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -29,23 +29,23 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        BuildingID,
-        BuildingName,
-        BuildingAddress,
+        Id,
+        Name,
+        Address,
         CompanyID,
-        BuildingInsertDate
+        CreatedAt
     FROM
         [dbo].[Building]
     WHERE
-        BuildingID = ISNULL(@BuildingID, BuildingID)
-        AND (BuildingName = ISNULL(@BuildingName, BuildingName) OR BuildingName LIKE @BuildingName)
-        AND (BuildingAddress = ISNULL(@BuildingAddress, BuildingAddress) OR BuildingAddress LIKE @BuildingAddress)
+        Id = ISNULL(@Id, Id)
+        AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
+        AND (Address = ISNULL(@Address, Address) OR Address LIKE @Address)
         AND CompanyID = ISNULL(@CompanyID, CompanyID)
-        AND ISNULL(@FromBuildingInsertDate, BuildingInsertDate) <= BuildingInsertDate
-        AND BuildingInsertDate <= ISNULL(@ToBuildingInsertDate, BuildingInsertDate)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN BuildingNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN BuildingNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:

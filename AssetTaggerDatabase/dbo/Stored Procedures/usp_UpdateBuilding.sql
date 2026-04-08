@@ -1,8 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_UpdateBuilding]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @BuildingID UNIQUEIDENTIFIER,
-    @BuildingName NVARCHAR(850) = NULL,
-    @BuildingAddress NVARCHAR(850) = NULL,
+    @Id UNIQUEIDENTIFIER,
+    @Name NVARCHAR(850) = NULL,
+    @Address NVARCHAR(850) = NULL,
     @CompanyID UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
@@ -26,20 +26,20 @@ BEGIN
     UPDATE
         [dbo].[Building]
     SET
-        BuildingName = ISNULL(@BuildingName, BuildingName),
-        BuildingAddress = ISNULL(@BuildingAddress, BuildingAddress),
+        Name = ISNULL(@Name, Name),
+        Address = ISNULL(@Address, Address),
         CompanyID = ISNULL(@CompanyID, CompanyID)
     OUTPUT
-        INSERTED.BuildingID,
-        INSERTED.BuildingName,
-        INSERTED.BuildingAddress,
+        INSERTED.Id,
+        INSERTED.Name,
+        INSERTED.Address,
         INSERTED.CompanyID,
-        INSERTED.BuildingInsertDate,
-        DELETED.BuildingName AS OldBuildingName,
-        DELETED.BuildingAddress AS OldBuildingAddress,
+        INSERTED.CreatedAt,
+        DELETED.Name AS OldName,
+        DELETED.Address AS OldAddress,
         DELETED.CompanyID AS OldCompanyID
     FROM
         [dbo].[Building]
     WHERE
-        BuildingID = @BuildingID;
+        Id = @Id;
 END;

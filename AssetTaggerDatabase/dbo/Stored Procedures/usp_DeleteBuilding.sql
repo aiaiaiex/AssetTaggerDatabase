@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteBuilding]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @BuildingID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,13 +22,13 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Building]
     OUTPUT
-        DELETED.BuildingID,
-        DELETED.BuildingName,
-        DELETED.BuildingAddress,
+        DELETED.Id,
+        DELETED.Name,
+        DELETED.Address,
         DELETED.CompanyID,
-        DELETED.BuildingInsertDate
+        DELETED.CreatedAt
     FROM
         [dbo].[Building]
     WHERE
-        BuildingID = @BuildingID;
+        Id = @Id;
 END;
