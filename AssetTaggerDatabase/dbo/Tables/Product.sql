@@ -16,12 +16,12 @@
     CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerId]) REFERENCES [dbo].[Manufacturer] ([Id]),
 
     -- Nullable columns.
-    [Name] NVARCHAR(421) NULL,
+    [Name] NVARCHAR(834) NULL,
     CONSTRAINT [CK_Product_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_Name_MinimumLength] CHECK (LEN([Name]) > 0),
     CONSTRAINT [CK_Product_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% '),
 
-    [ModelNumber] NVARCHAR(421) NULL,
+    [ModelNumber] NVARCHAR(834) NULL,
     CONSTRAINT [CK_Product_ModelNumber_Exclude] CHECK ([ModelNumber] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Product_ModelNumber_MinimumLength] CHECK (LEN([ModelNumber]) > 0),
     CONSTRAINT [CK_Product_ModelNumber_NoLeadingAndTrailingWhitespace] CHECK ([ModelNumber] NOT LIKE ' %' AND [ModelNumber] NOT LIKE '% '),
@@ -33,21 +33,11 @@
 );
 GO
 
-CREATE UNIQUE INDEX [IX_Product_ModelNumber_ManufacturerId]
-    ON [dbo].[Product] ([ModelNumber], [ManufacturerId])
-    WHERE [ModelNumber] IS NOT NULL AND [ManufacturerId] IS NOT NULL;
+CREATE UNIQUE INDEX [IX_Product_ManufacturerId_ModelNumber_CategoryId]
+    ON [dbo].[Product] ([ManufacturerId], [ModelNumber], [CategoryId])
+    WHERE [ModelNumber] IS NOT NULL;
 GO
 
-CREATE UNIQUE INDEX [IX_Product_Name_ModelNumber_ManufacturerId_ModelNumberIsNull]
-    ON [dbo].[Product] ([Name], [ModelNumber], [ManufacturerId])
-    WHERE [ModelNumber] IS NULL AND [ManufacturerId] IS NOT NULL;
-GO
-
-CREATE UNIQUE INDEX [IX_Product_Name_ModelNumber_ManufacturerId_ManufacturerIdIsNull]
-    ON [dbo].[Product] ([Name], [ModelNumber], [ManufacturerId])
-    WHERE [ModelNumber] IS NOT NULL AND [ManufacturerId] IS NULL;
-GO
-
-CREATE UNIQUE INDEX [IX_Product_Name_ModelNumber_ManufacturerId_ModelNumberAndManufacturerIdAreNull]
-    ON [dbo].[Product] ([Name], [ModelNumber], [ManufacturerId])
-    WHERE [ModelNumber] IS NULL AND [ManufacturerId] IS NULL;
+CREATE UNIQUE INDEX [IX_Product_ManufacturerId_Name_CategoryId]
+    ON [dbo].[Product] ([ManufacturerId], [Name], [CategoryId])
+    WHERE [ModelNumber] IS NULL;
