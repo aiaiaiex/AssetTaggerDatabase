@@ -1,3 +1,2 @@
 ﻿GRANT EXECUTE
-    ON SCHEMA::[dbo] TO [db_REST_API];
-
+ON SCHEMA::[dbo] TO [db_REST_API];
