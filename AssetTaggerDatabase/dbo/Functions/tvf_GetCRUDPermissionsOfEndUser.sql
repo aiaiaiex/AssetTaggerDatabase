@@ -8,16 +8,6 @@ RETURN SELECT
     EndUserRole.HasReadingAssetPermission,
     EndUserRole.HasUpdatingAssetPermission,
     EndUserRole.HasDeletingAssetPermission,
-    -- AssetFix CRUD Permissions
-    EndUserRole.HasCreatingAssetFixPermission,
-    EndUserRole.HasReadingAssetFixPermission,
-    EndUserRole.HasUpdatingAssetFixPermission,
-    EndUserRole.HasDeletingAssetFixPermission,
-    -- AssetIssue CRUD Permissions
-    EndUserRole.HasCreatingAssetIssuePermission,
-    EndUserRole.HasReadingAssetIssuePermission,
-    EndUserRole.HasUpdatingAssetIssuePermission,
-    EndUserRole.HasDeletingAssetIssuePermission,
     -- Building CRUD Permissions
     EndUserRole.HasCreatingBuildingPermission,
     EndUserRole.HasReadingBuildingPermission,
