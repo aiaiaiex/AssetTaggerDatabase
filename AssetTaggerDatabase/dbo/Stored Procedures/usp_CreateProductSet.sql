@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_CreateProductSet]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @ParentProductID UNIQUEIDENTIFIER,
     @ProductID UNIQUEIDENTIFIER,
-    @ProductQuantity INT = 1
+    @ProductQuantity INT = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -35,6 +35,6 @@ BEGIN
     VALUES (
         @ParentProductID,
         @ProductID,
-        @ProductQuantity
+        ISNULL(@ProductQuantity, 1)
     );
 END;
