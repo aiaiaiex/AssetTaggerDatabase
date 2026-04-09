@@ -19,3 +19,5 @@ extended_capitalisation_policy = upper
 [sqlfluff:rules:convention.not_equal]
 preferred_not_equal_style = ansi
 [sqlfluff:rules:convention.coalesce]
+[sqlfluff:rules:convention.casting_style]
+preferred_type_casting_style = cast

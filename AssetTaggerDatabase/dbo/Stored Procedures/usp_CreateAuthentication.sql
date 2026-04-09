@@ -10,5 +10,5 @@ BEGIN
         [dbo].[EndUser]
     WHERE
         Username = @EndUserUsername
-        AND PasswordHash = [dbo].[udf_HashPassword](CONCAT(@EndUserPassword, CONVERT(NVARCHAR(36), PasswordSalt)));
+        AND PasswordHash = [dbo].[udf_HashPassword](CONCAT(@EndUserPassword, CAST(PasswordSalt AS NVARCHAR(36))));
 END;

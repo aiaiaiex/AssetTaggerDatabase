@@ -42,7 +42,7 @@ BEGIN
     VALUES (
         @Username,
         @PasswordSalt,
-        [dbo].[udf_HashPassword](CONCAT(@Password, CONVERT(NVARCHAR(36), @PasswordSalt))),
+        [dbo].[udf_HashPassword](CONCAT(@Password, CAST(@PasswordSalt AS NVARCHAR(36)))),
         @EndUserRoleId,
         @EmployeeId
     );
