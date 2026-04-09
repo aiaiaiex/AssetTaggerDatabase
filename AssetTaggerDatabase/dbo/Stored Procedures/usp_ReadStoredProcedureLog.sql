@@ -73,5 +73,5 @@ BEGIN
         -- If @RowsToReturn is NULL fetch the next 9,223,372,036,854,775,807 rows which is the upper limit of BIGINT, the data type of RowNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT COALESCE(@RowsToReturn, 9223372036854775807) ROWS ONLY;
+        FETCH NEXT COALESCE(@RowsToReturn, CAST(9223372036854775807 AS BIGINT)) ROWS ONLY;
 END;
