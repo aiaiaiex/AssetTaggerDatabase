@@ -125,6 +125,7 @@
     <Folder Include="dbo\Views\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Functions\tvf_GetCRUDPermissionsOfEndUser.sql" />
@@ -209,6 +210,8 @@
     <Build Include="dbo\Stored Procedures\usp_ReadEndUser.sql" />
     <Build Include="dbo\Views\VI_NullishConstants.sql" />
     <Build Include="dbo\Views\VI_NonNullishConstants.sql" />
+    <Build Include="Security\db_REST_API.sql" />
+    <Build Include="Security\Permissions.sql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Condition="'$(NetCoreBuild)' == 'true'">

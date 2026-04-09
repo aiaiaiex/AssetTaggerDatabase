@@ -1,0 +1,3 @@
+﻿CREATE ROLE [db_REST_API]
+    AUTHORIZATION [dbo];
+
