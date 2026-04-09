@@ -1,10 +1,10 @@
 CREATE TABLE [dbo].[StoredProcedureLog] (
     -- Columns with default values.
     [RowNumber] BIGINT IDENTITY (1, 1),
-    CONSTRAINT [AK_Log_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+    CONSTRAINT [AK_Log_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Log_Id] DEFAULT (NEWID()) NOT NULL,
-    CONSTRAINT [PK_Log] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+    CONSTRAINT [PK_Log] PRIMARY KEY NONCLUSTERED ([Id]),
 
     -- Foreign keys.
     [EndUserID] UNIQUEIDENTIFIER NULL,
