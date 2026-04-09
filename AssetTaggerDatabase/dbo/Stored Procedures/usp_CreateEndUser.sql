@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[usp_CreateEndUser]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EndUserName NVARCHAR(850),
-    @EndUserPassword NVARCHAR(MAX),
+    @Username NVARCHAR(850),
+    @Password NVARCHAR(MAX),
     @EndUserRoleID UNIQUEIDENTIFIER,
     @EmployeeID UNIQUEIDENTIFIER
 AS;
@@ -23,26 +23,26 @@ BEGIN
         END;
 
     -- Create password salt.
-    DECLARE @EndUserPasswordSalt UNIQUEIDENTIFIER = NEWID();
+    DECLARE @PasswordSalt UNIQUEIDENTIFIER = NEWID();
 
     -- Run actual query.
     INSERT INTO [dbo].[EndUser] (
-        EndUserName,
-        EndUserPasswordHash,
-        EndUserPasswordSalt,
+        Username,
+        PasswordSalt,
+        PasswordHash,
         EndUserRoleID,
         EmployeeID
     )
     OUTPUT
-        INSERTED.EndUserID,
-        INSERTED.EndUserName,
+        INSERTED.Id,
+        INSERTED.Username,
         INSERTED.EndUserRoleID,
         INSERTED.EmployeeID,
-        INSERTED.EndUserRegisterDate
+        INSERTED.CreatedAt
     VALUES (
-        @EndUserName,
-        [dbo].[udf_HashPassword](CONCAT(@EndUserPassword, CONVERT(NVARCHAR(36), @EndUserPasswordSalt))),
-        @EndUserPasswordSalt,
+        @Username,
+        @PasswordSalt,
+        [dbo].[udf_HashPassword](CONCAT(@Password, CONVERT(NVARCHAR(36), @PasswordSalt))),
         @EndUserRoleID,
         @EmployeeID
     );

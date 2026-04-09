@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].[usp_UpdateEndUser]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EndUserID UNIQUEIDENTIFIER,
-    @EndUserName NVARCHAR(850) = NULL,
+    @Id UNIQUEIDENTIFIER,
+    @Username NVARCHAR(850) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL
 AS;
@@ -23,9 +23,9 @@ BEGIN
         END;
 
     -- Validate input.
-    IF (@EndUserName IS NULL AND @EndUserRoleID IS NULL AND @EmployeeID IS NULL)
+    IF (@Username IS NULL AND @EndUserRoleID IS NULL AND @EmployeeID IS NULL)
         BEGIN
-            RAISERROR ('Cannot update row with @EndUserID when no non-default values are passed to other parameters!', 11, 0);
+            RAISERROR ('Cannot update row with @Id when no non-default values are passed to other parameters!', 11, 0);
             RETURN -1;
         END;
 
@@ -33,20 +33,20 @@ BEGIN
     UPDATE
         [dbo].[EndUser]
     SET
-        EndUserName = ISNULL(@EndUserName, EndUserName),
+        Username = ISNULL(@Username, Username),
         EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID),
         EmployeeID = ISNULL(@EmployeeID, EmployeeID)
     OUTPUT
-        INSERTED.EndUserID,
-        INSERTED.EndUserName,
+        INSERTED.Id,
+        INSERTED.Username,
         INSERTED.EndUserRoleID,
         INSERTED.EmployeeID,
-        INSERTED.EndUserRegisterDate,
-        DELETED.EndUserName AS OldEndUserName,
+        INSERTED.CreatedAt,
+        DELETED.Username AS OldUsername,
         DELETED.EndUserRoleID AS OldEndUserRoleID,
         DELETED.EmployeeID AS OldEmployeeID
     FROM
         [dbo].[EndUser]
     WHERE
-        EndUserID = @EndUserID;
+        Id = @Id;
 END;

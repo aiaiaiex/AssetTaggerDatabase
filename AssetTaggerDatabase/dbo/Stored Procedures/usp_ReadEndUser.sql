@@ -1,11 +1,11 @@
 ﻿CREATE PROCEDURE [dbo].[usp_ReadEndUser]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @EndUserID UNIQUEIDENTIFIER = NULL,
-    @EndUserName NVARCHAR(850) = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
+    @Username NVARCHAR(850) = NULL,
     @EndUserRoleID UNIQUEIDENTIFIER = NULL,
     @EmployeeID UNIQUEIDENTIFIER = NULL,
-    @FromEndUserRegisterDate DATETIMEOFFSET(3) = NULL,
-    @ToEndUserRegisterDate DATETIMEOFFSET(3) = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL
@@ -29,67 +29,67 @@ BEGIN
 
     -- Validate input.
     IF (
-        @EndUserID IS NOT NULL
+        @Id IS NOT NULL
         AND (
-            @EndUserName IS NOT NULL
+            @Username IS NOT NULL
             OR @EndUserRoleID IS NOT NULL
             OR @EmployeeID IS NOT NULL
-            OR @FromEndUserRegisterDate IS NOT NULL
-            OR @ToEndUserRegisterDate IS NOT NULL
+            OR @FromCreatedAt IS NOT NULL
+            OR @ToCreatedAt IS NOT NULL
             OR @RowsToSkip IS NOT NULL
             OR @RowsToReturn IS NOT NULL
         )
     )
         BEGIN
-            RAISERROR ('Cannot get row with unique @EndUserID when non-default values are passed to other parameters!', 11, 0);
+            RAISERROR ('Cannot get row with unique @Id when non-default values are passed to other parameters!', 11, 0);
             RETURN -1;
         END;
 
-    IF (@EndUserName IN ('', '!', 'NULL'))
+    IF (@Username IN ('', '!', 'NULL'))
         BEGIN
-            RAISERROR (N'@EndUserName cannot be ''%s''!', 11, 0, @EndUserName);
+            RAISERROR (N'@Username cannot be ''%s''!', 11, 0, @Username);
             RETURN -1;
         END;
 
-    IF (LEN(@EndUserName) < 1)
+    IF (LEN(@Username) < 1)
         BEGIN
-            RAISERROR ('@EndUserName''s length cannot be less than 1!', 11, 0);
+            RAISERROR ('@Username''s length cannot be less than 1!', 11, 0);
             RETURN -1;
         END;
 
-    IF (CHARINDEX(' ', @EndUserName) != 0)
+    IF (CHARINDEX(' ', @Username) != 0)
         BEGIN
-            RAISERROR ('@EndUserName cannot have whitespace!', 11, 0);
+            RAISERROR ('@Username cannot have whitespace!', 11, 0);
             RETURN -1;
         END;
 
-    IF (@FromEndUserRegisterDate > @ToEndUserRegisterDate)
+    IF (@FromCreatedAt > @ToCreatedAt)
         BEGIN
-            RAISERROR ('@FromEndUserRegisterDate cannot be later than @ToEndUserRegisterDate!', 11, 0);
+            RAISERROR ('@FromCreatedAt cannot be later than @ToCreatedAt!', 11, 0);
             RETURN -1;
         END;
 
     -- Run actual query.
     SELECT
-        EndUserID,
-        EndUserName,
+        Id,
+        Username,
         EndUserRoleID,
         EmployeeID,
-        EndUserRegisterDate
+        CreatedAt
     FROM
         [dbo].[EndUser]
     WHERE
-        EndUserID = ISNULL(@EndUserID, EndUserID)
-        AND (EndUserName = ISNULL(@EndUserName, EndUserName) OR EndUserName LIKE @EndUserName)
+        Id = ISNULL(@Id, Id)
+        AND (Username = ISNULL(@Username, Username) OR Username LIKE @Username)
         AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID)
         AND EmployeeID = ISNULL(@EmployeeID, EmployeeID)
-        AND ISNULL(@FromEndUserRegisterDate, EndUserRegisterDate) <= EndUserRegisterDate
-        AND EndUserRegisterDate <= ISNULL(@ToEndUserRegisterDate, EndUserRegisterDate)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN EndUserNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN EndUserNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
-        -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
+        -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of RowNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
         FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;

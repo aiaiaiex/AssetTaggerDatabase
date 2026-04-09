@@ -92,4 +92,4 @@ INNER JOIN
     [dbo].[EndUser] AS EndUser
     ON EndUserRole.Id = EndUser.EndUserRoleID
 WHERE
-    EndUser.EndUserID = @EndUserID;
+    EndUser.Id = @EndUserID;
