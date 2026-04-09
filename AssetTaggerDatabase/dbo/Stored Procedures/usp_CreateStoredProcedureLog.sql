@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateLog]
-    @CallingEndUserID UNIQUEIDENTIFIER = NULL,
+    @CallingEndUserId UNIQUEIDENTIFIER = NULL,
     @EndUserIpAddress NVARCHAR(4000) = NULL,
     @StartedAt DATETIMEOFFSET(3),
     @EndedAt DATETIMEOFFSET(3),
@@ -32,7 +32,7 @@ BEGIN
             INSERTED.Name,
             INSERTED.Arguments
         VALUES (
-            @CallingEndUserID,
+            @CallingEndUserId,
             @EndUserIpAddress,
             @StartedAt,
             @EndedAt,
@@ -59,7 +59,7 @@ BEGIN
                 RETURN -1;
             END;
 
-        -- Run same query again but @CallingEndUserID is replaced with NULL to fix error specified in IF statement above.
+        -- Run same query again but @CallingEndUserId is replaced with NULL to fix error specified in IF statement above.
         INSERT INTO [dbo].[StoredProcedureLog] (
             EndUserID,
             EndUserIpAddress,

@@ -1,21 +1,21 @@
 CREATE PROCEDURE [dbo].[usp_DeleteEmployee]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingEmployeePermission BIT = (SELECT HasDeletingEmployeePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingEmployeePermission BIT = (SELECT HasDeletingEmployeePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasDeletingEmployeePermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasDeletingEmployeePermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to delete an Employee!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to delete an Employee!', 11, 0);
             RETURN -1;
         END;
 

@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadDepartment]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
@@ -12,16 +12,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingDepartmentPermission BIT = (SELECT HasReadingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingDepartmentPermission BIT = (SELECT HasReadingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingDepartmentPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingDepartmentPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Department!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Department!', 11, 0);
             RETURN -1;
         END;
 

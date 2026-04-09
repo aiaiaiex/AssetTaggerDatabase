@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateLocation]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Address NVARCHAR(842),
     @BuildingID UNIQUEIDENTIFIER
 AS;
@@ -7,16 +7,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingLocationPermission BIT = (SELECT HasCreatingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingLocationPermission BIT = (SELECT HasCreatingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingLocationPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasCreatingLocationPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to create a Location!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to create a Location!', 11, 0);
             RETURN -1;
         END;
 

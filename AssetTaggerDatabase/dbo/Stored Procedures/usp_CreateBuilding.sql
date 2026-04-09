@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateBuilding]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Name NVARCHAR(850),
     @Address NVARCHAR(850),
     @CompanyID UNIQUEIDENTIFIER
@@ -8,16 +8,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingBuildingPermission BIT = (SELECT HasCreatingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingBuildingPermission BIT = (SELECT HasCreatingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingBuildingPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasCreatingBuildingPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to create a Building!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to create a Building!', 11, 0);
             RETURN -1;
         END;
 

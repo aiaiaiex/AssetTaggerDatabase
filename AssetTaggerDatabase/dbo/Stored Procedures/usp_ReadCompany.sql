@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadCompany]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL,
@@ -15,16 +15,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingCompanyPermission BIT = (SELECT HasReadingCompanyPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingCompanyPermission BIT = (SELECT HasReadingCompanyPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingCompanyPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingCompanyPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Company!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Company!', 11, 0);
             RETURN -1;
         END;
 

@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadLocation]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Address NVARCHAR(842) = NULL,
     @BuildingID UNIQUEIDENTIFIER = NULL,
@@ -13,16 +13,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingLocationPermission BIT = (SELECT HasReadingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingLocationPermission BIT = (SELECT HasReadingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingLocationPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingLocationPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Location!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Location!', 11, 0);
             RETURN -1;
         END;
 

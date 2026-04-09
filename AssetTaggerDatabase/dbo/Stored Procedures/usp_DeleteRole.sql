@@ -1,21 +1,21 @@
 CREATE PROCEDURE [dbo].[usp_DeleteRole]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingRolePermission BIT = (SELECT HasDeletingRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingRolePermission BIT = (SELECT HasDeletingRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasDeletingRolePermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasDeletingRolePermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to delete a Role!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to delete a Role!', 11, 0);
             RETURN -1;
         END;
 

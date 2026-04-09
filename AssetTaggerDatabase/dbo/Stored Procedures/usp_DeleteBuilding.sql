@@ -1,21 +1,21 @@
 CREATE PROCEDURE [dbo].[usp_DeleteBuilding]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingBuildingPermission BIT = (SELECT HasDeletingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingBuildingPermission BIT = (SELECT HasDeletingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasDeletingBuildingPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasDeletingBuildingPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to delete a Building!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to delete a Building!', 11, 0);
             RETURN -1;
         END;
 

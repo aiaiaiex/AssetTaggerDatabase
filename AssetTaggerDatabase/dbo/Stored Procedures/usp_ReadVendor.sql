@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadVendor]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL,
@@ -13,16 +13,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingVendorPermission BIT = (SELECT HasReadingVendorPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingVendorPermission BIT = (SELECT HasReadingVendorPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingVendorPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingVendorPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Vendor!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Vendor!', 11, 0);
             RETURN -1;
         END
 

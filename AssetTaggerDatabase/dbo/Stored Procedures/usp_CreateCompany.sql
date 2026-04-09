@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateCompany]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Name NVARCHAR(850),
     @Address NVARCHAR(850),
     @Code NVARCHAR(5),
@@ -9,16 +9,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingCompanyPermission BIT = (SELECT HasCreatingCompanyPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingCompanyPermission BIT = (SELECT HasCreatingCompanyPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingCompanyPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasCreatingCompanyPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to create a Company!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to create a Company!', 11, 0);
             RETURN -1;
         END;
 

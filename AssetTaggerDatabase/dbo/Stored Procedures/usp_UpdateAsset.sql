@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_UpdateAsset]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER,
     @ProductId UNIQUEIDENTIFIER = NULL,
     @LocationId UNIQUEIDENTIFIER = NULL,
@@ -19,16 +19,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingAssetPermission BIT = (SELECT HasUpdatingAssetPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingAssetPermission BIT = (SELECT HasUpdatingAssetPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasUpdatingAssetPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasUpdatingAssetPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to update an Asset!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to update an Asset!', 11, 0);
             RETURN -1;
         END;
 

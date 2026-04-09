@@ -1,21 +1,21 @@
 CREATE PROCEDURE [dbo].[usp_DeleteDepartment]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingDepartmentPermission BIT = (SELECT HasDeletingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasDeletingDepartmentPermission BIT = (SELECT HasDeletingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasDeletingDepartmentPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasDeletingDepartmentPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to delete a Department!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to delete a Department!', 11, 0);
             RETURN -1;
         END;
 

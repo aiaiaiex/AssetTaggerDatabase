@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadCategory]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
@@ -12,16 +12,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingCategoryPermission BIT = (SELECT HasReadingCategoryPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingCategoryPermission BIT = (SELECT HasReadingCategoryPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingCategoryPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingCategoryPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Category!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Category!', 11, 0);
             RETURN -1;
         END;
 

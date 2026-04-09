@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadProduct]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(421) = '',
     @ModelNumber NVARCHAR(421) = '',
@@ -16,16 +16,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingProductPermission BIT = (SELECT HasReadingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingProductPermission BIT = (SELECT HasReadingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingProductPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingProductPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Product!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Product!', 11, 0);
             RETURN -1;
         END;
 

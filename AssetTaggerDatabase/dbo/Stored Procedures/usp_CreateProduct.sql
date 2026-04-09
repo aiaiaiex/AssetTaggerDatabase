@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateProduct]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Name NVARCHAR(421) = NULL,
     @ModelNumber NVARCHAR(421) = NULL,
     @DocumentationUrl NVARCHAR(4000) = NULL,
@@ -10,16 +10,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingProductPermission BIT = (SELECT HasCreatingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasCreatingProductPermission BIT = (SELECT HasCreatingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingProductPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasCreatingProductPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to create a Product!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to create a Product!', 11, 0);
             RETURN -1;
         END;
 

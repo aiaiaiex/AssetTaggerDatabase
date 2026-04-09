@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadBuilding]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL,
@@ -14,16 +14,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingBuildingPermission BIT = (SELECT HasReadingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasReadingBuildingPermission BIT = (SELECT HasReadingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingBuildingPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasReadingBuildingPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to read Building!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to read Building!', 11, 0);
             RETURN -1;
         END;
 

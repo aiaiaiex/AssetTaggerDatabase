@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_UpdateEndUserRole]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER,
     @Name NVARCHAR(850) = NULL,
     @HasCreatingAssetPermission BIT = NULL,
@@ -65,16 +65,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingEndUserRolePermissionPermission BIT = (SELECT HasUpdatingEndUserRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingEndUserRolePermissionPermission BIT = (SELECT HasUpdatingEndUserRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasUpdatingEndUserRolePermissionPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasUpdatingEndUserRolePermissionPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to update an EndUserRole!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to update an EndUserRole!', 11, 0);
             RETURN -1;
         END;
 

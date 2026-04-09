@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_UpdateProduct]
-    @CallingEndUserID UNIQUEIDENTIFIER,
+    @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER,
     @Name NVARCHAR(421) = '',
     @ModelNumber NVARCHAR(421) = '',
@@ -11,16 +11,16 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingProductPermission BIT = (SELECT HasUpdatingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserID));
+    DECLARE @HasUpdatingProductPermission BIT = (SELECT HasUpdatingProductPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasUpdatingProductPermission IS NULL)
         BEGIN
-            RAISERROR ('@CallingEndUserID does not exist!', 11, 0);
+            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
             RETURN -1;
         END;
     IF (@HasUpdatingProductPermission = 0)
         BEGIN
-            RAISERROR ('@CallingEndUserID has no permission to update a Product!', 11, 0);
+            RAISERROR ('@CallingEndUserId has no permission to update a Product!', 11, 0);
             RETURN -1;
         END;
 

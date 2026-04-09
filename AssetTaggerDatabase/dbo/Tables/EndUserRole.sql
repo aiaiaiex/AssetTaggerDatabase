@@ -74,7 +74,7 @@
     [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
     -- StoredProcedureLog RD Permissions.
-    -- StoredProcedureLog has no create permission because every call to stored procedures should be logged even if CallingEndUserID doesn't exist.
+    -- StoredProcedureLog has no create permission because every call to stored procedures should be logged even if CallingEndUserId doesn't exist.
     -- StoredProcedureLog has no update permission because to make logs immutable.
     -- StoredProcedureLog has a delete permission but the call to usp_HasDeletingStoredProcedureLogPermission should be logged.
     [HasReadingStoredProcedureLogPermission] BIT DEFAULT 0 NOT NULL,
