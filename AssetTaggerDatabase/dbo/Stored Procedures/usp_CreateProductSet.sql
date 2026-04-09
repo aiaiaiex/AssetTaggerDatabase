@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_CreateProductSet]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @ParentProductID UNIQUEIDENTIFIER,
     @ProductID UNIQUEIDENTIFIER,
-    @ProductSetProductQuantity INT = 1
+    @ProductQuantity INT = 1
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -25,16 +25,16 @@ BEGIN
     INSERT INTO [dbo].[ProductSet] (
         ParentProductID,
         ProductID,
-        ProductSetProductQuantity
+        ProductQuantity
     )
     OUTPUT
         INSERTED.ParentProductID,
         INSERTED.ProductID,
-        INSERTED.ProductSetProductQuantity,
-        INSERTED.ProductSetInsertDate
+        INSERTED.ProductQuantity,
+        INSERTED.CreatedAt
     VALUES (
         @ParentProductID,
         @ProductID,
-        @ProductSetProductQuantity
+        @ProductQuantity
     );
 END;

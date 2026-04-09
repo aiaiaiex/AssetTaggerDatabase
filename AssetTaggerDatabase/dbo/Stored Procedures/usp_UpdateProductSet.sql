@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateProductSet]
     @CallingEndUserID UNIQUEIDENTIFIER,
     @ParentProductID UNIQUEIDENTIFIER,
     @ProductID UNIQUEIDENTIFIER = NULL,
-    @ProductSetProductQuantity INT = NULL
+    @ProductQuantity INT = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -25,13 +25,13 @@ BEGIN
     UPDATE
         [dbo].[ProductSet]
     SET
-        ProductSetProductQuantity = ISNULL(@ProductSetProductQuantity, ProductSetProductQuantity)
+        ProductQuantity = ISNULL(@ProductQuantity, ProductQuantity)
     OUTPUT
         INSERTED.ParentProductID,
         INSERTED.ProductID,
-        INSERTED.ProductSetProductQuantity,
-        INSERTED.ProductSetInsertDate,
-        DELETED.ProductSetProductQuantity AS OldProductSetProductQuantity
+        INSERTED.ProductQuantity,
+        INSERTED.CreatedAt,
+        DELETED.ProductQuantity AS OldProductQuantity
     FROM
         [dbo].[ProductSet]
     WHERE

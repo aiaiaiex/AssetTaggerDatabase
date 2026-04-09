@@ -25,8 +25,8 @@ BEGIN
     OUTPUT
         DELETED.ParentProductID,
         DELETED.ProductID,
-        DELETED.ProductSetProductQuantity,
-        DELETED.ProductSetInsertDate
+        DELETED.ProductQuantity,
+        DELETED.CreatedAt
     FROM
         [dbo].[ProductSet]
     WHERE
