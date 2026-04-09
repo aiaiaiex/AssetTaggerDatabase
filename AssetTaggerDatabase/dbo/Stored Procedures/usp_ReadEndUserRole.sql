@@ -6,14 +6,6 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingAssetPermission BIT = NULL,
     @HasUpdatingAssetPermission BIT = NULL,
     @HasDeletingAssetPermission BIT = NULL,
-    @HasCreatingAssetFixPermission BIT = NULL,
-    @HasReadingAssetFixPermission BIT = NULL,
-    @HasUpdatingAssetFixPermission BIT = NULL,
-    @HasDeletingAssetFixPermission BIT = NULL,
-    @HasCreatingAssetIssuePermission BIT = NULL,
-    @HasReadingAssetIssuePermission BIT = NULL,
-    @HasUpdatingAssetIssuePermission BIT = NULL,
-    @HasDeletingAssetIssuePermission BIT = NULL,
     @HasCreatingBuildingPermission BIT = NULL,
     @HasReadingBuildingPermission BIT = NULL,
     @HasUpdatingBuildingPermission BIT = NULL,
@@ -99,14 +91,6 @@ BEGIN
         HasReadingAssetPermission,
         HasUpdatingAssetPermission,
         HasDeletingAssetPermission,
-        HasCreatingAssetFixPermission,
-        HasReadingAssetFixPermission,
-        HasUpdatingAssetFixPermission,
-        HasDeletingAssetFixPermission,
-        HasCreatingAssetIssuePermission,
-        HasReadingAssetIssuePermission,
-        HasUpdatingAssetIssuePermission,
-        HasDeletingAssetIssuePermission,
         HasCreatingBuildingPermission,
         HasReadingBuildingPermission,
         HasUpdatingBuildingPermission,
@@ -171,14 +155,6 @@ BEGIN
         AND HasReadingAssetPermission = ISNULL(@HasReadingAssetPermission, HasReadingAssetPermission)
         AND HasUpdatingAssetPermission = ISNULL(@HasUpdatingAssetPermission, HasUpdatingAssetPermission)
         AND HasDeletingAssetPermission = ISNULL(@HasDeletingAssetPermission, HasDeletingAssetPermission)
-        AND HasCreatingAssetFixPermission = ISNULL(@HasCreatingAssetFixPermission, HasCreatingAssetFixPermission)
-        AND HasReadingAssetFixPermission = ISNULL(@HasReadingAssetFixPermission, HasReadingAssetFixPermission)
-        AND HasUpdatingAssetFixPermission = ISNULL(@HasUpdatingAssetFixPermission, HasUpdatingAssetFixPermission)
-        AND HasDeletingAssetFixPermission = ISNULL(@HasDeletingAssetFixPermission, HasDeletingAssetFixPermission)
-        AND HasCreatingAssetIssuePermission = ISNULL(@HasCreatingAssetIssuePermission, HasCreatingAssetIssuePermission)
-        AND HasReadingAssetIssuePermission = ISNULL(@HasReadingAssetIssuePermission, HasReadingAssetIssuePermission)
-        AND HasUpdatingAssetIssuePermission = ISNULL(@HasUpdatingAssetIssuePermission, HasUpdatingAssetIssuePermission)
-        AND HasDeletingAssetIssuePermission = ISNULL(@HasDeletingAssetIssuePermission, HasDeletingAssetIssuePermission)
         AND HasCreatingBuildingPermission = ISNULL(@HasCreatingBuildingPermission, HasCreatingBuildingPermission)
         AND HasReadingBuildingPermission = ISNULL(@HasReadingBuildingPermission, HasReadingBuildingPermission)
         AND HasUpdatingBuildingPermission = ISNULL(@HasUpdatingBuildingPermission, HasUpdatingBuildingPermission)

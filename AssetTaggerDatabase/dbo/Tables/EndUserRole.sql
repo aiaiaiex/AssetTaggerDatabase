@@ -13,16 +13,6 @@
     [HasReadingAssetPermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingAssetPermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingAssetPermission] BIT DEFAULT 0 NOT NULL,
-    -- AssetFix CRUD Permissions.
-    [HasCreatingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
-    [HasReadingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
-    [HasUpdatingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
-    [HasDeletingAssetFixPermission] BIT DEFAULT 0 NOT NULL,
-    -- AssetIssue CRUD Permissions.
-    [HasCreatingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
-    [HasReadingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
-    [HasUpdatingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
-    [HasDeletingAssetIssuePermission] BIT DEFAULT 0 NOT NULL,
     -- Building CRUD Permissions.
     [HasCreatingBuildingPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingBuildingPermission] BIT DEFAULT 0 NOT NULL,

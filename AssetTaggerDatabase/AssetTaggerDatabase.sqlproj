@@ -132,8 +132,6 @@
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAsset.sql" />
-    <Build Include="dbo\Stored Procedures\usp_CreateAssetFix.sql" />
-    <Build Include="dbo\Stored Procedures\usp_CreateAssetIssue.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAuthentication.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateCategory.sql" />
@@ -149,8 +147,6 @@
     <Build Include="dbo\Stored Procedures\usp_CreateStoredProcedureLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteAsset.sql" />
-    <Build Include="dbo\Stored Procedures\usp_DeleteAssetFix.sql" />
-    <Build Include="dbo\Stored Procedures\usp_DeleteAssetIssue.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteCompany.sql" />
@@ -165,8 +161,6 @@
     <Build Include="dbo\Stored Procedures\usp_DeleteStoredProcedureLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadAsset.sql" />
-    <Build Include="dbo\Stored Procedures\usp_ReadAssetFix.sql" />
-    <Build Include="dbo\Stored Procedures\usp_ReadAssetIssue.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadCompany.sql" />
@@ -181,8 +175,6 @@
     <Build Include="dbo\Stored Procedures\usp_ReadStoredProcedureLog.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadVendor.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateAsset.sql" />
-    <Build Include="dbo\Stored Procedures\usp_UpdateAssetFix.sql" />
-    <Build Include="dbo\Stored Procedures\usp_UpdateAssetIssue.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateCategory.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateCompany.sql" />
@@ -197,8 +189,6 @@
     <Build Include="dbo\Stored Procedures\usp_UpdateVendor.sql" />
     <Build Include="dbo\Tables\Company.sql" />
     <Build Include="dbo\Tables\Asset.sql" />
-    <Build Include="dbo\Tables\AssetFix.sql" />
-    <Build Include="dbo\Tables\AssetIssue.sql" />
     <Build Include="dbo\Tables\Building.sql" />
     <Build Include="dbo\Tables\Category.sql" />
     <Build Include="dbo\Tables\Department.sql" />
