@@ -49,8 +49,8 @@ BEGIN
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/relational-databases/errors-events/database-engine-events-and-errors-0-to-999
         IF (
-            @ErrorNumber != 547
-            AND @ErrorMessage != 'The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Log_EndUser". The conflict occurred in database "AssetTaggerDatabase", table "dbo.EndUser", column ''EndUserId''.'
+            @ErrorNumber <> 547
+            AND @ErrorMessage <> 'The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Log_EndUser". The conflict occurred in database "AssetTaggerDatabase", table "dbo.EndUser", column ''EndUserId''.'
         )
             BEGIN
                 DECLARE @ErrorSeverity INT = ERROR_SEVERITY();

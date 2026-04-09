@@ -29,6 +29,6 @@
 
     -- Nullable columns.
     [ParentCompanyId] UNIQUEIDENTIFIER NULL,
-    CONSTRAINT [CTK_Company_Id_ParentCompanyId] CHECK ([Id] != [ParentCompanyId]),
+    CONSTRAINT [CTK_Company_Id_ParentCompanyId] CHECK ([Id] <> [ParentCompanyId]),
     CONSTRAINT [FK_Company_Company] FOREIGN KEY ([ParentCompanyId]) REFERENCES [dbo].[Company] ([Id])
 );

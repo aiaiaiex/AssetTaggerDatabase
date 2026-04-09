@@ -57,7 +57,7 @@ BEGIN
             RETURN -1;
         END;
 
-    IF (CHARINDEX(' ', @Username) != 0)
+    IF (CHARINDEX(' ', @Username) <> 0)
         BEGIN
             RAISERROR ('@Username cannot have whitespace!', 11, 0);
             RETURN -1;

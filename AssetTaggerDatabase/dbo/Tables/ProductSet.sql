@@ -16,6 +16,6 @@
     CONSTRAINT [FK_ProductSet_Product_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id]),
 
     -- Composite constraints.
-    CONSTRAINT [CTK_ProductSet_ParentProductId_ProductId] CHECK ([ParentProductId] != [ProductId]),
+    CONSTRAINT [CTK_ProductSet_ParentProductId_ProductId] CHECK ([ParentProductId] <> [ProductId]),
     CONSTRAINT [PK_ProductSet] PRIMARY KEY NONCLUSTERED ([ParentProductId], [ProductId])
 );
