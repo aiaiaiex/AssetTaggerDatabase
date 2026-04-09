@@ -9,12 +9,12 @@
     [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Location_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
 
     -- Foreign keys.
-    [BuildingID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingID]) REFERENCES [dbo].[Building] ([Id]),
+    [BuildingId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingId]) REFERENCES [dbo].[Building] ([Id]),
 
     -- Non-nullable columns.
     [Address] NVARCHAR(842) NOT NULL,
-    CONSTRAINT [AK_Location_Address_BuildingID] UNIQUE ([Address], [BuildingID]),
+    CONSTRAINT [AK_Location_Address_BuildingId] UNIQUE ([Address], [BuildingId]),
     CONSTRAINT [CK_Location_Address_Exclude] CHECK ([Address] NOT IN ('', '!', 'NULL')),
     CONSTRAINT [CK_Location_Address_MinimumLength] CHECK (LEN([Address]) > 0),
     CONSTRAINT [CK_Location_Address_NoLeadingAndTrailingWhitespace] CHECK ([Address] NOT LIKE ' %' AND [Address] NOT LIKE '% ')

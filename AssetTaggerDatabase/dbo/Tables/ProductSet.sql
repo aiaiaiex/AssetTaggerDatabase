@@ -9,13 +9,13 @@
     CONSTRAINT [CK_ProductSet_ProductQuantity] CHECK ([ProductQuantity] > 0),
 
     -- Foreign keys.
-    [ParentProductID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_ProductSet_Product_ParentProductID] FOREIGN KEY ([ParentProductID]) REFERENCES [dbo].[Product] ([Id]),
+    [ParentProductId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_ProductSet_Product_ParentProductId] FOREIGN KEY ([ParentProductId]) REFERENCES [dbo].[Product] ([Id]),
 
-    [ProductID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_ProductSet_Product_ProductID] FOREIGN KEY ([ProductID]) REFERENCES [dbo].[Product] ([Id]),
+    [ProductId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_ProductSet_Product_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id]),
 
     -- Composite constraints.
-    CONSTRAINT [CTK_ProductSet_ParentProductID_ProductID] CHECK ([ParentProductID] != [ProductID]),
-    CONSTRAINT [PK_ProductSet] PRIMARY KEY NONCLUSTERED ([ParentProductID], [ProductID])
+    CONSTRAINT [CTK_ProductSet_ParentProductId_ProductId] CHECK ([ParentProductId] != [ProductId]),
+    CONSTRAINT [PK_ProductSet] PRIMARY KEY NONCLUSTERED ([ParentProductId], [ProductId])
 );

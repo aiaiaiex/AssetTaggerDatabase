@@ -23,7 +23,7 @@ BEGIN
     DELETE [dbo].[StoredProcedureLog]
     OUTPUT
         DELETED.Id,
-        DELETED.EndUserID,
+        DELETED.EndUserId,
         DELETED.EndUserIpAddress,
         DELETED.StartedAt,
         DELETED.EndedAt,

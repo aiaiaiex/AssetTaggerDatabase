@@ -2,8 +2,8 @@
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER,
     @Username NVARCHAR(850) = NULL,
-    @EndUserRoleID UNIQUEIDENTIFIER = NULL,
-    @EmployeeID UNIQUEIDENTIFIER = NULL
+    @EndUserRoleId UNIQUEIDENTIFIER = NULL,
+    @EmployeeId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -23,7 +23,7 @@ BEGIN
         END;
 
     -- Validate input.
-    IF (@Username IS NULL AND @EndUserRoleID IS NULL AND @EmployeeID IS NULL)
+    IF (@Username IS NULL AND @EndUserRoleId IS NULL AND @EmployeeId IS NULL)
         BEGIN
             RAISERROR ('Cannot update row with @Id when no non-default values are passed to other parameters!', 11, 0);
             RETURN -1;
@@ -34,17 +34,17 @@ BEGIN
         [dbo].[EndUser]
     SET
         Username = ISNULL(@Username, Username),
-        EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID),
-        EmployeeID = ISNULL(@EmployeeID, EmployeeID)
+        EndUserRoleId = ISNULL(@EndUserRoleId, EndUserRoleId),
+        EmployeeId = ISNULL(@EmployeeId, EmployeeId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Username,
-        INSERTED.EndUserRoleID,
-        INSERTED.EmployeeID,
+        INSERTED.EndUserRoleId,
+        INSERTED.EmployeeId,
         INSERTED.CreatedAt,
         DELETED.Username AS OldUsername,
-        DELETED.EndUserRoleID AS OldEndUserRoleID,
-        DELETED.EmployeeID AS OldEmployeeID
+        DELETED.EndUserRoleId AS OldEndUserRoleId,
+        DELETED.EmployeeId AS OldEmployeeId
     FROM
         [dbo].[EndUser]
     WHERE

@@ -24,7 +24,7 @@ BEGIN
     OUTPUT
         DELETED.Id,
         DELETED.Address,
-        DELETED.BuildingID,
+        DELETED.BuildingId,
         DELETED.CreatedAt
     FROM
         [dbo].[Location]

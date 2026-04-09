@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_ReadLocation]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Address NVARCHAR(842) = NULL,
-    @BuildingID UNIQUEIDENTIFIER = NULL,
+    @BuildingId UNIQUEIDENTIFIER = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
     @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
@@ -30,14 +30,14 @@ BEGIN
     SELECT
         Id,
         Address,
-        BuildingID,
+        BuildingId,
         CreatedAt
     FROM
         [dbo].[Location]
     WHERE
         Id = ISNULL(@Id, Id)
         AND (Address = ISNULL(@Address, Address) OR Address LIKE @Address)
-        AND BuildingID = ISNULL(@BuildingID, BuildingID)
+        AND BuildingId = ISNULL(@BuildingId, BuildingId)
         AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY

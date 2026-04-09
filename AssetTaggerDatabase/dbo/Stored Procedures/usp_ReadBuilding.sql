@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[usp_ReadBuilding]
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL,
-    @CompanyID UNIQUEIDENTIFIER = NULL,
+    @CompanyId UNIQUEIDENTIFIER = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
     @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
@@ -32,7 +32,7 @@ BEGIN
         Id,
         Name,
         Address,
-        CompanyID,
+        CompanyId,
         CreatedAt
     FROM
         [dbo].[Building]
@@ -40,7 +40,7 @@ BEGIN
         Id = ISNULL(@Id, Id)
         AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
         AND (Address = ISNULL(@Address, Address) OR Address LIKE @Address)
-        AND CompanyID = ISNULL(@CompanyID, CompanyID)
+        AND CompanyId = ISNULL(@CompanyId, CompanyId)
         AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY

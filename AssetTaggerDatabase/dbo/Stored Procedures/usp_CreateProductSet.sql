@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_CreateProductSet]
     @CallingEndUserId UNIQUEIDENTIFIER,
-    @ParentProductID UNIQUEIDENTIFIER,
-    @ProductID UNIQUEIDENTIFIER,
+    @ParentProductId UNIQUEIDENTIFIER,
+    @ProductId UNIQUEIDENTIFIER,
     @ProductQuantity INT = NULL
 AS;
 BEGIN
@@ -23,18 +23,18 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[ProductSet] (
-        ParentProductID,
-        ProductID,
+        ParentProductId,
+        ProductId,
         ProductQuantity
     )
     OUTPUT
-        INSERTED.ParentProductID,
-        INSERTED.ProductID,
+        INSERTED.ParentProductId,
+        INSERTED.ProductId,
         INSERTED.ProductQuantity,
         INSERTED.CreatedAt
     VALUES (
-        @ParentProductID,
-        @ProductID,
+        @ParentProductId,
+        @ProductId,
         ISNULL(@ProductQuantity, 1)
     );
 END;

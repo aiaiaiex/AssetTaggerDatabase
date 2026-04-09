@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_ReadLog]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
-    @EndUserID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @EndUserId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
     @EndUserIpAddress NVARCHAR(4000) = '',
     @HasExecutedSuccessfully BIT = NULL,
     @Name NVARCHAR(4000) = NULL,
@@ -43,7 +43,7 @@ BEGIN
     -- Run actual query.
     SELECT
         Id,
-        EndUserID,
+        EndUserId,
         EndUserIpAddress,
         StartedAt,
         EndedAt,
@@ -55,7 +55,7 @@ BEGIN
         [dbo].[StoredProcedureLog]
     WHERE
         Id = ISNULL(@Id, Id)
-        AND EndUserID IS NOT DISTINCT FROM IIF(@EndUserID = @NULLISH_UNIQUEIDENTIFIER, EndUserID, IIF(@EndUserID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserID, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserID))
+        AND EndUserId IS NOT DISTINCT FROM IIF(@EndUserId = @NULLISH_UNIQUEIDENTIFIER, EndUserId, IIF(@EndUserId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserId, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserId))
         AND (EndUserIpAddress IS NOT DISTINCT FROM IIF(@EndUserIpAddress = @NULLISH_NVARCHAR, EndUserIpAddress, IIF(@EndUserIpAddress = @NON_NULLISH_NVARCHAR, ISNULL(EndUserIpAddress, @NON_NULLISH_NVARCHAR), @EndUserIpAddress)) OR EndUserIpAddress LIKE @EndUserIpAddress)
         AND HasExecutedSuccessfully = ISNULL(@HasExecutedSuccessfully, HasExecutedSuccessfully)
         AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)

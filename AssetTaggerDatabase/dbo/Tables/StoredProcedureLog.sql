@@ -7,8 +7,8 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
     CONSTRAINT [PK_Log] PRIMARY KEY NONCLUSTERED ([Id]),
 
     -- Foreign keys.
-    [EndUserID] UNIQUEIDENTIFIER NULL,
-    CONSTRAINT [FK_Log_EndUser] FOREIGN KEY ([EndUserID]) REFERENCES [dbo].[EndUser] ([Id]),
+    [EndUserId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_Log_EndUser] FOREIGN KEY ([EndUserId]) REFERENCES [dbo].[EndUser] ([Id]),
 
     -- Non-nullable columns.
     [StartedAt] DATETIMEOFFSET(3) NOT NULL,

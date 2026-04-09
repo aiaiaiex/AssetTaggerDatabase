@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_ReadProductSet]
     @CallingEndUserId UNIQUEIDENTIFIER,
-    @ParentProductID UNIQUEIDENTIFIER = NULL,
-    @ProductID UNIQUEIDENTIFIER = NULL,
+    @ParentProductId UNIQUEIDENTIFIER = NULL,
+    @ProductId UNIQUEIDENTIFIER = NULL,
     @FromProductQuantity INT = NULL,
     @ToProductQuantity INT = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
@@ -29,15 +29,15 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        ParentProductID,
-        ProductID,
+        ParentProductId,
+        ProductId,
         ProductQuantity,
         CreatedAt
     FROM
         [dbo].[ProductSet]
     WHERE
-        ParentProductID = ISNULL(@ParentProductID, ParentProductID)
-        AND ProductID = ISNULL(@ProductID, ProductID)
+        ParentProductId = ISNULL(@ParentProductId, ParentProductId)
+        AND ProductId = ISNULL(@ProductId, ProductId)
         AND ISNULL(@FromProductQuantity, ProductQuantity) <= ProductQuantity
         AND ProductQuantity <= ISNULL(@ToProductQuantity, ProductQuantity)
         AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt

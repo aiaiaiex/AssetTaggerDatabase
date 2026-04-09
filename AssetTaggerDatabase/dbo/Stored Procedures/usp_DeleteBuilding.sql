@@ -25,7 +25,7 @@ BEGIN
         DELETED.Id,
         DELETED.Name,
         DELETED.Address,
-        DELETED.CompanyID,
+        DELETED.CompanyId,
         DELETED.CreatedAt
     FROM
         [dbo].[Building]

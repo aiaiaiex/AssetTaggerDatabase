@@ -1,9 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_CreateEmployee]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @FullName NVARCHAR(850),
-    @RoleID UNIQUEIDENTIFIER,
-    @CompanyID UNIQUEIDENTIFIER,
-    @DepartmentID UNIQUEIDENTIFIER
+    @RoleId UNIQUEIDENTIFIER,
+    @CompanyId UNIQUEIDENTIFIER,
+    @DepartmentId UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -25,21 +25,21 @@ BEGIN
     -- Run actual query.
     INSERT INTO [dbo].[Employee] (
         FullName,
-        RoleID,
-        CompanyID,
-        DepartmentID
+        RoleId,
+        CompanyId,
+        DepartmentId
     )
     OUTPUT
         INSERTED.Id,
         INSERTED.FullName,
-        INSERTED.RoleID,
-        INSERTED.CompanyID,
-        INSERTED.DepartmentID,
+        INSERTED.RoleId,
+        INSERTED.CompanyId,
+        INSERTED.DepartmentId,
         INSERTED.CreatedAt
     VALUES (
         @FullName,
-        @RoleID,
-        @CompanyID,
-        @DepartmentID
+        @RoleId,
+        @CompanyId,
+        @DepartmentId
     );
 END;

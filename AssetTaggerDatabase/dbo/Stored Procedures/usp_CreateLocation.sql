@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_CreateLocation]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Address NVARCHAR(842),
-    @BuildingID UNIQUEIDENTIFIER
+    @BuildingId UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -23,15 +23,15 @@ BEGIN
     -- Run actual query.
     INSERT INTO [dbo].[Location] (
         Address,
-        BuildingID
+        BuildingId
     )
     OUTPUT
         INSERTED.Id,
         INSERTED.Address,
-        INSERTED.BuildingID,
+        INSERTED.BuildingId,
         INSERTED.CreatedAt
     VALUES (
         @Address,
-        @BuildingID
+        @BuildingId
     );
 END;

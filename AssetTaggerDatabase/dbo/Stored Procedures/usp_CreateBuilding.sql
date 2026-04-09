@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_CreateBuilding]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Name NVARCHAR(850),
     @Address NVARCHAR(850),
-    @CompanyID UNIQUEIDENTIFIER
+    @CompanyId UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -25,17 +25,17 @@ BEGIN
     INSERT INTO [dbo].[Building] (
         Name,
         Address,
-        CompanyID
+        CompanyId
     )
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,
         INSERTED.Address,
-        INSERTED.CompanyID,
+        INSERTED.CompanyId,
         INSERTED.CreatedAt
     VALUES (
         @Name,
         @Address,
-        @CompanyID
+        @CompanyId
     );
 END;

@@ -9,8 +9,8 @@
     [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Building_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
 
     -- Foreign keys.
-    [CompanyID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([Id]),
+    [CompanyId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_Building_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
 
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,

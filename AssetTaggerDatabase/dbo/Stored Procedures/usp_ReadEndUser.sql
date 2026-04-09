@@ -2,8 +2,8 @@
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Username NVARCHAR(850) = NULL,
-    @EndUserRoleID UNIQUEIDENTIFIER = NULL,
-    @EmployeeID UNIQUEIDENTIFIER = NULL,
+    @EndUserRoleId UNIQUEIDENTIFIER = NULL,
+    @EmployeeId UNIQUEIDENTIFIER = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
     @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
@@ -32,8 +32,8 @@ BEGIN
         @Id IS NOT NULL
         AND (
             @Username IS NOT NULL
-            OR @EndUserRoleID IS NOT NULL
-            OR @EmployeeID IS NOT NULL
+            OR @EndUserRoleId IS NOT NULL
+            OR @EmployeeId IS NOT NULL
             OR @FromCreatedAt IS NOT NULL
             OR @ToCreatedAt IS NOT NULL
             OR @RowsToSkip IS NOT NULL
@@ -73,16 +73,16 @@ BEGIN
     SELECT
         Id,
         Username,
-        EndUserRoleID,
-        EmployeeID,
+        EndUserRoleId,
+        EmployeeId,
         CreatedAt
     FROM
         [dbo].[EndUser]
     WHERE
         Id = ISNULL(@Id, Id)
         AND (Username = ISNULL(@Username, Username) OR Username LIKE @Username)
-        AND EndUserRoleID = ISNULL(@EndUserRoleID, EndUserRoleID)
-        AND EmployeeID = ISNULL(@EmployeeID, EmployeeID)
+        AND EndUserRoleId = ISNULL(@EndUserRoleId, EndUserRoleId)
+        AND EmployeeId = ISNULL(@EmployeeId, EmployeeId)
         AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY

@@ -9,14 +9,14 @@
     [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Employee_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
 
     -- Foreign keys.
-    [CompanyID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyID]) REFERENCES [dbo].[Company] ([Id]),
+    [CompanyId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
 
-    [DepartmentID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentID]) REFERENCES [dbo].[Department] ([Id]),
+    [DepartmentId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([Id]),
 
-    [RoleID] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Employee_Role] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[Role] ([Id]),
+    [RoleId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_Employee_Role] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role] ([Id]),
 
     -- Non-nullable columns.
     [FullName] NVARCHAR(850) NOT NULL,

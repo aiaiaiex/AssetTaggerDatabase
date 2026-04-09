@@ -1,5 +1,5 @@
 CREATE FUNCTION [dbo].[tvf_GetCRUDPermissionsOfEndUser](
-    @EndUserID UNIQUEIDENTIFIER
+    @EndUserId UNIQUEIDENTIFIER
 )
 RETURNS TABLE WITH SCHEMABINDING AS
 RETURN SELECT
@@ -90,6 +90,6 @@ FROM
     [dbo].[EndUserRole] AS EndUserRole
 INNER JOIN
     [dbo].[EndUser] AS EndUser
-    ON EndUserRole.Id = EndUser.EndUserRoleID
+    ON EndUserRole.Id = EndUser.EndUserRoleId
 WHERE
-    EndUser.Id = @EndUserID;
+    EndUser.Id = @EndUserId;

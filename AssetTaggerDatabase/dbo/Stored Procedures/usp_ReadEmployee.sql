@@ -2,9 +2,9 @@ CREATE PROCEDURE [dbo].[usp_ReadEmployee]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @FullName NVARCHAR(850) = NULL,
-    @RoleID UNIQUEIDENTIFIER = NULL,
-    @CompanyID UNIQUEIDENTIFIER = NULL,
-    @DepartmentID UNIQUEIDENTIFIER = NULL,
+    @RoleId UNIQUEIDENTIFIER = NULL,
+    @CompanyId UNIQUEIDENTIFIER = NULL,
+    @DepartmentId UNIQUEIDENTIFIER = NULL,
     @FromCreatedAt DATETIMEOFFSET(3) = NULL,
     @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     @RowsToSkip INT = NULL,
@@ -32,18 +32,18 @@ BEGIN
     SELECT
         Id,
         FullName,
-        RoleID,
-        CompanyID,
-        DepartmentID,
+        RoleId,
+        CompanyId,
+        DepartmentId,
         CreatedAt
     FROM
         [dbo].[Employee]
     WHERE
         Id = ISNULL(@Id, Id)
         AND (FullName = ISNULL(@FullName, FullName) OR FullName LIKE @FullName)
-        AND RoleID = ISNULL(@RoleID, RoleID)
-        AND CompanyID = ISNULL(@CompanyID, CompanyID)
-        AND DepartmentID = ISNULL(@DepartmentID, DepartmentID)
+        AND RoleId = ISNULL(@RoleId, RoleId)
+        AND CompanyId = ISNULL(@CompanyId, CompanyId)
+        AND DepartmentId = ISNULL(@DepartmentId, DepartmentId)
         AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY

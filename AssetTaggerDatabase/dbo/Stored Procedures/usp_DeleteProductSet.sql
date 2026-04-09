@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_DeleteProductSet]
     @CallingEndUserId UNIQUEIDENTIFIER,
-    @ParentProductID UNIQUEIDENTIFIER,
-    @ProductID UNIQUEIDENTIFIER = NULL
+    @ParentProductId UNIQUEIDENTIFIER,
+    @ProductId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -23,13 +23,13 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[ProductSet]
     OUTPUT
-        DELETED.ParentProductID,
-        DELETED.ProductID,
+        DELETED.ParentProductId,
+        DELETED.ProductId,
         DELETED.ProductQuantity,
         DELETED.CreatedAt
     FROM
         [dbo].[ProductSet]
     WHERE
-        ParentProductID = @ParentProductID
-        AND ProductID = ISNULL(@ProductID, ProductID);
+        ParentProductId = @ParentProductId
+        AND ProductId = ISNULL(@ProductId, ProductId);
 END;

@@ -24,8 +24,8 @@ BEGIN
     OUTPUT
         DELETED.Id,
         DELETED.Username,
-        DELETED.EndUserRoleID,
-        DELETED.EmployeeID,
+        DELETED.EndUserRoleId,
+        DELETED.EmployeeId,
         DELETED.CreatedAt
     FROM
         [dbo].[EndUser]

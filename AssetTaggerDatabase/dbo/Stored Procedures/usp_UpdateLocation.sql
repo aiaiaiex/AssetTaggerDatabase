@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateLocation]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER,
     @Address NVARCHAR(842) = NULL,
-    @BuildingID UNIQUEIDENTIFIER = NULL
+    @BuildingId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -26,14 +26,14 @@ BEGIN
         [dbo].[Location]
     SET
         Address = ISNULL(@Address, Address),
-        BuildingID = ISNULL(@BuildingID, BuildingID)
+        BuildingId = ISNULL(@BuildingId, BuildingId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Address,
-        INSERTED.BuildingID,
+        INSERTED.BuildingId,
         INSERTED.CreatedAt,
         DELETED.Address AS OldAddress,
-        DELETED.BuildingID AS OldBuildingID
+        DELETED.BuildingId AS OldBuildingId
     FROM
         [dbo].[Location]
     WHERE

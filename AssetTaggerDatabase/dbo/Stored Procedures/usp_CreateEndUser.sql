@@ -2,8 +2,8 @@
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Username NVARCHAR(850),
     @Password NVARCHAR(MAX),
-    @EndUserRoleID UNIQUEIDENTIFIER,
-    @EmployeeID UNIQUEIDENTIFIER
+    @EndUserRoleId UNIQUEIDENTIFIER,
+    @EmployeeId UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -30,20 +30,20 @@ BEGIN
         Username,
         PasswordSalt,
         PasswordHash,
-        EndUserRoleID,
-        EmployeeID
+        EndUserRoleId,
+        EmployeeId
     )
     OUTPUT
         INSERTED.Id,
         INSERTED.Username,
-        INSERTED.EndUserRoleID,
-        INSERTED.EmployeeID,
+        INSERTED.EndUserRoleId,
+        INSERTED.EmployeeId,
         INSERTED.CreatedAt
     VALUES (
         @Username,
         @PasswordSalt,
         [dbo].[udf_HashPassword](CONCAT(@Password, CONVERT(NVARCHAR(36), @PasswordSalt))),
-        @EndUserRoleID,
-        @EmployeeID
+        @EndUserRoleId,
+        @EmployeeId
     );
 END;

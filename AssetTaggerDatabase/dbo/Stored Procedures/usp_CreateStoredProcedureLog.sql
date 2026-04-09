@@ -13,7 +13,7 @@ BEGIN
     BEGIN TRY
         -- Run actual query.
         INSERT INTO [dbo].[StoredProcedureLog] (
-            EndUserID,
+            EndUserId,
             EndUserIpAddress,
             StartedAt,
             EndedAt,
@@ -23,7 +23,7 @@ BEGIN
         )
         OUTPUT
             INSERTED.Id,
-            INSERTED.EndUserID,
+            INSERTED.EndUserId,
             INSERTED.EndUserIpAddress,
             INSERTED.StartedAt,
             INSERTED.EndedAt,
@@ -50,7 +50,7 @@ BEGIN
         -- https://learn.microsoft.com/en-us/sql/relational-databases/errors-events/database-engine-events-and-errors-0-to-999
         IF (
             @ErrorNumber != 547
-            AND @ErrorMessage != 'The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Log_EndUser". The conflict occurred in database "AssetTaggerDatabase", table "dbo.EndUser", column ''EndUserID''.'
+            AND @ErrorMessage != 'The INSERT statement conflicted with the FOREIGN KEY constraint "FK_Log_EndUser". The conflict occurred in database "AssetTaggerDatabase", table "dbo.EndUser", column ''EndUserId''.'
         )
             BEGIN
                 DECLARE @ErrorSeverity INT = ERROR_SEVERITY();
@@ -61,7 +61,7 @@ BEGIN
 
         -- Run same query again but @CallingEndUserId is replaced with NULL to fix error specified in IF statement above.
         INSERT INTO [dbo].[StoredProcedureLog] (
-            EndUserID,
+            EndUserId,
             EndUserIpAddress,
             StartedAt,
             EndedAt,
@@ -71,7 +71,7 @@ BEGIN
         )
         OUTPUT
             INSERTED.Id,
-            INSERTED.EndUserID,
+            INSERTED.EndUserId,
             INSERTED.EndUserIpAddress,
             INSERTED.StartedAt,
             INSERTED.EndedAt,

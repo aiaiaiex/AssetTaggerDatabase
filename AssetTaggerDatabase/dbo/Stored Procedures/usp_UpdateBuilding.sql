@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateBuilding]
     @Id UNIQUEIDENTIFIER,
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL,
-    @CompanyID UNIQUEIDENTIFIER = NULL
+    @CompanyId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -28,16 +28,16 @@ BEGIN
     SET
         Name = ISNULL(@Name, Name),
         Address = ISNULL(@Address, Address),
-        CompanyID = ISNULL(@CompanyID, CompanyID)
+        CompanyId = ISNULL(@CompanyId, CompanyId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,
         INSERTED.Address,
-        INSERTED.CompanyID,
+        INSERTED.CompanyId,
         INSERTED.CreatedAt,
         DELETED.Name AS OldName,
         DELETED.Address AS OldAddress,
-        DELETED.CompanyID AS OldCompanyID
+        DELETED.CompanyId AS OldCompanyId
     FROM
         [dbo].[Building]
     WHERE
