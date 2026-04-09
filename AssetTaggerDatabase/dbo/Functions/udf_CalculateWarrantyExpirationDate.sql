@@ -12,9 +12,9 @@ BEGIN
         RETURN @AssetPurchaseDate;
 
     RETURN CASE
-        WHEN @AssetWarrantyUnitOfMeasure = 'yy' THEN DATEADD(YY, @AssetWarrantyDuration, @AssetPurchaseDate)
-        WHEN @AssetWarrantyUnitOfMeasure = 'mm' THEN DATEADD(MM, @AssetWarrantyDuration, @AssetPurchaseDate)
-        WHEN @AssetWarrantyUnitOfMeasure = 'ww' THEN DATEADD(WW, @AssetWarrantyDuration, @AssetPurchaseDate)
-        WHEN @AssetWarrantyUnitOfMeasure = 'dd' THEN DATEADD(DD, @AssetWarrantyDuration, @AssetPurchaseDate)
+        WHEN @AssetWarrantyUnitOfMeasure = 'YY' THEN DATEADD(YY, @AssetWarrantyDuration, @AssetPurchaseDate)
+        WHEN @AssetWarrantyUnitOfMeasure = 'MM' THEN DATEADD(MM, @AssetWarrantyDuration, @AssetPurchaseDate)
+        WHEN @AssetWarrantyUnitOfMeasure = 'WW' THEN DATEADD(WW, @AssetWarrantyDuration, @AssetPurchaseDate)
+        WHEN @AssetWarrantyUnitOfMeasure = 'DD' THEN DATEADD(DD, @AssetWarrantyDuration, @AssetPurchaseDate)
     END;
 END;

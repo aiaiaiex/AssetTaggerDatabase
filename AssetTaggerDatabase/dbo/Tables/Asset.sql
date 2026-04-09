@@ -41,7 +41,7 @@
     -- Allowed values of WarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql
-    CONSTRAINT [CK_Asset_WarrantyUnitOfMeasure] CHECK ([WarrantyUnitOfMeasure] IN ('yy', 'mm', 'ww', 'dd')),
+    CONSTRAINT [CK_Asset_WarrantyUnitOfMeasure] CHECK ([WarrantyUnitOfMeasure] IN ('YY', 'MM', 'WW', 'DD')),
 
     [UsefulLife] INT NULL,
     CONSTRAINT [CK_Asset_UsefulLife] CHECK ([UsefulLife] >= 0),
