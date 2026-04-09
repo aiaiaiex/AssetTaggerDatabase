@@ -1,37 +1,37 @@
 CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @AssetID UNIQUEIDENTIFIER = NULL,
+    @Id UNIQUEIDENTIFIER = NULL,
     -- 
-    @ProductID UNIQUEIDENTIFIER = NULL,
-    @LocationID UNIQUEIDENTIFIER = NULL,
-    @EmployeeID UNIQUEIDENTIFIER = NULL,
+    @ProductId UNIQUEIDENTIFIER = NULL,
+    @LocationId UNIQUEIDENTIFIER = NULL,
+    @EmployeeId UNIQUEIDENTIFIER = NULL,
     -- 
-    @VendorID UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
-    @AssetSerialNumber NVARCHAR(842) = '',
-    @AssetDocumentationURL NVARCHAR(4000) = '',
-    @AssetWarrantyUnitOfMeasure NCHAR(2) = '',
+    @VendorId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @SerialNumber NVARCHAR(842) = '',
+    @DocumentationUrl NVARCHAR(4000) = '',
+    @WarrantyUnitOfMeasure NCHAR(2) = '',
     -- 
-    @FromAssetWarrantyDuration INT = -2147483648,
-    @ToAssetWarrantyDuration INT = -2147483648,
-    @FromAssetUsefulLife INT = -2147483648,
-    @ToAssetUsefulLife INT = -2147483648,
+    @FromWarrantyDuration INT = -2147483648,
+    @ToWarrantyDuration INT = -2147483648,
+    @FromUsefulLife INT = -2147483648,
+    @ToUsefulLife INT = -2147483648,
     -- 
-    @FromAssetPurchasePrice DECIMAL(15, 4) = -99999999999.9999,
-    @ToAssetPurchasePrice DECIMAL(15, 4) = -99999999999.9999,
-    @FromAssetSalvageValue DECIMAL(15, 4) = -99999999999.9999,
-    @ToAssetSalvageValue DECIMAL(15, 4) = -99999999999.9999,
-    @FromAssetAnnualDepreciationExpense DECIMAL(15, 4) = -99999999999.9999,
-    @ToAssetAnnualDepreciationExpense DECIMAL(15, 4) = -99999999999.9999,
-    @FromAssetCurrentBookValue DECIMAL(15, 4) = -99999999999.9999,
-    @ToAssetCurrentBookValue DECIMAL(15, 4) = -99999999999.9999,
+    @FromPurchasePrice DECIMAL(15, 4) = -99999999999.9999,
+    @ToPurchasePrice DECIMAL(15, 4) = -99999999999.9999,
+    @FromSalvageValue DECIMAL(15, 4) = -99999999999.9999,
+    @ToSalvageValue DECIMAL(15, 4) = -99999999999.9999,
+    @FromAnnualDepreciationExpense DECIMAL(15, 4) = -99999999999.9999,
+    @ToAnnualDepreciationExpense DECIMAL(15, 4) = -99999999999.9999,
+    @FromCurrentBookValue DECIMAL(15, 4) = -99999999999.9999,
+    @ToCurrentBookValue DECIMAL(15, 4) = -99999999999.9999,
     -- 
-    @FromAssetPurchaseDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
-    @ToAssetPurchaseDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
-    @FromAssetWarrantyExpirationDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
-    @ToAssetWarrantyExpirationDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @FromPurchasedAt DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @ToPurchasedAt DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @FromWarrantyExpirationDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
+    @ToWarrantyExpirationDate DATETIMEOFFSET(3) = '1900-01-01T00:00:00.000Z',
     -- 
-    @FromAssetTagDate DATETIMEOFFSET(3) = NULL,
-    @ToAssetTagDate DATETIMEOFFSET(3) = NULL,
+    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
+    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
     -- 
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
@@ -71,61 +71,61 @@ BEGIN
 
     -- Run actual query.
     SELECT
-        AssetID,
-        AssetTagDate,
-        ProductID,
-        LocationID,
-        EmployeeID,
-        VendorID,
-        AssetPurchaseDate,
-        AssetPurchasePrice,
-        AssetSerialNumber,
-        AssetDocumentationURL,
-        AssetWarrantyUnitOfMeasure,
-        AssetWarrantyDuration,
-        AssetUsefulLife,
-        AssetSalvageValue,
-        AssetWarrantyExpirationDate,
-        AssetAnnualDepreciationExpense,
-        AssetCurrentBookValue
+        Id,
+        CreatedAt,
+        ProductId,
+        LocationId,
+        EmployeeId,
+        VendorId,
+        PurchasedAt,
+        PurchasePrice,
+        SerialNumber,
+        DocumentationUrl,
+        WarrantyUnitOfMeasure,
+        WarrantyDuration,
+        UsefulLife,
+        SalvageValue,
+        WarrantyExpirationDate,
+        AnnualDepreciationExpense,
+        CurrentBookValue
     FROM
         [dbo].[Asset]
     WHERE
-        AssetID = ISNULL(@AssetID, AssetID)
+        Id = ISNULL(@Id, Id)
         -- 
-        AND ProductID = ISNULL(@ProductID, ProductID)
-        AND LocationID = ISNULL(@LocationID, LocationID)
-        AND EmployeeID = ISNULL(@EmployeeID, EmployeeID)
+        AND ProductId = ISNULL(@ProductId, ProductId)
+        AND LocationId = ISNULL(@LocationId, LocationId)
+        AND EmployeeId = ISNULL(@EmployeeId, EmployeeId)
         -- 
-        AND VendorID IS NOT DISTINCT FROM IIF(@VendorID = @NULLISH_UNIQUEIDENTIFIER, VendorID, IIF(@VendorID = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(VendorID, @NON_NULLISH_UNIQUEIDENTIFIER), @VendorID))
-        AND (AssetSerialNumber IS NOT DISTINCT FROM IIF(@AssetSerialNumber = @NULLISH_NVARCHAR, AssetSerialNumber, IIF(@AssetSerialNumber = @NON_NULLISH_NVARCHAR, ISNULL(AssetSerialNumber, @NON_NULLISH_NVARCHAR), @AssetSerialNumber)) OR AssetSerialNumber LIKE @AssetSerialNumber)
-        AND (AssetDocumentationURL IS NOT DISTINCT FROM IIF(@AssetDocumentationURL = @NULLISH_NVARCHAR, AssetDocumentationURL, IIF(@AssetDocumentationURL = @NON_NULLISH_NVARCHAR, ISNULL(AssetDocumentationURL, @NON_NULLISH_NVARCHAR), @AssetDocumentationURL)) OR AssetDocumentationURL LIKE @AssetDocumentationURL)
-        AND (AssetWarrantyUnitOfMeasure IS NOT DISTINCT FROM IIF(@AssetWarrantyUnitOfMeasure = @NULLISH_NCHAR, AssetWarrantyUnitOfMeasure, IIF(@AssetWarrantyUnitOfMeasure = @NON_NULLISH_NCHAR, ISNULL(AssetWarrantyUnitOfMeasure, @NON_NULLISH_NCHAR), @AssetWarrantyUnitOfMeasure)) OR AssetWarrantyUnitOfMeasure LIKE @AssetWarrantyUnitOfMeasure)
+        AND VendorId IS NOT DISTINCT FROM IIF(@VendorId = @NULLISH_UNIQUEIDENTIFIER, VendorId, IIF(@VendorId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(VendorId, @NON_NULLISH_UNIQUEIDENTIFIER), @VendorId))
+        AND (SerialNumber IS NOT DISTINCT FROM IIF(@SerialNumber = @NULLISH_NVARCHAR, SerialNumber, IIF(@SerialNumber = @NON_NULLISH_NVARCHAR, ISNULL(SerialNumber, @NON_NULLISH_NVARCHAR), @SerialNumber)) OR SerialNumber LIKE @SerialNumber)
+        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, ISNULL(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
+        AND (WarrantyUnitOfMeasure IS NOT DISTINCT FROM IIF(@WarrantyUnitOfMeasure = @NULLISH_NCHAR, WarrantyUnitOfMeasure, IIF(@WarrantyUnitOfMeasure = @NON_NULLISH_NCHAR, ISNULL(WarrantyUnitOfMeasure, @NON_NULLISH_NCHAR), @WarrantyUnitOfMeasure)) OR WarrantyUnitOfMeasure LIKE @WarrantyUnitOfMeasure)
         -- 
-        AND (IIF(@FromAssetWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), AssetWarrantyDuration, @FromAssetWarrantyDuration) <= AssetWarrantyDuration OR AssetWarrantyDuration IS NOT DISTINCT FROM IIF(@FromAssetWarrantyDuration = @NULLISH_INT OR @FromAssetWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))
-        AND (AssetWarrantyDuration <= IIF(@ToAssetWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), AssetWarrantyDuration, @ToAssetWarrantyDuration) OR AssetWarrantyDuration IS NOT DISTINCT FROM IIF(@ToAssetWarrantyDuration = @NULLISH_INT OR @ToAssetWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))
-        AND (IIF(@FromAssetUsefulLife IN (@NULLISH_INT, @NON_NULLISH_INT), AssetUsefulLife, @FromAssetUsefulLife) <= AssetUsefulLife OR AssetUsefulLife IS NOT DISTINCT FROM IIF(@FromAssetUsefulLife = @NULLISH_INT OR @FromAssetUsefulLife IS NULL, NULL, @NON_NULLISH_INT))
-        AND (AssetUsefulLife <= IIF(@ToAssetUsefulLife IN (@NULLISH_INT, @NON_NULLISH_INT), AssetUsefulLife, @ToAssetUsefulLife) OR AssetUsefulLife IS NOT DISTINCT FROM IIF(@ToAssetUsefulLife = @NULLISH_INT OR @ToAssetUsefulLife IS NULL, NULL, @NON_NULLISH_INT))
+        AND (IIF(@FromWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), WarrantyDuration, @FromWarrantyDuration) <= WarrantyDuration OR WarrantyDuration IS NOT DISTINCT FROM IIF(@FromWarrantyDuration = @NULLISH_INT OR @FromWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))
+        AND (WarrantyDuration <= IIF(@ToWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), WarrantyDuration, @ToWarrantyDuration) OR WarrantyDuration IS NOT DISTINCT FROM IIF(@ToWarrantyDuration = @NULLISH_INT OR @ToWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))
+        AND (IIF(@FromUsefulLife IN (@NULLISH_INT, @NON_NULLISH_INT), UsefulLife, @FromUsefulLife) <= UsefulLife OR UsefulLife IS NOT DISTINCT FROM IIF(@FromUsefulLife = @NULLISH_INT OR @FromUsefulLife IS NULL, NULL, @NON_NULLISH_INT))
+        AND (UsefulLife <= IIF(@ToUsefulLife IN (@NULLISH_INT, @NON_NULLISH_INT), UsefulLife, @ToUsefulLife) OR UsefulLife IS NOT DISTINCT FROM IIF(@ToUsefulLife = @NULLISH_INT OR @ToUsefulLife IS NULL, NULL, @NON_NULLISH_INT))
         -- 
-        AND (IIF(@FromAssetPurchasePrice IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetPurchasePrice, @FromAssetPurchasePrice) <= AssetPurchasePrice OR AssetPurchasePrice IS NOT DISTINCT FROM IIF(@FromAssetPurchasePrice = @NULLISH_DECIMAL OR @FromAssetPurchasePrice IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (AssetPurchasePrice <= IIF(@ToAssetPurchasePrice IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetPurchasePrice, @ToAssetPurchasePrice) OR AssetPurchasePrice IS NOT DISTINCT FROM IIF(@ToAssetPurchasePrice = @NULLISH_DECIMAL OR @ToAssetPurchasePrice IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (IIF(@FromAssetSalvageValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetSalvageValue, @FromAssetSalvageValue) <= AssetSalvageValue OR AssetSalvageValue IS NOT DISTINCT FROM IIF(@FromAssetSalvageValue = @NULLISH_DECIMAL OR @FromAssetSalvageValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (AssetSalvageValue <= IIF(@ToAssetSalvageValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetSalvageValue, @ToAssetSalvageValue) OR AssetSalvageValue IS NOT DISTINCT FROM IIF(@ToAssetSalvageValue = @NULLISH_DECIMAL OR @ToAssetSalvageValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (IIF(@FromAssetAnnualDepreciationExpense IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetAnnualDepreciationExpense, @FromAssetAnnualDepreciationExpense) <= AssetAnnualDepreciationExpense OR AssetAnnualDepreciationExpense IS NOT DISTINCT FROM IIF(@FromAssetAnnualDepreciationExpense = @NULLISH_DECIMAL OR @FromAssetAnnualDepreciationExpense IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (AssetAnnualDepreciationExpense <= IIF(@ToAssetAnnualDepreciationExpense IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetAnnualDepreciationExpense, @ToAssetAnnualDepreciationExpense) OR AssetAnnualDepreciationExpense IS NOT DISTINCT FROM IIF(@ToAssetAnnualDepreciationExpense = @NULLISH_DECIMAL OR @ToAssetAnnualDepreciationExpense IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (IIF(@FromAssetCurrentBookValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetCurrentBookValue, @FromAssetCurrentBookValue) <= AssetCurrentBookValue OR AssetCurrentBookValue IS NOT DISTINCT FROM IIF(@FromAssetCurrentBookValue = @NULLISH_DECIMAL OR @FromAssetCurrentBookValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
-        AND (AssetCurrentBookValue <= IIF(@ToAssetCurrentBookValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AssetCurrentBookValue, @ToAssetCurrentBookValue) OR AssetCurrentBookValue IS NOT DISTINCT FROM IIF(@ToAssetCurrentBookValue = @NULLISH_DECIMAL OR @ToAssetCurrentBookValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (IIF(@FromPurchasePrice IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), PurchasePrice, @FromPurchasePrice) <= PurchasePrice OR PurchasePrice IS NOT DISTINCT FROM IIF(@FromPurchasePrice = @NULLISH_DECIMAL OR @FromPurchasePrice IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (PurchasePrice <= IIF(@ToPurchasePrice IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), PurchasePrice, @ToPurchasePrice) OR PurchasePrice IS NOT DISTINCT FROM IIF(@ToPurchasePrice = @NULLISH_DECIMAL OR @ToPurchasePrice IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (IIF(@FromSalvageValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), SalvageValue, @FromSalvageValue) <= SalvageValue OR SalvageValue IS NOT DISTINCT FROM IIF(@FromSalvageValue = @NULLISH_DECIMAL OR @FromSalvageValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (SalvageValue <= IIF(@ToSalvageValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), SalvageValue, @ToSalvageValue) OR SalvageValue IS NOT DISTINCT FROM IIF(@ToSalvageValue = @NULLISH_DECIMAL OR @ToSalvageValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (IIF(@FromAnnualDepreciationExpense IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AnnualDepreciationExpense, @FromAnnualDepreciationExpense) <= AnnualDepreciationExpense OR AnnualDepreciationExpense IS NOT DISTINCT FROM IIF(@FromAnnualDepreciationExpense = @NULLISH_DECIMAL OR @FromAnnualDepreciationExpense IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (AnnualDepreciationExpense <= IIF(@ToAnnualDepreciationExpense IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), AnnualDepreciationExpense, @ToAnnualDepreciationExpense) OR AnnualDepreciationExpense IS NOT DISTINCT FROM IIF(@ToAnnualDepreciationExpense = @NULLISH_DECIMAL OR @ToAnnualDepreciationExpense IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (IIF(@FromCurrentBookValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), CurrentBookValue, @FromCurrentBookValue) <= CurrentBookValue OR CurrentBookValue IS NOT DISTINCT FROM IIF(@FromCurrentBookValue = @NULLISH_DECIMAL OR @FromCurrentBookValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
+        AND (CurrentBookValue <= IIF(@ToCurrentBookValue IN (@NULLISH_DECIMAL, @NON_NULLISH_DECIMAL), CurrentBookValue, @ToCurrentBookValue) OR CurrentBookValue IS NOT DISTINCT FROM IIF(@ToCurrentBookValue = @NULLISH_DECIMAL OR @ToCurrentBookValue IS NULL, NULL, @NON_NULLISH_DECIMAL))
         -- 
-        AND (IIF(@FromAssetPurchaseDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetPurchaseDate, @FromAssetPurchaseDate) <= AssetPurchaseDate OR AssetPurchaseDate IS NOT DISTINCT FROM IIF(@FromAssetPurchaseDate = @NULLISH_DATETIMEOFFSET OR @FromAssetPurchaseDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
-        AND (AssetPurchaseDate <= IIF(@ToAssetPurchaseDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetPurchaseDate, @ToAssetPurchaseDate) OR AssetPurchaseDate IS NOT DISTINCT FROM IIF(@ToAssetPurchaseDate = @NULLISH_DATETIMEOFFSET OR @ToAssetPurchaseDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
-        AND (IIF(@FromAssetWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetWarrantyExpirationDate, @FromAssetWarrantyExpirationDate) <= AssetWarrantyExpirationDate OR AssetWarrantyExpirationDate IS NOT DISTINCT FROM IIF(@FromAssetWarrantyExpirationDate = @NULLISH_DATETIMEOFFSET OR @FromAssetWarrantyExpirationDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
-        AND (AssetWarrantyExpirationDate <= IIF(@ToAssetWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), AssetWarrantyExpirationDate, @ToAssetWarrantyExpirationDate) OR AssetWarrantyExpirationDate IS NOT DISTINCT FROM IIF(@ToAssetWarrantyExpirationDate = @NULLISH_DATETIMEOFFSET OR @ToAssetWarrantyExpirationDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
+        AND (IIF(@FromPurchasedAt IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), PurchasedAt, @FromPurchasedAt) <= PurchasedAt OR PurchasedAt IS NOT DISTINCT FROM IIF(@FromPurchasedAt = @NULLISH_DATETIMEOFFSET OR @FromPurchasedAt IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
+        AND (PurchasedAt <= IIF(@ToPurchasedAt IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), PurchasedAt, @ToPurchasedAt) OR PurchasedAt IS NOT DISTINCT FROM IIF(@ToPurchasedAt = @NULLISH_DATETIMEOFFSET OR @ToPurchasedAt IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
+        AND (IIF(@FromWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), WarrantyExpirationDate, @FromWarrantyExpirationDate) <= WarrantyExpirationDate OR WarrantyExpirationDate IS NOT DISTINCT FROM IIF(@FromWarrantyExpirationDate = @NULLISH_DATETIMEOFFSET OR @FromWarrantyExpirationDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
+        AND (WarrantyExpirationDate <= IIF(@ToWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), WarrantyExpirationDate, @ToWarrantyExpirationDate) OR WarrantyExpirationDate IS NOT DISTINCT FROM IIF(@ToWarrantyExpirationDate = @NULLISH_DATETIMEOFFSET OR @ToWarrantyExpirationDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
         -- 
-        AND ISNULL(@FromAssetTagDate, AssetTagDate) <= AssetTagDate
-        AND AssetTagDate <= ISNULL(@ToAssetTagDate, AssetTagDate)
+        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN AssetNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN AssetNumber END ASC
+        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
         OFFSET ISNULL(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:

@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteAsset]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @AssetID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,25 +22,25 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Asset]
     OUTPUT
-        DELETED.AssetID,
-        DELETED.AssetTagDate,
-        DELETED.ProductID,
-        DELETED.LocationID,
-        DELETED.EmployeeID,
-        DELETED.VendorID,
-        DELETED.AssetPurchaseDate,
-        DELETED.AssetPurchasePrice,
-        DELETED.AssetSerialNumber,
-        DELETED.AssetDocumentationURL,
-        DELETED.AssetWarrantyUnitOfMeasure,
-        DELETED.AssetWarrantyDuration,
-        DELETED.AssetUsefulLife,
-        DELETED.AssetSalvageValue,
-        DELETED.AssetWarrantyExpirationDate,
-        DELETED.AssetAnnualDepreciationExpense,
-        DELETED.AssetCurrentBookValue
+        DELETED.Id,
+        DELETED.CreatedAt,
+        DELETED.ProductId,
+        DELETED.LocationId,
+        DELETED.EmployeeId,
+        DELETED.VendorId,
+        DELETED.PurchasedAt,
+        DELETED.PurchasePrice,
+        DELETED.SerialNumber,
+        DELETED.DocumentationUrl,
+        DELETED.WarrantyUnitOfMeasure,
+        DELETED.WarrantyDuration,
+        DELETED.UsefulLife,
+        DELETED.SalvageValue,
+        DELETED.WarrantyExpirationDate,
+        DELETED.AnnualDepreciationExpense,
+        DELETED.CurrentBookValue
     FROM
         [dbo].[Asset]
     WHERE
-        AssetID = @AssetID;
+        Id = @Id;
 END;
