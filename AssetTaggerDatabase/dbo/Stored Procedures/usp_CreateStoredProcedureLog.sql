@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_CreateLog]
+CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
     @CallingEndUserId UNIQUEIDENTIFIER = NULL,
     @EndUserIpAddress NVARCHAR(4000) = NULL,
     @StartedAt DATETIMEOFFSET(3),
