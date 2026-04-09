@@ -63,12 +63,6 @@
     [HasReadingLocationPermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingLocationPermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingLocationPermission] BIT DEFAULT 0 NOT NULL,
-    -- Log RD Permissions.
-    -- Log has no create permission because every call to stored procedures should be logged even if CallingEndUserID doesn't exist.
-    -- Log has no update permission because to make logs immutable.
-    -- Log has a delete permission but the call to usp_HasDeletingLogPermission should be logged.
-    [HasReadingLogPermission] BIT DEFAULT 0 NOT NULL,
-    [HasDeletingLogPermission] BIT DEFAULT 0 NOT NULL,
     -- Manufacturer CRUD Permissions.
     [HasCreatingManufacturerPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingManufacturerPermission] BIT DEFAULT 0 NOT NULL,
@@ -89,6 +83,12 @@
     [HasReadingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
+    -- StoredProcedureLog RD Permissions.
+    -- StoredProcedureLog has no create permission because every call to stored procedures should be logged even if CallingEndUserID doesn't exist.
+    -- StoredProcedureLog has no update permission because to make logs immutable.
+    -- StoredProcedureLog has a delete permission but the call to usp_HasDeletingStoredProcedureLogPermission should be logged.
+    [HasReadingStoredProcedureLogPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingStoredProcedureLogPermission] BIT DEFAULT 0 NOT NULL,
     -- Vendor CRUD Permissions.
     [HasCreatingVendorPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingVendorPermission] BIT DEFAULT 0 NOT NULL,

@@ -46,8 +46,6 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingLocationPermission BIT = NULL,
     @HasUpdatingLocationPermission BIT = NULL,
     @HasDeletingLocationPermission BIT = NULL,
-    @HasReadingLogPermission BIT = NULL,
-    @HasDeletingLogPermission BIT = NULL,
     @HasCreatingManufacturerPermission BIT = NULL,
     @HasReadingManufacturerPermission BIT = NULL,
     @HasUpdatingManufacturerPermission BIT = NULL,
@@ -64,6 +62,8 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingRolePermission BIT = NULL,
     @HasUpdatingRolePermission BIT = NULL,
     @HasDeletingRolePermission BIT = NULL,
+    @HasReadingStoredProcedureLogPermission BIT = NULL,
+    @HasDeletingStoredProcedureLogPermission BIT = NULL,
     @HasCreatingVendorPermission BIT = NULL,
     @HasReadingVendorPermission BIT = NULL,
     @HasUpdatingVendorPermission BIT = NULL,
@@ -139,8 +139,6 @@ BEGIN
         HasReadingLocationPermission,
         HasUpdatingLocationPermission,
         HasDeletingLocationPermission,
-        HasReadingLogPermission,
-        HasDeletingLogPermission,
         HasCreatingManufacturerPermission,
         HasReadingManufacturerPermission,
         HasUpdatingManufacturerPermission,
@@ -157,6 +155,8 @@ BEGIN
         HasReadingRolePermission,
         HasUpdatingRolePermission,
         HasDeletingRolePermission,
+        HasReadingStoredProcedureLogPermission,
+        HasDeletingStoredProcedureLogPermission,
         HasCreatingVendorPermission,
         HasReadingVendorPermission,
         HasUpdatingVendorPermission,
@@ -211,8 +211,6 @@ BEGIN
         AND HasReadingLocationPermission = ISNULL(@HasReadingLocationPermission, HasReadingLocationPermission)
         AND HasUpdatingLocationPermission = ISNULL(@HasUpdatingLocationPermission, HasUpdatingLocationPermission)
         AND HasDeletingLocationPermission = ISNULL(@HasDeletingLocationPermission, HasDeletingLocationPermission)
-        AND HasReadingLogPermission = ISNULL(@HasReadingLogPermission, HasReadingLogPermission)
-        AND HasDeletingLogPermission = ISNULL(@HasDeletingLogPermission, HasDeletingLogPermission)
         AND HasCreatingManufacturerPermission = ISNULL(@HasCreatingManufacturerPermission, HasCreatingManufacturerPermission)
         AND HasReadingManufacturerPermission = ISNULL(@HasReadingManufacturerPermission, HasReadingManufacturerPermission)
         AND HasUpdatingManufacturerPermission = ISNULL(@HasUpdatingManufacturerPermission, HasUpdatingManufacturerPermission)
@@ -229,6 +227,8 @@ BEGIN
         AND HasReadingRolePermission = ISNULL(@HasReadingRolePermission, HasReadingRolePermission)
         AND HasUpdatingRolePermission = ISNULL(@HasUpdatingRolePermission, HasUpdatingRolePermission)
         AND HasDeletingRolePermission = ISNULL(@HasDeletingRolePermission, HasDeletingRolePermission)
+        AND HasReadingStoredProcedureLogPermission = ISNULL(@HasReadingStoredProcedureLogPermission, HasReadingStoredProcedureLogPermission)
+        AND HasDeletingStoredProcedureLogPermission = ISNULL(@HasDeletingStoredProcedureLogPermission, HasDeletingStoredProcedureLogPermission)
         AND HasCreatingVendorPermission = ISNULL(@HasCreatingVendorPermission, HasCreatingVendorPermission)
         AND HasReadingVendorPermission = ISNULL(@HasReadingVendorPermission, HasReadingVendorPermission)
         AND HasUpdatingVendorPermission = ISNULL(@HasUpdatingVendorPermission, HasUpdatingVendorPermission)
