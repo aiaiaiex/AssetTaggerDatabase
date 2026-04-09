@@ -27,9 +27,9 @@
     CONSTRAINT [CK_Product_ModelNumber_NoLeadingAndTrailingWhitespace] CHECK ([ModelNumber] NOT LIKE ' %' AND [ModelNumber] NOT LIKE '% '),
 
     [DocumentationUrl] NVARCHAR(4000) NULL,
-    CONSTRAINT [CK_Asset_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Asset_DocumentationUrl_MinimumLength] CHECK (LEN([DocumentationUrl]) > 0),
-    CONSTRAINT [CK_Asset_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% ')
+    CONSTRAINT [CK_Product_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Product_DocumentationUrl_MinimumLength] CHECK (LEN([DocumentationUrl]) > 0),
+    CONSTRAINT [CK_Product_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% ')
 );
 GO
 
