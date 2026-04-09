@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_DeleteLocation]
     @CallingEndUserID UNIQUEIDENTIFIER,
-    @LocationID UNIQUEIDENTIFIER
+    @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,12 +22,12 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Location]
     OUTPUT
-        DELETED.LocationID,
-        DELETED.LocationAddress,
+        DELETED.Id,
+        DELETED.Address,
         DELETED.BuildingID,
-        DELETED.LocationInsertDate
+        DELETED.CreatedAt
     FROM
         [dbo].[Location]
     WHERE
-        LocationID = @LocationID;
+        Id = @Id;
 END;

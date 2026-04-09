@@ -1,14 +1,22 @@
 ﻿CREATE TABLE [dbo].[Location] (
-    [LocationNumber] INT IDENTITY (1, 1),
-    [LocationID] UNIQUEIDENTIFIER CONSTRAINT [DF_Location_LocationID] DEFAULT (NEWID()) NOT NULL,
-    [LocationAddress] NVARCHAR(842) NOT NULL,
+    -- Columns with default values.
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Location_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
+
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Location_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_Location] PRIMARY KEY NONCLUSTERED ([Id]),
+
+    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Location_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+
+    -- Foreign keys.
     [BuildingID] UNIQUEIDENTIFIER NOT NULL,
-    [LocationInsertDate] DATETIMEOFFSET(3) CONSTRAINT [DF_Location_LocationInsertDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
-    CONSTRAINT [AK_Location_LocationNumber] UNIQUE CLUSTERED ([LocationNumber] ASC),
-    CONSTRAINT [AK_Location_LocationAddress_BuildingID] UNIQUE ([LocationAddress], [BuildingID]),
-    CONSTRAINT [CK_Location_LocationAddress_Exclude] CHECK ([LocationAddress] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Location_LocationAddress_MinimumLength] CHECK (LEN([LocationAddress]) > 0),
-    CONSTRAINT [CK_Location_LocationAddress_NoLeadingAndTrailingWhitespace] CHECK ([LocationAddress] NOT LIKE ' %' AND [LocationAddress] NOT LIKE '% '),
-    CONSTRAINT [PK_Location] PRIMARY KEY NONCLUSTERED ([LocationID] ASC),
-    CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingID]) REFERENCES [dbo].[Building] ([BuildingID])
+    CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingID]) REFERENCES [dbo].[Building] ([Id]),
+
+    -- Non-nullable columns.
+    [Address] NVARCHAR(842) NOT NULL,
+    CONSTRAINT [AK_Location_Address_BuildingID] UNIQUE ([Address], [BuildingID]),
+    CONSTRAINT [CK_Location_Address_Exclude] CHECK ([Address] NOT IN ('', '!', 'NULL')),
+    CONSTRAINT [CK_Location_Address_MinimumLength] CHECK (LEN([Address]) > 0),
+    CONSTRAINT [CK_Location_Address_NoLeadingAndTrailingWhitespace] CHECK ([Address] NOT LIKE ' %' AND [Address] NOT LIKE '% ')
+
 );
