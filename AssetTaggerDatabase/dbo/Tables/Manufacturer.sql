@@ -1,6 +1,4 @@
-﻿DROP TABLE IF EXISTS [dbo].[Manufacturer];
-GO
-CREATE TABLE [dbo].[Manufacturer] (
+﻿CREATE TABLE [dbo].[Manufacturer] (
     -- Columns with default values.
     [RowNumber] INT IDENTITY (1, 1),
     CONSTRAINT [AK_Manufacturer_RowNumber] UNIQUE CLUSTERED ([RowNumber]),

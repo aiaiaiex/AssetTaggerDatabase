@@ -1,6 +1,4 @@
-﻿DROP TABLE IF EXISTS [dbo].[Role];
-GO
-CREATE TABLE [dbo].[Role] (
+﻿CREATE TABLE [dbo].[Role] (
     -- Columns with default values.
     [RowNumber] INT IDENTITY (1, 1),
     CONSTRAINT [AK_Role_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
