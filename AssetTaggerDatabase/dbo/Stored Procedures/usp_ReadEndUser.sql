@@ -79,18 +79,18 @@ BEGIN
     FROM
         [dbo].[EndUser]
     WHERE
-        Id = ISNULL(@Id, Id)
-        AND (Username = ISNULL(@Username, Username) OR Username LIKE @Username)
-        AND EndUserRoleId = ISNULL(@EndUserRoleId, EndUserRoleId)
-        AND EmployeeId = ISNULL(@EmployeeId, EmployeeId)
-        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
-        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
+        Id = COALESCE(@Id, Id)
+        AND (Username = COALESCE(@Username, Username) OR Username LIKE @Username)
+        AND EndUserRoleId = COALESCE(@EndUserRoleId, EndUserRoleId)
+        AND EmployeeId = COALESCE(@EmployeeId, EmployeeId)
+        AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
-        OFFSET ISNULL(@RowsToSkip, 0) ROWS
+        OFFSET COALESCE(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of RowNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
+        FETCH NEXT COALESCE(@RowsToReturn, 2147483647) ROWS ONLY;
 END;

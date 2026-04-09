@@ -25,8 +25,8 @@ BEGIN
     UPDATE
         [dbo].[Location]
     SET
-        Address = ISNULL(@Address, Address),
-        BuildingId = ISNULL(@BuildingId, BuildingId)
+        Address = COALESCE(@Address, Address),
+        BuildingId = COALESCE(@BuildingId, BuildingId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Address,

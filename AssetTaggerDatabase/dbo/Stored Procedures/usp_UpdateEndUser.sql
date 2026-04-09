@@ -33,9 +33,9 @@ BEGIN
     UPDATE
         [dbo].[EndUser]
     SET
-        Username = ISNULL(@Username, Username),
-        EndUserRoleId = ISNULL(@EndUserRoleId, EndUserRoleId),
-        EmployeeId = ISNULL(@EmployeeId, EmployeeId)
+        Username = COALESCE(@Username, Username),
+        EndUserRoleId = COALESCE(@EndUserRoleId, EndUserRoleId),
+        EmployeeId = COALESCE(@EmployeeId, EmployeeId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Username,

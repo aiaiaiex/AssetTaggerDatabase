@@ -25,7 +25,7 @@ BEGIN
     UPDATE
         [dbo].[ProductSet]
     SET
-        ProductQuantity = ISNULL(@ProductQuantity, ProductQuantity)
+        ProductQuantity = COALESCE(@ProductQuantity, ProductQuantity)
     OUTPUT
         INSERTED.ParentProductId,
         INSERTED.ProductId,
@@ -36,5 +36,5 @@ BEGIN
         [dbo].[ProductSet]
     WHERE
         ParentProductId = @ParentProductId
-        AND ProductId = ISNULL(@ProductId, ProductId);
+        AND ProductId = COALESCE(@ProductId, ProductId);
 END;

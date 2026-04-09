@@ -48,20 +48,20 @@ BEGIN
     FROM
         [dbo].[Product]
     WHERE
-        Id = ISNULL(@Id, Id)
-        AND (Name IS NOT DISTINCT FROM IIF(@Name = @NULLISH_NVARCHAR, Name, IIF(@Name = @NON_NULLISH_NVARCHAR, ISNULL(Name, @NON_NULLISH_NVARCHAR), @Name)) OR Name LIKE @Name)
-        AND (ModelNumber IS NOT DISTINCT FROM IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, IIF(@ModelNumber = @NON_NULLISH_NVARCHAR, ISNULL(ModelNumber, @NON_NULLISH_NVARCHAR), @ModelNumber)) OR ModelNumber LIKE @ModelNumber)
-        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, ISNULL(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
-        AND ManufacturerId IS NOT DISTINCT FROM IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, IIF(@ManufacturerId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(ManufacturerId, @NON_NULLISH_UNIQUEIDENTIFIER), @ManufacturerId))
-        AND CategoryId = ISNULL(@CategoryId, CategoryId)
-        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
-        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
+        Id = COALESCE(@Id, Id)
+        AND (Name IS NOT DISTINCT FROM IIF(@Name = @NULLISH_NVARCHAR, Name, IIF(@Name = @NON_NULLISH_NVARCHAR, COALESCE(Name, @NON_NULLISH_NVARCHAR), @Name)) OR Name LIKE @Name)
+        AND (ModelNumber IS NOT DISTINCT FROM IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, IIF(@ModelNumber = @NON_NULLISH_NVARCHAR, COALESCE(ModelNumber, @NON_NULLISH_NVARCHAR), @ModelNumber)) OR ModelNumber LIKE @ModelNumber)
+        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, COALESCE(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
+        AND ManufacturerId IS NOT DISTINCT FROM IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, IIF(@ManufacturerId = @NON_NULLISH_UNIQUEIDENTIFIER, COALESCE(ManufacturerId, @NON_NULLISH_UNIQUEIDENTIFIER), @ManufacturerId))
+        AND CategoryId = COALESCE(@CategoryId, CategoryId)
+        AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
-        OFFSET ISNULL(@RowsToSkip, 0) ROWS
+        OFFSET COALESCE(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
+        FETCH NEXT COALESCE(@RowsToReturn, 2147483647) ROWS ONLY;
 END;

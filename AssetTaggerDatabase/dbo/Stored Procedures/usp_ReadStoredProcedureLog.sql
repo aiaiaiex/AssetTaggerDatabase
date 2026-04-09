@@ -54,24 +54,24 @@ BEGIN
     FROM
         [dbo].[StoredProcedureLog]
     WHERE
-        Id = ISNULL(@Id, Id)
-        AND EndUserId IS NOT DISTINCT FROM IIF(@EndUserId = @NULLISH_UNIQUEIDENTIFIER, EndUserId, IIF(@EndUserId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(EndUserId, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserId))
-        AND (EndUserIpAddress IS NOT DISTINCT FROM IIF(@EndUserIpAddress = @NULLISH_NVARCHAR, EndUserIpAddress, IIF(@EndUserIpAddress = @NON_NULLISH_NVARCHAR, ISNULL(EndUserIpAddress, @NON_NULLISH_NVARCHAR), @EndUserIpAddress)) OR EndUserIpAddress LIKE @EndUserIpAddress)
-        AND HasExecutedSuccessfully = ISNULL(@HasExecutedSuccessfully, HasExecutedSuccessfully)
-        AND (Name = ISNULL(@Name, Name) OR Name LIKE @Name)
-        AND (Arguments = ISNULL(@Arguments, Arguments) OR Arguments LIKE @Arguments)
-        AND ISNULL(@FromStartedAt, StartedAt) <= StartedAt
-        AND StartedAt <= ISNULL(@ToStartedAt, StartedAt)
-        AND ISNULL(@FromEndedAt, EndedAt) <= EndedAt
-        AND EndedAt <= ISNULL(@ToEndedAt, EndedAt)
-        AND ISNULL(@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds) <= ExecutionTimeInMilliseconds
-        AND ExecutionTimeInMilliseconds <= ISNULL(@ToExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds)
+        Id = COALESCE(@Id, Id)
+        AND EndUserId IS NOT DISTINCT FROM IIF(@EndUserId = @NULLISH_UNIQUEIDENTIFIER, EndUserId, IIF(@EndUserId = @NON_NULLISH_UNIQUEIDENTIFIER, COALESCE(EndUserId, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserId))
+        AND (EndUserIpAddress IS NOT DISTINCT FROM IIF(@EndUserIpAddress = @NULLISH_NVARCHAR, EndUserIpAddress, IIF(@EndUserIpAddress = @NON_NULLISH_NVARCHAR, COALESCE(EndUserIpAddress, @NON_NULLISH_NVARCHAR), @EndUserIpAddress)) OR EndUserIpAddress LIKE @EndUserIpAddress)
+        AND HasExecutedSuccessfully = COALESCE(@HasExecutedSuccessfully, HasExecutedSuccessfully)
+        AND (Name = COALESCE(@Name, Name) OR Name LIKE @Name)
+        AND (Arguments = COALESCE(@Arguments, Arguments) OR Arguments LIKE @Arguments)
+        AND COALESCE(@FromStartedAt, StartedAt) <= StartedAt
+        AND StartedAt <= COALESCE(@ToStartedAt, StartedAt)
+        AND COALESCE(@FromEndedAt, EndedAt) <= EndedAt
+        AND EndedAt <= COALESCE(@ToEndedAt, EndedAt)
+        AND COALESCE(@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds) <= ExecutionTimeInMilliseconds
+        AND ExecutionTimeInMilliseconds <= COALESCE(@ToExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
-        OFFSET ISNULL(@RowsToSkip, 0) ROWS
+        OFFSET COALESCE(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 9,223,372,036,854,775,807 rows which is the upper limit of BIGINT, the data type of RowNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT ISNULL(@RowsToReturn, 9223372036854775807) ROWS ONLY;
+        FETCH NEXT COALESCE(@RowsToReturn, 9223372036854775807) ROWS ONLY;
 END;

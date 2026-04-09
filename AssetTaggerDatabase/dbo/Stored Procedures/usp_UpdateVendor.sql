@@ -25,8 +25,8 @@ BEGIN
     UPDATE
         [dbo].[Vendor]
     SET
-        Name = ISNULL(@Name, Name),
-        Address = ISNULL(@Address, Address)
+        Name = COALESCE(@Name, Name),
+        Address = COALESCE(@Address, Address)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,

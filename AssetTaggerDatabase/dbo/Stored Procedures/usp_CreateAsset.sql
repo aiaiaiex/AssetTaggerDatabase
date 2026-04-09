@@ -70,7 +70,7 @@ BEGIN
         @LocationId,
         @EmployeeId,
         @VendorId,
-        ISNULL(@CreatedAt, SYSDATETIMEOFFSET()),
+        COALESCE(@CreatedAt, SYSDATETIMEOFFSET()),
         @PurchasedAt,
         @PurchasePrice,
         @SerialNumber,

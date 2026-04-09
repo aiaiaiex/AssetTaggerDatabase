@@ -91,16 +91,16 @@ BEGIN
     FROM
         [dbo].[Asset]
     WHERE
-        Id = ISNULL(@Id, Id)
+        Id = COALESCE(@Id, Id)
         -- 
-        AND ProductId = ISNULL(@ProductId, ProductId)
-        AND LocationId = ISNULL(@LocationId, LocationId)
-        AND EmployeeId = ISNULL(@EmployeeId, EmployeeId)
+        AND ProductId = COALESCE(@ProductId, ProductId)
+        AND LocationId = COALESCE(@LocationId, LocationId)
+        AND EmployeeId = COALESCE(@EmployeeId, EmployeeId)
         -- 
-        AND VendorId IS NOT DISTINCT FROM IIF(@VendorId = @NULLISH_UNIQUEIDENTIFIER, VendorId, IIF(@VendorId = @NON_NULLISH_UNIQUEIDENTIFIER, ISNULL(VendorId, @NON_NULLISH_UNIQUEIDENTIFIER), @VendorId))
-        AND (SerialNumber IS NOT DISTINCT FROM IIF(@SerialNumber = @NULLISH_NVARCHAR, SerialNumber, IIF(@SerialNumber = @NON_NULLISH_NVARCHAR, ISNULL(SerialNumber, @NON_NULLISH_NVARCHAR), @SerialNumber)) OR SerialNumber LIKE @SerialNumber)
-        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, ISNULL(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
-        AND (WarrantyUnitOfMeasure IS NOT DISTINCT FROM IIF(@WarrantyUnitOfMeasure = @NULLISH_NCHAR, WarrantyUnitOfMeasure, IIF(@WarrantyUnitOfMeasure = @NON_NULLISH_NCHAR, ISNULL(WarrantyUnitOfMeasure, @NON_NULLISH_NCHAR), @WarrantyUnitOfMeasure)) OR WarrantyUnitOfMeasure LIKE @WarrantyUnitOfMeasure)
+        AND VendorId IS NOT DISTINCT FROM IIF(@VendorId = @NULLISH_UNIQUEIDENTIFIER, VendorId, IIF(@VendorId = @NON_NULLISH_UNIQUEIDENTIFIER, COALESCE(VendorId, @NON_NULLISH_UNIQUEIDENTIFIER), @VendorId))
+        AND (SerialNumber IS NOT DISTINCT FROM IIF(@SerialNumber = @NULLISH_NVARCHAR, SerialNumber, IIF(@SerialNumber = @NON_NULLISH_NVARCHAR, COALESCE(SerialNumber, @NON_NULLISH_NVARCHAR), @SerialNumber)) OR SerialNumber LIKE @SerialNumber)
+        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, COALESCE(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
+        AND (WarrantyUnitOfMeasure IS NOT DISTINCT FROM IIF(@WarrantyUnitOfMeasure = @NULLISH_NCHAR, WarrantyUnitOfMeasure, IIF(@WarrantyUnitOfMeasure = @NON_NULLISH_NCHAR, COALESCE(WarrantyUnitOfMeasure, @NON_NULLISH_NCHAR), @WarrantyUnitOfMeasure)) OR WarrantyUnitOfMeasure LIKE @WarrantyUnitOfMeasure)
         -- 
         AND (IIF(@FromWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), WarrantyDuration, @FromWarrantyDuration) <= WarrantyDuration OR WarrantyDuration IS NOT DISTINCT FROM IIF(@FromWarrantyDuration = @NULLISH_INT OR @FromWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))
         AND (WarrantyDuration <= IIF(@ToWarrantyDuration IN (@NULLISH_INT, @NON_NULLISH_INT), WarrantyDuration, @ToWarrantyDuration) OR WarrantyDuration IS NOT DISTINCT FROM IIF(@ToWarrantyDuration = @NULLISH_INT OR @ToWarrantyDuration IS NULL, NULL, @NON_NULLISH_INT))
@@ -121,14 +121,14 @@ BEGIN
         AND (IIF(@FromWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), WarrantyExpirationDate, @FromWarrantyExpirationDate) <= WarrantyExpirationDate OR WarrantyExpirationDate IS NOT DISTINCT FROM IIF(@FromWarrantyExpirationDate = @NULLISH_DATETIMEOFFSET OR @FromWarrantyExpirationDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
         AND (WarrantyExpirationDate <= IIF(@ToWarrantyExpirationDate IN (@NULLISH_DATETIMEOFFSET, @NON_NULLISH_DATETIMEOFFSET), WarrantyExpirationDate, @ToWarrantyExpirationDate) OR WarrantyExpirationDate IS NOT DISTINCT FROM IIF(@ToWarrantyExpirationDate = @NULLISH_DATETIMEOFFSET OR @ToWarrantyExpirationDate IS NULL, NULL, @NON_NULLISH_DATETIMEOFFSET))
         -- 
-        AND ISNULL(@FromCreatedAt, CreatedAt) <= CreatedAt
-        AND CreatedAt <= ISNULL(@ToCreatedAt, CreatedAt)
+        AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN ISNULL(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
+        CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
-        OFFSET ISNULL(@RowsToSkip, 0) ROWS
+        OFFSET COALESCE(@RowsToSkip, 0) ROWS
         -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
         -- See more:
         -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT ISNULL(@RowsToReturn, 2147483647) ROWS ONLY;
+        FETCH NEXT COALESCE(@RowsToReturn, 2147483647) ROWS ONLY;
 END;

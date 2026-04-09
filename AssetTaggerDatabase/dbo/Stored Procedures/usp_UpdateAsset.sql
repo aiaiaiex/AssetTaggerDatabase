@@ -44,11 +44,11 @@ BEGIN
     UPDATE
         [dbo].[Asset]
     SET
-        ProductId = ISNULL(@ProductId, ProductId),
-        LocationId = ISNULL(@LocationId, LocationId),
-        EmployeeId = ISNULL(@EmployeeId, EmployeeId),
+        ProductId = COALESCE(@ProductId, ProductId),
+        LocationId = COALESCE(@LocationId, LocationId),
+        EmployeeId = COALESCE(@EmployeeId, EmployeeId),
         VendorId = IIF(@VendorId = @NULLISH_UNIQUEIDENTIFIER, VendorId, @VendorId),
-        CreatedAt = ISNULL(@CreatedAt, CreatedAt),
+        CreatedAt = COALESCE(@CreatedAt, CreatedAt),
         PurchasedAt = IIF(@PurchasedAt = @NULLISH_DATETIMEOFFSET, PurchasedAt, @PurchasedAt),
         PurchasePrice = IIF(@PurchasePrice = @NULLISH_DECIMAL, PurchasePrice, @PurchasePrice),
         SerialNumber = IIF(@SerialNumber = @NULLISH_NVARCHAR, SerialNumber, @SerialNumber),

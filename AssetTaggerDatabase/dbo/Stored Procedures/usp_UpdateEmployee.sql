@@ -27,10 +27,10 @@ BEGIN
     UPDATE
         [dbo].[Employee]
     SET
-        FullName = ISNULL(@FullName, FullName),
-        RoleId = ISNULL(@RoleId, RoleId),
-        CompanyId = ISNULL(@CompanyId, CompanyId),
-        DepartmentId = ISNULL(@DepartmentId, DepartmentId)
+        FullName = COALESCE(@FullName, FullName),
+        RoleId = COALESCE(@RoleId, RoleId),
+        CompanyId = COALESCE(@CompanyId, CompanyId),
+        DepartmentId = COALESCE(@DepartmentId, DepartmentId)
     OUTPUT
         INSERTED.Id,
         INSERTED.FullName,

@@ -31,5 +31,5 @@ BEGIN
         [dbo].[ProductSet]
     WHERE
         ParentProductId = @ParentProductId
-        AND ProductId = ISNULL(@ProductId, ProductId);
+        AND ProductId = COALESCE(@ProductId, ProductId);
 END;

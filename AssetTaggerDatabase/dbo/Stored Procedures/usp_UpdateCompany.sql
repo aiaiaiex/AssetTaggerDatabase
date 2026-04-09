@@ -30,9 +30,9 @@ BEGIN
     UPDATE
         [dbo].[Company]
     SET
-        Name = ISNULL(@Name, Name),
-        Address = ISNULL(@Address, Address),
-        Code = ISNULL(@Code, Code),
+        Name = COALESCE(@Name, Name),
+        Address = COALESCE(@Address, Address),
+        Code = COALESCE(@Code, Code),
         ParentCompanyId = IIF(@ParentCompanyId = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyId, @ParentCompanyId)
     OUTPUT
         INSERTED.Id,

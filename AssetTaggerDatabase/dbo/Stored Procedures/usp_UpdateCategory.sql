@@ -24,7 +24,7 @@ BEGIN
     UPDATE
         [dbo].[Category]
     SET
-        Name = ISNULL(@Name, Name)
+        Name = COALESCE(@Name, Name)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,

@@ -26,9 +26,9 @@ BEGIN
     UPDATE
         [dbo].[Building]
     SET
-        Name = ISNULL(@Name, Name),
-        Address = ISNULL(@Address, Address),
-        CompanyId = ISNULL(@CompanyId, CompanyId)
+        Name = COALESCE(@Name, Name),
+        Address = COALESCE(@Address, Address),
+        CompanyId = COALESCE(@CompanyId, CompanyId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,

@@ -36,7 +36,7 @@ BEGIN
         ModelNumber = IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, @ModelNumber),
         DocumentationUrl = IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, @DocumentationUrl),
         ManufacturerId = IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, @ManufacturerId),
-        CategoryId = ISNULL(@CategoryId, CategoryId)
+        CategoryId = COALESCE(@CategoryId, CategoryId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,

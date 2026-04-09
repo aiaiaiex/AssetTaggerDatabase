@@ -35,6 +35,6 @@ BEGIN
     VALUES (
         @ParentProductId,
         @ProductId,
-        ISNULL(@ProductQuantity, 1)
+        COALESCE(@ProductQuantity, 1)
     );
 END;
