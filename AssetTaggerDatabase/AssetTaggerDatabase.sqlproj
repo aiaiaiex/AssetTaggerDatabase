@@ -128,7 +128,7 @@
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Functions\tvf_GetCRUDPermissionsOfEndUser.sql" />
+    <Build Include="dbo\Functions\temporary_name_tvf_GetCRUDPermissionsOfEndUser.sql" />
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
