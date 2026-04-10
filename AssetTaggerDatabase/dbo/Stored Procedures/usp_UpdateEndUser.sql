@@ -22,13 +22,6 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Validate input.
-    IF (@Username IS NULL AND @EndUserRoleId IS NULL AND @EmployeeId IS NULL)
-        BEGIN
-            RAISERROR ('Cannot update row with @Id when no non-default values are passed to other parameters!', 11, 0);
-            RETURN -1;
-        END;
-
     -- Run actual query.
     UPDATE
         [dbo].[EndUser]

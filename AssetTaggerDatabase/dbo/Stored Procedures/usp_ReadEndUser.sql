@@ -27,48 +27,6 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Validate input.
-    IF (
-        @Id IS NOT NULL
-        AND (
-            @Username IS NOT NULL
-            OR @EndUserRoleId IS NOT NULL
-            OR @EmployeeId IS NOT NULL
-            OR @FromCreatedAt IS NOT NULL
-            OR @ToCreatedAt IS NOT NULL
-            OR @RowsToSkip IS NOT NULL
-            OR @RowsToReturn IS NOT NULL
-        )
-    )
-        BEGIN
-            RAISERROR ('Cannot get row with unique @Id when non-default values are passed to other parameters!', 11, 0);
-            RETURN -1;
-        END;
-
-    IF (@Username IN ('', '!', 'NULL'))
-        BEGIN
-            RAISERROR (N'@Username cannot be ''%s''!', 11, 0, @Username);
-            RETURN -1;
-        END;
-
-    IF (LEN(@Username) < 1)
-        BEGIN
-            RAISERROR ('@Username''s length cannot be less than 1!', 11, 0);
-            RETURN -1;
-        END;
-
-    IF (CHARINDEX(' ', @Username) <> 0)
-        BEGIN
-            RAISERROR ('@Username cannot have whitespace!', 11, 0);
-            RETURN -1;
-        END;
-
-    IF (@FromCreatedAt > @ToCreatedAt)
-        BEGIN
-            RAISERROR ('@FromCreatedAt cannot be later than @ToCreatedAt!', 11, 0);
-            RETURN -1;
-        END;
-
     -- Run actual query.
     SELECT
         Id,
