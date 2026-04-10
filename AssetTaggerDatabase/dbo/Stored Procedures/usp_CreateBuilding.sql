@@ -8,7 +8,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingBuildingPermission BIT = (SELECT HasCreatingBuildingPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasCreatingBuildingPermission BIT = (SELECT HasCreatingBuildingPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingBuildingPermission IS NULL)
         BEGIN

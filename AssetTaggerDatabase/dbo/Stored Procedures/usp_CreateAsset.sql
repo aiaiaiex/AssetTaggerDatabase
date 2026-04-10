@@ -18,7 +18,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingAssetPermission BIT = (SELECT HasCreatingAssetPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasCreatingAssetPermission BIT = (SELECT HasCreatingAssetPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingAssetPermission IS NULL)
         BEGIN

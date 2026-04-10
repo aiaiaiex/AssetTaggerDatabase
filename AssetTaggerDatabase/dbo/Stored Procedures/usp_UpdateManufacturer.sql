@@ -7,7 +7,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingManufacturerPermission BIT = (SELECT HasUpdatingManufacturerPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasUpdatingManufacturerPermission BIT = (SELECT HasUpdatingManufacturerPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasUpdatingManufacturerPermission IS NULL)
         BEGIN

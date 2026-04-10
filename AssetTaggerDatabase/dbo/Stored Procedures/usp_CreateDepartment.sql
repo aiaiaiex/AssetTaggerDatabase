@@ -6,7 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingDepartmentPermission BIT = (SELECT HasCreatingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasCreatingDepartmentPermission BIT = (SELECT HasCreatingDepartmentPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingDepartmentPermission IS NULL)
         BEGIN

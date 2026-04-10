@@ -12,7 +12,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingCategoryPermission BIT = (SELECT HasReadingCategoryPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasReadingCategoryPermission BIT = (SELECT HasReadingCategoryPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingCategoryPermission IS NULL)
         BEGIN

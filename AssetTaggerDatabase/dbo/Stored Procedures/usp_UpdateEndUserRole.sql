@@ -65,7 +65,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingEndUserRolePermissionPermission BIT = (SELECT HasUpdatingEndUserRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasUpdatingEndUserRolePermissionPermission BIT = (SELECT HasUpdatingEndUserRolePermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasUpdatingEndUserRolePermissionPermission IS NULL)
         BEGIN

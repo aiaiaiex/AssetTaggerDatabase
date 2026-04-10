@@ -13,7 +13,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingLocationPermission BIT = (SELECT HasReadingLocationPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasReadingLocationPermission BIT = (SELECT HasReadingLocationPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingLocationPermission IS NULL)
         BEGIN

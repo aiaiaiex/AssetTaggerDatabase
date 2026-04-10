@@ -6,7 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingRolePermission BIT = (SELECT HasDeletingRolePermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasDeletingRolePermission BIT = (SELECT HasDeletingRolePermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasDeletingRolePermission IS NULL)
         BEGIN

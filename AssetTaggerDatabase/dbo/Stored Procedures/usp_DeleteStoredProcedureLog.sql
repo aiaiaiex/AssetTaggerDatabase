@@ -6,7 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingStoredProcedureLogPermission BIT = (SELECT HasDeletingStoredProcedureLogPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasDeletingStoredProcedureLogPermission BIT = (SELECT HasDeletingStoredProcedureLogPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasDeletingStoredProcedureLogPermission IS NULL)
         BEGIN

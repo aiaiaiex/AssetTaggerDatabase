@@ -6,7 +6,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingCategoryPermission BIT = (SELECT HasCreatingCategoryPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasCreatingCategoryPermission BIT = (SELECT HasCreatingCategoryPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasCreatingCategoryPermission IS NULL)
         BEGIN

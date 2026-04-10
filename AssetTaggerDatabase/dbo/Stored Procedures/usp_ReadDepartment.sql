@@ -12,7 +12,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingDepartmentPermission BIT = (SELECT HasReadingDepartmentPermission FROM [dbo].[tvf_GetCRUDPermissionsOfEndUser](@CallingEndUserId));
+    DECLARE @HasReadingDepartmentPermission BIT = (SELECT HasReadingDepartmentPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
 
     IF (@HasReadingDepartmentPermission IS NULL)
         BEGIN

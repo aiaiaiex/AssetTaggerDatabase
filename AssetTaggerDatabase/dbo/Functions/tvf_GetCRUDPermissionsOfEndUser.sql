@@ -1,4 +1,4 @@
-CREATE FUNCTION [dbo].[tvf_GetCRUDPermissionsOfEndUser](
+CREATE FUNCTION [dbo].[tvf_GetCrudPermissionsOfEndUser](
     @EndUserId UNIQUEIDENTIFIER
 )
 RETURNS TABLE WITH SCHEMABINDING AS
