@@ -55,7 +55,6 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasUpdatingRolePermission BIT = NULL,
     @HasDeletingRolePermission BIT = NULL,
     @HasReadingStoredProcedureLogPermission BIT = NULL,
-    @HasDeletingStoredProcedureLogPermission BIT = NULL,
     @HasCreatingVendorPermission BIT = NULL,
     @HasReadingVendorPermission BIT = NULL,
     @HasUpdatingVendorPermission BIT = NULL,
@@ -140,7 +139,6 @@ BEGIN
         HasUpdatingRolePermission,
         HasDeletingRolePermission,
         HasReadingStoredProcedureLogPermission,
-        HasDeletingStoredProcedureLogPermission,
         HasCreatingVendorPermission,
         HasReadingVendorPermission,
         HasUpdatingVendorPermission,
@@ -204,7 +202,6 @@ BEGIN
         AND HasUpdatingRolePermission = COALESCE(@HasUpdatingRolePermission, HasUpdatingRolePermission)
         AND HasDeletingRolePermission = COALESCE(@HasDeletingRolePermission, HasDeletingRolePermission)
         AND HasReadingStoredProcedureLogPermission = COALESCE(@HasReadingStoredProcedureLogPermission, HasReadingStoredProcedureLogPermission)
-        AND HasDeletingStoredProcedureLogPermission = COALESCE(@HasDeletingStoredProcedureLogPermission, HasDeletingStoredProcedureLogPermission)
         AND HasCreatingVendorPermission = COALESCE(@HasCreatingVendorPermission, HasCreatingVendorPermission)
         AND HasReadingVendorPermission = COALESCE(@HasReadingVendorPermission, HasReadingVendorPermission)
         AND HasUpdatingVendorPermission = COALESCE(@HasUpdatingVendorPermission, HasUpdatingVendorPermission)

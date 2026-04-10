@@ -50,7 +50,6 @@ RETURN SELECT
     EndUserRole.HasDeletingLocationPermission,
     -- Log RD Permissions
     EndUserRole.HasReadingStoredProcedureLogPermission,
-    EndUserRole.HasDeletingStoredProcedureLogPermission,
     -- Manufacturer CRUD Permissions
     EndUserRole.HasCreatingManufacturerPermission,
     EndUserRole.HasReadingManufacturerPermission,

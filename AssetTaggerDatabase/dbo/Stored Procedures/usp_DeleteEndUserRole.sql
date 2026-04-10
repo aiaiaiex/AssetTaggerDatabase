@@ -78,7 +78,6 @@ BEGIN
         DELETED.HasUpdatingRolePermission,
         DELETED.HasDeletingRolePermission,
         DELETED.HasReadingStoredProcedureLogPermission,
-        DELETED.HasDeletingStoredProcedureLogPermission,
         DELETED.HasCreatingVendorPermission,
         DELETED.HasReadingVendorPermission,
         DELETED.HasUpdatingVendorPermission,
