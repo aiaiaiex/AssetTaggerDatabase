@@ -11,9 +11,9 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
     CONSTRAINT [FK_Log_EndUser] FOREIGN KEY ([EndUserId]) REFERENCES [dbo].[EndUser] ([Id]),
 
     -- Non-nullable columns.
-    [StartedAt] DATETIMEOFFSET(3) NOT NULL,
+    [StartedAt] DATETIME2(3) NOT NULL,
 
-    [EndedAt] DATETIMEOFFSET(3) NOT NULL,
+    [EndedAt] DATETIME2(3) NOT NULL,
 
     [HasExecutedSuccessfully] BIT NOT NULL,
 

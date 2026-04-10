@@ -60,8 +60,8 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingVendorPermission BIT = NULL,
     @HasUpdatingVendorPermission BIT = NULL,
     @HasDeletingVendorPermission BIT = NULL,
-    @FromEndUserRoleCreationDate DATETIMEOFFSET(3) = NULL,
-    @ToEndUserRoleCreationDate DATETIMEOFFSET(3) = NULL,
+    @FromEndUserRoleCreationDate DATETIME2(3) = NULL,
+    @ToEndUserRoleCreationDate DATETIME2(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

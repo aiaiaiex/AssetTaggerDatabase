@@ -6,7 +6,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 
-    [EndUserRoleCreationDate] DATETIMEOFFSET(3) CONSTRAINT [DF_EndUserRole_EndUserRoleCreationDate] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+    [EndUserRoleCreationDate] DATETIME2(3) CONSTRAINT [DF_EndUserRole_EndUserRoleCreationDate] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     -- Asset CRUD Permissions.
     [HasCreatingAssetPermission] BIT DEFAULT 0 NOT NULL,

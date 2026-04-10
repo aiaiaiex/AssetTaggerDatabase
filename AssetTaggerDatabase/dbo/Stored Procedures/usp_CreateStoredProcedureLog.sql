@@ -1,8 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
     @CallingEndUserId UNIQUEIDENTIFIER = NULL,
     @EndUserIpAddress NVARCHAR(4000) = NULL,
-    @StartedAt DATETIMEOFFSET(3),
-    @EndedAt DATETIMEOFFSET(3),
+    @StartedAt DATETIME2(3),
+    @EndedAt DATETIME2(3),
     @HasExecutedSuccessfully BIT,
     @Name NVARCHAR(4000),
     @Arguments NVARCHAR(MAX)

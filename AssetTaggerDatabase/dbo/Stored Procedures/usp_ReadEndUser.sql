@@ -4,8 +4,8 @@
     @Username NVARCHAR(850) = NULL,
     @EndUserRoleId UNIQUEIDENTIFIER = NULL,
     @EmployeeId UNIQUEIDENTIFIER = NULL,
-    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
-    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
+    @FromCreatedAt DATETIME2(3) = NULL,
+    @ToCreatedAt DATETIME2(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

@@ -6,7 +6,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Asset_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Asset] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Asset_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Asset_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     -- Foreign keys.
     [ProductId] UNIQUEIDENTIFIER NOT NULL,
@@ -22,8 +22,8 @@
     CONSTRAINT [FK_Asset_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
 
     -- Nullable columns.
-    [PurchasedAt] DATETIMEOFFSET(3) NULL,
-    CONSTRAINT [CK_Asset_PurchasedAt_Exclude] CHECK ([PurchasedAt] NOT IN (CAST('1900-01-01T00:00:00.000Z' AS DATETIMEOFFSET(3)), CAST('2900-01-01T00:00:00.000Z' AS DATETIMEOFFSET(3)))),
+    [PurchasedAt] DATETIME2(3) NULL,
+    CONSTRAINT [CK_Asset_PurchasedAt_Exclude] CHECK ([PurchasedAt] NOT IN (CAST('1900-01-01T00:00:00.000Z' AS DATETIME2(3)), CAST('2900-01-01T00:00:00.000Z' AS DATETIME2(3)))),
 
     [PurchasePrice] DECIMAL(15, 4) NULL,
     CONSTRAINT [CK_Asset_PurchasePrice_Exclude] CHECK ([PurchasePrice] NOT IN (CAST(-99999999999.9999 AS DECIMAL(15, 4)), CAST(99999999999.9999 AS DECIMAL(15, 4)))),
@@ -57,7 +57,7 @@
 
     -- Computed columns.
     [WarrantyExpirationDate] AS [dbo].[udf_CalculateWarrantyExpirationDate](WarrantyUnitOfMeasure, WarrantyDuration, PurchasedAt) PERSISTED,
-    CONSTRAINT [CK_Asset_WarrantyExpirationDate_Exclude] CHECK ([WarrantyExpirationDate] NOT IN (CAST('1900-01-01T00:00:00.000Z' AS DATETIMEOFFSET(3)), CAST('2900-01-01T00:00:00.000Z' AS DATETIMEOFFSET(3)))),
+    CONSTRAINT [CK_Asset_WarrantyExpirationDate_Exclude] CHECK ([WarrantyExpirationDate] NOT IN (CAST('1900-01-01T00:00:00.000Z' AS DATETIME2(3)), CAST('2900-01-01T00:00:00.000Z' AS DATETIME2(3)))),
 
     [AnnualDepreciationExpense] AS [dbo].[udf_CalculateAnnualDepreciationExpense](PurchasePrice, SalvageValue, UsefulLife) PERSISTED,
     CONSTRAINT [CK_Asset_AnnualDepreciationExpense_Exclude] CHECK ([AnnualDepreciationExpense] NOT IN (CAST(-99999999999.9999 AS DECIMAL(15, 4)), CAST(99999999999.9999 AS DECIMAL(15, 4)))),

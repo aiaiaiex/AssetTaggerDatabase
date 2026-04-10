@@ -2,8 +2,8 @@ CREATE PROCEDURE [dbo].[usp_ReadCategory]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
     @Name NVARCHAR(850) = NULL,
-    @FromCreatedAt DATETIMEOFFSET(3) = NULL,
-    @ToCreatedAt DATETIMEOFFSET(3) = NULL,
+    @FromCreatedAt DATETIME2(3) = NULL,
+    @ToCreatedAt DATETIME2(3) = NULL,
     @RowsToSkip INT = NULL,
     @RowsToReturn INT = NULL,
     @NewestRowsFirst BIT = NULL

@@ -6,7 +6,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Manufacturer_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Manufacturer] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [CreatedAt] DATETIMEOFFSET(3) CONSTRAINT [DF_Manufacturer_CreatedAt] DEFAULT (SYSDATETIMEOFFSET()) NOT NULL,
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Manufacturer_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
