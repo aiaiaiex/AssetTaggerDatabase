@@ -1,13 +1,13 @@
 ﻿CREATE FUNCTION [dbo].[udf_CalculateAnnualDepreciationExpense](
-    @AssetPurchasePrice DECIMAL(15, 4),
-    @AssetSalvageValue DECIMAL(15, 4),
-    @AssetUsefulLife INT
+    @PurchasePrice DECIMAL(15, 4),
+    @SalvageValue DECIMAL(15, 4),
+    @UsefulLife INT
 )
 RETURNS DECIMAL(15, 4) WITH SCHEMABINDING AS
 BEGIN
-    IF (@AssetUsefulLife <= 0)
+    IF (@UsefulLife <= 0)
         RETURN NULL;
 
-    RETURN (@AssetPurchasePrice - @AssetSalvageValue) / @AssetUsefulLife;
+    RETURN (@PurchasePrice - @SalvageValue) / @UsefulLife;
 
 END;

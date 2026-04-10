@@ -1,20 +1,20 @@
 CREATE FUNCTION [dbo].[udf_CalculateWarrantyExpirationDate](
-    @AssetWarrantyUnitOfMeasure NCHAR(2),
-    @AssetWarrantyDuration INT,
-    @AssetPurchaseDate DATETIME2(3)
+    @WarrantyUnitOfMeasure NCHAR(2),
+    @WarrantyDuration INT,
+    @PurchasedAt DATETIME2(3)
 )
 RETURNS DATETIME2(3) WITH SCHEMABINDING AS
 BEGIN
-    IF (@AssetWarrantyDuration < 0)
+    IF (@WarrantyDuration < 0)
         RETURN NULL;
 
-    IF (@AssetWarrantyDuration = 0)
-        RETURN @AssetPurchaseDate;
+    IF (@WarrantyDuration = 0)
+        RETURN @PurchasedAt;
 
     RETURN CASE
-        WHEN @AssetWarrantyUnitOfMeasure = 'YY' THEN DATEADD(YY, @AssetWarrantyDuration, @AssetPurchaseDate)
-        WHEN @AssetWarrantyUnitOfMeasure = 'MM' THEN DATEADD(MM, @AssetWarrantyDuration, @AssetPurchaseDate)
-        WHEN @AssetWarrantyUnitOfMeasure = 'WW' THEN DATEADD(WW, @AssetWarrantyDuration, @AssetPurchaseDate)
-        WHEN @AssetWarrantyUnitOfMeasure = 'DD' THEN DATEADD(DD, @AssetWarrantyDuration, @AssetPurchaseDate)
+        WHEN @WarrantyUnitOfMeasure = 'YY' THEN DATEADD(YY, @WarrantyDuration, @PurchasedAt)
+        WHEN @WarrantyUnitOfMeasure = 'MM' THEN DATEADD(MM, @WarrantyDuration, @PurchasedAt)
+        WHEN @WarrantyUnitOfMeasure = 'WW' THEN DATEADD(WW, @WarrantyDuration, @PurchasedAt)
+        WHEN @WarrantyUnitOfMeasure = 'DD' THEN DATEADD(DD, @WarrantyDuration, @PurchasedAt)
     END;
 END;
