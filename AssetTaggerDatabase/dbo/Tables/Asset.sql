@@ -37,7 +37,7 @@
     CONSTRAINT [CK_Asset_WarrantyDuration] CHECK ([WarrantyDuration] >= 0),
     CONSTRAINT [CK_Asset_WarrantyDuration_Exclude] CHECK ([SalvageValue] NOT IN (CAST(-2147483648 AS INT), CAST(2147483647 AS INT))),
 
-    [WarrantyUnitOfMeasure] NCHAR(2) NULL,
+    [WarrantyUnitOfMeasure] NVARCHAR(2) NULL,
     -- Allowed values of WarrantyUnitOfMeasure are DATEPART abbreviations, specifically yy, mm, ww, and dd.
     -- See more:
     -- https://learn.microsoft.com/en-us/sql/t-sql/functions/datepart-transact-sql

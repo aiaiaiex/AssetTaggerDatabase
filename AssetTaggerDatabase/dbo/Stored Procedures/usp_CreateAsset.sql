@@ -9,7 +9,7 @@ CREATE PROCEDURE [dbo].[usp_CreateAsset]
     @PurchasePrice DECIMAL(15, 4) = NULL,
     @SerialNumber NVARCHAR(842) = NULL,
     @DocumentationUrl NVARCHAR(4000) = NULL,
-    @WarrantyUnitOfMeasure NCHAR(2) = NULL,
+    @WarrantyUnitOfMeasure NVARCHAR(2) = NULL,
     @WarrantyDuration INT = NULL,
     @UsefulLife INT = NULL,
     @SalvageValue DECIMAL(15, 4) = NULL

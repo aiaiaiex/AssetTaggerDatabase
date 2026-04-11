@@ -1,5 +1,5 @@
 CREATE FUNCTION [dbo].[udf_CalculateWarrantyExpirationDate](
-    @WarrantyUnitOfMeasure NCHAR(2),
+    @WarrantyUnitOfMeasure NVARCHAR(2),
     @WarrantyDuration INT,
     @PurchasedAt DATETIME2(3)
 )

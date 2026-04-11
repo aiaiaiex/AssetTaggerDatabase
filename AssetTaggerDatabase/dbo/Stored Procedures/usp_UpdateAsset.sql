@@ -10,7 +10,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateAsset]
     @PurchasePrice NVARCHAR(17) = '',
     @SerialNumber NVARCHAR(842) = '',
     @DocumentationUrl NVARCHAR(4000) = '',
-    @WarrantyUnitOfMeasure NCHAR(2) = '',
+    @WarrantyUnitOfMeasure NVARCHAR(2) = '',
     @WarrantyDuration NVARCHAR(11) = '',
     @UsefulLife NVARCHAR(11) = '',
     @SalvageValue NVARCHAR(17) = ''
@@ -45,7 +45,7 @@ BEGIN
         PurchasePrice = CAST([dbo].[udf_GetColumnValue](@PurchasePrice, PurchasePrice) AS DECIMAL(15, 4)),
         SerialNumber = CAST([dbo].[udf_GetColumnValue](@SerialNumber, SerialNumber) AS NVARCHAR(842)),
         DocumentationUrl = CAST([dbo].[udf_GetColumnValue](@DocumentationUrl, DocumentationUrl) AS NVARCHAR(4000)),
-        WarrantyUnitOfMeasure = CAST([dbo].[udf_GetColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) AS NCHAR(2)),
+        WarrantyUnitOfMeasure = CAST([dbo].[udf_GetColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) AS NVARCHAR(2)),
         WarrantyDuration = CAST([dbo].[udf_GetColumnValue](@WarrantyDuration, WarrantyDuration) AS INT),
         UsefulLife = CAST([dbo].[udf_GetColumnValue](@UsefulLife, UsefulLife) AS INT),
         SalvageValue = CAST([dbo].[udf_GetColumnValue](@SalvageValue, SalvageValue) AS DECIMAL(15, 4))

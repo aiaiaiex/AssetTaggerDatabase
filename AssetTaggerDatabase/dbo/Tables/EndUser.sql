@@ -25,5 +25,5 @@
 
     [PasswordSalt] UNIQUEIDENTIFIER NOT NULL,
 
-    [PasswordHash] NCHAR(64) NOT NULL
+    [PasswordHash] NVARCHAR(64) NOT NULL
 );

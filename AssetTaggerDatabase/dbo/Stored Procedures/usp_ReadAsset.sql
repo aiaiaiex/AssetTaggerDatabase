@@ -9,7 +9,7 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @VendorId NVARCHAR(36) = '',
     @SerialNumber NVARCHAR(842) = '',
     @DocumentationUrl NVARCHAR(4000) = '',
-    @WarrantyUnitOfMeasure NCHAR(2) = '',
+    @WarrantyUnitOfMeasure NVARCHAR(2) = '',
     -- 
     @FromWarrantyDuration NVARCHAR(11) = '',
     @ToWarrantyDuration NVARCHAR(11) = '',
