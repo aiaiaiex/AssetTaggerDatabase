@@ -1,10 +1,10 @@
 CREATE FUNCTION [dbo].[udf_CalculateCurrentBookValue](
-    @PurchasePrice DECIMAL(15, 4),
-    @SalvageValue DECIMAL(15, 4),
+    @PurchasePrice DECIMAL(19, 4),
+    @SalvageValue DECIMAL(19, 4),
     @UsefulLife INT,
     @PurchasedAt DATETIME2(3)
 )
-RETURNS DECIMAL(15, 4) WITH SCHEMABINDING AS
+RETURNS DECIMAL(19, 4) WITH SCHEMABINDING AS
 BEGIN
     DECLARE @YearsPassed BIGINT = DATEDIFF_BIG(DD, @PurchasedAt, SYSUTCDATETIME()) / 365;
 
@@ -12,7 +12,7 @@ BEGIN
         RETURN NULL;
 
     DECLARE
-        @CurrentBookValue DECIMAL(15, 4)
+        @CurrentBookValue DECIMAL(19, 4)
         = @PurchasePrice
         - [dbo].[udf_CalculateAnnualDepreciationExpense](
             @PurchasePrice,

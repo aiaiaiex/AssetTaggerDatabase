@@ -6,13 +6,13 @@ CREATE PROCEDURE [dbo].[usp_CreateAsset]
     @VendorId UNIQUEIDENTIFIER = NULL,
     @CreatedAt DATETIME2(3) = NULL,
     @PurchasedAt DATETIME2(3) = NULL,
-    @PurchasePrice DECIMAL(15, 4) = NULL,
+    @PurchasePrice DECIMAL(19, 4) = NULL,
     @SerialNumber NVARCHAR(842) = NULL,
     @DocumentationUrl NVARCHAR(4000) = NULL,
     @WarrantyUnitOfMeasure NVARCHAR(2) = NULL,
     @WarrantyDuration INT = NULL,
     @UsefulLife INT = NULL,
-    @SalvageValue DECIMAL(15, 4) = NULL
+    @SalvageValue DECIMAL(19, 4) = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;

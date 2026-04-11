@@ -42,13 +42,13 @@ BEGIN
         VendorId = CAST([dbo].[udf_GetColumnValue](@VendorId, VendorId) AS UNIQUEIDENTIFIER),
         CreatedAt = COALESCE(@CreatedAt, CreatedAt),
         PurchasedAt = CAST([dbo].[udf_GetColumnValue](@PurchasedAt, PurchasedAt) AS DATETIME2(3)),
-        PurchasePrice = CAST([dbo].[udf_GetColumnValue](@PurchasePrice, PurchasePrice) AS DECIMAL(15, 4)),
+        PurchasePrice = CAST([dbo].[udf_GetColumnValue](@PurchasePrice, PurchasePrice) AS DECIMAL(19, 4)),
         SerialNumber = CAST([dbo].[udf_GetColumnValue](@SerialNumber, SerialNumber) AS NVARCHAR(842)),
         DocumentationUrl = CAST([dbo].[udf_GetColumnValue](@DocumentationUrl, DocumentationUrl) AS NVARCHAR(4000)),
         WarrantyUnitOfMeasure = CAST([dbo].[udf_GetColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) AS NVARCHAR(2)),
         WarrantyDuration = CAST([dbo].[udf_GetColumnValue](@WarrantyDuration, WarrantyDuration) AS INT),
         UsefulLife = CAST([dbo].[udf_GetColumnValue](@UsefulLife, UsefulLife) AS INT),
-        SalvageValue = CAST([dbo].[udf_GetColumnValue](@SalvageValue, SalvageValue) AS DECIMAL(15, 4))
+        SalvageValue = CAST([dbo].[udf_GetColumnValue](@SalvageValue, SalvageValue) AS DECIMAL(19, 4))
     OUTPUT
         INSERTED.Id,
         INSERTED.CreatedAt,
