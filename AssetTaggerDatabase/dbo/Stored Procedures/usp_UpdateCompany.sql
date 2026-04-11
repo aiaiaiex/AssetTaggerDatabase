@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateCompany]
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL,
     @Code NVARCHAR(5) = NULL,
-    @ParentCompanyId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000'
+    @ParentCompanyId NVARCHAR(36) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -23,9 +23,6 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Get CONSTANTS.
-    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
-
     -- Run actual query.
     UPDATE
         [dbo].[Company]
@@ -33,7 +30,7 @@ BEGIN
         Name = COALESCE(@Name, Name),
         Address = COALESCE(@Address, Address),
         Code = COALESCE(@Code, Code),
-        ParentCompanyId = IIF(@ParentCompanyId = @NULLISH_UNIQUEIDENTIFIER, ParentCompanyId, @ParentCompanyId)
+        ParentCompanyId = CAST([dbo].[udf_GetColumnValue](@ParentCompanyId, ParentCompanyId) AS UNIQUEIDENTIFIER)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,

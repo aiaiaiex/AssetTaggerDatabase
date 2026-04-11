@@ -4,16 +4,16 @@ CREATE PROCEDURE [dbo].[usp_UpdateAsset]
     @ProductId UNIQUEIDENTIFIER = NULL,
     @LocationId UNIQUEIDENTIFIER = NULL,
     @EmployeeId UNIQUEIDENTIFIER = NULL,
-    @VendorId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @VendorId NVARCHAR(36) = '',
     @CreatedAt DATETIME2(3) = NULL,
-    @PurchasedAt DATETIME2(3) = '1900-01-01T00:00:00.000Z',
-    @PurchasePrice DECIMAL(15, 4) = -99999999999.9999,
+    @PurchasedAt NVARCHAR(24) = '',
+    @PurchasePrice NVARCHAR(17) = '',
     @SerialNumber NVARCHAR(842) = '',
     @DocumentationUrl NVARCHAR(4000) = '',
     @WarrantyUnitOfMeasure NCHAR(2) = '',
-    @WarrantyDuration INT = -2147483648,
-    @UsefulLife INT = -2147483648,
-    @SalvageValue DECIMAL(15, 4) = -99999999999.9999
+    @WarrantyDuration NVARCHAR(11) = '',
+    @UsefulLife NVARCHAR(11) = '',
+    @SalvageValue NVARCHAR(17) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -32,14 +32,6 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Get CONSTANTS.
-    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_NCHAR NCHAR(1) = (SELECT NULLISH_NCHAR FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DATETIMEOFFSET DATETIME2(3) = (SELECT NULLISH_DATETIMEOFFSET FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_INT INT = (SELECT NULLISH_INT FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_DECIMAL DECIMAL(15, 4) = (SELECT NULLISH_DECIMAL FROM [dbo].[VI_NullishConstants]);
-
     -- Run actual query.
     UPDATE
         [dbo].[Asset]
@@ -47,16 +39,16 @@ BEGIN
         ProductId = COALESCE(@ProductId, ProductId),
         LocationId = COALESCE(@LocationId, LocationId),
         EmployeeId = COALESCE(@EmployeeId, EmployeeId),
-        VendorId = IIF(@VendorId = @NULLISH_UNIQUEIDENTIFIER, VendorId, @VendorId),
+        VendorId = CAST([dbo].[udf_GetColumnValue](@VendorId, VendorId) AS UNIQUEIDENTIFIER),
         CreatedAt = COALESCE(@CreatedAt, CreatedAt),
-        PurchasedAt = IIF(@PurchasedAt = @NULLISH_DATETIMEOFFSET, PurchasedAt, @PurchasedAt),
-        PurchasePrice = IIF(@PurchasePrice = @NULLISH_DECIMAL, PurchasePrice, @PurchasePrice),
-        SerialNumber = IIF(@SerialNumber = @NULLISH_NVARCHAR, SerialNumber, @SerialNumber),
-        DocumentationUrl = IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, @DocumentationUrl),
-        WarrantyUnitOfMeasure = IIF(@WarrantyUnitOfMeasure = @NULLISH_NCHAR, WarrantyUnitOfMeasure, @WarrantyUnitOfMeasure),
-        WarrantyDuration = IIF(@WarrantyDuration = @NULLISH_INT, WarrantyDuration, @WarrantyDuration),
-        UsefulLife = IIF(@UsefulLife = @NULLISH_INT, UsefulLife, @UsefulLife),
-        SalvageValue = IIF(@SalvageValue = @NULLISH_DECIMAL, SalvageValue, @SalvageValue)
+        PurchasedAt = CAST([dbo].[udf_GetColumnValue](@PurchasedAt, PurchasedAt) AS DATETIME2(3)),
+        PurchasePrice = CAST([dbo].[udf_GetColumnValue](@PurchasePrice, PurchasePrice) AS DECIMAL(15, 4)),
+        SerialNumber = CAST([dbo].[udf_GetColumnValue](@SerialNumber, SerialNumber) AS NVARCHAR(842)),
+        DocumentationUrl = CAST([dbo].[udf_GetColumnValue](@DocumentationUrl, DocumentationUrl) AS NVARCHAR(4000)),
+        WarrantyUnitOfMeasure = CAST([dbo].[udf_GetColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) AS NCHAR(2)),
+        WarrantyDuration = CAST([dbo].[udf_GetColumnValue](@WarrantyDuration, WarrantyDuration) AS INT),
+        UsefulLife = CAST([dbo].[udf_GetColumnValue](@UsefulLife, UsefulLife) AS INT),
+        SalvageValue = CAST([dbo].[udf_GetColumnValue](@SalvageValue, SalvageValue) AS DECIMAL(15, 4))
     OUTPUT
         INSERTED.Id,
         INSERTED.CreatedAt,

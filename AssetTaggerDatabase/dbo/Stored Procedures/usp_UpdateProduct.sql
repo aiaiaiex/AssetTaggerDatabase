@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateProduct]
     @Name NVARCHAR(421) = '',
     @ModelNumber NVARCHAR(421) = '',
     @DocumentationUrl NVARCHAR(4000) = '',
-    @ManufacturerId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @ManufacturerId NVARCHAR(36) = '',
     @CategoryId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
@@ -24,18 +24,14 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Get CONSTANTS.
-    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
-
     -- Run actual query.
     UPDATE
         [dbo].[Product]
     SET
-        Name = IIF(@Name = @NULLISH_NVARCHAR, Name, @Name),
-        ModelNumber = IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, @ModelNumber),
-        DocumentationUrl = IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, @DocumentationUrl),
-        ManufacturerId = IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, @ManufacturerId),
+        Name = CAST([dbo].[udf_GetColumnValue](@Name, Name) AS NVARCHAR(421)),
+        ModelNumber = CAST([dbo].[udf_GetColumnValue](@ModelNumber, ModelNumber) AS NVARCHAR(421)),
+        DocumentationUrl = CAST([dbo].[udf_GetColumnValue](@DocumentationUrl, DocumentationUrl) AS NVARCHAR(4000)),
+        ManufacturerId = CAST([dbo].[udf_GetColumnValue](@ManufacturerId, ManufacturerId) AS UNIQUEIDENTIFIER),
         CategoryId = COALESCE(@CategoryId, CategoryId)
     OUTPUT
         INSERTED.Id,
