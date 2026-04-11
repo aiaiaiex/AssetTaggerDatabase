@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
     @CallingEndUserId UNIQUEIDENTIFIER,
     @Id UNIQUEIDENTIFIER = NULL,
-    @EndUserId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @EndUserId NVARCHAR(36) = '',
     @EndUserIpAddress NVARCHAR(4000) = '',
     @HasExecutedSuccessfully BIT = NULL,
     @Name NVARCHAR(4000) = NULL,
@@ -33,13 +33,6 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Get CONSTANTS.
-    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
-
-    DECLARE @NON_NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NON_NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NonNullishConstants]);
-    DECLARE @NON_NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NON_NULLISH_NVARCHAR FROM [dbo].[VI_NonNullishConstants]);
-
     -- Run actual query.
     SELECT
         Id,
@@ -55,8 +48,8 @@ BEGIN
         [dbo].[StoredProcedureLog]
     WHERE
         Id = COALESCE(@Id, Id)
-        AND EndUserId IS NOT DISTINCT FROM IIF(@EndUserId = @NULLISH_UNIQUEIDENTIFIER, EndUserId, IIF(@EndUserId = @NON_NULLISH_UNIQUEIDENTIFIER, COALESCE(EndUserId, @NON_NULLISH_UNIQUEIDENTIFIER), @EndUserId))
-        AND (EndUserIpAddress IS NOT DISTINCT FROM IIF(@EndUserIpAddress = @NULLISH_NVARCHAR, EndUserIpAddress, IIF(@EndUserIpAddress = @NON_NULLISH_NVARCHAR, COALESCE(EndUserIpAddress, @NON_NULLISH_NVARCHAR), @EndUserIpAddress)) OR EndUserIpAddress LIKE @EndUserIpAddress)
+        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@EndUserId, EndUserId) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@EndUserIpAddress, EndUserIpAddress) = 1
         AND HasExecutedSuccessfully = COALESCE(@HasExecutedSuccessfully, HasExecutedSuccessfully)
         AND (Name = COALESCE(@Name, Name) OR Name LIKE @Name)
         AND (Arguments = COALESCE(@Arguments, Arguments) OR Arguments LIKE @Arguments)

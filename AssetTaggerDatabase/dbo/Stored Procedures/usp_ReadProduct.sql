@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_ReadProduct]
     @Name NVARCHAR(421) = '',
     @ModelNumber NVARCHAR(421) = '',
     @DocumentationUrl NVARCHAR(4000) = '',
-    @ManufacturerId UNIQUEIDENTIFIER = '00000000-0000-0000-0000-000000000000',
+    @ManufacturerId NVARCHAR(36) = '',
     @CategoryId UNIQUEIDENTIFIER = NULL,
     @FromCreatedAt DATETIME2(3) = NULL,
     @ToCreatedAt DATETIME2(3) = NULL,
@@ -29,13 +29,6 @@ BEGIN
             RETURN -1;
         END;
 
-    -- Get CONSTANTS.
-    DECLARE @NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NullishConstants]);
-    DECLARE @NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NULLISH_NVARCHAR FROM [dbo].[VI_NullishConstants]);
-
-    DECLARE @NON_NULLISH_UNIQUEIDENTIFIER UNIQUEIDENTIFIER = (SELECT NON_NULLISH_UNIQUEIDENTIFIER FROM [dbo].[VI_NonNullishConstants]);
-    DECLARE @NON_NULLISH_NVARCHAR NVARCHAR(4000) = (SELECT NON_NULLISH_NVARCHAR FROM [dbo].[VI_NonNullishConstants]);
-
     -- Run actual query.
     SELECT
         Id,
@@ -49,10 +42,10 @@ BEGIN
         [dbo].[Product]
     WHERE
         Id = COALESCE(@Id, Id)
-        AND (Name IS NOT DISTINCT FROM IIF(@Name = @NULLISH_NVARCHAR, Name, IIF(@Name = @NON_NULLISH_NVARCHAR, COALESCE(Name, @NON_NULLISH_NVARCHAR), @Name)) OR Name LIKE @Name)
-        AND (ModelNumber IS NOT DISTINCT FROM IIF(@ModelNumber = @NULLISH_NVARCHAR, ModelNumber, IIF(@ModelNumber = @NON_NULLISH_NVARCHAR, COALESCE(ModelNumber, @NON_NULLISH_NVARCHAR), @ModelNumber)) OR ModelNumber LIKE @ModelNumber)
-        AND (DocumentationUrl IS NOT DISTINCT FROM IIF(@DocumentationUrl = @NULLISH_NVARCHAR, DocumentationUrl, IIF(@DocumentationUrl = @NON_NULLISH_NVARCHAR, COALESCE(DocumentationUrl, @NON_NULLISH_NVARCHAR), @DocumentationUrl)) OR DocumentationUrl LIKE @DocumentationUrl)
-        AND ManufacturerId IS NOT DISTINCT FROM IIF(@ManufacturerId = @NULLISH_UNIQUEIDENTIFIER, ManufacturerId, IIF(@ManufacturerId = @NON_NULLISH_UNIQUEIDENTIFIER, COALESCE(ManufacturerId, @NON_NULLISH_UNIQUEIDENTIFIER), @ManufacturerId))
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@ModelNumber, ModelNumber) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@DocumentationUrl, DocumentationUrl) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ManufacturerId, ManufacturerId) = 1
         AND CategoryId = COALESCE(@CategoryId, CategoryId)
         AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
