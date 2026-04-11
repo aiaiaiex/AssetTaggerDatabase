@@ -135,6 +135,9 @@
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToUniqueIdentifierColumn.sql" />
+    <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToIntColumn.sql" />
+    <Build Include="dbo\Functions\udf_IsIntColumnBetween.sql" />
+    <Build Include="dbo\Functions\udf_IsLessThanOrEqualToIntColumn.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAsset.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAuthentication.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateBuilding.sql" />
