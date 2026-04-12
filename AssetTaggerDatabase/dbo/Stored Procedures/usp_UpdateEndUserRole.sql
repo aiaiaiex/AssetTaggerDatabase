@@ -131,7 +131,7 @@ BEGIN
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,
-        INSERTED.EndUserRoleCreationDate,
+        INSERTED.CreatedAt,
         INSERTED.HasCreatingAssetPermission,
         INSERTED.HasReadingAssetPermission,
         INSERTED.HasUpdatingAssetPermission,

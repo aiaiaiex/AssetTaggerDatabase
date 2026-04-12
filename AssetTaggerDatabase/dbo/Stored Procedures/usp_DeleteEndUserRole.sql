@@ -13,7 +13,7 @@ BEGIN
     OUTPUT
         DELETED.Id,
         DELETED.Name,
-        DELETED.EndUserRoleCreationDate,
+        DELETED.CreatedAt,
         DELETED.HasCreatingAssetPermission,
         DELETED.HasReadingAssetPermission,
         DELETED.HasUpdatingAssetPermission,

@@ -59,8 +59,8 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingVendorPermission BIT = NULL,
     @HasUpdatingVendorPermission BIT = NULL,
     @HasDeletingVendorPermission BIT = NULL,
-    @FromEndUserRoleCreationDate DATETIME2(3) = NULL,
-    @ToEndUserRoleCreationDate DATETIME2(3) = NULL,
+    @FromCreatedAt DATETIME2(3) = NULL,
+    @ToCreatedAt DATETIME2(3) = NULL,
     @RowsToSkip NVARCHAR(10) = '',
     @RowsToReturn NVARCHAR(10) = '',
     @SortColumn NVARCHAR(4000) = '',
@@ -137,7 +137,7 @@ BEGIN
         HasReadingVendorPermission,
         HasUpdatingVendorPermission,
         HasDeletingVendorPermission,
-        EndUserRoleCreationDate
+        CreatedAt
     FROM
         [dbo].[EndUserRole]
     WHERE
@@ -200,11 +200,11 @@ BEGIN
         AND HasReadingVendorPermission = COALESCE(@HasReadingVendorPermission, HasReadingVendorPermission)
         AND HasUpdatingVendorPermission = COALESCE(@HasUpdatingVendorPermission, HasUpdatingVendorPermission)
         AND HasDeletingVendorPermission = COALESCE(@HasDeletingVendorPermission, HasDeletingVendorPermission)
-        AND COALESCE(@FromEndUserRoleCreationDate, EndUserRoleCreationDate) <= EndUserRoleCreationDate
-        AND EndUserRoleCreationDate <= COALESCE(@ToEndUserRoleCreationDate, EndUserRoleCreationDate)
+        AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
+        AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
-        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndUserRoleCreationDate')) THEN EndUserRoleCreationDate END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingAssetPermission')) THEN HasCreatingAssetPermission END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingAssetPermission')) THEN HasReadingAssetPermission END DESC,
@@ -265,7 +265,7 @@ BEGIN
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingVendorPermission')) THEN HasDeletingVendorPermission END DESC,
         -- 
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
-        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndUserRoleCreationDate')) THEN EndUserRoleCreationDate END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingAssetPermission')) THEN HasCreatingAssetPermission END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingAssetPermission')) THEN HasReadingAssetPermission END ASC,
