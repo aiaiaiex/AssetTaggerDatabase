@@ -6,8 +6,8 @@ CREATE PROCEDURE [dbo].[usp_ReadBuilding]
     @CompanyId UNIQUEIDENTIFIER = NULL,
     @FromCreatedAt DATETIME2(3) = NULL,
     @ToCreatedAt DATETIME2(3) = NULL,
-    @RowsToSkip INT = NULL,
-    @RowsToReturn INT = NULL,
+    @RowsToSkip NVARCHAR(10) = '',
+    @RowsToReturn NVARCHAR(10) = '',
     @NewestRowsFirst BIT = NULL
 AS;
 BEGIN
@@ -46,9 +46,6 @@ BEGIN
     ORDER BY
         CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
-        OFFSET COALESCE(@RowsToSkip, 0) ROWS
-        -- If @RowsToReturn is NULL fetch the next 2,147,483,647 rows which is the upper limit of INT, the data type of EndUserNumber.
-        -- See more:
-        -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT COALESCE(@RowsToReturn, 2147483647) ROWS ONLY;
+        OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
+        FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
 END;

@@ -12,8 +12,8 @@ CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
     @ToEndedAt DATETIME2(3) = NULL,
     @FromExecutionTimeInMilliseconds BIGINT = NULL,
     @ToExecutionTimeInMilliseconds BIGINT = NULL,
-    @RowsToSkip BIGINT = NULL,
-    @RowsToReturn BIGINT = NULL,
+    @RowsToSkip NVARCHAR(19) = '',
+    @RowsToReturn NVARCHAR(19) = '',
     @NewestRowsFirst BIT = NULL
 AS;
 BEGIN
@@ -62,9 +62,6 @@ BEGIN
     ORDER BY
         CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
         CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
-        OFFSET COALESCE(@RowsToSkip, 0) ROWS
-        -- If @RowsToReturn is NULL fetch the next 9,223,372,036,854,775,807 rows which is the upper limit of BIGINT, the data type of RowNumber.
-        -- See more:
-        -- https://learn.microsoft.com/en-us/sql/t-sql/data-types/int-bigint-smallint-and-tinyint-transact-sql
-        FETCH NEXT COALESCE(@RowsToReturn, CAST(9223372036854775807 AS BIGINT)) ROWS ONLY;
+        OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+        FETCH NEXT [dbo].[udf_GetRowsToReturnInBigiint](@RowsToReturn) ROWS ONLY;
 END;
