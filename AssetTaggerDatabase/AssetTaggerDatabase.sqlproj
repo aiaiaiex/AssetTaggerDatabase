@@ -122,7 +122,6 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
-    <Folder Include="dbo\Views\" />
     <Folder Include="dbo\Functions\" />
     <Folder Include="dbo\Stored Procedures\" />
     <Folder Include="Security\" />
@@ -223,8 +222,6 @@
     <Build Include="dbo\Stored Procedures\usp_DeleteEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_UpdateEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadEndUser.sql" />
-    <Build Include="dbo\Views\VI_NullishConstants.sql" />
-    <Build Include="dbo\Views\VI_NonNullishConstants.sql" />
     <Build Include="Security\db_REST_API.sql" />
     <Build Include="Security\Permissions.sql" />
   </ItemGroup>
