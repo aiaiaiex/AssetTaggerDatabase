@@ -132,6 +132,8 @@
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_GetColumnValue.sql" />
+    <Build Include="dbo\Functions\udf_GetRowsToSkipInBigint.sql" />
+    <Build Include="dbo\Functions\udf_GetRowsToSkipInInt.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Functions\udf_IsDatetime2ColumnBetween.sql" />
     <Build Include="dbo\Functions\udf_IsDecimalColumnBetween.sql" />
