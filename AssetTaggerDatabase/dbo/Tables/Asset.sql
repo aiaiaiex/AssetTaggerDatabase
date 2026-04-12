@@ -23,14 +23,11 @@
 
     -- Nullable columns.
     [PurchasedAt] DATETIME2(3) NULL,
-    CONSTRAINT [CK_Asset_PurchasedAt_Exclude] CHECK ([PurchasedAt] NOT IN (CAST('1900-01-01T00:00:00.000Z' AS DATETIME2(3)), CAST('2900-01-01T00:00:00.000Z' AS DATETIME2(3)))),
 
     [PurchasePrice] DECIMAL(19, 4) NULL,
-    CONSTRAINT [CK_Asset_PurchasePrice_Exclude] CHECK ([PurchasePrice] NOT IN (CAST(-99999999999.9999 AS DECIMAL(19, 4)), CAST(99999999999.9999 AS DECIMAL(19, 4)))),
 
     [SerialNumber] NVARCHAR(842) NULL,
-    CONSTRAINT [CK_Asset_SerialNumber_Exclude] CHECK ([SerialNumber] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Asset_SerialNumber_MinimumLength] CHECK (LEN([SerialNumber]) > 0),
+    CONSTRAINT [CK_Asset_SerialNumber_Exclude] CHECK ([SerialNumber] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Asset_SerialNumber_NoLeadingAndTrailingWhitespace] CHECK ([SerialNumber] NOT LIKE ' %' AND [SerialNumber] NOT LIKE '% '),
 
     [WarrantyDuration] INT NULL,
@@ -45,22 +42,17 @@
 
     [UsefulLife] INT NULL,
     CONSTRAINT [CK_Asset_UsefulLife] CHECK ([UsefulLife] >= 0),
-    CONSTRAINT [CK_Asset_UsefulLife_Exclude] CHECK ([UsefulLife] NOT IN (CAST(-2147483648 AS INT), CAST(2147483647 AS INT))),
 
     [SalvageValue] DECIMAL(19, 4) NULL,
-    CONSTRAINT [CK_Asset_SalvageValue_Exclude] CHECK ([SalvageValue] NOT IN (CAST(-99999999999.9999 AS DECIMAL(19, 4)), CAST(99999999999.9999 AS DECIMAL(19, 4)))),
 
     [DocumentationUrl] NVARCHAR(4000) NULL,
-    CONSTRAINT [CK_Asset_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Asset_DocumentationUrl_MinimumLength] CHECK (LEN([DocumentationUrl]) > 0),
+    CONSTRAINT [CK_Asset_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Asset_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% '),
 
     -- Computed columns.
     [WarrantyExpirationDate] AS [dbo].[udf_CalculateWarrantyExpirationDate](WarrantyUnitOfMeasure, WarrantyDuration, PurchasedAt) PERSISTED,
-    CONSTRAINT [CK_Asset_WarrantyExpirationDate_Exclude] CHECK ([WarrantyExpirationDate] NOT IN (CAST('1900-01-01T00:00:00.000Z' AS DATETIME2(3)), CAST('2900-01-01T00:00:00.000Z' AS DATETIME2(3)))),
 
     [AnnualDepreciationExpense] AS [dbo].[udf_CalculateAnnualDepreciationExpense](PurchasePrice, SalvageValue, UsefulLife) PERSISTED,
-    CONSTRAINT [CK_Asset_AnnualDepreciationExpense_Exclude] CHECK ([AnnualDepreciationExpense] NOT IN (CAST(-99999999999.9999 AS DECIMAL(19, 4)), CAST(99999999999.9999 AS DECIMAL(19, 4)))),
 
     [CurrentBookValue] AS [dbo].[udf_CalculateCurrentBookValue](PurchasePrice, SalvageValue, UsefulLife, PurchasedAt),
 

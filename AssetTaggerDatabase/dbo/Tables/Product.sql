@@ -17,18 +17,15 @@
 
     -- Nullable columns.
     [Name] NVARCHAR(834) NULL,
-    CONSTRAINT [CK_Product_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Product_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Product_Name_Exclude] CHECK ([Name] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Product_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% '),
 
     [ModelNumber] NVARCHAR(834) NULL,
-    CONSTRAINT [CK_Product_ModelNumber_Exclude] CHECK ([ModelNumber] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Product_ModelNumber_MinimumLength] CHECK (LEN([ModelNumber]) > 0),
+    CONSTRAINT [CK_Product_ModelNumber_Exclude] CHECK ([ModelNumber] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Product_ModelNumber_NoLeadingAndTrailingWhitespace] CHECK ([ModelNumber] NOT LIKE ' %' AND [ModelNumber] NOT LIKE '% '),
 
     [DocumentationUrl] NVARCHAR(4000) NULL,
-    CONSTRAINT [CK_Product_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Product_DocumentationUrl_MinimumLength] CHECK (LEN([DocumentationUrl]) > 0),
+    CONSTRAINT [CK_Product_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Product_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% ')
 );
 GO

@@ -11,20 +11,17 @@
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Company_Name] UNIQUE ([Name]),
-    CONSTRAINT [CK_Company_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Company_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Company_Name_Exclude] CHECK ([Name] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Company_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% '),
 
     [Address] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Company_Address] UNIQUE ([Address]),
-    CONSTRAINT [CK_Company_Address_Exclude] CHECK ([Address] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Company_Address_MinimumLength] CHECK (LEN([Address]) > 0),
+    CONSTRAINT [CK_Company_Address_Exclude] CHECK ([Address] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Company_Address_NoLeadingAndTrailingWhitespace] CHECK ([Address] NOT LIKE ' %' AND [Address] NOT LIKE '% '),
 
     [Code] NVARCHAR(5) NOT NULL,
     CONSTRAINT [AK_Company_Code] UNIQUE ([Code]),
-    CONSTRAINT [CK_Company_Code_Exclude] CHECK ([Code] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Company_Code_MinimumLength] CHECK (LEN([Code]) > 0),
+    CONSTRAINT [CK_Company_Code_Exclude] CHECK ([Code] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Company_Code_NoLeadingAndTrailingWhitespace] CHECK ([Code] NOT LIKE ' %' AND [Code] NOT LIKE '% '),
 
     -- Nullable columns.

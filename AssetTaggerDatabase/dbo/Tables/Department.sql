@@ -11,7 +11,6 @@
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Department_Name] UNIQUE ([Name]),
-    CONSTRAINT [CK_Department_Name_Exclude] CHECK ([Name] NOT IN ('', '!', 'NULL')),
-    CONSTRAINT [CK_Department_Name_MinimumLength] CHECK (LEN([Name]) > 0),
+    CONSTRAINT [CK_Department_Name_Exclude] CHECK ([Name] NOT IN ('', 'NULL')),
     CONSTRAINT [CK_Department_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% ')
 );
