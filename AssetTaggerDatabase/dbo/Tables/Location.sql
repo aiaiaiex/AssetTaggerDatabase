@@ -16,6 +16,6 @@
     [Address] NVARCHAR(842) NOT NULL,
     CONSTRAINT [AK_Location_Address_BuildingId] UNIQUE ([Address], [BuildingId]),
     CONSTRAINT [CK_Location_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Address]) = 1),
-    CONSTRAINT [CK_Location_Address_NoLeadingAndTrailingWhitespace] CHECK ([Address] NOT LIKE ' %' AND [Address] NOT LIKE '% ')
+    CONSTRAINT [CK_Location_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Address]) = 1)
 
 );

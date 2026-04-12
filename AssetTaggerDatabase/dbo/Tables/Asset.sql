@@ -28,7 +28,7 @@
 
     [SerialNumber] NVARCHAR(842) NULL,
     CONSTRAINT [CK_Asset_SerialNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([SerialNumber]) = 1),
-    CONSTRAINT [CK_Asset_SerialNumber_NoLeadingAndTrailingWhitespace] CHECK ([SerialNumber] NOT LIKE ' %' AND [SerialNumber] NOT LIKE '% '),
+    CONSTRAINT [CK_Asset_SerialNumber_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([SerialNumber]) = 1),
 
     [WarrantyDuration] INT NULL,
     CONSTRAINT [CK_Asset_WarrantyDuration] CHECK ([WarrantyDuration] >= 0),
@@ -46,7 +46,7 @@
 
     [DocumentationUrl] NVARCHAR(4000) NULL,
     CONSTRAINT [CK_Asset_DocumentationUrl_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([DocumentationUrl]) = 1),
-    CONSTRAINT [CK_Asset_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% '),
+    CONSTRAINT [CK_Asset_DocumentationUrl_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([DocumentationUrl]) = 1),
 
     -- Computed columns.
     [WarrantyExpirationDate] AS [dbo].[udf_CalculateWarrantyExpirationDate](WarrantyUnitOfMeasure, WarrantyDuration, PurchasedAt) PERSISTED,
