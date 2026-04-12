@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_UpdateLocation]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Id UNIQUEIDENTIFIER,
     @Address NVARCHAR(842) = NULL,
     @BuildingId UNIQUEIDENTIFIER = NULL
@@ -7,19 +7,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingLocationPermission BIT = (SELECT HasUpdatingLocationPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasUpdatingLocationPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasUpdatingLocationPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to update a Location!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Update', 'Location';
 
     -- Run actual query.
     UPDATE

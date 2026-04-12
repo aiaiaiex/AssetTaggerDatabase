@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Id UNIQUEIDENTIFIER = NULL,
     @EndUserId NVARCHAR(36) = '',
     @EndUserIpAddress NVARCHAR(4000) = '',
@@ -19,19 +19,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingStoredProcedureLogPermission BIT = (SELECT HasReadingStoredProcedureLogPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasReadingStoredProcedureLogPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasReadingStoredProcedureLogPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to read Log!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'StoredProcedureLog';
 
     -- Run actual query.
     SELECT

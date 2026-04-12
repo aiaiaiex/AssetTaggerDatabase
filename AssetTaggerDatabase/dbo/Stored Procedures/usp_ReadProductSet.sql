@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadProductSet]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @ParentProductId UNIQUEIDENTIFIER = NULL,
     @ProductId UNIQUEIDENTIFIER = NULL,
     @FromProductQuantity INT = NULL,
@@ -13,19 +13,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check reading permission of the calling EndUser.
-    DECLARE @HasReadingProductSetPermission BIT = (SELECT HasReadingProductSetPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasReadingProductSetPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasReadingProductSetPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to read ProductSet!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'ProductSet';
 
     -- Run actual query.
     SELECT

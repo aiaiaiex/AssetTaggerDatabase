@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateEmployee]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @FullName NVARCHAR(850),
     @RoleId UNIQUEIDENTIFIER,
     @CompanyId UNIQUEIDENTIFIER,
@@ -8,19 +8,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingEmployeePermission BIT = (SELECT HasCreatingEmployeePermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasCreatingEmployeePermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasCreatingEmployeePermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to create an Employee!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'Employee';
 
     -- Run actual query.
     INSERT INTO [dbo].[Employee] (

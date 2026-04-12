@@ -1,23 +1,12 @@
 CREATE PROCEDURE [dbo].[usp_DeleteVendor]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingVendorPermission BIT = (SELECT HasDeletingVendorPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasDeletingVendorPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasDeletingVendorPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to delete a Vendor!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Delete', 'Vendor';
 
     -- Run actual query.
     DELETE [dbo].[Vendor]

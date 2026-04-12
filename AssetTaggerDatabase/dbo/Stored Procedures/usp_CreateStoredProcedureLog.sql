@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
-    @CallingEndUserId UNIQUEIDENTIFIER = NULL,
+    @CallingEndUserId NVARCHAR(36) = NULL,
     @EndUserIpAddress NVARCHAR(4000) = NULL,
     @StartedAt DATETIME2(3),
     @EndedAt DATETIME2(3),
@@ -9,6 +9,9 @@ CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
 AS;
 BEGIN
     SET NOCOUNT ON;
+
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'StoredProcedureLog';
 
     BEGIN TRY
         -- Run actual query.

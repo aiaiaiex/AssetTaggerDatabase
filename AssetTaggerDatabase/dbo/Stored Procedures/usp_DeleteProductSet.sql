@@ -1,24 +1,13 @@
 CREATE PROCEDURE [dbo].[usp_DeleteProductSet]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @ParentProductId UNIQUEIDENTIFIER,
     @ProductId UNIQUEIDENTIFIER = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingProductSetPermission BIT = (SELECT HasDeletingProductSetPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasDeletingProductSetPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasDeletingProductSetPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to delete a ProductSet!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Delete', 'ProductSet';
 
     -- Run actual query.
     DELETE [dbo].[ProductSet]

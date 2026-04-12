@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateAsset]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @ProductId UNIQUEIDENTIFIER,
     @LocationId UNIQUEIDENTIFIER,
     @EmployeeId UNIQUEIDENTIFIER,
@@ -17,19 +17,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingAssetPermission BIT = (SELECT HasCreatingAssetPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasCreatingAssetPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasCreatingAssetPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to create an Asset!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'Asset';
 
     -- Run actual query.
     INSERT INTO [dbo].[Asset] (

@@ -1,23 +1,12 @@
 CREATE PROCEDURE [dbo].[usp_DeleteManufacturer]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Id UNIQUEIDENTIFIER
 AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check deleting permission of the calling EndUser.
-    DECLARE @HasDeletingManufacturerPermission BIT = (SELECT HasDeletingManufacturerPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasDeletingManufacturerPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasDeletingManufacturerPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to delete a Manufacturer!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Delete', 'Manufacturer';
 
     -- Run actual query.
     DELETE [dbo].[Manufacturer]

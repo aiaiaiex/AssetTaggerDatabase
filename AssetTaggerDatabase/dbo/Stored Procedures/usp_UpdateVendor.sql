@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_UpdateVendor]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Id UNIQUEIDENTIFIER,
     @Name NVARCHAR(850) = NULL,
     @Address NVARCHAR(850) = NULL
@@ -7,19 +7,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check updating permission of the calling EndUser.
-    DECLARE @HasUpdatingVendorPermission BIT = (SELECT HasUpdatingVendorPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasUpdatingVendorPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasUpdatingVendorPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to update a Vendor!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Update', 'Vendor';
 
     -- Run actual query.
     UPDATE

@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateProductSet]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @ParentProductId UNIQUEIDENTIFIER,
     @ProductId UNIQUEIDENTIFIER,
     @ProductQuantity INT = NULL
@@ -7,19 +7,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingProductSetPermission BIT = (SELECT HasCreatingProductSetPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasCreatingProductSetPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasCreatingProductSetPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to create a ProductSet!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'ProductSet';
 
     -- Run actual query.
     INSERT INTO [dbo].[ProductSet] (

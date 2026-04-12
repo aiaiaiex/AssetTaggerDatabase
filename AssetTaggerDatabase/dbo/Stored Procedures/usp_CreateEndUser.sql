@@ -1,5 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[usp_CreateEndUser]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Username NVARCHAR(850),
     @Password NVARCHAR(MAX),
     @EndUserRoleId UNIQUEIDENTIFIER,
@@ -8,19 +8,8 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingEndUserPermission BIT = (SELECT HasCreatingEndUserPermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasCreatingEndUserPermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasCreatingEndUserPermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to create an EndUser!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'EndUser';
 
     -- Create password salt.
     DECLARE @PasswordSalt UNIQUEIDENTIFIER = NEWID();

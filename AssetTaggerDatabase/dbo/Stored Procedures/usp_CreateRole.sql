@@ -1,23 +1,12 @@
 CREATE PROCEDURE [dbo].[usp_CreateRole]
-    @CallingEndUserId UNIQUEIDENTIFIER,
+    @CallingEndUserId NVARCHAR(36),
     @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check creating permission of the calling EndUser.
-    DECLARE @HasCreatingRolePermission BIT = (SELECT HasCreatingRolePermission FROM [dbo].[tvf_GetCrudPermissionsOfEndUser](@CallingEndUserId));
-
-    IF (@HasCreatingRolePermission IS NULL)
-        BEGIN
-            RAISERROR ('@CallingEndUserId does not exist!', 11, 0);
-            RETURN -1;
-        END;
-    IF (@HasCreatingRolePermission = 0)
-        BEGIN
-            RAISERROR ('@CallingEndUserId has no permission to create a Role!', 11, 0);
-            RETURN -1;
-        END;
+    -- Check the permission of the calling EndUser.
+    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'Role';
 
     -- Run actual query.
     INSERT INTO [dbo].[Role] (
