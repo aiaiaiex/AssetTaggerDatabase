@@ -5,9 +5,10 @@ CREATE FUNCTION [dbo].[udf_IsEqualToUniqueIdentifierColumn](
 RETURNS BIT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
-        WHEN (@Value = '')
-            THEN 1
-        WHEN (@ColumnValue IS NOT DISTINCT FROM CAST(@Value AS UNIQUEIDENTIFIER))
+        WHEN (
+            (@Value = '')
+            OR (@ColumnValue IS NOT DISTINCT FROM CAST(@Value AS UNIQUEIDENTIFIER))
+        )
             THEN 1
         ELSE 0
     END;
