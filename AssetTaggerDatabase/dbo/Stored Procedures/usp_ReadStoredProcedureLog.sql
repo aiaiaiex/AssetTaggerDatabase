@@ -14,13 +14,16 @@ CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
     @ToExecutionTimeInMilliseconds BIGINT = NULL,
     @RowsToSkip NVARCHAR(19) = '',
     @RowsToReturn NVARCHAR(19) = '',
-    @NewestRowsFirst BIT = NULL
+    @RowOrder NVARCHAR(4) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'StoredProcedureLog';
+
+    -- Set final values.
+    SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
 
     -- Run actual query.
     SELECT
@@ -49,8 +52,8 @@ BEGIN
         AND COALESCE(@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds) <= ExecutionTimeInMilliseconds
         AND ExecutionTimeInMilliseconds <= COALESCE(@ToExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds)
     ORDER BY
-        CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
+        CASE WHEN (@RowOrder = 'DESC') THEN RowNumber END DESC,
+        CASE WHEN (@RowOrder = 'ASC') THEN RowNumber END ASC
         OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInBigiint](@RowsToReturn) ROWS ONLY;
 END;

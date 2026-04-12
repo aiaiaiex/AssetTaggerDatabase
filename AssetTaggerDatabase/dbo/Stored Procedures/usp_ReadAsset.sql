@@ -35,13 +35,16 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     -- 
     @RowsToSkip NVARCHAR(10) = '',
     @RowsToReturn NVARCHAR(10) = '',
-    @NewestRowsFirst BIT = NULL
+    @RowOrder NVARCHAR(4) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'Asset';
+
+    -- Set final values.
+    SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
 
     -- Run actual query.
     SELECT
@@ -90,8 +93,8 @@ BEGIN
         AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN COALESCE(@NewestRowsFirst, 1) = 1 THEN RowNumber END DESC,
-        CASE WHEN @NewestRowsFirst = 0 THEN RowNumber END ASC
+        CASE WHEN (@RowOrder = 'DESC') THEN RowNumber END DESC,
+        CASE WHEN (@RowOrder = 'ASC') THEN RowNumber END ASC
         OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
 END;
