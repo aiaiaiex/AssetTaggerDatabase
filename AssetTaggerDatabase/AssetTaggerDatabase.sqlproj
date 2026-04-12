@@ -137,6 +137,7 @@
     <Build Include="dbo\Functions\udf_GetRowsToSkipInInt.sql" />
     <Build Include="dbo\Functions\udf_GetSortColumn.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
+    <Build Include="dbo\Functions\udf_HasNoWhitespace.sql" />
     <Build Include="dbo\Functions\udf_IsDatetime2ColumnBetween.sql" />
     <Build Include="dbo\Functions\udf_IsDecimalColumnBetween.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharColumn.sql" />
