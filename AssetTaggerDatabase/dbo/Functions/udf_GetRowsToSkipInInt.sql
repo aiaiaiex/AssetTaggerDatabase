@@ -4,10 +4,7 @@ CREATE FUNCTION [dbo].[udf_GetRowsToSkipInInt](
 RETURNS INT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
-        WHEN (
-            (@RowsToSkipInNvarchar = '')
-            OR (@RowsToSkipInNvarchar IS NULL)
-        )
+        WHEN (@RowsToSkipInNvarchar = '')
             THEN 0
         ELSE CAST(@RowsToSkipInNvarchar AS INT)
     END;
