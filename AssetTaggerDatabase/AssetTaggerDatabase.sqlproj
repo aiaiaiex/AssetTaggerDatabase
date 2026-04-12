@@ -148,6 +148,7 @@
     <Build Include="dbo\Functions\udf_IsLessThanOrEqualToDatetime2Column.sql" />
     <Build Include="dbo\Functions\udf_IsLessThanOrEqualToDecimalColumn.sql" />
     <Build Include="dbo\Functions\udf_IsLessThanOrEqualToIntColumn.sql" />
+    <Build Include="dbo\Functions\udf_IsNotReservedKeyword.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAsset.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAuthentication.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateBuilding.sql" />
