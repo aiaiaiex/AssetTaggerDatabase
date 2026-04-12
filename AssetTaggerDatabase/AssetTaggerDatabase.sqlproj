@@ -176,6 +176,7 @@
     <Build Include="dbo\Stored Procedures\usp_DeleteProductSet.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteRole.sql" />
     <Build Include="dbo\Stored Procedures\usp_DeleteVendor.sql" />
+    <Build Include="dbo\Stored Procedures\usp_HasPermission.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadAsset.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadBuilding.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadCategory.sql" />
