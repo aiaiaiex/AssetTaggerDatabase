@@ -128,7 +128,6 @@
     <Folder Include="Security\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Functions\tvf_GetCrudPermissionsOfEndUser.sql" />
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_GetColumnValue.sql" />
