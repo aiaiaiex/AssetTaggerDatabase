@@ -35,6 +35,7 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     -- 
     @RowsToSkip NVARCHAR(10) = '',
     @RowsToReturn NVARCHAR(10) = '',
+    @SortColumn NVARCHAR(4000) = '',
     @RowOrder NVARCHAR(4) = ''
 AS;
 BEGIN
@@ -44,6 +45,7 @@ BEGIN
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'Asset';
 
     -- Set final values.
+    SET @SortColumn = [dbo].[udf_GetSortColumn](@SortColumn);
     SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
 
     -- Run actual query.
@@ -93,8 +95,34 @@ BEGIN
         AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN (@RowOrder = 'DESC') THEN RowNumber END DESC,
-        CASE WHEN (@RowOrder = 'ASC') THEN RowNumber END ASC
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'PurchasedAt')) THEN PurchasedAt END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'PurchasePrice')) THEN PurchasePrice END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'SerialNumber')) THEN SerialNumber END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyDuration')) THEN WarrantyDuration END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyUnitOfMeasure')) THEN WarrantyUnitOfMeasure END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'UsefulLife')) THEN UsefulLife END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'SalvageValue')) THEN SalvageValue END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'DocumentationUrl')) THEN DocumentationUrl END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN WarrantyExpirationDate END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'AnnualDepreciationExpense')) THEN AnnualDepreciationExpense END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CurrentBookValue')) THEN CurrentBookValue END DESC,
+        -- 
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'PurchasedAt')) THEN PurchasedAt END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'PurchasePrice')) THEN PurchasePrice END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'SerialNumber')) THEN SerialNumber END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyDuration')) THEN WarrantyDuration END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyUnitOfMeasure')) THEN WarrantyUnitOfMeasure END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'UsefulLife')) THEN UsefulLife END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'SalvageValue')) THEN SalvageValue END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'DocumentationUrl')) THEN DocumentationUrl END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN WarrantyExpirationDate END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'AnnualDepreciationExpense')) THEN AnnualDepreciationExpense END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CurrentBookValue')) THEN CurrentBookValue END ASC
+        -- 
         OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
 END;

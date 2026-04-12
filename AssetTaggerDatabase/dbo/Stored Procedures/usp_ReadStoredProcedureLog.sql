@@ -14,6 +14,7 @@ CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
     @ToExecutionTimeInMilliseconds BIGINT = NULL,
     @RowsToSkip NVARCHAR(19) = '',
     @RowsToReturn NVARCHAR(19) = '',
+    @SortColumn NVARCHAR(4000) = '',
     @RowOrder NVARCHAR(4) = ''
 AS;
 BEGIN
@@ -23,6 +24,7 @@ BEGIN
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'StoredProcedureLog';
 
     -- Set final values.
+    SET @SortColumn = [dbo].[udf_GetSortColumn](@SortColumn);
     SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
 
     -- Run actual query.
@@ -52,8 +54,24 @@ BEGIN
         AND COALESCE(@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds) <= ExecutionTimeInMilliseconds
         AND ExecutionTimeInMilliseconds <= COALESCE(@ToExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds)
     ORDER BY
-        CASE WHEN (@RowOrder = 'DESC') THEN RowNumber END DESC,
-        CASE WHEN (@RowOrder = 'ASC') THEN RowNumber END ASC
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Arguments')) THEN Arguments END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END DESC,
+        -- 
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Arguments')) THEN Arguments END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END ASC
+        -- 
         OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInBigiint](@RowsToReturn) ROWS ONLY;
 END;

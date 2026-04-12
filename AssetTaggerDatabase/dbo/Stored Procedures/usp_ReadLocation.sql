@@ -7,6 +7,7 @@ CREATE PROCEDURE [dbo].[usp_ReadLocation]
     @ToCreatedAt DATETIME2(3) = NULL,
     @RowsToSkip NVARCHAR(10) = '',
     @RowsToReturn NVARCHAR(10) = '',
+    @SortColumn NVARCHAR(4000) = '',
     @RowOrder NVARCHAR(4) = ''
 AS;
 BEGIN
@@ -16,6 +17,7 @@ BEGIN
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'Location';
 
     -- Set final values.
+    SET @SortColumn = [dbo].[udf_GetSortColumn](@SortColumn);
     SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
 
     -- Run actual query.
@@ -33,8 +35,14 @@ BEGIN
         AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
         AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
     ORDER BY
-        CASE WHEN (@RowOrder = 'DESC') THEN RowNumber END DESC,
-        CASE WHEN (@RowOrder = 'ASC') THEN RowNumber END ASC
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Address')) THEN Address END DESC,
+        -- 
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Address')) THEN Address END ASC
+        -- 
         OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
 END;
