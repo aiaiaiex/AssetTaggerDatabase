@@ -21,6 +21,6 @@
     -- Non-nullable columns.
     [FullName] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Employee_FullName] UNIQUE ([FullName]),
-    CONSTRAINT [CK_Employee_FullName_Exclude] CHECK ([FullName] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_Employee_FullName_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([FullName]) = 1),
     CONSTRAINT [CK_Employee_FullName_NoLeadingAndTrailingWhitespace] CHECK ([FullName] NOT LIKE ' %' AND [FullName] NOT LIKE '% ')
 );

@@ -86,6 +86,6 @@
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_EndUserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC),
-    CONSTRAINT [CK_EndUserRole_Name_Exclude] CHECK ([Name] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_EndUserRole_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Name]) = 1),
     CONSTRAINT [CK_EndUserRole_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% ')
 );

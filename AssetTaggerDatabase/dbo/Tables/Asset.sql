@@ -27,7 +27,7 @@
     [PurchasePrice] DECIMAL(19, 4) NULL,
 
     [SerialNumber] NVARCHAR(842) NULL,
-    CONSTRAINT [CK_Asset_SerialNumber_Exclude] CHECK ([SerialNumber] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_Asset_SerialNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([SerialNumber]) = 1),
     CONSTRAINT [CK_Asset_SerialNumber_NoLeadingAndTrailingWhitespace] CHECK ([SerialNumber] NOT LIKE ' %' AND [SerialNumber] NOT LIKE '% '),
 
     [WarrantyDuration] INT NULL,
@@ -45,7 +45,7 @@
     [SalvageValue] DECIMAL(19, 4) NULL,
 
     [DocumentationUrl] NVARCHAR(4000) NULL,
-    CONSTRAINT [CK_Asset_DocumentationUrl_Exclude] CHECK ([DocumentationUrl] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_Asset_DocumentationUrl_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([DocumentationUrl]) = 1),
     CONSTRAINT [CK_Asset_DocumentationUrl_NoLeadingAndTrailingWhitespace] CHECK ([DocumentationUrl] NOT LIKE ' %' AND [DocumentationUrl] NOT LIKE '% '),
 
     -- Computed columns.

@@ -19,7 +19,7 @@
     -- Non-nullable columns.
     [Username] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_EndUser_Username] UNIQUE ([Username]),
-    CONSTRAINT [CK_EndUser_Username_Exclude] CHECK ([Username] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_EndUser_Username_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Username]) = 1),
     CONSTRAINT [CK_EndUser_Username_NoWhitespace] CHECK (CHARINDEX(' ', [Username]) = 0),
 
     [PasswordSalt] UNIQUEIDENTIFIER NOT NULL,

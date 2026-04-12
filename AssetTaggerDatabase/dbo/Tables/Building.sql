@@ -15,11 +15,11 @@
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Building_Name] UNIQUE ([Name]),
-    CONSTRAINT [CK_Building_Name_Exclude] CHECK ([Name] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_Building_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Name]) = 1),
     CONSTRAINT [CK_Building_Name_NoLeadingAndTrailingWhitespace] CHECK ([Name] NOT LIKE ' %' AND [Name] NOT LIKE '% '),
 
     [Address] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Building_Address] UNIQUE ([Address]),
-    CONSTRAINT [CK_Building_Address_Exclude] CHECK ([Address] NOT IN ('', 'NULL')),
+    CONSTRAINT [CK_Building_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Address]) = 1),
     CONSTRAINT [CK_Building_Address_NoLeadingAndTrailingWhitespace] CHECK ([Address] NOT LIKE ' %' AND [Address] NOT LIKE '% ')
 );
