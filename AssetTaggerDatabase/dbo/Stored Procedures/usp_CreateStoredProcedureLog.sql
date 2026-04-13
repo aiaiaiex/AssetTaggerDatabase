@@ -20,16 +20,6 @@ BEGIN
         Name,
         Arguments
     )
-    OUTPUT
-        INSERTED.Id,
-        INSERTED.EndUserId,
-        INSERTED.EndUserIpAddress,
-        INSERTED.StartedAt,
-        INSERTED.EndedAt,
-        INSERTED.ExecutionTimeInMilliseconds,
-        INSERTED.HasExecutedSuccessfully,
-        INSERTED.Name,
-        INSERTED.Arguments
     VALUES (
         @CallingEndUserId,
         @EndUserIpAddress,
