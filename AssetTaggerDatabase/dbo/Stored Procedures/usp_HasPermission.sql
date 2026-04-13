@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_HasPermission]
-    @EndUserIdInNvarchar NVARCHAR(36),
+    @EndUserId UNIQUEIDENTIFIER,
     @Operation NVARCHAR(6), -- Create, Read, Update, and Delete.
     @TableName NVARCHAR(4000)
 AS;
@@ -8,7 +8,7 @@ BEGIN
 
     DECLARE @EndUserRoleId UNIQUEIDENTIFIER = (
         SELECT EndUserRoleId FROM [dbo].[EndUser]
-        WHERE Id = CAST(@EndUserIdInNvarchar AS UNIQUEIDENTIFIER)
+        WHERE Id = @EndUserId
     );
 
     IF (@EndUserRoleId IS NULL)
