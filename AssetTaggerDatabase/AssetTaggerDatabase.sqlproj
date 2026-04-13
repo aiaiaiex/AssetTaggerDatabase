@@ -152,6 +152,7 @@
     <Build Include="dbo\Functions\udf_IsDatetime2ColumnBetween.sql" />
     <Build Include="dbo\Functions\udf_IsDecimalColumnBetween.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharColumn.sql" />
+    <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharMaxColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToUniqueIdentifierColumn.sql" />
     <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToDatetime2Column.sql" />
     <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToDecimalColumn.sql" />
