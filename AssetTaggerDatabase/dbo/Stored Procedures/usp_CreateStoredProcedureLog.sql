@@ -10,9 +10,6 @@ AS;
 BEGIN
     SET NOCOUNT ON;
 
-    -- Check the permission of the calling EndUser.
-    EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'StoredProcedureLog';
-
     BEGIN TRY
         -- Run actual query.
         INSERT INTO [dbo].[StoredProcedureLog] (
