@@ -130,6 +130,7 @@
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_GetColumnValue.sql" />
+    <Build Include="dbo\Functions\udf_GetNvarcharColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetRowOrder.sql" />
     <Build Include="dbo\Functions\udf_GetRowsToReturnInBigint.sql" />
     <Build Include="dbo\Functions\udf_GetRowsToReturnInInt.sql" />
