@@ -22,8 +22,8 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
     CONSTRAINT [CK_Log_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Name]) = 1),
 
     [Arguments] NVARCHAR(MAX) NOT NULL,
-    CONSTRAINT [CK_Log_Arguments_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Arguments]) = 1),
-    CONSTRAINT [CK_Log_Arguments_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Arguments]) = 1),
+    CONSTRAINT [CK_Log_Arguments_IsNotReservedKeyword] CHECK ([dbo].[udf_NvarcharMaxIsNotReservedKeyword]([Arguments]) = 1),
+    CONSTRAINT [CK_Log_Arguments_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_NvarcharMaxHasNoLeadingAndTrailingWhitespace]([Arguments]) = 1),
 
     -- Nullable columns.
     [EndUserIpAddress] NVARCHAR(4000) NULL,
