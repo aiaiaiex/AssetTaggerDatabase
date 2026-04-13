@@ -1,7 +1,7 @@
 CREATE FUNCTION [dbo].[udf_IsDecimalColumnBetween](
-    @FromValue NVARCHAR(17),
+    @FromValue NVARCHAR(21),
     @ColumnValue INT,
-    @ToValue NVARCHAR(17)
+    @ToValue NVARCHAR(21)
 )
 RETURNS BIT WITH SCHEMABINDING AS
 BEGIN

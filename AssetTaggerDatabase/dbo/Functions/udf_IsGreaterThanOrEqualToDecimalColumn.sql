@@ -1,5 +1,5 @@
 CREATE FUNCTION [dbo].[udf_IsGreaterThanOrEqualToDecimalColumn](
-    @Value NVARCHAR(17),
+    @Value NVARCHAR(21),
     @ColumnValue DECIMAL(19, 4)
 )
 RETURNS BIT WITH SCHEMABINDING AS
