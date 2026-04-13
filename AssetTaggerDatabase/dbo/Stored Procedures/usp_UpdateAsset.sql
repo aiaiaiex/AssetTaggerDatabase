@@ -1,19 +1,22 @@
 CREATE PROCEDURE [dbo].[usp_UpdateAsset]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @ProductId UNIQUEIDENTIFIER = NULL,
-    @LocationId UNIQUEIDENTIFIER = NULL,
-    @EmployeeId UNIQUEIDENTIFIER = NULL,
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36),
+    -- Non-nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @LocationId NVARCHAR(36) = '',
+    @ProductId NVARCHAR(36) = '',
+    -- Nullable foreign keys.
     @VendorId NVARCHAR(36) = '',
-    @CreatedAt DATETIME2(3) = NULL,
-    @PurchasedAt NVARCHAR(24) = '',
-    @PurchasePrice NVARCHAR(17) = '',
-    @SerialNumber NVARCHAR(842) = '',
+    -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
-    @WarrantyUnitOfMeasure NVARCHAR(2) = '',
-    @WarrantyDuration NVARCHAR(11) = '',
+    @PurchasedAt NVARCHAR(24) = '',
+    @PurchasePrice NVARCHAR(21) = '',
+    @SalvageValue NVARCHAR(21) = '',
+    @SerialNumber NVARCHAR(842) = '',
     @UsefulLife NVARCHAR(11) = '',
-    @SalvageValue NVARCHAR(17) = ''
+    @WarrantyDuration NVARCHAR(11) = '',
+    @WarrantyUnitOfMeasure NVARCHAR(2) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -25,54 +28,66 @@ BEGIN
     UPDATE
         [dbo].[Asset]
     SET
-        ProductId = COALESCE(@ProductId, ProductId),
-        LocationId = COALESCE(@LocationId, LocationId),
-        EmployeeId = COALESCE(@EmployeeId, EmployeeId),
-        VendorId = CAST([dbo].[udf_GetColumnValue](@VendorId, VendorId) AS UNIQUEIDENTIFIER),
-        CreatedAt = COALESCE(@CreatedAt, CreatedAt),
-        PurchasedAt = CAST([dbo].[udf_GetColumnValue](@PurchasedAt, PurchasedAt) AS DATETIME2(3)),
-        PurchasePrice = CAST([dbo].[udf_GetColumnValue](@PurchasePrice, PurchasePrice) AS DECIMAL(19, 4)),
-        SerialNumber = CAST([dbo].[udf_GetColumnValue](@SerialNumber, SerialNumber) AS NVARCHAR(842)),
-        DocumentationUrl = CAST([dbo].[udf_GetColumnValue](@DocumentationUrl, DocumentationUrl) AS NVARCHAR(4000)),
-        WarrantyUnitOfMeasure = CAST([dbo].[udf_GetColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) AS NVARCHAR(2)),
-        WarrantyDuration = CAST([dbo].[udf_GetColumnValue](@WarrantyDuration, WarrantyDuration) AS INT),
-        UsefulLife = CAST([dbo].[udf_GetColumnValue](@UsefulLife, UsefulLife) AS INT),
-        SalvageValue = CAST([dbo].[udf_GetColumnValue](@SalvageValue, SalvageValue) AS DECIMAL(19, 4))
+        -- Non-nullable foreign keys.
+        EmployeeId = [dbo].[udf_GetUniqueidentifierColumnValue](@EmployeeId, EmployeeId),
+        LocationId = [dbo].[udf_GetUniqueidentifierColumnValue](@LocationId, LocationId),
+        ProductId = [dbo].[udf_GetUniqueidentifierColumnValue](@ProductId, ProductId),
+        -- Nullable foreign keys.
+        VendorId = [dbo].[udf_GetUniqueidentifierColumnValue](@VendorId, VendorId),
+        -- Nullable columns.
+        DocumentationUrl = [dbo].[udf_GetNvarcharColumnValue](@DocumentationUrl, DocumentationUrl),
+        PurchasedAt = [dbo].[udf_GetDatetime2ColumnValue](@PurchasedAt, PurchasedAt),
+        PurchasePrice = [dbo].[udf_GetDecimalColumnValue](@PurchasePrice, PurchasePrice),
+        SalvageValue = [dbo].[udf_GetDecimalColumnValue](@SalvageValue, SalvageValue),
+        SerialNumber = [dbo].[udf_GetNvarcharColumnValue](@SerialNumber, SerialNumber),
+        UsefulLife = [dbo].[udf_GetIntColumnValue](@UsefulLife, UsefulLife),
+        WarrantyDuration = [dbo].[udf_GetIntColumnValue](@WarrantyDuration, WarrantyDuration),
+        WarrantyUnitOfMeasure = [dbo].[udf_GetNvarcharColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure)
     OUTPUT
-        INSERTED.Id,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        INSERTED.ProductId,
-        INSERTED.LocationId,
+        INSERTED.Id,
+        -- Non-nullable foreign keys.
         INSERTED.EmployeeId,
+        INSERTED.LocationId,
+        INSERTED.ProductId,
+        -- Nullable foreign keys.
         INSERTED.VendorId,
+        -- Nullable columns.
+        INSERTED.DocumentationUrl,
         INSERTED.PurchasedAt,
         INSERTED.PurchasePrice,
-        INSERTED.SerialNumber,
-        INSERTED.DocumentationUrl,
-        INSERTED.WarrantyUnitOfMeasure,
-        INSERTED.WarrantyDuration,
-        INSERTED.UsefulLife,
         INSERTED.SalvageValue,
-        INSERTED.WarrantyExpirationDate,
+        INSERTED.SerialNumber,
+        INSERTED.UsefulLife,
+        INSERTED.WarrantyDuration,
+        INSERTED.WarrantyUnitOfMeasure,
+        -- Computed columns.
         INSERTED.AnnualDepreciationExpense,
         INSERTED.CurrentBookValue,
-        DELETED.ProductId AS OldProductId,
-        DELETED.LocationId AS OldLocationId,
+        INSERTED.WarrantyExpirationDate,
+        -- Old values.
+        -- Non-nullable foreign keys.
         DELETED.EmployeeId AS OldEmployeeId,
+        DELETED.LocationId AS OldLocationId,
+        DELETED.ProductId AS OldProductId,
+        -- Nullable foreign keys.
         DELETED.VendorId AS OldVendorId,
+        -- Nullable columns.
+        DELETED.DocumentationUrl AS OldDocumentationUrl,
         DELETED.PurchasedAt AS OldPurchasedAt,
         DELETED.PurchasePrice AS OldPurchasePrice,
-        DELETED.SerialNumber AS OldSerialNumber,
-        DELETED.DocumentationUrl AS OldDocumentationUrl,
-        DELETED.WarrantyUnitOfMeasure AS OldWarrantyUnitOfMeasure,
-        DELETED.WarrantyDuration AS OldWarrantyDuration,
-        DELETED.UsefulLife AS OldUsefulLife,
         DELETED.SalvageValue AS OldSalvageValue,
-        DELETED.WarrantyExpirationDate AS OldWarrantyExpirationDate,
+        DELETED.SerialNumber AS OldSerialNumber,
+        DELETED.UsefulLife AS OldUsefulLife,
+        DELETED.WarrantyDuration AS OldWarrantyDuration,
+        DELETED.WarrantyUnitOfMeasure AS OldWarrantyUnitOfMeasure,
+        -- Computed columns.
         DELETED.AnnualDepreciationExpense AS OldAnnualDepreciationExpense,
-        DELETED.CurrentBookValue AS OldCurrentBookValue
+        DELETED.CurrentBookValue AS OldCurrentBookValue,
+        DELETED.WarrantyExpirationDate AS OldWarrantyExpirationDate
     FROM
         [dbo].[Asset]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;

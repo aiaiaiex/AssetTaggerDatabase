@@ -1,18 +1,20 @@
 CREATE PROCEDURE [dbo].[usp_CreateAsset]
     @CallingEndUserId NVARCHAR(36),
-    @ProductId UNIQUEIDENTIFIER,
-    @LocationId UNIQUEIDENTIFIER,
-    @EmployeeId UNIQUEIDENTIFIER,
-    @VendorId UNIQUEIDENTIFIER = NULL,
-    @CreatedAt DATETIME2(3) = NULL,
-    @PurchasedAt DATETIME2(3) = NULL,
-    @PurchasePrice DECIMAL(19, 4) = NULL,
-    @SerialNumber NVARCHAR(842) = NULL,
-    @DocumentationUrl NVARCHAR(4000) = NULL,
-    @WarrantyUnitOfMeasure NVARCHAR(2) = NULL,
-    @WarrantyDuration INT = NULL,
-    @UsefulLife INT = NULL,
-    @SalvageValue DECIMAL(19, 4) = NULL
+    -- Non-nullable foreign keys.
+    @EmployeeId NVARCHAR(36),
+    @LocationId NVARCHAR(36),
+    @ProductId NVARCHAR(36),
+    -- Nullable foreign keys.
+    @VendorId NVARCHAR(36) = '',
+    -- Nullable columns.
+    @DocumentationUrl NVARCHAR(4000) = '',
+    @PurchasedAt NVARCHAR(24) = '',
+    @PurchasePrice NVARCHAR(21) = '',
+    @SalvageValue NVARCHAR(21) = '',
+    @SerialNumber NVARCHAR(842) = '',
+    @UsefulLife NVARCHAR(11) = '',
+    @WarrantyDuration NVARCHAR(11) = '',
+    @WarrantyUnitOfMeasure NVARCHAR(2) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -22,51 +24,60 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Asset] (
-        ProductId,
-        LocationId,
+        -- Non-nullable foreign keys.
         EmployeeId,
+        LocationId,
+        ProductId,
+        -- Nullable foreign keys.
         VendorId,
-        CreatedAt,
+        -- Nullable columns.
+        DocumentationUrl,
         PurchasedAt,
         PurchasePrice,
+        SalvageValue,
         SerialNumber,
-        DocumentationUrl,
-        WarrantyUnitOfMeasure,
-        WarrantyDuration,
         UsefulLife,
-        SalvageValue
+        WarrantyDuration,
+        WarrantyUnitOfMeasure
     )
     OUTPUT
-        INSERTED.Id,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        INSERTED.ProductId,
-        INSERTED.LocationId,
+        INSERTED.Id,
+        -- Non-nullable foreign keys.
         INSERTED.EmployeeId,
+        INSERTED.LocationId,
+        INSERTED.ProductId,
+        -- Nullable foreign keys.
         INSERTED.VendorId,
+        -- Nullable columns.
+        INSERTED.DocumentationUrl,
         INSERTED.PurchasedAt,
         INSERTED.PurchasePrice,
-        INSERTED.SerialNumber,
-        INSERTED.DocumentationUrl,
-        INSERTED.WarrantyUnitOfMeasure,
-        INSERTED.WarrantyDuration,
-        INSERTED.UsefulLife,
         INSERTED.SalvageValue,
-        INSERTED.WarrantyExpirationDate,
+        INSERTED.SerialNumber,
+        INSERTED.UsefulLife,
+        INSERTED.WarrantyDuration,
+        INSERTED.WarrantyUnitOfMeasure,
+        -- Computed columns.
         INSERTED.AnnualDepreciationExpense,
-        INSERTED.CurrentBookValue
+        INSERTED.CurrentBookValue,
+        INSERTED.WarrantyExpirationDate
     VALUES (
-        @ProductId,
-        @LocationId,
-        @EmployeeId,
-        @VendorId,
-        COALESCE(@CreatedAt, SYSUTCDATETIME()),
-        @PurchasedAt,
-        @PurchasePrice,
-        @SerialNumber,
-        @DocumentationUrl,
-        @WarrantyUnitOfMeasure,
-        @WarrantyDuration,
-        @UsefulLife,
-        @SalvageValue
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@EmployeeId),
+        [dbo].[udf_GetUniqueidentifier](@LocationId),
+        [dbo].[udf_GetUniqueidentifier](@ProductId),
+        -- Nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@VendorId),
+        -- Nullable columns.
+        [dbo].[udf_GetNvarchar](@DocumentationUrl),
+        [dbo].[udf_GetDatetime2](@PurchasedAt),
+        [dbo].[udf_GetDecimal](@PurchasePrice),
+        [dbo].[udf_GetDecimal](@SalvageValue),
+        [dbo].[udf_GetNvarchar](@SerialNumber),
+        [dbo].[udf_GetInt](@UsefulLife),
+        [dbo].[udf_GetInt](@WarrantyDuration),
+        [dbo].[udf_GetNvarchar](@WarrantyUnitOfMeasure)
     );
 END;

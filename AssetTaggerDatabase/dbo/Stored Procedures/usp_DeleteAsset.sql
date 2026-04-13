@@ -1,6 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_DeleteAsset]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -11,25 +12,30 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Asset]
     OUTPUT
-        DELETED.Id,
+        -- Non-nullable columns with default values.
         DELETED.CreatedAt,
-        DELETED.ProductId,
-        DELETED.LocationId,
+        DELETED.Id,
+        -- Non-nullable foreign keys.
         DELETED.EmployeeId,
+        DELETED.LocationId,
+        DELETED.ProductId,
+        -- Nullable foreign keys.
         DELETED.VendorId,
+        -- Nullable columns.
+        DELETED.DocumentationUrl,
         DELETED.PurchasedAt,
         DELETED.PurchasePrice,
-        DELETED.SerialNumber,
-        DELETED.DocumentationUrl,
-        DELETED.WarrantyUnitOfMeasure,
-        DELETED.WarrantyDuration,
-        DELETED.UsefulLife,
         DELETED.SalvageValue,
-        DELETED.WarrantyExpirationDate,
+        DELETED.SerialNumber,
+        DELETED.UsefulLife,
+        DELETED.WarrantyDuration,
+        DELETED.WarrantyUnitOfMeasure,
+        -- Computed columns.
         DELETED.AnnualDepreciationExpense,
-        DELETED.CurrentBookValue
+        DELETED.CurrentBookValue,
+        DELETED.WarrantyExpirationDate
     FROM
         [dbo].[Asset]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;
