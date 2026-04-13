@@ -136,6 +136,7 @@
     <Build Include="dbo\Functions\udf_GetRowsToSkipInBigint.sql" />
     <Build Include="dbo\Functions\udf_GetRowsToSkipInInt.sql" />
     <Build Include="dbo\Functions\udf_GetSortColumn.sql" />
+    <Build Include="dbo\Functions\udf_GetUniqueidentifierColumnValue.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Functions\udf_HasNoLeadingAndTrailingWhitespace.sql" />
     <Build Include="dbo\Functions\udf_HasNoWhitespace.sql" />
