@@ -1,21 +1,29 @@
 CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER = NULL,
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
+    -- Nullable foreign keys.
     @EndUserId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Arguments NVARCHAR(MAX) = '',
+    @HasExecutedSuccessfully NVARCHAR(1) = '',
+    @Name NVARCHAR(4000) = '',
+    -- Nullable columns.
     @EndUserIpAddress NVARCHAR(4000) = '',
-    @HasExecutedSuccessfully BIT = NULL,
-    @Name NVARCHAR(4000) = NULL,
-    @Arguments NVARCHAR(MAX) = NULL,
-    @FromStartedAt DATETIME2(3) = NULL,
-    @ToStartedAt DATETIME2(3) = NULL,
-    @FromEndedAt DATETIME2(3) = NULL,
-    @ToEndedAt DATETIME2(3) = NULL,
-    @FromExecutionTimeInMilliseconds BIGINT = NULL,
-    @ToExecutionTimeInMilliseconds BIGINT = NULL,
-    @RowsToSkip NVARCHAR(19) = '',
-    @RowsToReturn NVARCHAR(19) = '',
+    -- BIGINT range parameters.
+    @FromExecutionTimeInMilliseconds NVARCHAR(19) = '',
+    @ToExecutionTimeInMilliseconds NVARCHAR(19) = '',
+    -- DATETIME2(3) range parameters.
+    @FromEndedAt NVARCHAR(24) = '',
+    @ToEndedAt NVARCHAR(24) = '',
+    @FromStartedAt NVARCHAR(24) = '',
+    @ToStartedAt NVARCHAR(24) = '',
+    -- Sort parameters.
     @SortColumn NVARCHAR(4000) = '',
-    @RowOrder NVARCHAR(4) = ''
+    @RowOrder NVARCHAR(4) = '',
+    -- Pagination parameters.
+    @RowsToSkip NVARCHAR(19) = '',
+    @RowsToReturn NVARCHAR(19) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -32,49 +40,58 @@ BEGIN
 
     -- Run actual query.
     SELECT
+        -- Non-nullable columns with default values.
         Id,
+        -- Nullable foreign keys.
         EndUserId,
-        EndUserIpAddress,
-        StartedAt,
+        -- Non-nullable columns.
+        Arguments,
         EndedAt,
-        ExecutionTimeInMilliseconds,
         HasExecutedSuccessfully,
         Name,
-        Arguments
+        StartedAt,
+        -- Nullable columns.
+        EndUserIpAddress,
+        -- Computed columns.
+        ExecutionTimeInMilliseconds
     FROM
         [dbo].[StoredProcedureLog]
     WHERE
-        Id = COALESCE(@Id, Id)
+        -- Non-nullable columns with default values.
+        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        -- Nullable foreign keys.
         AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@EndUserId, EndUserId) = 1
+        -- Non-nullable columns.
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharMaxColumn](@Arguments, Arguments) = 1
+        AND [dbo].[udf_IsEqualToBitColumn](@HasExecutedSuccessfully, HasExecutedSuccessfully) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        -- Nullable columns.
         AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@EndUserIpAddress, EndUserIpAddress) = 1
-        AND HasExecutedSuccessfully = COALESCE(@HasExecutedSuccessfully, HasExecutedSuccessfully)
-        AND (Name = COALESCE(@Name, Name) OR Name LIKE @Name)
-        AND (Arguments = COALESCE(@Arguments, Arguments) OR Arguments LIKE @Arguments)
-        AND COALESCE(@FromStartedAt, StartedAt) <= StartedAt
-        AND StartedAt <= COALESCE(@ToStartedAt, StartedAt)
-        AND COALESCE(@FromEndedAt, EndedAt) <= EndedAt
-        AND EndedAt <= COALESCE(@ToEndedAt, EndedAt)
-        AND COALESCE(@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds) <= ExecutionTimeInMilliseconds
-        AND ExecutionTimeInMilliseconds <= COALESCE(@ToExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds)
+        -- BIGINT range parameters.
+        AND [dbo].[udf_IsBigintColumnBetween](@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds, @ToExecutionTimeInMilliseconds) = 1
+        -- DATETIME2(3) range parameters.
+        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromEndedAt, EndedAt, @ToEndedAt) = 1
+        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromStartedAt, StartedAt, @ToStartedAt) = 1
     ORDER BY
+        -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
-        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Arguments')) THEN Arguments END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
-        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Arguments')) THEN Arguments END DESC,
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END DESC,
-        -- 
+        -- Ascending sort.
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
-        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Arguments')) THEN Arguments END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC,
-        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Arguments')) THEN Arguments END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END ASC
-        -- 
+        -- Pagination.
         OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
-        FETCH NEXT [dbo].[udf_GetRowsToReturnInBigiint](@RowsToReturn) ROWS ONLY;
+        FETCH NEXT [dbo].[udf_GetRowsToReturnInBigint](@RowsToReturn) ROWS ONLY;
 END;
