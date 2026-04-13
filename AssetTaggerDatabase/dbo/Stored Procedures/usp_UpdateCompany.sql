@@ -19,7 +19,7 @@ BEGIN
         Name = COALESCE(@Name, Name),
         Address = COALESCE(@Address, Address),
         Code = COALESCE(@Code, Code),
-        ParentCompanyId = CAST([dbo].[udf_GetColumnValue](@ParentCompanyId, ParentCompanyId) AS UNIQUEIDENTIFIER)
+        ParentCompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@ParentCompanyId, ParentCompanyId)
     OUTPUT
         INSERTED.Id,
         INSERTED.Name,

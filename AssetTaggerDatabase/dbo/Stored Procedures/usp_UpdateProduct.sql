@@ -17,10 +17,10 @@ BEGIN
     UPDATE
         [dbo].[Product]
     SET
-        Name = CAST([dbo].[udf_GetColumnValue](@Name, Name) AS NVARCHAR(421)),
-        ModelNumber = CAST([dbo].[udf_GetColumnValue](@ModelNumber, ModelNumber) AS NVARCHAR(421)),
-        DocumentationUrl = CAST([dbo].[udf_GetColumnValue](@DocumentationUrl, DocumentationUrl) AS NVARCHAR(4000)),
-        ManufacturerId = CAST([dbo].[udf_GetColumnValue](@ManufacturerId, ManufacturerId) AS UNIQUEIDENTIFIER),
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name),
+        ModelNumber = [dbo].[udf_GetNvarcharColumnValue](@ModelNumber, ModelNumber),
+        DocumentationUrl = [dbo].[udf_GetNvarcharColumnValue](@DocumentationUrl, DocumentationUrl),
+        ManufacturerId = [dbo].[udf_GetUniqueidentifierColumnValue](@ManufacturerId, ManufacturerId),
         CategoryId = COALESCE(@CategoryId, CategoryId)
     OUTPUT
         INSERTED.Id,
