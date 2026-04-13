@@ -131,6 +131,7 @@
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
     <Build Include="dbo\Functions\udf_GetColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDatetime2ColumnValue.sql" />
+    <Build Include="dbo\Functions\udf_GetDecimal.sql" />
     <Build Include="dbo\Functions\udf_GetDecimalColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetInt.sql" />
     <Build Include="dbo\Functions\udf_GetIntColumnValue.sql" />
