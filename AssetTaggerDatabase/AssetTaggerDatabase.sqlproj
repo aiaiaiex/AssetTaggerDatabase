@@ -133,6 +133,7 @@
     <Build Include="dbo\Functions\udf_GetDatetime2ColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDecimalColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetIntColumnValue.sql" />
+    <Build Include="dbo\Functions\udf_GetNvarchar.sql" />
     <Build Include="dbo\Functions\udf_GetNvarcharColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetRowOrder.sql" />
     <Build Include="dbo\Functions\udf_GetRowsToReturnInBigint.sql" />
