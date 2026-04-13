@@ -151,6 +151,7 @@
     <Build Include="dbo\Functions\udf_HasNoWhitespace.sql" />
     <Build Include="dbo\Functions\udf_IsDatetime2ColumnBetween.sql" />
     <Build Include="dbo\Functions\udf_IsDecimalColumnBetween.sql" />
+    <Build Include="dbo\Functions\udf_IsEqualToBitColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharMaxColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToUniqueIdentifierColumn.sql" />
