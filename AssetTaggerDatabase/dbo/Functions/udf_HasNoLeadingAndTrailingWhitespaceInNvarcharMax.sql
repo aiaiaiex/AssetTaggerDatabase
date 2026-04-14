@@ -1,4 +1,4 @@
-CREATE FUNCTION [dbo].[udf_NvarcharMaxHasNoLeadingAndTrailingWhitespace](
+CREATE FUNCTION [dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarcharMax](
     @Value NVARCHAR(MAX)
 )
 RETURNS BIT WITH SCHEMABINDING AS

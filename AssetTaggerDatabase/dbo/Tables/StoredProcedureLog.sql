@@ -12,8 +12,8 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
 
     -- Non-nullable columns.
     [Arguments] NVARCHAR(MAX) NOT NULL,
-    CONSTRAINT [CK_StoredProcedureLog_Arguments_IsNotReservedKeyword] CHECK ([dbo].[udf_NvarcharMaxIsNotReservedKeyword]([Arguments]) = 1),
-    CONSTRAINT [CK_StoredProcedureLog_Arguments_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_NvarcharMaxHasNoLeadingAndTrailingWhitespace]([Arguments]) = 1),
+    CONSTRAINT [CK_StoredProcedureLog_Arguments_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarcharMax]([Arguments]) = 1),
+    CONSTRAINT [CK_StoredProcedureLog_Arguments_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarcharMax]([Arguments]) = 1),
 
     [EndedAt] DATETIME2(3) NOT NULL,
 

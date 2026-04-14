@@ -1,4 +1,4 @@
-CREATE FUNCTION [dbo].[udf_NvarcharMaxIsNotReservedKeyword](
+CREATE FUNCTION [dbo].[udf_IsNotReservedKeywordInNvarcharMax](
     @Value NVARCHAR(MAX)
 )
 RETURNS BIT WITH SCHEMABINDING AS
