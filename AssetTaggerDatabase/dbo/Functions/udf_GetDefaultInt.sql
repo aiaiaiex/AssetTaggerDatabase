@@ -1,12 +1,12 @@
-CREATE FUNCTION [dbo].[udf_GetIntColumnValue](
+CREATE FUNCTION [dbo].[udf_GetDefaultInt](
     @Value NVARCHAR(11),
-    @ColumnValue INT
+    @DefaultValue INT
 )
 RETURNS INT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (@Value = '')
-            THEN @ColumnValue
+            THEN @DefaultValue
         ELSE CAST(@Value AS INT)
     END;
 END;

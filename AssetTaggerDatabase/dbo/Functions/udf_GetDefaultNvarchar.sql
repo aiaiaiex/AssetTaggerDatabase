@@ -1,12 +1,12 @@
-CREATE FUNCTION [dbo].[udf_GetNvarcharColumnValue](
+CREATE FUNCTION [dbo].[udf_GetDefaultNvarchar](
     @Value NVARCHAR(4000),
-    @ColumnValue NVARCHAR(4000)
+    @DefaultValue NVARCHAR(4000)
 )
 RETURNS NVARCHAR(4000) WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (@Value = '')
-            THEN @ColumnValue
+            THEN @DefaultValue
         ELSE @Value
     END;
 END;

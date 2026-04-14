@@ -23,11 +23,11 @@ BEGIN
         [dbo].[Employee]
     SET
         -- Non-nullable foreign keys.
-        CompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@CompanyId, CompanyId),
-        DepartmentId = [dbo].[udf_GetUniqueidentifierColumnValue](@DepartmentId, DepartmentId),
-        RoleId = [dbo].[udf_GetUniqueidentifierColumnValue](@RoleId, RoleId),
+        CompanyId = [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, CompanyId),
+        DepartmentId = [dbo].[udf_GetDefaultUniqueidentifier](@DepartmentId, DepartmentId),
+        RoleId = [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, RoleId),
         -- Non-nullable columns.
-        FullName = [dbo].[udf_GetNvarcharColumnValue](@FullName, FullName)
+        FullName = [dbo].[udf_GetDefaultNvarchar](@FullName, FullName)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

@@ -1,12 +1,12 @@
-CREATE FUNCTION [dbo].[udf_GetDatetime2ColumnValue](
+CREATE FUNCTION [dbo].[udf_GetDefaultDatetime2](
     @Value NVARCHAR(24),
-    @ColumnValue DATETIME2(3)
+    @DefaultValue DATETIME2(3)
 )
 RETURNS DATETIME2(3) WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (@Value = '')
-            THEN @ColumnValue
+            THEN @DefaultValue
         ELSE CAST(@Value AS DATETIME2(3))
     END;
 END;

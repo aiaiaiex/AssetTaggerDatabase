@@ -26,5 +26,5 @@ BEGIN
         [dbo].[ProductSet]
     WHERE
         ParentProductId = [dbo].[udf_GetUniqueidentifier](@ParentProductId)
-        AND ProductId = [dbo].[udf_GetUniqueidentifierColumnValue](@ProductId, ProductId);
+        AND ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId);
 END;

@@ -19,7 +19,7 @@ BEGIN
     UPDATE
         [dbo].[ProductSet]
     SET
-        ProductQuantity = [dbo].[udf_GetIntColumnValue](@ProductQuantity, ProductQuantity)
+        ProductQuantity = [dbo].[udf_GetDefaultInt](@ProductQuantity, ProductQuantity)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
@@ -34,5 +34,5 @@ BEGIN
         [dbo].[ProductSet]
     WHERE
         ParentProductId = [dbo].[udf_GetUniqueidentifier](@ParentProductId)
-        AND ProductId = [dbo].[udf_GetUniqueidentifierColumnValue](@ProductId, ProductId);
+        AND ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId);
 END;

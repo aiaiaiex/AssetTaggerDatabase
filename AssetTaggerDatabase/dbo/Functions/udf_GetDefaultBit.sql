@@ -1,12 +1,12 @@
-CREATE FUNCTION [dbo].[udf_GetBitColumnValue](
+CREATE FUNCTION [dbo].[udf_GetDefaultBit](
     @Value NVARCHAR(1),
-    @ColumnValue BIT
+    @DefaultValue BIT
 )
 RETURNS BIT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (@Value = '')
-            THEN @ColumnValue
+            THEN @DefaultValue
         ELSE CAST(@Value AS BIT)
     END;
 END;

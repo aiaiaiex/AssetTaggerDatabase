@@ -20,8 +20,8 @@ BEGIN
         [dbo].[Vendor]
     SET
         -- Non-nullable columns.
-        Address = [dbo].[udf_GetNvarcharColumnValue](@Address, Address),
-        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
+        Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address),
+        Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

@@ -32,20 +32,20 @@ BEGIN
         [dbo].[Asset]
     SET
         -- Non-nullable foreign keys.
-        EmployeeId = [dbo].[udf_GetUniqueidentifierColumnValue](@EmployeeId, EmployeeId),
-        LocationId = [dbo].[udf_GetUniqueidentifierColumnValue](@LocationId, LocationId),
-        ProductId = [dbo].[udf_GetUniqueidentifierColumnValue](@ProductId, ProductId),
+        EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
+        LocationId = [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, LocationId),
+        ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId),
         -- Nullable foreign keys.
-        VendorId = [dbo].[udf_GetUniqueidentifierColumnValue](@VendorId, VendorId),
+        VendorId = [dbo].[udf_GetDefaultUniqueidentifier](@VendorId, VendorId),
         -- Nullable columns.
-        DocumentationUrl = [dbo].[udf_GetNvarcharColumnValue](@DocumentationUrl, DocumentationUrl),
-        PurchasedAt = [dbo].[udf_GetDatetime2ColumnValue](@PurchasedAt, PurchasedAt),
-        PurchasePrice = [dbo].[udf_GetDecimalColumnValue](@PurchasePrice, PurchasePrice),
-        SalvageValue = [dbo].[udf_GetDecimalColumnValue](@SalvageValue, SalvageValue),
-        SerialNumber = [dbo].[udf_GetNvarcharColumnValue](@SerialNumber, SerialNumber),
-        UsefulLife = [dbo].[udf_GetIntColumnValue](@UsefulLife, UsefulLife),
-        WarrantyDuration = [dbo].[udf_GetIntColumnValue](@WarrantyDuration, WarrantyDuration),
-        WarrantyUnitOfMeasure = [dbo].[udf_GetNvarcharColumnValue](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure)
+        DocumentationUrl = [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, DocumentationUrl),
+        PurchasedAt = [dbo].[udf_GetDefaultDatetime2](@PurchasedAt, PurchasedAt),
+        PurchasePrice = [dbo].[udf_GetDefaultDecimal](@PurchasePrice, PurchasePrice),
+        SalvageValue = [dbo].[udf_GetDefaultDecimal](@SalvageValue, SalvageValue),
+        SerialNumber = [dbo].[udf_GetDefaultNvarchar](@SerialNumber, SerialNumber),
+        UsefulLife = [dbo].[udf_GetDefaultInt](@UsefulLife, UsefulLife),
+        WarrantyDuration = [dbo].[udf_GetDefaultInt](@WarrantyDuration, WarrantyDuration),
+        WarrantyUnitOfMeasure = [dbo].[udf_GetDefaultNvarchar](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

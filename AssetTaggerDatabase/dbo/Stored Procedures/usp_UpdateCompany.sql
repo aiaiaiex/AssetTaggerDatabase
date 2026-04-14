@@ -23,11 +23,11 @@ BEGIN
         [dbo].[Company]
     SET
         -- Nullable foreign keys.
-        ParentCompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@ParentCompanyId, ParentCompanyId),
+        ParentCompanyId = [dbo].[udf_GetDefaultUniqueidentifier](@ParentCompanyId, ParentCompanyId),
         -- Non-nullable columns.
-        Address = [dbo].[udf_GetNvarcharColumnValue](@Address, Address),
-        Code = [dbo].[udf_GetNvarcharColumnValue](@Code, Code),
-        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
+        Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address),
+        Code = [dbo].[udf_GetDefaultNvarchar](@Code, Code),
+        Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

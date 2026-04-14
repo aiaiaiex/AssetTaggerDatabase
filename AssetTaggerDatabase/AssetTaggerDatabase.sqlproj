@@ -129,15 +129,16 @@
   <ItemGroup>
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
-    <Build Include="dbo\Functions\udf_GetBitColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDatetime2.sql" />
-    <Build Include="dbo\Functions\udf_GetDatetime2ColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDecimal.sql" />
-    <Build Include="dbo\Functions\udf_GetDecimalColumnValue.sql" />
+    <Build Include="dbo\Functions\udf_GetDefaultBit.sql" />
+    <Build Include="dbo\Functions\udf_GetDefaultDatetime2.sql" />
+    <Build Include="dbo\Functions\udf_GetDefaultDecimal.sql" />
+    <Build Include="dbo\Functions\udf_GetDefaultInt.sql" />
+    <Build Include="dbo\Functions\udf_GetDefaultNvarchar.sql" />
+    <Build Include="dbo\Functions\udf_GetDefaultUniqueidentifier.sql" />
     <Build Include="dbo\Functions\udf_GetInt.sql" />
-    <Build Include="dbo\Functions\udf_GetIntColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetNvarchar.sql" />
-    <Build Include="dbo\Functions\udf_GetNvarcharColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetNvarcharMax.sql" />
     <Build Include="dbo\Functions\udf_GetRowOrder.sql" />
     <Build Include="dbo\Functions\udf_GetRowsToReturnInBigint.sql" />
@@ -146,7 +147,6 @@
     <Build Include="dbo\Functions\udf_GetRowsToSkipInInt.sql" />
     <Build Include="dbo\Functions\udf_GetSortColumn.sql" />
     <Build Include="dbo\Functions\udf_GetUniqueidentifier.sql" />
-    <Build Include="dbo\Functions\udf_GetUniqueidentifierColumnValue.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Functions\udf_HasNoLeadingAndTrailingWhitespace.sql" />
     <Build Include="dbo\Functions\udf_HasNoWhitespace.sql" />

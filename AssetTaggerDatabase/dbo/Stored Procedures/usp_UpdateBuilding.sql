@@ -22,10 +22,10 @@ BEGIN
         [dbo].[Building]
     SET
         -- Non-nullable foreign keys.
-        CompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@CompanyId, CompanyId),
+        CompanyId = [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, CompanyId),
         -- Non-nullable columns.
-        Address = [dbo].[udf_GetNvarcharColumnValue](@Address, Address),
-        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
+        Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address),
+        Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

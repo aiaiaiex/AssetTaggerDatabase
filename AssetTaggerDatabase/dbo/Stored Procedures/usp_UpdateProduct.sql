@@ -25,13 +25,13 @@ BEGIN
         [dbo].[Product]
     SET
         -- Non-nullable foreign keys.
-        CategoryId = [dbo].[udf_GetUniqueidentifierColumnValue](@CategoryId, CategoryId),
+        CategoryId = [dbo].[udf_GetDefaultUniqueidentifier](@CategoryId, CategoryId),
         -- Nullable foreign keys.
-        ManufacturerId = [dbo].[udf_GetUniqueidentifierColumnValue](@ManufacturerId, ManufacturerId),
+        ManufacturerId = [dbo].[udf_GetDefaultUniqueidentifier](@ManufacturerId, ManufacturerId),
         -- Nullable columns.
-        DocumentationUrl = [dbo].[udf_GetNvarcharColumnValue](@DocumentationUrl, DocumentationUrl),
-        ModelNumber = [dbo].[udf_GetNvarcharColumnValue](@ModelNumber, ModelNumber),
-        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
+        DocumentationUrl = [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, DocumentationUrl),
+        ModelNumber = [dbo].[udf_GetDefaultNvarchar](@ModelNumber, ModelNumber),
+        Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

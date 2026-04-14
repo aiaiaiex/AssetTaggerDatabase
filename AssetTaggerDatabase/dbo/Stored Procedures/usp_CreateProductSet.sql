@@ -32,7 +32,7 @@ BEGIN
         INSERTED.ProductId
     VALUES (
         -- Non-nullable columns with default values.
-        [dbo].[udf_GetIntColumnValue](@ProductQuantity, 1),
+        [dbo].[udf_GetDefaultInt](@ProductQuantity, 1),
         -- Non-nullable foreign keys.
         [dbo].[udf_GetUniqueidentifier](@ParentProductId),
         [dbo].[udf_GetUniqueidentifier](@ProductId)

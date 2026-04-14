@@ -19,7 +19,7 @@ BEGIN
         [dbo].[Category]
     SET
         -- Non-nullable columns.
-        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
+        Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,

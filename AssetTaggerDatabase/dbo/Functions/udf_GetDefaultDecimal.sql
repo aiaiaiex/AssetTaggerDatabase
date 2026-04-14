@@ -1,12 +1,12 @@
-CREATE FUNCTION [dbo].[udf_GetDecimalColumnValue](
+CREATE FUNCTION [dbo].[udf_GetDefaultDecimal](
     @Value NVARCHAR(21),
-    @ColumnValue DECIMAL(19, 4)
+    @DefaultValue DECIMAL(19, 4)
 )
 RETURNS DECIMAL(19, 4) WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (@Value = '')
-            THEN @ColumnValue
+            THEN @DefaultValue
         ELSE CAST(@Value AS DECIMAL(19, 4))
     END;
 END;
