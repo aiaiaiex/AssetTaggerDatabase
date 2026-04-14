@@ -153,14 +153,6 @@
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharMaxColumn.sql" />
     <Build Include="dbo\Functions\udf_IsEqualToUniqueIdentifierColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToBigintColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToDatetime2Column.sql" />
-    <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToDecimalColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsGreaterThanOrEqualToIntColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsLessThanOrEqualToBigintColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsLessThanOrEqualToDatetime2Column.sql" />
-    <Build Include="dbo\Functions\udf_IsLessThanOrEqualToDecimalColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsLessThanOrEqualToIntColumn.sql" />
     <Build Include="dbo\Functions\udf_IsNotReservedKeywordInNvarchar.sql" />
     <Build Include="dbo\Functions\udf_IsNotReservedKeywordInNvarcharMax.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAsset.sql" />

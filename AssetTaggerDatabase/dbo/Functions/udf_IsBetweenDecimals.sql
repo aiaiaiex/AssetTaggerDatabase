@@ -7,8 +7,17 @@ RETURNS BIT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (
-            [dbo].[udf_IsLessThanOrEqualToDecimalColumn](@FromValue, @Value) = 1
-            AND [dbo].[udf_IsGreaterThanOrEqualToDecimalColumn](@ToValue, @Value) = 1
+            (
+                (@FromValue = '')
+                OR (CAST(@FromValue AS DECIMAL(19, 4)) <= @Value)
+                OR (@FromValue IS NULL AND @Value IS NULL)
+            )
+            AND
+            (
+                (@ToValue = '')
+                OR (@Value <= CAST(@ToValue AS DECIMAL(19, 4)))
+                OR (@Value IS NULL AND @ToValue IS NULL)
+            )
         )
             THEN 1
         ELSE 0
