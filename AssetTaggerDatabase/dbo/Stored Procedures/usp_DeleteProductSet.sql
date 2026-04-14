@@ -1,7 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_DeleteProductSet]
     @CallingEndUserId NVARCHAR(36),
-    @ParentProductId UNIQUEIDENTIFIER,
-    @ProductId UNIQUEIDENTIFIER = NULL
+    -- Non-nullable foreign keys.
+    @ParentProductId NVARCHAR(36),
+    @ProductId NVARCHAR(36) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -15,13 +16,15 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[ProductSet]
     OUTPUT
-        DELETED.ParentProductId,
-        DELETED.ProductId,
+        -- Non-nullable columns with default values.
+        DELETED.CreatedAt,
         DELETED.ProductQuantity,
-        DELETED.CreatedAt
+        -- Non-nullable foreign keys.
+        DELETED.ParentProductId,
+        DELETED.ProductId
     FROM
         [dbo].[ProductSet]
     WHERE
-        ParentProductId = @ParentProductId
-        AND ProductId = COALESCE(@ProductId, ProductId);
+        ParentProductId = [dbo].[udf_GetUniqueidentifier](@ParentProductId)
+        AND ProductId = [dbo].[udf_GetUniqueidentifierColumnValue](@ProductId, ProductId);
 END;

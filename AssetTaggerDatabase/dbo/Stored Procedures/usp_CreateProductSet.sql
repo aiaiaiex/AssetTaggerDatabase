@@ -1,8 +1,10 @@
 CREATE PROCEDURE [dbo].[usp_CreateProductSet]
     @CallingEndUserId NVARCHAR(36),
-    @ParentProductId UNIQUEIDENTIFIER,
-    @ProductId UNIQUEIDENTIFIER,
-    @ProductQuantity INT = NULL
+    -- Non-nullable columns with default values.
+    @ProductQuantity NVARCHAR(10) = '',
+    -- Non-nullable foreign keys.
+    @ParentProductId NVARCHAR(36),
+    @ProductId NVARCHAR(36)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -15,18 +17,24 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[ProductSet] (
+        -- Non-nullable columns with default values.
+        ProductQuantity,
+        -- Non-nullable foreign keys.
         ParentProductId,
-        ProductId,
-        ProductQuantity
+        ProductId
     )
     OUTPUT
-        INSERTED.ParentProductId,
-        INSERTED.ProductId,
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.ProductQuantity,
-        INSERTED.CreatedAt
+        -- Non-nullable foreign keys.
+        INSERTED.ParentProductId,
+        INSERTED.ProductId
     VALUES (
-        @ParentProductId,
-        @ProductId,
-        COALESCE(@ProductQuantity, 1)
+        -- Non-nullable columns with default values.
+        [dbo].[udf_GetIntColumnValue](@ProductQuantity, 1),
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@ParentProductId),
+        [dbo].[udf_GetUniqueidentifier](@ProductId)
     );
 END;
