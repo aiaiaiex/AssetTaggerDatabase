@@ -1,13 +1,20 @@
 ﻿CREATE TABLE [dbo].[EndUserRole] (
-    -- Columns with default values.
-    [RowNumber] INT IDENTITY (1, 1),
-    CONSTRAINT [AK_EndUserRole_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+    -- Non-nullable columns with default values.
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_EndUserRole_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 
-    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_EndUserRole_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_EndUserRole_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
 
+    -- Non-nullable columns.
+    [Name] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_EndUserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC),
+    CONSTRAINT [CK_EndUserRole_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Name]) = 1),
+    CONSTRAINT [CK_EndUserRole_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Name]) = 1),
+
+    -- Permissions.
     -- Asset CRUD Permissions.
     [HasCreatingAssetPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingAssetPermission] BIT DEFAULT 0 NOT NULL,
@@ -73,7 +80,7 @@
     [HasReadingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
-    -- StoredProcedureLog RD Permissions.
+    -- StoredProcedureLog R Permissions.
     -- StoredProcedureLog has no create permission because every call to stored procedures should be logged even if CallingEndUserId doesn't exist.
     -- StoredProcedureLog has no update and delete permissions because no update and delete stored procedures for StoredProcedureLog exist to make logs immutable.
     [HasReadingStoredProcedureLogPermission] BIT DEFAULT 0 NOT NULL,
@@ -81,11 +88,5 @@
     [HasCreatingVendorPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingVendorPermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingVendorPermission] BIT DEFAULT 0 NOT NULL,
-    [HasDeletingVendorPermission] BIT DEFAULT 0 NOT NULL,
-
-    -- Non-nullable columns.
-    [Name] NVARCHAR(850) NOT NULL,
-    CONSTRAINT [AK_EndUserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC),
-    CONSTRAINT [CK_EndUserRole_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Name]) = 1),
-    CONSTRAINT [CK_EndUserRole_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Name]) = 1)
+    [HasDeletingVendorPermission] BIT DEFAULT 0 NOT NULL
 );
