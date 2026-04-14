@@ -1,8 +1,10 @@
 CREATE PROCEDURE [dbo].[usp_UpdateVendor]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(850) = NULL,
-    @Address NVARCHAR(850) = NULL
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36),
+    -- Non-nullable columns.
+    @Address NVARCHAR(850) = '',
+    @Name NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -17,17 +19,22 @@ BEGIN
     UPDATE
         [dbo].[Vendor]
     SET
-        Name = COALESCE(@Name, Name),
-        Address = COALESCE(@Address, Address)
+        -- Non-nullable columns.
+        Address = [dbo].[udf_GetNvarcharColumnValue](@Address, Address),
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
     OUTPUT
-        INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.Address,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        DELETED.Name AS OldName,
-        DELETED.Address AS OldAddress
+        INSERTED.Id,
+        -- Non-nullable columns.
+        INSERTED.Address,
+        INSERTED.Name,
+        -- Old values.
+        -- Non-nullable columns.
+        DELETED.Address AS OldAddress,
+        DELETED.Name AS OldName
     FROM
         [dbo].[Vendor]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;

@@ -1,7 +1,8 @@
 CREATE PROCEDURE [dbo].[usp_CreateVendor]
     @CallingEndUserId NVARCHAR(36),
-    @Name NVARCHAR(850),
-    @Address NVARCHAR(850)
+    -- Non-nullable columns.
+    @Address NVARCHAR(850),
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -14,16 +15,20 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Vendor] (
-        Name,
-        Address
+        -- Non-nullable columns.
+        Address,
+        Name
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
+        -- Non-nullable columns.
         INSERTED.Address,
-        INSERTED.CreatedAt
+        INSERTED.Name
     VALUES (
-        @Name,
-        @Address
+        -- Non-nullable columns.
+        [dbo].[udf_GetNvarchar](@Address),
+        [dbo].[udf_GetNvarchar](@Name)
     );
 END;
