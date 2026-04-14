@@ -52,7 +52,7 @@ BEGIN
         -- Non-nullable columns with default values.
         [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
         -- Non-nullable foreign keys.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@CategoryId, CategoryId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@CategoryId, CategoryId) = 1
         -- Nullable foreign keys.
         AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ManufacturerId, ManufacturerId) = 1
         -- Nullable columns.

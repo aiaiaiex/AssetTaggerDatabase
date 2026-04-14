@@ -43,7 +43,7 @@ BEGIN
         -- Nullable columns.
         INSERTED.DocumentationUrl,
         INSERTED.ModelNumber,
-        INSERTED.Name
+        INSERTED.Name,
         -- Old values.
         -- Non-nullable foreign keys.
         DELETED.CategoryId AS OldCategoryId,
