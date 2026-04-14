@@ -44,9 +44,9 @@ BEGIN
         [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ParentProductId, ParentProductId) = 1
         AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ProductId, ProductId) = 1
         -- INT range parameters.
-        AND [dbo].[udf_IsIntColumnBetween](@FromProductQuantity, ProductQuantity, @ToProductQuantity) = 1
+        AND [dbo].[udf_IsBetweenInts](@FromProductQuantity, ProductQuantity, @ToProductQuantity) = 1
         -- DATETIME2(3) range parameters.
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
     ORDER BY
         -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,

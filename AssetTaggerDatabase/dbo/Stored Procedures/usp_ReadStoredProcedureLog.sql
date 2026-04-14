@@ -68,10 +68,10 @@ BEGIN
         -- Nullable columns.
         AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@EndUserIpAddress, EndUserIpAddress) = 1
         -- BIGINT range parameters.
-        AND [dbo].[udf_IsBigintColumnBetween](@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds, @ToExecutionTimeInMilliseconds) = 1
+        AND [dbo].[udf_IsBetweenBigints](@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds, @ToExecutionTimeInMilliseconds) = 1
         -- DATETIME2(3) range parameters.
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromEndedAt, EndedAt, @ToEndedAt) = 1
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromStartedAt, StartedAt, @ToStartedAt) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromEndedAt, EndedAt, @ToEndedAt) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromStartedAt, StartedAt, @ToStartedAt) = 1
     ORDER BY
         -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,

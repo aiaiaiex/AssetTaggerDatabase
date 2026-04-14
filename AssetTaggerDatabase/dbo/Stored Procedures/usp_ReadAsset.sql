@@ -93,17 +93,17 @@ BEGIN
         AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@SerialNumber, SerialNumber) = 1
         AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) = 1
         -- INT range parameters.
-        AND [dbo].[udf_IsIntColumnBetween](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
-        AND [dbo].[udf_IsIntColumnBetween](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1
+        AND [dbo].[udf_IsBetweenInts](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
+        AND [dbo].[udf_IsBetweenInts](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1
         -- DECIMAL(19, 4) range parameters.
-        AND [dbo].[udf_IsDecimalColumnBetween](@FromAnnualDepreciationExpense, AnnualDepreciationExpense, @ToAnnualDepreciationExpense) = 1
-        AND [dbo].[udf_IsDecimalColumnBetween](@FromCurrentBookValue, CurrentBookValue, @ToCurrentBookValue) = 1
-        AND [dbo].[udf_IsDecimalColumnBetween](@FromPurchasePrice, PurchasePrice, @ToPurchasePrice) = 1
-        AND [dbo].[udf_IsDecimalColumnBetween](@FromSalvageValue, SalvageValue, @ToSalvageValue) = 1
+        AND [dbo].[udf_IsBetweenDecimals](@FromAnnualDepreciationExpense, AnnualDepreciationExpense, @ToAnnualDepreciationExpense) = 1
+        AND [dbo].[udf_IsBetweenDecimals](@FromCurrentBookValue, CurrentBookValue, @ToCurrentBookValue) = 1
+        AND [dbo].[udf_IsBetweenDecimals](@FromPurchasePrice, PurchasePrice, @ToPurchasePrice) = 1
+        AND [dbo].[udf_IsBetweenDecimals](@FromSalvageValue, SalvageValue, @ToSalvageValue) = 1
         -- DATETIME2(3) range parameters.
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromPurchasedAt, PurchasedAt, @ToPurchasedAt) = 1
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromWarrantyExpirationDate, WarrantyExpirationDate, @ToWarrantyExpirationDate) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromPurchasedAt, PurchasedAt, @ToPurchasedAt) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromWarrantyExpirationDate, WarrantyExpirationDate, @ToWarrantyExpirationDate) = 1
     ORDER BY
         -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,

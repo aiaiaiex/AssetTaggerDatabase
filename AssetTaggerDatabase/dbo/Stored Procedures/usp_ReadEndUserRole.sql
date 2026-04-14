@@ -188,7 +188,7 @@ BEGIN
         -- Non-nullable columns.
         AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
         -- DATETIME2(3) range parameters.
-        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
         -- Permissions.
         -- Asset CRUD Permissions.
         AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingAssetPermission, HasCreatingAssetPermission) = 1
