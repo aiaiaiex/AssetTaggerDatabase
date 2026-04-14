@@ -25,6 +25,6 @@ BEGIN
         INSERTED.Name
     VALUES (
         -- Non-nullable columns.
-        @Name
+        [dbo].[udf_GetNvarchar](@Name)
     );
 END;
