@@ -1,9 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_UpdateEndUserRole]
     @CallingEndUserId NVARCHAR(36),
     -- Non-nullable columns with default values.
-    @Id UNIQUEIDENTIFIER = NULL,
+    @Id NVARCHAR(36),
     -- Non-nullable columns.
-    @Name NVARCHAR(850) = NULL,
+    @Name NVARCHAR(850) = '',
     -- Permissions.
     -- Asset CRUD Permissions.
     @HasCreatingAssetPermission NVARCHAR(1) = '',
