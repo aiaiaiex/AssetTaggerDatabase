@@ -46,8 +46,8 @@ BEGIN
         -- Non-nullable columns with default values.
         [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Non-nullable foreign keys.
-        AND EndUserRoleId = [dbo].[udf_IsEqualToUniqueIdentifier](@EndUserRoleId, EndUserRoleId)
-        AND EmployeeId = [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId)
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@EndUserRoleId, EndUserRoleId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId) = 1
         -- Non-nullable columns.
         AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Username, Username) = 1
         -- DATETIME2(3) range parameters.
