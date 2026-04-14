@@ -1,6 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_DeleteManufacturer]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -14,11 +15,13 @@ BEGIN
     -- Run actual query.
     DELETE [dbo].[Manufacturer]
     OUTPUT
+        -- Non-nullable columns with default values.
+        DELETED.CreatedAt,
         DELETED.Id,
-        DELETED.Name,
-        DELETED.CreatedAt
+        -- Non-nullable columns.
+        DELETED.Name
     FROM
         [dbo].[Manufacturer]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;

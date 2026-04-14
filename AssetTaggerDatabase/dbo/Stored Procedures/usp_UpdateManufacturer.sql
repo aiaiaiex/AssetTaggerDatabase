@@ -1,7 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_UpdateManufacturer]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(850) = NULL
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36),
+    -- Non-nullable columns.
+    @Name NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -16,14 +18,19 @@ BEGIN
     UPDATE
         [dbo].[Manufacturer]
     SET
-        Name = COALESCE(@Name, Name)
+        -- Non-nullable columns.
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
     OUTPUT
-        INSERTED.Id,
-        INSERTED.Name,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
+        INSERTED.Id,
+        -- Non-nullable columns.
+        INSERTED.Name,
+        -- Old values.
+        -- Non-nullable columns.
         DELETED.Name AS OldName
     FROM
         [dbo].[Manufacturer]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;
