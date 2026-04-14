@@ -129,6 +129,7 @@
   <ItemGroup>
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
+    <Build Include="dbo\Functions\udf_GetBitColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDatetime2.sql" />
     <Build Include="dbo\Functions\udf_GetDatetime2ColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDecimal.sql" />
