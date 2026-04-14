@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[Asset] (
-    -- Non-nullable Columns with default values.
+    -- Non-nullable columns with default values.
     [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Asset_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Asset_Id] DEFAULT (NEWID()) NOT NULL,

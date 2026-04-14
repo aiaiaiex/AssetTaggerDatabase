@@ -18,7 +18,7 @@ BEGIN
         Name
     )
     OUTPUT
-        -- Non-nullable Columns with default values.
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
         INSERTED.Id,
         -- Non-nullable columns.
