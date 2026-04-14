@@ -1,9 +1,12 @@
 CREATE PROCEDURE [dbo].[usp_UpdateBuilding]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(850) = NULL,
-    @Address NVARCHAR(850) = NULL,
-    @CompanyId UNIQUEIDENTIFIER = NULL
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36),
+    -- Non-nullable foreign keys.
+    @CompanyId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Address NVARCHAR(850) = '',
+    @Name NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -18,20 +21,28 @@ BEGIN
     UPDATE
         [dbo].[Building]
     SET
-        Name = COALESCE(@Name, Name),
-        Address = COALESCE(@Address, Address),
-        CompanyId = COALESCE(@CompanyId, CompanyId)
+        -- Non-nullable foreign keys.
+        CompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@CompanyId, CompanyId),
+        -- Non-nullable columns.
+        Address = [dbo].[udf_GetNvarcharColumnValue](@Address, Address),
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
     OUTPUT
-        INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.Address,
-        INSERTED.CompanyId,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        DELETED.Name AS OldName,
+        INSERTED.Id,
+        -- Non-nullable foreign keys.
+        INSERTED.CompanyId,
+        -- Non-nullable columns.
+        INSERTED.Address,
+        INSERTED.Name,
+        -- Old values.
+        -- Non-nullable foreign keys.
+        DELETED.CompanyId AS OldCompanyId,
+        -- Non-nullable columns.
         DELETED.Address AS OldAddress,
-        DELETED.CompanyId AS OldCompanyId
+        DELETED.Name AS OldName
     FROM
         [dbo].[Building]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;

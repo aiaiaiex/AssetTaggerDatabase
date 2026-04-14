@@ -1,8 +1,10 @@
 CREATE PROCEDURE [dbo].[usp_CreateBuilding]
     @CallingEndUserId NVARCHAR(36),
-    @Name NVARCHAR(850),
+    -- Non-nullable foreign keys.
+    @CompanyId NVARCHAR(36),
+    -- Non-nullable columns.
     @Address NVARCHAR(850),
-    @CompanyId UNIQUEIDENTIFIER
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -15,19 +17,26 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Building] (
-        Name,
+        -- Non-nullable foreign keys.
+        CompanyId,
+        -- Non-nullable columns.
         Address,
-        CompanyId
+        Name
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.Address,
+        -- Non-nullable foreign keys.
         INSERTED.CompanyId,
-        INSERTED.CreatedAt
+        -- Non-nullable columns.
+        INSERTED.Address,
+        INSERTED.Name
     VALUES (
-        @Name,
-        @Address,
-        @CompanyId
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@CompanyId),
+        -- Non-nullable columns.
+        [dbo].[udf_GetNvarchar](@Address),
+        [dbo].[udf_GetNvarchar](@Name)
     );
 END;
