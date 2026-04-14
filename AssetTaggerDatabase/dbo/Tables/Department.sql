@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [dbo].[Department] (
-    -- Columns with default values.
-    [RowNumber] INT IDENTITY (1, 1),
-    CONSTRAINT [AK_Department_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+    -- Non-nullable columns with default values.
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Department_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Department_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Department] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 
-    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Department_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Department_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
 
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
