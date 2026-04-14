@@ -1,12 +1,12 @@
 ﻿CREATE TABLE [dbo].[Role] (
-    -- Columns with default values.
-    [RowNumber] INT IDENTITY (1, 1),
-    CONSTRAINT [AK_Role_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
+    -- Non-nullable columns with default values.
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Role_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Role_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Role] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Role_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Role_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,

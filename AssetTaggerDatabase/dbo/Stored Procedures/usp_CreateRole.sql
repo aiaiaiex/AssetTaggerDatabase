@@ -1,5 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateRole]
     @CallingEndUserId NVARCHAR(36),
+    -- Non-nullable columns.
     @Name NVARCHAR(850)
 AS;
 BEGIN
@@ -13,13 +14,17 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Role] (
+        -- Non-nullable columns.
         Name
     )
     OUTPUT
+        -- Non-nullable Columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.CreatedAt
+        -- Non-nullable columns.
+        INSERTED.Name
     VALUES (
+        -- Non-nullable columns.
         @Name
     );
 END;
