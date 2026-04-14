@@ -134,7 +134,6 @@
     <Build Include="dbo\Functions\udf_GetDatetime2ColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetDecimal.sql" />
     <Build Include="dbo\Functions\udf_GetDecimalColumnValue.sql" />
-    <Build Include="dbo\Functions\udf_GetDefaultBit.sql" />
     <Build Include="dbo\Functions\udf_GetInt.sql" />
     <Build Include="dbo\Functions\udf_GetIntColumnValue.sql" />
     <Build Include="dbo\Functions\udf_GetNvarchar.sql" />
