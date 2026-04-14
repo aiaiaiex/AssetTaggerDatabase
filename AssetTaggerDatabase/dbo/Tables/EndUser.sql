@@ -19,8 +19,8 @@
     -- Non-nullable columns.
     [Username] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_EndUser_Username] UNIQUE ([Username]),
-    CONSTRAINT [CK_EndUser_Username_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Username]) = 1),
-    CONSTRAINT [CK_EndUser_Username_HasNoWhitespace] CHECK ([dbo].[udf_HasNoWhitespace]([Username]) = 1),
+    CONSTRAINT [CK_EndUser_Username_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Username]) = 1),
+    CONSTRAINT [CK_EndUser_Username_HasNoWhitespace] CHECK ([dbo].[udf_HasNoWhitespaceInNvarchar]([Username]) = 1),
 
     [PasswordSalt] UNIQUEIDENTIFIER NOT NULL,
 

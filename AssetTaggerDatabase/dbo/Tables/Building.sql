@@ -15,11 +15,11 @@
     -- Non-nullable columns.
     [Address] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Building_Address] UNIQUE ([Address]),
-    CONSTRAINT [CK_Building_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Address]) = 1),
-    CONSTRAINT [CK_Building_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Address]) = 1),
+    CONSTRAINT [CK_Building_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Address]) = 1),
+    CONSTRAINT [CK_Building_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1),
 
     [Name] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Building_Name] UNIQUE ([Name]),
-    CONSTRAINT [CK_Building_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([Name]) = 1),
-    CONSTRAINT [CK_Building_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([Name]) = 1)
+    CONSTRAINT [CK_Building_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
+    CONSTRAINT [CK_Building_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1)
 );

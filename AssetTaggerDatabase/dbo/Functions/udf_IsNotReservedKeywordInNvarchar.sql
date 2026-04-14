@@ -1,12 +1,12 @@
-CREATE FUNCTION [dbo].[udf_HasNoWhitespace](
+CREATE FUNCTION [dbo].[udf_IsNotReservedKeywordInNvarchar](
     @Value NVARCHAR(4000)
 )
 RETURNS BIT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (
-            (CHARINDEX(' ', @Value) = 0)
-            OR @Value IS NULL
+            (@Value NOT IN ('', 'NULL'))
+            OR (@Value IS NULL)
         )
             THEN 1
         ELSE 0

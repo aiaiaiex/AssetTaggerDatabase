@@ -21,6 +21,6 @@
     -- Non-nullable columns.
     [FullName] NVARCHAR(850) NOT NULL,
     CONSTRAINT [AK_Employee_FullName] UNIQUE ([FullName]),
-    CONSTRAINT [CK_Employee_FullName_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([FullName]) = 1),
-    CONSTRAINT [CK_Employee_FullName_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([FullName]) = 1)
+    CONSTRAINT [CK_Employee_FullName_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([FullName]) = 1),
+    CONSTRAINT [CK_Employee_FullName_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([FullName]) = 1)
 );

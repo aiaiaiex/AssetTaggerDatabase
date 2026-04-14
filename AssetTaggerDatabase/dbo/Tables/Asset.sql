@@ -24,8 +24,8 @@
 
     -- Nullable columns.
     [DocumentationUrl] NVARCHAR(4000) NULL,
-    CONSTRAINT [CK_Asset_DocumentationUrl_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([DocumentationUrl]) = 1),
-    CONSTRAINT [CK_Asset_DocumentationUrl_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([DocumentationUrl]) = 1),
+    CONSTRAINT [CK_Asset_DocumentationUrl_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([DocumentationUrl]) = 1),
+    CONSTRAINT [CK_Asset_DocumentationUrl_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([DocumentationUrl]) = 1),
 
     [PurchasedAt] DATETIME2(3) NULL,
 
@@ -34,8 +34,8 @@
     [SalvageValue] DECIMAL(19, 4) NULL,
 
     [SerialNumber] NVARCHAR(842) NULL,
-    CONSTRAINT [CK_Asset_SerialNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeyword]([SerialNumber]) = 1),
-    CONSTRAINT [CK_Asset_SerialNumber_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespace]([SerialNumber]) = 1),
+    CONSTRAINT [CK_Asset_SerialNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([SerialNumber]) = 1),
+    CONSTRAINT [CK_Asset_SerialNumber_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([SerialNumber]) = 1),
 
     [UsefulLife] INT NULL,
     CONSTRAINT [CK_Asset_UsefulLife] CHECK ([UsefulLife] >= 0),
