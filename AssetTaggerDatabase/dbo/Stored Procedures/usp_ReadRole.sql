@@ -29,7 +29,7 @@ BEGIN
 
     -- Run actual query.
     SELECT
-    -- Non-nullable columns with default values.
+        -- Non-nullable columns with default values.
         CreatedAt,
         Id,
         -- Non-nullable columns.
