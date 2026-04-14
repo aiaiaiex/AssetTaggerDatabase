@@ -46,13 +46,13 @@ BEGIN
         [dbo].[Employee]
     WHERE
         -- Non-nullable columns with default values.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Non-nullable foreign keys.
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@CompanyId, CompanyId) = 1
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@DepartmentId, DepartmentId) = 1
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@RoleId, RoleId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@CompanyId, CompanyId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@DepartmentId, DepartmentId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@RoleId, RoleId) = 1
         -- Non-nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@FullName, FullName) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@FullName, FullName) = 1
         -- DATETIME2(3) range parameters.
         AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
     ORDER BY

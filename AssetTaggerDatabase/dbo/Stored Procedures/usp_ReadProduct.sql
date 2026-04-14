@@ -50,15 +50,15 @@ BEGIN
         [dbo].[Product]
     WHERE
         -- Non-nullable columns with default values.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Non-nullable foreign keys.
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@CategoryId, CategoryId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@CategoryId, CategoryId) = 1
         -- Nullable foreign keys.
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ManufacturerId, ManufacturerId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@ManufacturerId, ManufacturerId) = 1
         -- Nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@DocumentationUrl, DocumentationUrl) = 1
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@ModelNumber, ModelNumber) = 1
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, DocumentationUrl) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@ModelNumber, ModelNumber) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Name, Name) = 1
         -- DATETIME2(3) range parameters.
         AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
     ORDER BY

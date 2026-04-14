@@ -1,13 +1,13 @@
-CREATE FUNCTION [dbo].[udf_IsEqualToBitColumn](
+CREATE FUNCTION [dbo].[udf_IsEqualToBit](
     @Value NVARCHAR(1),
-    @ColumnValue BIT
+    @Bit BIT
 )
 RETURNS BIT WITH SCHEMABINDING AS
 BEGIN
     RETURN CASE
         WHEN (
             (@Value = '')
-            OR (@ColumnValue IS NOT DISTINCT FROM CAST(@Value AS BIT))
+            OR (@Bit IS NOT DISTINCT FROM CAST(@Value AS BIT))
         )
             THEN 1
         ELSE 0

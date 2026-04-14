@@ -81,17 +81,17 @@ BEGIN
         [dbo].[Asset]
     WHERE
         -- Non-nullable columns with default values.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Non-nullable foreign keys.
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@EmployeeID, EmployeeID) = 1
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@LocationId, LocationId) = 1
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ProductId, ProductId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeID, EmployeeID) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@LocationId, LocationId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
         -- Nullable foreign keys.
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@VendorId, VendorId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@VendorId, VendorId) = 1
         -- Nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@DocumentationUrl, DocumentationUrl) = 1
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@SerialNumber, SerialNumber) = 1
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, DocumentationUrl) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@SerialNumber, SerialNumber) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) = 1
         -- INT range parameters.
         AND [dbo].[udf_IsBetweenInts](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
         AND [dbo].[udf_IsBetweenInts](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1

@@ -149,10 +149,10 @@
     <Build Include="dbo\Functions\udf_IsBetweenDatetime2s.sql" />
     <Build Include="dbo\Functions\udf_IsBetweenDecimals.sql" />
     <Build Include="dbo\Functions\udf_IsBetweenInts.sql" />
-    <Build Include="dbo\Functions\udf_IsEqualToBitColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharMaxColumn.sql" />
-    <Build Include="dbo\Functions\udf_IsEqualToUniqueIdentifierColumn.sql" />
+    <Build Include="dbo\Functions\udf_IsEqualToBit.sql" />
+    <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarchar.sql" />
+    <Build Include="dbo\Functions\udf_IsEqualToOrLikeNvarcharMax.sql" />
+    <Build Include="dbo\Functions\udf_IsEqualToUniqueIdentifier.sql" />
     <Build Include="dbo\Functions\udf_IsNotReservedKeywordInNvarchar.sql" />
     <Build Include="dbo\Functions\udf_IsNotReservedKeywordInNvarcharMax.sql" />
     <Build Include="dbo\Stored Procedures\usp_CreateAsset.sql" />

@@ -38,9 +38,9 @@ BEGIN
         [dbo].[Department]
     WHERE
         -- Non-nullable columns with default values.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Non-nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Name, Name) = 1
         -- DATETIME2(3) range parameters.
         AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
     ORDER BY

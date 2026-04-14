@@ -184,84 +184,84 @@ BEGIN
         [dbo].[EndUserRole]
     WHERE
         -- Non-nullable columns with default values.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Non-nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Name, Name) = 1
         -- DATETIME2(3) range parameters.
         AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
         -- Permissions.
         -- Asset CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingAssetPermission, HasCreatingAssetPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingAssetPermission, HasReadingAssetPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingAssetPermission, HasUpdatingAssetPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingAssetPermission, HasDeletingAssetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingAssetPermission, HasCreatingAssetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingAssetPermission, HasReadingAssetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingAssetPermission, HasUpdatingAssetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingAssetPermission, HasDeletingAssetPermission) = 1
         -- Building CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingBuildingPermission, HasCreatingBuildingPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingBuildingPermission, HasReadingBuildingPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingBuildingPermission, HasUpdatingBuildingPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingBuildingPermission, HasDeletingBuildingPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingBuildingPermission, HasCreatingBuildingPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingBuildingPermission, HasReadingBuildingPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingBuildingPermission, HasUpdatingBuildingPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingBuildingPermission, HasDeletingBuildingPermission) = 1
         -- Category CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingCategoryPermission, HasCreatingCategoryPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingCategoryPermission, HasReadingCategoryPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingCategoryPermission, HasUpdatingCategoryPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingCategoryPermission, HasDeletingCategoryPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingCategoryPermission, HasCreatingCategoryPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingCategoryPermission, HasReadingCategoryPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingCategoryPermission, HasUpdatingCategoryPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingCategoryPermission, HasDeletingCategoryPermission) = 1
         -- Company CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingCompanyPermission, HasCreatingCompanyPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingCompanyPermission, HasReadingCompanyPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingCompanyPermission, HasUpdatingCompanyPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingCompanyPermission, HasDeletingCompanyPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingCompanyPermission, HasCreatingCompanyPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingCompanyPermission, HasReadingCompanyPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingCompanyPermission, HasUpdatingCompanyPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingCompanyPermission, HasDeletingCompanyPermission) = 1
         -- Department CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingDepartmentPermission, HasCreatingDepartmentPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingDepartmentPermission, HasReadingDepartmentPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingDepartmentPermission, HasUpdatingDepartmentPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingDepartmentPermission, HasDeletingDepartmentPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingDepartmentPermission, HasCreatingDepartmentPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingDepartmentPermission, HasReadingDepartmentPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingDepartmentPermission, HasUpdatingDepartmentPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingDepartmentPermission, HasDeletingDepartmentPermission) = 1
         -- Employee CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingEmployeePermission, HasCreatingEmployeePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingEmployeePermission, HasReadingEmployeePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingEmployeePermission, HasUpdatingEmployeePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingEmployeePermission, HasDeletingEmployeePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingEmployeePermission, HasCreatingEmployeePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingEmployeePermission, HasReadingEmployeePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingEmployeePermission, HasUpdatingEmployeePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingEmployeePermission, HasDeletingEmployeePermission) = 1
         -- EndUser CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingEndUserPermission, HasCreatingEndUserPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingEndUserPermission, HasReadingEndUserPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingEndUserPermission, HasUpdatingEndUserPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingEndUserPermission, HasDeletingEndUserPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingEndUserPermission, HasCreatingEndUserPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingEndUserPermission, HasReadingEndUserPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingEndUserPermission, HasUpdatingEndUserPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingEndUserPermission, HasDeletingEndUserPermission) = 1
         -- EndUserRole CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingEndUserRolePermission, HasCreatingEndUserRolePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingEndUserRolePermission, HasReadingEndUserRolePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingEndUserRolePermission, HasUpdatingEndUserRolePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingEndUserRolePermission, HasDeletingEndUserRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingEndUserRolePermission, HasCreatingEndUserRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingEndUserRolePermission, HasReadingEndUserRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingEndUserRolePermission, HasUpdatingEndUserRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingEndUserRolePermission, HasDeletingEndUserRolePermission) = 1
         -- Location CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingLocationPermission, HasCreatingLocationPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingLocationPermission, HasReadingLocationPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingLocationPermission, HasUpdatingLocationPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingLocationPermission, HasDeletingLocationPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingLocationPermission, HasCreatingLocationPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingLocationPermission, HasReadingLocationPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingLocationPermission, HasUpdatingLocationPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingLocationPermission, HasDeletingLocationPermission) = 1
         -- Manufacturer CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingManufacturerPermission, HasCreatingManufacturerPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingManufacturerPermission, HasReadingManufacturerPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingManufacturerPermission, HasUpdatingManufacturerPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingManufacturerPermission, HasDeletingManufacturerPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingManufacturerPermission, HasCreatingManufacturerPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingManufacturerPermission, HasReadingManufacturerPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingManufacturerPermission, HasUpdatingManufacturerPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingManufacturerPermission, HasDeletingManufacturerPermission) = 1
         -- Product CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingProductPermission, HasCreatingProductPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingProductPermission, HasReadingProductPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingProductPermission, HasUpdatingProductPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingProductPermission, HasDeletingProductPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingProductPermission, HasCreatingProductPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingProductPermission, HasReadingProductPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingProductPermission, HasUpdatingProductPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingProductPermission, HasDeletingProductPermission) = 1
         -- ProductSet CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingProductSetPermission, HasCreatingProductSetPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingProductSetPermission, HasReadingProductSetPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingProductSetPermission, HasUpdatingProductSetPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingProductSetPermission, HasDeletingProductSetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingProductSetPermission, HasCreatingProductSetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingProductSetPermission, HasReadingProductSetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingProductSetPermission, HasUpdatingProductSetPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingProductSetPermission, HasDeletingProductSetPermission) = 1
         -- Role CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingRolePermission, HasCreatingRolePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingRolePermission, HasReadingRolePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingRolePermission, HasUpdatingRolePermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingRolePermission, HasDeletingRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingRolePermission, HasCreatingRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingRolePermission, HasReadingRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingRolePermission, HasUpdatingRolePermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingRolePermission, HasDeletingRolePermission) = 1
         -- StoredProcedureLog R Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingStoredProcedureLogPermission, HasReadingStoredProcedureLogPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingStoredProcedureLogPermission, HasReadingStoredProcedureLogPermission) = 1
         -- Vendor CRUD Permissions.
-        AND [dbo].[udf_IsEqualToBitColumn](@HasCreatingVendorPermission, HasCreatingVendorPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasReadingVendorPermission, HasReadingVendorPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasUpdatingVendorPermission, HasUpdatingVendorPermission) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasDeletingVendorPermission, HasDeletingVendorPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasCreatingVendorPermission, HasCreatingVendorPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasReadingVendorPermission, HasReadingVendorPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasUpdatingVendorPermission, HasUpdatingVendorPermission) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasDeletingVendorPermission, HasDeletingVendorPermission) = 1
     ORDER BY
         -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,

@@ -58,15 +58,15 @@ BEGIN
         [dbo].[StoredProcedureLog]
     WHERE
         -- Non-nullable columns with default values.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
         -- Nullable foreign keys.
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@EndUserId, EndUserId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@EndUserId, EndUserId) = 1
         -- Non-nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharMaxColumn](@Arguments, Arguments) = 1
-        AND [dbo].[udf_IsEqualToBitColumn](@HasExecutedSuccessfully, HasExecutedSuccessfully) = 1
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharMax](@Arguments, Arguments) = 1
+        AND [dbo].[udf_IsEqualToBit](@HasExecutedSuccessfully, HasExecutedSuccessfully) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Name, Name) = 1
         -- Nullable columns.
-        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@EndUserIpAddress, EndUserIpAddress) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@EndUserIpAddress, EndUserIpAddress) = 1
         -- BIGINT range parameters.
         AND [dbo].[udf_IsBetweenBigints](@FromExecutionTimeInMilliseconds, ExecutionTimeInMilliseconds, @ToExecutionTimeInMilliseconds) = 1
         -- DATETIME2(3) range parameters.

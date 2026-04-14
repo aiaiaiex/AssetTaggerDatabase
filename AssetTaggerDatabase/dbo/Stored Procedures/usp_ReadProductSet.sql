@@ -41,8 +41,8 @@ BEGIN
         [dbo].[ProductSet]
     WHERE
         -- Non-nullable foreign keys.
-        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ParentProductId, ParentProductId) = 1
-        AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ProductId, ProductId) = 1
+        [dbo].[udf_IsEqualToUniqueIdentifier](@ParentProductId, ParentProductId) = 1
+        AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
         -- INT range parameters.
         AND [dbo].[udf_IsBetweenInts](@FromProductQuantity, ProductQuantity, @ToProductQuantity) = 1
         -- DATETIME2(3) range parameters.
