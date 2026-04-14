@@ -1,14 +1,14 @@
 ﻿CREATE TABLE [dbo].[Employee] (
-    -- Columns with default values.
-    [RowNumber] INT IDENTITY (1, 1),
-    CONSTRAINT [AK_Employee_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
+    -- Non-nullable columns with default values.
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Employee_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Employee_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Employee] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Employee_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Employee_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
-    -- Foreign keys.
+    -- Non-nullable foreign keys.
     [CompanyId] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
 

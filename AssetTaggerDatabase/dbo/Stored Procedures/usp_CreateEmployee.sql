@@ -1,9 +1,11 @@
 CREATE PROCEDURE [dbo].[usp_CreateEmployee]
     @CallingEndUserId NVARCHAR(36),
-    @FullName NVARCHAR(850),
-    @RoleId UNIQUEIDENTIFIER,
-    @CompanyId UNIQUEIDENTIFIER,
-    @DepartmentId UNIQUEIDENTIFIER
+    -- Non-nullable foreign keys.
+    @CompanyId NVARCHAR(36),
+    @DepartmentId NVARCHAR(36),
+    @RoleId NVARCHAR(36),
+    -- Non-nullable columns.
+    @FullName NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -16,22 +18,29 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Employee] (
-        FullName,
-        RoleId,
+        -- Non-nullable foreign keys.
         CompanyId,
-        DepartmentId
+        DepartmentId,
+        RoleId,
+        -- Non-nullable columns.
+        FullName
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.FullName,
-        INSERTED.RoleId,
+        -- Non-nullable foreign keys.
         INSERTED.CompanyId,
         INSERTED.DepartmentId,
-        INSERTED.CreatedAt
+        INSERTED.RoleId,
+        -- Non-nullable columns.
+        INSERTED.FullName
     VALUES (
-        @FullName,
-        @RoleId,
-        @CompanyId,
-        @DepartmentId
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@CompanyId),
+        [dbo].[udf_GetUniqueidentifier](@DepartmentId),
+        [dbo].[udf_GetUniqueidentifier](@RoleId),
+        -- Non-nullable columns.
+        [dbo].[udf_GetNvarchar](@FullName)
     );
 END;
