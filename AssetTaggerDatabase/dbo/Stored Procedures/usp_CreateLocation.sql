@@ -1,7 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_CreateLocation]
-    @CallingEndUserId NVARCHAR(36),
-    @Address NVARCHAR(842),
-    @BuildingId UNIQUEIDENTIFIER
+    @CallingEndUserId NVARCHAR(36) = '',
+    -- Non-nullable foreign keys.
+    @BuildingId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Address NVARCHAR(842) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -14,16 +16,23 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Location] (
-        Address,
-        BuildingId
+        -- Non-nullable foreign keys.
+        BuildingId,
+        -- Non-nullable columns.
+        Address
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Address,
+        -- Non-nullable foreign keys.
         INSERTED.BuildingId,
-        INSERTED.CreatedAt
+        -- Non-nullable columns.
+        INSERTED.Address
     VALUES (
-        @Address,
-        @BuildingId
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetDefaultUniqueidentifier](@BuildingId, NULL),
+        -- Non-nullable columns.
+        [dbo].[udf_GetDefaultNvarchar](@Address, NULL)
     );
 END;

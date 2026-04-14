@@ -1,14 +1,14 @@
 ﻿CREATE TABLE [dbo].[Location] (
-    -- Columns with default values.
-    [RowNumber] INT IDENTITY (1, 1),
-    CONSTRAINT [AK_Location_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
+    -- Non-nullable columns with default values.
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Location_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Location_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Location] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Location_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
+    [RowNumber] INT IDENTITY (1, 1),
+    CONSTRAINT [AK_Location_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
-    -- Foreign keys.
+    -- Non-nullable foreign keys.
     [BuildingId] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingId]) REFERENCES [dbo].[Building] ([Id]),
 

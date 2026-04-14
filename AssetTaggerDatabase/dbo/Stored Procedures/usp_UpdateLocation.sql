@@ -1,8 +1,11 @@
 CREATE PROCEDURE [dbo].[usp_UpdateLocation]
-    @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Address NVARCHAR(842) = NULL,
-    @BuildingId UNIQUEIDENTIFIER = NULL
+    @CallingEndUserId NVARCHAR(36) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
+    -- Non-nullable foreign keys.
+    @BuildingId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Address NVARCHAR(842) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -17,17 +20,25 @@ BEGIN
     UPDATE
         [dbo].[Location]
     SET
-        Address = COALESCE(@Address, Address),
-        BuildingId = COALESCE(@BuildingId, BuildingId)
+        -- Non-nullable foreign keys.
+        BuildingId = [dbo].[udf_GetDefaultUniqueidentifier](@BuildingId, BuildingId),
+        -- Non-nullable columns.
+        Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address)
     OUTPUT
-        INSERTED.Id,
-        INSERTED.Address,
-        INSERTED.BuildingId,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        DELETED.Address AS OldAddress,
-        DELETED.BuildingId AS OldBuildingId
+        INSERTED.Id,
+        -- Non-nullable foreign keys.
+        INSERTED.BuildingId,
+        -- Non-nullable columns.
+        INSERTED.Address,
+        -- Old values.
+        -- Non-nullable foreign keys.
+        DELETED.BuildingId AS OldBuildingId,
+        -- Non-nullable columns.
+        DELETED.Address AS OldAddress
     FROM
         [dbo].[Location]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
 END;
