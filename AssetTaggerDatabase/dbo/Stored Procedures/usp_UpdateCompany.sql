@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateCompany]
     @CallingEndUserId NVARCHAR(36),
     -- Non-nullable columns with default values.
-    @Id NVARCHAR(36) = '',
+    @Id NVARCHAR(36),
     -- Nullable foreign keys.
     @ParentCompanyId NVARCHAR(36) = '',
     -- Non-nullable columns.
