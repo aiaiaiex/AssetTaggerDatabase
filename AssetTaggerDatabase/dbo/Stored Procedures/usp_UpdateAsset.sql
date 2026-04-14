@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_UpdateAsset]
-    @CallingEndUserId NVARCHAR(36),
+    @CallingEndUserId NVARCHAR(36) = '',
     -- Non-nullable columns with default values.
-    @Id NVARCHAR(36),
+    @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
     @EmployeeId NVARCHAR(36) = '',
     @LocationId NVARCHAR(36) = '',
@@ -22,7 +22,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Set final values.
-    SET @CallingEndUserId = [dbo].[udf_GetUniqueidentifier](@CallingEndUserId)
+    SET @CallingEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Update', 'Asset';
@@ -92,5 +92,5 @@ BEGIN
     FROM
         [dbo].[Asset]
     WHERE
-        Id = [dbo].[udf_GetUniqueidentifier](@Id);
+        Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
 END;

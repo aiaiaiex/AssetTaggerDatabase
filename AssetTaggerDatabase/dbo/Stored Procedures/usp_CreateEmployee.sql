@@ -1,17 +1,17 @@
 CREATE PROCEDURE [dbo].[usp_CreateEmployee]
-    @CallingEndUserId NVARCHAR(36),
+    @CallingEndUserId NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @CompanyId NVARCHAR(36),
-    @DepartmentId NVARCHAR(36),
-    @RoleId NVARCHAR(36),
+    @CompanyId NVARCHAR(36) = '',
+    @DepartmentId NVARCHAR(36) = '',
+    @RoleId NVARCHAR(36) = '',
     -- Non-nullable columns.
-    @FullName NVARCHAR(850)
+    @FullName NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Set final values.
-    SET @CallingEndUserId = [dbo].[udf_GetUniqueidentifier](@CallingEndUserId)
+    SET @CallingEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'Employee';
@@ -37,10 +37,10 @@ BEGIN
         INSERTED.FullName
     VALUES (
         -- Non-nullable foreign keys.
-        [dbo].[udf_GetUniqueidentifier](@CompanyId),
-        [dbo].[udf_GetUniqueidentifier](@DepartmentId),
-        [dbo].[udf_GetUniqueidentifier](@RoleId),
+        [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, NULL),
+        [dbo].[udf_GetDefaultUniqueidentifier](@DepartmentId, NULL),
+        [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, NULL),
         -- Non-nullable columns.
-        [dbo].[udf_GetNvarchar](@FullName)
+        [dbo].[udf_GetDefaultNvarchar](@FullName, NULL)
     );
 END;

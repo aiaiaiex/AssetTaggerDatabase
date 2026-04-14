@@ -1,13 +1,13 @@
 CREATE PROCEDURE [dbo].[usp_DeleteCompany]
-    @CallingEndUserId NVARCHAR(36),
+    @CallingEndUserId NVARCHAR(36) = '',
     -- Non-nullable columns with default values.
-    @Id NVARCHAR(36)
+    @Id NVARCHAR(36) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
 
     -- Set final values.
-    SET @CallingEndUserId = [dbo].[udf_GetUniqueidentifier](@CallingEndUserId)
+    SET @CallingEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Delete', 'Company';
@@ -27,5 +27,5 @@ BEGIN
     FROM
         [dbo].[Company]
     WHERE
-        Id = [dbo].[udf_GetUniqueidentifier](@Id);
+        Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
 END;

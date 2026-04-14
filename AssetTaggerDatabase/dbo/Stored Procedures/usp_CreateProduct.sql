@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_CreateProduct]
-    @CallingEndUserId NVARCHAR(36),
+    @CallingEndUserId NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
     @CategoryId NVARCHAR(36) = '',
     -- Nullable foreign keys.
@@ -13,7 +13,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Set final values.
-    SET @CallingEndUserId = [dbo].[udf_GetUniqueidentifier](@CallingEndUserId)
+    SET @CallingEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'Product';
@@ -43,12 +43,12 @@ BEGIN
         INSERTED.Name
     VALUES (
         -- Non-nullable foreign keys.
-        [dbo].[udf_GetUniqueidentifier](@CategoryId),
+        [dbo].[udf_GetDefaultUniqueidentifier](@CategoryId, NULL),
         -- Nullable foreign keys.
-        [dbo].[udf_GetUniqueidentifier](@ManufacturerId),
+        [dbo].[udf_GetDefaultUniqueidentifier](@ManufacturerId, NULL),
         -- Nullable columns.
-        [dbo].[udf_GetNvarchar](@DocumentationUrl),
-        [dbo].[udf_GetNvarchar](@ModelNumber),
-        [dbo].[udf_GetNvarchar](@Name)
+        [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, NULL),
+        [dbo].[udf_GetDefaultNvarchar](@ModelNumber, NULL),
+        [dbo].[udf_GetDefaultNvarchar](@Name, NULL)
     );
 END;

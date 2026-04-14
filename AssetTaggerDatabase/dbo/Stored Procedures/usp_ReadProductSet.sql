@@ -1,5 +1,5 @@
 CREATE PROCEDURE [dbo].[usp_ReadProductSet]
-    @CallingEndUserId NVARCHAR(36),
+    @CallingEndUserId NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
     @ParentProductId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = '',
@@ -20,7 +20,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Set final values.
-    SET @CallingEndUserId = [dbo].[udf_GetUniqueidentifier](@CallingEndUserId)
+    SET @CallingEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Read', 'ProductSet';

@@ -1,9 +1,9 @@
 CREATE PROCEDURE [dbo].[usp_CreateAsset]
-    @CallingEndUserId NVARCHAR(36),
+    @CallingEndUserId NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36),
-    @LocationId NVARCHAR(36),
-    @ProductId NVARCHAR(36),
+    @EmployeeId NVARCHAR(36) = '',
+    @LocationId NVARCHAR(36) = '',
+    @ProductId NVARCHAR(36) = '',
     -- Nullable foreign keys.
     @VendorId NVARCHAR(36) = '',
     -- Nullable columns.
@@ -20,7 +20,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Set final values.
-    SET @CallingEndUserId = [dbo].[udf_GetUniqueidentifier](@CallingEndUserId)
+    SET @CallingEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
     -- Check the permission of the calling EndUser.
     EXEC [dbo].[usp_HasPermission] @CallingEndUserId, 'Create', 'Asset';
@@ -68,19 +68,19 @@ BEGIN
         INSERTED.WarrantyExpirationDate
     VALUES (
         -- Non-nullable foreign keys.
-        [dbo].[udf_GetUniqueidentifier](@EmployeeId),
-        [dbo].[udf_GetUniqueidentifier](@LocationId),
-        [dbo].[udf_GetUniqueidentifier](@ProductId),
+        [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
+        [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, NULL),
+        [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, NULL),
         -- Nullable foreign keys.
-        [dbo].[udf_GetUniqueidentifier](@VendorId),
+        [dbo].[udf_GetDefaultUniqueidentifier](@VendorId, NULL),
         -- Nullable columns.
-        [dbo].[udf_GetNvarchar](@DocumentationUrl),
-        [dbo].[udf_GetDatetime2](@PurchasedAt),
-        [dbo].[udf_GetDecimal](@PurchasePrice),
-        [dbo].[udf_GetDecimal](@SalvageValue),
-        [dbo].[udf_GetNvarchar](@SerialNumber),
-        [dbo].[udf_GetInt](@UsefulLife),
-        [dbo].[udf_GetInt](@WarrantyDuration),
-        [dbo].[udf_GetNvarchar](@WarrantyUnitOfMeasure)
+        [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, NULL),
+        [dbo].[udf_GetDefaultDatetime2](@PurchasedAt, NULL),
+        [dbo].[udf_GetDefaultDecimal](@PurchasePrice, NULL),
+        [dbo].[udf_GetDefaultDecimal](@SalvageValue, NULL),
+        [dbo].[udf_GetDefaultNvarchar](@SerialNumber, NULL),
+        [dbo].[udf_GetDefaultInt](@UsefulLife, NULL),
+        [dbo].[udf_GetDefaultInt](@WarrantyDuration, NULL),
+        [dbo].[udf_GetDefaultNvarchar](@WarrantyUnitOfMeasure, NULL)
     );
 END;
