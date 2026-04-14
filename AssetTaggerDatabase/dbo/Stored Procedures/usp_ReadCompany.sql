@@ -1,16 +1,22 @@
 CREATE PROCEDURE [dbo].[usp_ReadCompany]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER = NULL,
-    @Name NVARCHAR(850) = NULL,
-    @Address NVARCHAR(850) = NULL,
-    @Code NVARCHAR(5) = NULL,
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
+    -- Nullable foreign keys.
     @ParentCompanyId NVARCHAR(36) = '',
-    @FromCreatedAt DATETIME2(3) = NULL,
-    @ToCreatedAt DATETIME2(3) = NULL,
-    @RowsToSkip NVARCHAR(10) = '',
-    @RowsToReturn NVARCHAR(10) = '',
+    -- Non-nullable columns.
+    @Address NVARCHAR(850) = '',
+    @Code NVARCHAR(5) = '',
+    @Name NVARCHAR(850) = '',
+    -- DATETIME2(3) range parameters.
+    @FromCreatedAt NVARCHAR(24) = '',
+    @ToCreatedAt NVARCHAR(24) = '',
+    -- Sort parameters.
     @SortColumn NVARCHAR(4000) = '',
-    @RowOrder NVARCHAR(4) = ''
+    @RowOrder NVARCHAR(4) = '',
+    -- Pagination parameters.
+    @RowsToSkip NVARCHAR(10) = '',
+    @RowsToReturn NVARCHAR(10) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -27,35 +33,42 @@ BEGIN
 
     -- Run actual query.
     SELECT
+        -- Non-nullable columns with default values.
+        CreatedAt,
         Id,
-        Name,
+        -- Nullable foreign keys.
+        ParentCompanyId,
+        -- Non-nullable columns.
         Address,
         Code,
-        ParentCompanyId,
-        CreatedAt
+        Name
     FROM
         [dbo].[Company]
     WHERE
-        Id = COALESCE(@Id, Id)
-        AND (Name = COALESCE(@Name, Name) OR Name LIKE @Name)
-        AND (Address = COALESCE(@Address, Address) OR Address LIKE @Address)
-        AND (Code = COALESCE(@Code, Code) OR Code LIKE @Code)
+        -- Non-nullable columns with default values.
+        [dbo].[udf_IsEqualToUniqueIdentifierColumn](@Id, Id) = 1
+        -- Nullable foreign keys.
         AND [dbo].[udf_IsEqualToUniqueIdentifierColumn](@ParentCompanyId, ParentCompanyId) = 1
-        AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
-        AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
+        -- Non-nullable columns.
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Address, Address) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Code, Code) = 1
+        AND [dbo].[udf_IsEqualToOrLikeNvarcharColumn](@Name, Name) = 1
+        -- DATETIME2(3) range parameters.
+        AND [dbo].[udf_IsDatetime2ColumnBetween](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
     ORDER BY
+        -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
-        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Address')) THEN Address END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Code')) THEN Code END DESC,
-        -- 
+        CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
+        -- Ascending sort.
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
-        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Address')) THEN Address END ASC,
-        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Code')) THEN Code END ASC
-        -- 
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Code')) THEN Code END ASC,
+        CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC
+        -- Pagination.
         OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
 END;

@@ -1,9 +1,11 @@
 CREATE PROCEDURE [dbo].[usp_CreateCompany]
     @CallingEndUserId NVARCHAR(36),
-    @Name NVARCHAR(850),
+    -- Nullable foreign keys.
+    @ParentCompanyId NVARCHAR(36) = '',
+    -- Non-nullable columns.
     @Address NVARCHAR(850),
     @Code NVARCHAR(5),
-    @ParentCompanyId UNIQUEIDENTIFIER = NULL
+    @Name NVARCHAR(850)
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -16,22 +18,29 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Company] (
-        Name,
+        -- Nullable foreign keys.
+        ParentCompanyId,
+        -- Non-nullable columns.
         Address,
         Code,
-        ParentCompanyId
+        Name
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
+        -- Nullable foreign keys.
+        INSERTED.ParentCompanyId,
+        -- Non-nullable columns.
         INSERTED.Address,
         INSERTED.Code,
-        INSERTED.ParentCompanyId,
-        INSERTED.CreatedAt
+        INSERTED.Name
     VALUES (
-        @Name,
-        @Address,
-        @Code,
-        @ParentCompanyId
+        -- Nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@ParentCompanyId),
+        -- Non-nullable columns.
+        [dbo].[udf_GetNvarchar](@Address),
+        [dbo].[udf_GetNvarchar](@Code),
+        [dbo].[udf_GetNvarchar](@Name)
     );
 END;

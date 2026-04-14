@@ -1,10 +1,13 @@
 CREATE PROCEDURE [dbo].[usp_UpdateCompany]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(850) = NULL,
-    @Address NVARCHAR(850) = NULL,
-    @Code NVARCHAR(5) = NULL,
-    @ParentCompanyId NVARCHAR(36) = ''
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
+    -- Nullable foreign keys.
+    @ParentCompanyId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Address NVARCHAR(850) = '',
+    @Code NVARCHAR(5) = '',
+    @Name NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -19,23 +22,31 @@ BEGIN
     UPDATE
         [dbo].[Company]
     SET
-        Name = COALESCE(@Name, Name),
-        Address = COALESCE(@Address, Address),
-        Code = COALESCE(@Code, Code),
-        ParentCompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@ParentCompanyId, ParentCompanyId)
+        -- Nullable foreign keys.
+        ParentCompanyId = [dbo].[udf_GetUniqueidentifierColumnValue](@ParentCompanyId, ParentCompanyId),
+        -- Non-nullable columns.
+        Address = [dbo].[udf_GetNvarcharColumnValue](@Address, Address),
+        Code = [dbo].[udf_GetNvarcharColumnValue](@Code, Code),
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
+        -- Nullable foreign keys.
+        INSERTED.ParentCompanyId,
+        -- Non-nullable columns.
         INSERTED.Address,
         INSERTED.Code,
-        INSERTED.ParentCompanyId,
-        INSERTED.CreatedAt,
-        DELETED.Name AS OldName,
+        INSERTED.Name,
+        -- Old values.
+        -- Nullable foreign keys.
+        DELETED.ParentCompanyId AS OldParentCompanyId,
+        -- Non-nullable columns.
         DELETED.Address AS OldAddress,
         DELETED.Code AS OldCode,
-        DELETED.ParentCompanyId AS OldParentCompanyId
+        DELETED.Name AS OldName
     FROM
         [dbo].[Company]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;
