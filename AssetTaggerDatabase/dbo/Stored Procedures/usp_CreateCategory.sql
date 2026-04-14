@@ -1,5 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateCategory]
     @CallingEndUserId NVARCHAR(36),
+    -- Non-nullable columns.
     @Name NVARCHAR(850)
 AS;
 BEGIN
@@ -13,13 +14,17 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Category] (
+        -- Non-nullable columns.
         Name
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.CreatedAt
+        -- Non-nullable columns.
+        INSERTED.Name
     VALUES (
-        @Name
+        -- Non-nullable columns.
+        [dbo].[udf_GetNvarchar](@Name)
     );
 END;
