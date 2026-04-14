@@ -1,9 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[usp_UpdateEndUser]
-    @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Username NVARCHAR(850) = NULL,
-    @EndUserRoleId UNIQUEIDENTIFIER = NULL,
-    @EmployeeId UNIQUEIDENTIFIER = NULL
+    @CallingEndUserId NVARCHAR(36) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
+    -- Non-nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @EndUserRoleId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Username NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -18,20 +21,28 @@ BEGIN
     UPDATE
         [dbo].[EndUser]
     SET
-        Username = COALESCE(@Username, Username),
-        EndUserRoleId = COALESCE(@EndUserRoleId, EndUserRoleId),
-        EmployeeId = COALESCE(@EmployeeId, EmployeeId)
+        -- Non-nullable foreign keys.
+        EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
+        EndUserRoleId = [dbo].[udf_GetDefaultUniqueidentifier](@EndUserRoleId, EndUserRoleId),
+        -- Non-nullable columns.
+        Username = [dbo].[udf_GetDefaultNvarchar](@Username, Username)
     OUTPUT
-        INSERTED.Id,
-        INSERTED.Username,
-        INSERTED.EndUserRoleId,
-        INSERTED.EmployeeId,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        DELETED.Username AS OldUsername,
+        INSERTED.Id,
+        -- Non-nullable foreign keys.
+        INSERTED.EmployeeId,
+        INSERTED.EndUserRoleId,
+        -- Non-nullable columns.
+        INSERTED.Username,
+        -- Old values.
+        -- Non-nullable foreign keys.
+        DELETED.EmployeeId AS OldEmployeeId,
         DELETED.EndUserRoleId AS OldEndUserRoleId,
-        DELETED.EmployeeId AS OldEmployeeId
+        -- Non-nullable columns.
+        DELETED.Username AS OldUsername
     FROM
         [dbo].[EndUser]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
 END;

@@ -1,15 +1,21 @@
 ﻿CREATE PROCEDURE [dbo].[usp_ReadEndUser]
-    @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER = NULL,
-    @Username NVARCHAR(850) = NULL,
-    @EndUserRoleId UNIQUEIDENTIFIER = NULL,
-    @EmployeeId UNIQUEIDENTIFIER = NULL,
-    @FromCreatedAt DATETIME2(3) = NULL,
-    @ToCreatedAt DATETIME2(3) = NULL,
-    @RowsToSkip NVARCHAR(10) = '',
-    @RowsToReturn NVARCHAR(10) = '',
+    @CallingEndUserId NVARCHAR(36) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
+    -- Non-nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @EndUserRoleId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Username NVARCHAR(850) = '',
+    -- DATETIME2(3) range parameters.
+    @FromCreatedAt NVARCHAR(24) = '',
+    @ToCreatedAt NVARCHAR(24) = '',
+    -- Sort parameters.
     @SortColumn NVARCHAR(4000) = '',
-    @RowOrder NVARCHAR(4) = ''
+    @RowOrder NVARCHAR(4) = '',
+    -- Pagination parameters.
+    @RowsToSkip NVARCHAR(10) = '',
+    @RowsToReturn NVARCHAR(10) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -26,29 +32,36 @@ BEGIN
 
     -- Run actual query.
     SELECT
+        -- Non-nullable columns with default values.
+        CreatedAt,
         Id,
-        Username,
+        -- Non-nullable foreign keys.
         EndUserRoleId,
         EmployeeId,
-        CreatedAt
+        -- Non-nullable columns.
+        Username
     FROM
         [dbo].[EndUser]
     WHERE
-        Id = COALESCE(@Id, Id)
-        AND (Username = COALESCE(@Username, Username) OR Username LIKE @Username)
-        AND EndUserRoleId = COALESCE(@EndUserRoleId, EndUserRoleId)
-        AND EmployeeId = COALESCE(@EmployeeId, EmployeeId)
-        AND COALESCE(@FromCreatedAt, CreatedAt) <= CreatedAt
-        AND CreatedAt <= COALESCE(@ToCreatedAt, CreatedAt)
+        -- Non-nullable columns with default values.
+        [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
+        -- Non-nullable foreign keys.
+        AND EndUserRoleId = [dbo].[udf_IsEqualToUniqueIdentifier](@EndUserRoleId, EndUserRoleId)
+        AND EmployeeId = [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId)
+        -- Non-nullable columns.
+        AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Username, Username) = 1
+        -- DATETIME2(3) range parameters.
+        AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
     ORDER BY
+        -- Descending sort.
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
         CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Username')) THEN Username END DESC,
-        -- 
+        -- Ascending sort.
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
         CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Username')) THEN Username END ASC
-        -- 
+        -- Pagination.
         OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
         FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
 END;

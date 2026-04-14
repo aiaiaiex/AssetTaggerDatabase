@@ -1,9 +1,12 @@
 ﻿CREATE PROCEDURE [dbo].[usp_CreateEndUser]
-    @CallingEndUserId NVARCHAR(36),
-    @Username NVARCHAR(850),
-    @Password NVARCHAR(MAX),
-    @EndUserRoleId UNIQUEIDENTIFIER,
-    @EmployeeId UNIQUEIDENTIFIER
+    @CallingEndUserId NVARCHAR(36) = '',
+    -- Non-nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @EndUserRoleId NVARCHAR(36) = '',
+    -- Non-nullable columns.
+    @Username NVARCHAR(850) = '',
+    -- Secret parameters.
+    @Password NVARCHAR(MAX) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -19,23 +22,32 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[EndUser] (
-        Username,
-        PasswordSalt,
-        PasswordHash,
+        -- Non-nullable foreign keys.
+        EmployeeId,
         EndUserRoleId,
-        EmployeeId
+        -- Non-nullable columns.
+        Username,
+        -- Secret columns.
+        PasswordHash,
+        PasswordSalt
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Username,
-        INSERTED.EndUserRoleId,
+        -- Non-nullable foreign keys.
         INSERTED.EmployeeId,
-        INSERTED.CreatedAt
+        INSERTED.EndUserRoleId,
+        -- Non-nullable columns.
+        INSERTED.Username
     VALUES (
-        @Username,
-        @PasswordSalt,
-        [dbo].[udf_HashPassword](CONCAT(@Password, CAST(@PasswordSalt AS NVARCHAR(36)))),
-        @EndUserRoleId,
-        @EmployeeId
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
+        [dbo].[udf_GetDefaultUniqueidentifier](@EndUserRoleId, NULL),
+        -- Non-nullable columns.
+        [dbo].[udf_GetDefaultNvarchar](@Username, NULL),
+        -- Secret columns.
+        [dbo].[udf_HashPassword](CONCAT([dbo].[udf_GetDefaultNvarcharMax](@Password, NULL), CAST(@PasswordSalt AS NVARCHAR(36)))),
+        @PasswordSalt
     );
 END;
