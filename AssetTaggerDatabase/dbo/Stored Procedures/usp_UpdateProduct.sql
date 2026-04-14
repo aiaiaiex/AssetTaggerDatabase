@@ -1,11 +1,15 @@
 CREATE PROCEDURE [dbo].[usp_UpdateProduct]
     @CallingEndUserId NVARCHAR(36),
-    @Id UNIQUEIDENTIFIER,
-    @Name NVARCHAR(421) = '',
-    @ModelNumber NVARCHAR(421) = '',
-    @DocumentationUrl NVARCHAR(4000) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36),
+    -- Non-nullable foreign keys.
+    @CategoryId NVARCHAR(36) = '',
+    -- Nullable foreign keys.
     @ManufacturerId NVARCHAR(36) = '',
-    @CategoryId UNIQUEIDENTIFIER = NULL
+    -- Nullable columns.
+    @DocumentationUrl NVARCHAR(4000) = '',
+    @ModelNumber NVARCHAR(421) = '',
+    @Name NVARCHAR(421) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -20,26 +24,37 @@ BEGIN
     UPDATE
         [dbo].[Product]
     SET
-        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name),
-        ModelNumber = [dbo].[udf_GetNvarcharColumnValue](@ModelNumber, ModelNumber),
-        DocumentationUrl = [dbo].[udf_GetNvarcharColumnValue](@DocumentationUrl, DocumentationUrl),
+        -- Non-nullable foreign keys.
+        CategoryId = [dbo].[udf_GetUniqueidentifierColumnValue](@CategoryId, CategoryId),
+        -- Nullable foreign keys.
         ManufacturerId = [dbo].[udf_GetUniqueidentifierColumnValue](@ManufacturerId, ManufacturerId),
-        CategoryId = COALESCE(@CategoryId, CategoryId)
+        -- Nullable columns.
+        DocumentationUrl = [dbo].[udf_GetNvarcharColumnValue](@DocumentationUrl, DocumentationUrl),
+        ModelNumber = [dbo].[udf_GetNvarcharColumnValue](@ModelNumber, ModelNumber),
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
     OUTPUT
-        INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.ModelNumber,
-        INSERTED.DocumentationUrl,
-        INSERTED.ManufacturerId,
-        INSERTED.CategoryId,
+        -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
-        DELETED.Name AS OldName,
-        DELETED.ModelNumber AS OldModelNumber,
-        DELETED.DocumentationUrl AS OldDocumentationUrl,
+        INSERTED.Id,
+        -- Non-nullable foreign keys.
+        INSERTED.CategoryId,
+        -- Nullable foreign keys.
+        INSERTED.ManufacturerId,
+        -- Nullable columns.
+        INSERTED.DocumentationUrl,
+        INSERTED.ModelNumber,
+        INSERTED.Name
+        -- Old values.
+        -- Non-nullable foreign keys.
+        DELETED.CategoryId AS OldCategoryId,
+        -- Nullable foreign keys.
         DELETED.ManufacturerId AS OldManufacturerId,
-        DELETED.CategoryId AS OldCategoryId
+        -- Nullable columns.
+        DELETED.DocumentationUrl AS OldDocumentationUrl,
+        DELETED.ModelNumber AS OldModelNumber,
+        DELETED.Name AS OldName
     FROM
         [dbo].[Product]
     WHERE
-        Id = @Id;
+        Id = [dbo].[udf_GetUniqueidentifier](@Id);
 END;

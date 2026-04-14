@@ -1,10 +1,13 @@
 CREATE PROCEDURE [dbo].[usp_CreateProduct]
     @CallingEndUserId NVARCHAR(36),
-    @Name NVARCHAR(421) = NULL,
-    @ModelNumber NVARCHAR(421) = NULL,
-    @DocumentationUrl NVARCHAR(4000) = NULL,
-    @ManufacturerId UNIQUEIDENTIFIER = NULL,
-    @CategoryId UNIQUEIDENTIFIER
+    -- Non-nullable foreign keys.
+    @CategoryId NVARCHAR(36) = '',
+    -- Nullable foreign keys.
+    @ManufacturerId NVARCHAR(36) = '',
+    -- Nullable columns.
+    @DocumentationUrl NVARCHAR(4000) = '',
+    @ModelNumber NVARCHAR(421) = '',
+    @Name NVARCHAR(421) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -17,25 +20,35 @@ BEGIN
 
     -- Run actual query.
     INSERT INTO [dbo].[Product] (
-        Name,
-        ModelNumber,
-        DocumentationUrl,
+        -- Non-nullable foreign keys.
+        CategoryId,
+        -- Nullable foreign keys.
         ManufacturerId,
-        CategoryId
+        -- Nullable columns.
+        DocumentationUrl,
+        ModelNumber,
+        Name
     )
     OUTPUT
+        -- Non-nullable columns with default values.
+        INSERTED.CreatedAt,
         INSERTED.Id,
-        INSERTED.Name,
-        INSERTED.ModelNumber,
-        INSERTED.DocumentationUrl,
-        INSERTED.ManufacturerId,
+        -- Non-nullable foreign keys.
         INSERTED.CategoryId,
-        INSERTED.CreatedAt
+        -- Nullable foreign keys.
+        INSERTED.ManufacturerId,
+        -- Nullable columns.
+        INSERTED.DocumentationUrl,
+        INSERTED.ModelNumber,
+        INSERTED.Name
     VALUES (
-        @Name,
-        @ModelNumber,
-        @DocumentationUrl,
-        @ManufacturerId,
-        @CategoryId
+        -- Non-nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@CategoryId),
+        -- Nullable foreign keys.
+        [dbo].[udf_GetUniqueidentifier](@ManufacturerId),
+        -- Nullable columns.
+        [dbo].[udf_GetNvarchar](@DocumentationUrl),
+        [dbo].[udf_GetNvarchar](@ModelNumber),
+        [dbo].[udf_GetNvarchar](@Name)
     );
 END;
