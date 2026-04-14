@@ -18,7 +18,8 @@ BEGIN
     UPDATE
         [dbo].[Role]
     SET
-        Name = COALESCE(@Name, Name)
+        -- Non-nullable columns.
+        Name = [dbo].[udf_GetNvarcharColumnValue](@Name, Name)
     OUTPUT
         -- Non-nullable columns with default values.
         INSERTED.CreatedAt,
