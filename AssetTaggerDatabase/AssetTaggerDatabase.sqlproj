@@ -129,6 +129,8 @@
   <ItemGroup>
     <Build Include="dbo\Functions\udf_CalculateCurrentBookValue.sql" />
     <Build Include="dbo\Functions\udf_CalculateWarrantyExpirationDate.sql" />
+    <Build Include="dbo\Functions\udf_ConvertNullToNvarchar.sql" />
+    <Build Include="dbo\Functions\udf_ConvertNullToNvarcharMax.sql" />
     <Build Include="dbo\Functions\udf_GetDefaultBit.sql" />
     <Build Include="dbo\Functions\udf_GetDefaultDatetime2.sql" />
     <Build Include="dbo\Functions\udf_GetDefaultDecimal.sql" />
