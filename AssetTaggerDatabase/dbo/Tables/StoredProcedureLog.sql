@@ -8,7 +8,6 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
 
     -- Nullable foreign keys.
     [EndUserId] UNIQUEIDENTIFIER NULL,
-    CONSTRAINT [FK_StoredProcedureLog_EndUser] FOREIGN KEY ([EndUserId]) REFERENCES [dbo].[EndUser] ([Id]),
 
     -- Non-nullable columns.
     [Arguments] NVARCHAR(MAX) NOT NULL,
@@ -19,28 +18,10 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
     [HasExecutedSuccessfully] BIT NOT NULL,
 
     [Operation] NVARCHAR(6) NOT NULL,
-    CONSTRAINT [CK_StoredProcedureLog_Operation] CHECK ([Operation] IN ('Create', 'Read', 'Update', 'Delete')),
 
     [StartedAt] DATETIME2(3) NOT NULL,
 
     [TableName] NVARCHAR(4000) NOT NULL,
-    CONSTRAINT [CK_StoredProcedureLog_TableName] CHECK ([TableName] IN (
-        'Asset',
-        'Building',
-        'Category',
-        'Company',
-        'Department',
-        'Employee',
-        'EndUser',
-        'EndUserRole',
-        'Location',
-        'Manufacturer',
-        'Product',
-        'ProductSet',
-        'Role',
-        'StoredProcedureLog',
-        'Vendor'
-    )),
 
     -- Nullable columns.
     [EndUserIpAddress] NVARCHAR(4000) NULL,
