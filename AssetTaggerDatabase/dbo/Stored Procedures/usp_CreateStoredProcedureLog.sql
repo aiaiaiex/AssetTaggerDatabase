@@ -1,6 +1,6 @@
 CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
     -- Nullable foreign keys.
-    @CallingEndUserId UNIQUEIDENTIFIER = NULL,
+    @EndUserId UNIQUEIDENTIFIER = NULL,
     -- Non-nullable columns.
     @Arguments NVARCHAR(MAX),
     @EndedAt DATETIME2(3),
@@ -34,7 +34,7 @@ BEGIN
     )
     VALUES (
         -- Nullable foreign keys.
-        @CallingEndUserId,
+        @EndUserId,
         -- Non-nullable columns.
         @Arguments,
         @EndedAt,
