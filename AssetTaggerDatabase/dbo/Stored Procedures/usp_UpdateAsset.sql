@@ -37,7 +37,7 @@ BEGIN
         -- Nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
         '@PurchasedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@PurchasedAt), ''', ',
-        '@PurchasedPrice = ''', [dbo].[udf_ConvertNullToNvarchar](@PurchasedPrice), ''', ',
+        '@PurchasePrice = ''', [dbo].[udf_ConvertNullToNvarchar](@PurchasePrice), ''', ',
         '@SalvageValue = ''', [dbo].[udf_ConvertNullToNvarchar](@SalvageValue), ''', ',
         '@SerialNumber = ''', [dbo].[udf_ConvertNullToNvarchar](@SerialNumber), ''', ',
         '@UsefulLife = ''', [dbo].[udf_ConvertNullToNvarchar](@UsefulLife), ''', ',
