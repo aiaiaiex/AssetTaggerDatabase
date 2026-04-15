@@ -5,10 +5,13 @@ CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
     @Arguments NVARCHAR(MAX),
     @EndedAt DATETIME2(3),
     @HasExecutedSuccessfully BIT,
-    @Name NVARCHAR(4000),
+    @Operation NVARCHAR(6),
     @StartedAt DATETIME2(3),
+    @TableName NVARCHAR(4000),
     -- Nullable columns.
-    @EndUserIpAddress NVARCHAR(4000) = NULL
+    @EndUserIpAddress NVARCHAR(4000) = NULL,
+    @ErrorMessage NVARCHAR(4000) = NULL,
+    @ErrorNumber INT = NULL
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -21,10 +24,13 @@ BEGIN
         Arguments,
         EndedAt,
         HasExecutedSuccessfully,
-        Name,
+        Operation,
         StartedAt,
+        TableName,
         -- Nullable columns.
-        EndUserIpAddress
+        EndUserIpAddress,
+        ErrorMessage,
+        ErrorNumber
     )
     VALUES (
         -- Nullable foreign keys.
@@ -33,9 +39,12 @@ BEGIN
         @Arguments,
         @EndedAt,
         @HasExecutedSuccessfully,
-        @Name,
+        @Operation,
         @StartedAt,
+        @TableName,
         -- Nullable columns.
-        @EndUserIpAddress
+        @EndUserIpAddress,
+        @ErrorMessage,
+        @ErrorNumber
     );
 END;
