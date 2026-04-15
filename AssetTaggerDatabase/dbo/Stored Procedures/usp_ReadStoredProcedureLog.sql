@@ -68,13 +68,13 @@ BEGIN
         '@RowsToSkip = ''', [dbo].[udf_ConvertNullToNvarchar](@RowsToSkip), ''', ',
         '@RowsToReturn = ''', [dbo].[udf_ConvertNullToNvarchar](@RowsToReturn), ''';'
     );
-    DECLARE @HasExecutedSuccessfully BIT = 1;
-    DECLARE @Operation NVARCHAR(6) = 'Read';
-    DECLARE @TableName NVARCHAR(4000) = 'StoredProcedureLog';
+    DECLARE @LogHasExecutedSuccessfully BIT = 1;
+    DECLARE @LogOperation NVARCHAR(6) = 'Read';
+    DECLARE @LogTableName NVARCHAR(4000) = 'StoredProcedureLog';
 
     DECLARE @LogEndUserId UNIQUEIDENTIFIER;
     DECLARE @EndedAt DATETIME2(3);
-    DECLARE @ErrorMessage NVARCHAR(4000);
+    DECLARE @LogErrorMessage NVARCHAR(4000);
     DECLARE @ErrorNumber INT;
 
     BEGIN TRY
@@ -82,7 +82,7 @@ BEGIN
         SET @LogEndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
 
         -- Check the permission of the calling EndUser.
-        EXEC [dbo].[usp_HasPermission] @LogEndUserId, @Operation, @TableName;
+        EXEC [dbo].[usp_HasPermission] @LogEndUserId, @LogOperation, @LogTableName;
 
         -- Set final values.
         SET @SortColumn = [dbo].[udf_GetSortColumn](@SortColumn);
@@ -159,12 +159,12 @@ BEGIN
             FETCH NEXT [dbo].[udf_GetRowsToReturnInBigint](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH
-        SET @HasExecutedSuccessfully = 0;
-        SET @ErrorMessage = ERROR_MESSAGE();
+        SET @LogHasExecutedSuccessfully = 0;
+        SET @LogErrorMessage = ERROR_MESSAGE();
         SET @ErrorNumber = ERROR_NUMBER();
     END CATCH;
 
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
-    EXEC [dbo].[usp_CreateStoredProcedureLog] @LogEndUserId, @LogArguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @CallingEndUserIpAddress, @ErrorMessage, @ErrorNumber;
+    EXEC [dbo].[usp_CreateStoredProcedureLog] @LogEndUserId, @LogArguments, @EndedAt, @LogHasExecutedSuccessfully, @LogOperation, @StartedAt, @LogTableName, @CallingEndUserIpAddress, @LogErrorMessage, @ErrorNumber;
 END;
