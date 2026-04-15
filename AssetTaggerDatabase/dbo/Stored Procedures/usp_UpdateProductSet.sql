@@ -15,8 +15,6 @@ BEGIN
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
-        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable columns with default values.
         '@ProductQuantity = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductQuantity), ''', ',
         -- Non-nullable foreign keys.
         '@ParentProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ParentProductId), ''', ',
