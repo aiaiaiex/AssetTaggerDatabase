@@ -17,6 +17,7 @@ BEGIN
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Create';
     DECLARE @TableName NVARCHAR(4000) = 'Department';
+    DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
     DECLARE @EndedAt DATETIME2(3);
@@ -54,5 +55,5 @@ BEGIN
 
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
-    EXEC [dbo].[usp_CreateStoredProcedureLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @CallingEndUserIpAddress, @ErrorMessage, @ErrorNumber;
+    EXEC [dbo].[usp_CreateStoredProcedureLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
 END;
