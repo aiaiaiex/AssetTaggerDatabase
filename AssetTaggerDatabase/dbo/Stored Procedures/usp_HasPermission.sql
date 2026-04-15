@@ -156,6 +156,29 @@ BEGIN
                         WHERE Id = @EndUserRoleId
                     )
             END
+        WHEN 'EndUser'
+            THEN CASE @Operation
+                WHEN 'Create'
+                    THEN (
+                        SELECT HasCreatingEndUserPermission FROM [dbo].[EndUserRole]
+                        WHERE Id = @EndUserRoleId
+                    )
+                WHEN 'Read'
+                    THEN (
+                        SELECT HasReadingEndUserPermission FROM [dbo].[EndUserRole]
+                        WHERE Id = @EndUserRoleId
+                    )
+                WHEN 'Update'
+                    THEN (
+                        SELECT HasUpdatingEndUserPermission FROM [dbo].[EndUserRole]
+                        WHERE Id = @EndUserRoleId
+                    )
+                WHEN 'Delete'
+                    THEN (
+                        SELECT HasDeletingEndUserPermission FROM [dbo].[EndUserRole]
+                        WHERE Id = @EndUserRoleId
+                    )
+            END
         WHEN 'EndUserRole'
             THEN CASE @Operation
                 WHEN 'Create'
