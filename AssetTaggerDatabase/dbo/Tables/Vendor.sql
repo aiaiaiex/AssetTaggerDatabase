@@ -20,4 +20,4 @@
 );
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Vendor_Name_Address]
-    ON [dbo].[Asset] ([Name], [Address]);
+    ON [dbo].[Vendor] ([Name], [Address]);
