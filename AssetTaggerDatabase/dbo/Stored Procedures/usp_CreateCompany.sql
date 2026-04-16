@@ -5,9 +5,10 @@ CREATE PROCEDURE [dbo].[usp_CreateCompany]
     -- Nullable foreign keys.
     @ParentCompanyId NVARCHAR(36) = '',
     -- Non-nullable columns.
+    @Name NVARCHAR(850) = '',
+    -- Nullable columns.
     @Address NVARCHAR(850) = '',
-    @Code NVARCHAR(5) = '',
-    @Name NVARCHAR(850) = ''
+    @Code NVARCHAR(5) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -18,9 +19,10 @@ BEGIN
         -- Nullable foreign keys.
         '@ParentCompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@ParentCompanyId), ''', ',
         -- Non-nullable columns.
+        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''', ',
+        -- Nullable columns.
         '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''', ',
-        '@Code = ''', [dbo].[udf_ConvertNullToNvarchar](@Code), ''', ',
-        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''';'
+        '@Code = ''', [dbo].[udf_ConvertNullToNvarchar](@Code), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Create';
@@ -41,12 +43,13 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[Company] (
-        -- Nullable foreign keys.
+            -- Nullable foreign keys.
             ParentCompanyId,
             -- Non-nullable columns.
+            Name,
+            -- Nullable columns.
             Address,
-            Code,
-            Name
+            Code
         )
         OUTPUT
         -- Non-nullable columns with default values.
@@ -55,16 +58,18 @@ BEGIN
             -- Nullable foreign keys.
             INSERTED.ParentCompanyId,
             -- Non-nullable columns.
+            INSERTED.Name,
+            -- Nullable columns.
             INSERTED.Address,
-            INSERTED.Code,
-            INSERTED.Name
+            INSERTED.Code
         VALUES (
         -- Nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@ParentCompanyId, NULL),
             -- Non-nullable columns.
+            [dbo].[udf_GetDefaultNvarchar](@Name, NULL),
+            -- Nullable columns.
             [dbo].[udf_GetDefaultNvarchar](@Address, NULL),
-            [dbo].[udf_GetDefaultNvarchar](@Code, NULL),
-            [dbo].[udf_GetDefaultNvarchar](@Name, NULL)
+            [dbo].[udf_GetDefaultNvarchar](@Code, NULL)
         );
     END TRY
     BEGIN CATCH

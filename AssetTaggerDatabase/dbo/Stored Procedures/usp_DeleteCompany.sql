@@ -40,9 +40,10 @@ BEGIN
             -- Nullable foreign keys.
             DELETED.ParentCompanyId,
             -- Non-nullable columns.
+            DELETED.Name,
+            -- Nullable columns.
             DELETED.Address,
-            DELETED.Code,
-            DELETED.Name
+            DELETED.Code
         FROM
             [dbo].[Company]
         WHERE
