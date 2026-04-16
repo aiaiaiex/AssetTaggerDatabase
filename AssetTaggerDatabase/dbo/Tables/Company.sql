@@ -30,10 +30,12 @@
     CONSTRAINT [CK_Company_Code_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Code]) = 1),
     CONSTRAINT [CK_Company_Code_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Code]) = 1)
 );
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Company_Address]
     ON [dbo].[Company] ([Address])
     WHERE [Address] IS NOT NULL;
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Company_Code]
     ON [dbo].[Company] ([Code])

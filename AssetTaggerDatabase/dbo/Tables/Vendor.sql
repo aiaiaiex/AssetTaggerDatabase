@@ -18,6 +18,7 @@
     CONSTRAINT [CK_Vendor_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Address]) = 1),
     CONSTRAINT [CK_Vendor_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1)
 );
+GO
 
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Vendor_Name_Address]
     ON [dbo].[Vendor] ([Name], [Address]);
