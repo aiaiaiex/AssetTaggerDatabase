@@ -38,8 +38,9 @@ BEGIN
             DELETED.CreatedAt,
             DELETED.Id,
             -- Non-nullable columns.
-            DELETED.Address,
-            DELETED.Name
+            DELETED.Name,
+            -- Nullable columns.
+            DELETED.Address
         FROM
             [dbo].[Vendor]
         WHERE
