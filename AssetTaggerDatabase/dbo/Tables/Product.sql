@@ -26,7 +26,10 @@
 
     [Name] NVARCHAR(834) NULL,
     CONSTRAINT [CK_Product_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
-    CONSTRAINT [CK_Product_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1)
+    CONSTRAINT [CK_Product_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1),
+
+    -- Composite constraints.
+    CONSTRAINT [CTK_Product_ModelNumber_Name] CHECK ([ModelNumber] IS NOT NULL OR [Name] IS NOT NULL)
 );
 GO
 
