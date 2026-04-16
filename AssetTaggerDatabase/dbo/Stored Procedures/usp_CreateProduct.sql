@@ -2,9 +2,8 @@ CREATE PROCEDURE [dbo].[usp_CreateProduct]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
-    -- Non-nullable foreign keys.
-    @CategoryId NVARCHAR(36) = '',
     -- Nullable foreign keys.
+    @CategoryId NVARCHAR(36) = '',
     @ManufacturerId NVARCHAR(36) = '',
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
@@ -17,9 +16,8 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
-        -- Non-nullable foreign keys.
-        '@CategoryId = ''', [dbo].[udf_ConvertNullToNvarchar](@CategoryId), ''', ',
         -- Nullable foreign keys.
+        '@CategoryId = ''', [dbo].[udf_ConvertNullToNvarchar](@CategoryId), ''', ',
         '@ManufacturerId = ''', [dbo].[udf_ConvertNullToNvarchar](@ManufacturerId), ''', ',
         -- Nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
@@ -45,9 +43,8 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[Product] (
-        -- Non-nullable foreign keys.
-            CategoryId,
             -- Nullable foreign keys.
+            CategoryId,
             ManufacturerId,
             -- Nullable columns.
             DocumentationUrl,
@@ -58,18 +55,16 @@ BEGIN
         -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
-            INSERTED.CategoryId,
             -- Nullable foreign keys.
+            INSERTED.CategoryId,
             INSERTED.ManufacturerId,
             -- Nullable columns.
             INSERTED.DocumentationUrl,
             INSERTED.ModelNumber,
             INSERTED.Name
         VALUES (
-        -- Non-nullable foreign keys.
-            [dbo].[udf_GetDefaultUniqueidentifier](@CategoryId, NULL),
             -- Nullable foreign keys.
+            [dbo].[udf_GetDefaultUniqueidentifier](@CategoryId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@ManufacturerId, NULL),
             -- Nullable columns.
             [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, NULL),

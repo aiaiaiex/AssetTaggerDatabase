@@ -4,9 +4,8 @@ CREATE PROCEDURE [dbo].[usp_ReadProduct]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
-    @CategoryId NVARCHAR(36) = '',
     -- Nullable foreign keys.
+    @CategoryId NVARCHAR(36) = '',
     @ManufacturerId NVARCHAR(36) = '',
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
@@ -30,9 +29,8 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
-        '@CategoryId = ''', [dbo].[udf_ConvertNullToNvarchar](@CategoryId), ''', ',
         -- Nullable foreign keys.
+        '@CategoryId = ''', [dbo].[udf_ConvertNullToNvarchar](@CategoryId), ''', ',
         '@ManufacturerId = ''', [dbo].[udf_ConvertNullToNvarchar](@ManufacturerId), ''', ',
         -- Non-nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
@@ -74,9 +72,8 @@ BEGIN
         -- Non-nullable columns with default values.
             CreatedAt,
             Id,
-            -- Non-nullable foreign keys.
-            CategoryId,
             -- Nullable foreign keys.
+            CategoryId,
             ManufacturerId,
             -- Nullable columns.
             DocumentationUrl,
@@ -87,9 +84,8 @@ BEGIN
         WHERE
         -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
-            -- Non-nullable foreign keys.
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@CategoryId, CategoryId) = 1
             -- Nullable foreign keys.
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@CategoryId, CategoryId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@ManufacturerId, ManufacturerId) = 1
             -- Nullable columns.
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, DocumentationUrl) = 1

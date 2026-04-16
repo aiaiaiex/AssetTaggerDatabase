@@ -8,11 +8,10 @@
     [RowNumber] INT IDENTITY (1, 1),
     CONSTRAINT [AK_Product_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
-    -- Non-nullable foreign keys.
-    [CategoryId] UNIQUEIDENTIFIER NOT NULL,
+    -- Nullable foreign keys.
+    [CategoryId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Product_Category] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Category] ([Id]),
 
-    -- Nullable foreign keys.
     [ManufacturerId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Product_Manufacturer] FOREIGN KEY ([ManufacturerId]) REFERENCES [dbo].[Manufacturer] ([Id]),
 

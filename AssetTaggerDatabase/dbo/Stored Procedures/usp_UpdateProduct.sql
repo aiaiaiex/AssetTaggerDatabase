@@ -4,9 +4,8 @@ CREATE PROCEDURE [dbo].[usp_UpdateProduct]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
-    @CategoryId NVARCHAR(36) = '',
     -- Nullable foreign keys.
+    @CategoryId NVARCHAR(36) = '',
     @ManufacturerId NVARCHAR(36) = '',
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
@@ -21,9 +20,8 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
-        '@CategoryId = ''', [dbo].[udf_ConvertNullToNvarchar](@CategoryId), ''', ',
         -- Nullable foreign keys.
+        '@CategoryId = ''', [dbo].[udf_ConvertNullToNvarchar](@CategoryId), ''', ',
         '@ManufacturerId = ''', [dbo].[udf_ConvertNullToNvarchar](@ManufacturerId), ''', ',
         -- Nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
@@ -51,9 +49,8 @@ BEGIN
         UPDATE
             [dbo].[Product]
         SET
-        -- Non-nullable foreign keys.
-            CategoryId = [dbo].[udf_GetDefaultUniqueidentifier](@CategoryId, CategoryId),
             -- Nullable foreign keys.
+            CategoryId = [dbo].[udf_GetDefaultUniqueidentifier](@CategoryId, CategoryId),
             ManufacturerId = [dbo].[udf_GetDefaultUniqueidentifier](@ManufacturerId, ManufacturerId),
             -- Nullable columns.
             DocumentationUrl = [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, DocumentationUrl),
@@ -63,18 +60,16 @@ BEGIN
         -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
-            INSERTED.CategoryId,
             -- Nullable foreign keys.
+            INSERTED.CategoryId,
             INSERTED.ManufacturerId,
             -- Nullable columns.
             INSERTED.DocumentationUrl,
             INSERTED.ModelNumber,
             INSERTED.Name,
             -- Old values.
-            -- Non-nullable foreign keys.
-            DELETED.CategoryId AS OldCategoryId,
             -- Nullable foreign keys.
+            DELETED.CategoryId AS OldCategoryId,
             DELETED.ManufacturerId AS OldManufacturerId,
             -- Nullable columns.
             DELETED.DocumentationUrl AS OldDocumentationUrl,
