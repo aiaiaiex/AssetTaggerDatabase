@@ -8,8 +8,8 @@
     [RowNumber] INT IDENTITY (1, 1),
     CONSTRAINT [AK_Location_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
-    -- Non-nullable foreign keys.
-    [BuildingId] UNIQUEIDENTIFIER NOT NULL,
+    -- Nullable foreign keys.
+    [BuildingId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Location_Building] FOREIGN KEY ([BuildingId]) REFERENCES [dbo].[Building] ([Id]),
 
     -- Non-nullable columns.

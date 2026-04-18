@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_ReadLocation]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @BuildingId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Address NVARCHAR(842) = '',
@@ -26,7 +26,7 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@BuildingId = ''', [dbo].[udf_ConvertNullToNvarchar](@BuildingId), ''', ',
         -- Non-nullable columns.
         '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''', ',
@@ -63,19 +63,19 @@ BEGIN
 
         -- Run actual query.
         SELECT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             CreatedAt,
             Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             BuildingId,
             -- Non-nullable columns.
             Address
         FROM
             [dbo].[Location]
         WHERE
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@BuildingId, BuildingId) = 1
             -- Non-nullable columns.
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Address, Address) = 1

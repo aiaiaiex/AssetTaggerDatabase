@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateLocation]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @BuildingId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Address NVARCHAR(842) = ''
@@ -17,7 +17,7 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@BuildingId = ''', [dbo].[udf_ConvertNullToNvarchar](@BuildingId), ''', ',
         -- Non-nullable columns.
         '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''';'
@@ -43,20 +43,20 @@ BEGIN
         UPDATE
             [dbo].[Location]
         SET
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             BuildingId = [dbo].[udf_GetDefaultUniqueidentifier](@BuildingId, BuildingId),
             -- Non-nullable columns.
             Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address)
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             INSERTED.BuildingId,
             -- Non-nullable columns.
             INSERTED.Address,
             -- Old values.
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             DELETED.BuildingId AS OldBuildingId,
             -- Non-nullable columns.
             DELETED.Address AS OldAddress

@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_CreateLocation]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @BuildingId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Address NVARCHAR(842) = ''
@@ -13,7 +13,7 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@BuildingId = ''', [dbo].[udf_ConvertNullToNvarchar](@BuildingId), ''', ',
         -- Non-nullable columns.
         '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''';'
@@ -37,21 +37,21 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[Location] (
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             BuildingId,
             -- Non-nullable columns.
             Address
         )
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             INSERTED.BuildingId,
             -- Non-nullable columns.
             INSERTED.Address
         VALUES (
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@BuildingId, NULL),
             -- Non-nullable columns.
             [dbo].[udf_GetDefaultNvarchar](@Address, NULL)
