@@ -5,8 +5,9 @@
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
     @EndUserRoleId NVARCHAR(36) = '',
+    -- Nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Username NVARCHAR(850) = '',
     -- DATETIME2(3) range parameters.
@@ -28,8 +29,9 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         '@EndUserRoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@EndUserRoleId), ''', ',
+        -- Nullable foreign keys.
+        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         -- Non-nullable columns.
         '@Username = ''', [dbo].[udf_ConvertNullToNvarchar](@Username), ''', ',
         -- DATETIME2(3) range parameters.
@@ -65,11 +67,12 @@ BEGIN
 
         -- Run actual query.
         SELECT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             CreatedAt,
             Id,
             -- Non-nullable foreign keys.
             EndUserRoleId,
+            -- Nullable foreign keys.
             EmployeeId,
             -- Non-nullable columns.
             Username
@@ -80,6 +83,7 @@ BEGIN
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
             -- Non-nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@EndUserRoleId, EndUserRoleId) = 1
+            -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId) = 1
             -- Non-nullable columns.
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Username, Username) = 1

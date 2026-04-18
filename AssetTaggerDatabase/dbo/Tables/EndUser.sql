@@ -9,12 +9,12 @@
     CONSTRAINT [AK_EndUser_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable foreign keys.
-    [EmployeeId] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [AK_EndUser_EmployeeId] UNIQUE ([EmployeeId]),
-    CONSTRAINT [FK_EndUser_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
-
     [EndUserRoleId] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [FK_EndUser_EndUserRole] FOREIGN KEY ([EndUserRoleId]) REFERENCES [dbo].[EndUserRole] ([Id]),
+
+    -- Nullable foreign keys.
+    [EmployeeId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_EndUser_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
 
     -- Non-nullable columns.
     [Username] NVARCHAR(850) NOT NULL,
@@ -27,3 +27,8 @@
 
     [PasswordSalt] UNIQUEIDENTIFIER NOT NULL
 );
+GO
+
+CREATE UNIQUE NONCLUSTERED INDEX [IX_EndUser_EmployeeId]
+    ON [dbo].[EndUser] ([EmployeeId])
+    WHERE [EmployeeId] IS NOT NULL;

@@ -5,8 +5,9 @@
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
     @EndUserRoleId NVARCHAR(36) = '',
+    -- Nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Username NVARCHAR(850) = ''
 AS;
@@ -19,8 +20,9 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         '@EndUserRoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@EndUserRoleId), ''', ',
+        -- Nullable foreign keys.
+        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         -- Non-nullable columns.
         '@Username = ''', [dbo].[udf_ConvertNullToNvarchar](@Username), ''';'
     );
@@ -45,24 +47,27 @@ BEGIN
         UPDATE
             [dbo].[EndUser]
         SET
-        -- Non-nullable foreign keys.
-            EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
+            -- Non-nullable foreign keys.
             EndUserRoleId = [dbo].[udf_GetDefaultUniqueidentifier](@EndUserRoleId, EndUserRoleId),
+            -- Nullable foreign keys.
+            EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
             -- Non-nullable columns.
             Username = [dbo].[udf_GetDefaultNvarchar](@Username, Username)
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable foreign keys.
-            INSERTED.EmployeeId,
             INSERTED.EndUserRoleId,
+            -- Nullable foreign keys.
+            INSERTED.EmployeeId,
             -- Non-nullable columns.
             INSERTED.Username,
             -- Old values.
             -- Non-nullable foreign keys.
-            DELETED.EmployeeId AS OldEmployeeId,
             DELETED.EndUserRoleId AS OldEndUserRoleId,
+            -- Nullable foreign keys.
+            DELETED.EmployeeId AS OldEmployeeId,
             -- Non-nullable columns.
             DELETED.Username AS OldUsername
         FROM

@@ -3,8 +3,9 @@
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
     @EndUserRoleId NVARCHAR(36) = '',
+    -- Nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Username NVARCHAR(850) = '',
     -- Secret parameters.
@@ -17,8 +18,9 @@ BEGIN
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         '@EndUserRoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@EndUserRoleId), ''', ',
+        -- Nullable foreign keys.
+        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         -- Non-nullable columns.
         '@Username = ''', [dbo].[udf_ConvertNullToNvarchar](@Username), ''';'
     );
@@ -44,9 +46,10 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[EndUser] (
-        -- Non-nullable foreign keys.
-            EmployeeId,
+            -- Non-nullable foreign keys.
             EndUserRoleId,
+            -- Nullable foreign keys.
+            EmployeeId,
             -- Non-nullable columns.
             Username,
             -- Secret columns.
@@ -54,18 +57,20 @@ BEGIN
             PasswordSalt
         )
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable foreign keys.
-            INSERTED.EmployeeId,
             INSERTED.EndUserRoleId,
+            -- Nullable foreign keys.
+            INSERTED.EmployeeId,
             -- Non-nullable columns.
             INSERTED.Username
         VALUES (
-        -- Non-nullable foreign keys.
-            [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
+            -- Non-nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@EndUserRoleId, NULL),
+            -- Nullable foreign keys.
+            [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
             -- Non-nullable columns.
             [dbo].[udf_GetDefaultNvarchar](@Username, NULL),
             -- Secret columns.
