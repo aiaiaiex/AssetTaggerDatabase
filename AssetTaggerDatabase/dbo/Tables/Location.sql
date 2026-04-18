@@ -14,8 +14,9 @@
 
     -- Non-nullable columns.
     [Address] NVARCHAR(842) NOT NULL,
-    CONSTRAINT [AK_Location_Address_BuildingId] UNIQUE ([Address], [BuildingId]),
     CONSTRAINT [CK_Location_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Address]) = 1),
-    CONSTRAINT [CK_Location_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1)
+    CONSTRAINT [CK_Location_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1),
 
+    -- Composite constraints.
+    CONSTRAINT [AK_Location_BuildingId_Address] UNIQUE ([BuildingId], [Address])
 );
