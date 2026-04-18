@@ -1,0 +1,120 @@
+-- Values of variables below are changeable, especially @Username and @Password.
+DECLARE @Username NVARCHAR(850) = 'username';
+DECLARE @Password NVARCHAR(MAX) = 'password';
+DECLARE @RoleName NVARCHAR(850) = 'admin';
+
+-- Create EndUserRole.
+CREATE TABLE #EndUserRoleIdTable (EndUserRoleId UNIQUEIDENTIFIER);
+DECLARE @EndUserRoleId UNIQUEIDENTIFIER;
+
+INSERT INTO [dbo].[EndUserRole]
+(
+    -- Non-nullable columns.
+    [Name],
+    -- Permissions.
+    -- Asset CRUD Permissions.
+    [HasCreatingAssetPermission], [HasReadingAssetPermission], [HasUpdatingAssetPermission], [HasDeletingAssetPermission],
+    -- Building CRUD Permissions.
+    [HasCreatingBuildingPermission], [HasReadingBuildingPermission], [HasUpdatingBuildingPermission], [HasDeletingBuildingPermission],
+    -- Category CRUD Permissions.
+    [HasCreatingCategoryPermission], [HasReadingCategoryPermission], [HasUpdatingCategoryPermission], [HasDeletingCategoryPermission],
+    -- Company CRUD Permissions.
+    [HasCreatingCompanyPermission], [HasReadingCompanyPermission], [HasUpdatingCompanyPermission], [HasDeletingCompanyPermission],
+    -- Department CRUD Permissions.
+    [HasCreatingDepartmentPermission], [HasReadingDepartmentPermission], [HasUpdatingDepartmentPermission], [HasDeletingDepartmentPermission],
+    -- Employee CRUD Permissions.
+    [HasCreatingEmployeePermission], [HasReadingEmployeePermission], [HasUpdatingEmployeePermission], [HasDeletingEmployeePermission],
+    -- EndUser CRUD Permissions.
+    [HasCreatingEndUserPermission], [HasReadingEndUserPermission], [HasUpdatingEndUserPermission], [HasDeletingEndUserPermission],
+    -- EndUserRole CRUD Permissions.
+    [HasCreatingEndUserRolePermission], [HasReadingEndUserRolePermission], [HasUpdatingEndUserRolePermission], [HasDeletingEndUserRolePermission],
+    -- Location CRUD Permissions.
+    [HasCreatingLocationPermission], [HasReadingLocationPermission], [HasUpdatingLocationPermission], [HasDeletingLocationPermission],
+    -- StoredProcedureLog R Permissions.
+    [HasReadingStoredProcedureLogPermission],
+    -- Manufacturer CRUD Permissions.
+    [HasCreatingManufacturerPermission], [HasReadingManufacturerPermission], [HasUpdatingManufacturerPermission], [HasDeletingManufacturerPermission],
+    -- Product CRUD Permissions.
+    [HasCreatingProductPermission], [HasReadingProductPermission], [HasUpdatingProductPermission], [HasDeletingProductPermission],
+    -- ProductSet CRUD Permissions.
+    [HasCreatingProductSetPermission], [HasReadingProductSetPermission], [HasUpdatingProductSetPermission], [HasDeletingProductSetPermission],
+    -- Role CRUD Permissions.
+    [HasCreatingRolePermission], [HasReadingRolePermission], [HasUpdatingRolePermission], [HasDeletingRolePermission],
+    -- Vendor CRUD Permissions.
+    [HasCreatingVendorPermission], [HasReadingVendorPermission], [HasUpdatingVendorPermission], [HasDeletingVendorPermission]
+)
+OUTPUT INSERTED.Id
+INTO #EndUserRoleIdTable
+VALUES
+(
+    -- Non-nullable columns.
+    @RoleName,
+    -- Permissions.
+    -- Asset CRUD Permissions.
+    1, 1, 1, 1,
+    -- Building CRUD Permissions.
+    1, 1, 1, 1,
+    -- Category CRUD Permissions.
+    1, 1, 1, 1,
+    -- Company CRUD Permissions.
+    1, 1, 1, 1,
+    -- Department CRUD Permissions.
+    1, 1, 1, 1,
+    -- Employee CRUD Permissions.
+    1, 1, 1, 1,
+    -- EndUser CRUD Permissions.
+    1, 1, 1, 1,
+    -- EndUserRole CRUD Permissions.
+    1, 1, 1, 1,
+    -- Location CRUD Permissions.
+    1, 1, 1, 1,
+    -- StoredProcedureLog R Permissions.
+    1,
+    -- Manufacturer CRUD Permissions.
+    1, 1, 1, 1,
+    -- Product CRUD Permissions.
+    1, 1, 1, 1,
+    -- ProductSet CRUD Permissions.
+    1, 1, 1, 1,
+    -- Role CRUD Permissions.
+    1, 1, 1, 1,
+    -- Vendor CRUD Permissions.
+    1, 1, 1, 1
+);
+
+SET @EndUserRoleId = (SELECT EndUserRoleId FROM #EndUserRoleIdTable);
+DROP TABLE #EndUserRoleIdTable;
+
+-- Create EndUser.
+DECLARE @PasswordSalt UNIQUEIDENTIFIER = NEWID();
+
+INSERT INTO [dbo].[EndUser]
+(
+    -- Non-nullable foreign keys.
+    [EndUserRoleId],
+    -- Non-nullable columns.
+    [Username],
+    -- Secret columns.
+    [PasswordHash],
+    [PasswordSalt]
+)
+OUTPUT
+    -- Non-nullable columns with default values.
+    INSERTED.CreatedAt,
+    INSERTED.Id,
+    -- Non-nullable foreign keys.
+    INSERTED.EndUserRoleId,
+    -- Nullable foreign keys.
+    INSERTED.EmployeeId,
+    -- Non-nullable columns.
+    INSERTED.Username
+VALUES
+(
+    -- Non-nullable foreign keys.
+    @EndUserRoleId,
+    -- Non-nullable columns.
+    @Username,
+    -- Secret columns.
+    [dbo].[udf_HashPassword](CONCAT(@Password, CAST(@PasswordSalt AS NVARCHAR(36)))),
+    @PasswordSalt
+);
