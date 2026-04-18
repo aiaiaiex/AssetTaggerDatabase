@@ -5,10 +5,10 @@ CREATE PROCEDURE [dbo].[usp_UpdateAsset]
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
-    @LocationId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = '',
     -- Nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @LocationId NVARCHAR(36) = '',
     @VendorId NVARCHAR(36) = '',
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
@@ -29,10 +29,10 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
-        '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
         -- Nullable foreign keys.
+        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
+        '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@VendorId = ''', [dbo].[udf_ConvertNullToNvarchar](@VendorId), ''', ',
         -- Nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
@@ -65,11 +65,11 @@ BEGIN
         UPDATE
             [dbo].[Asset]
         SET
-        -- Non-nullable foreign keys.
-            EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
-            LocationId = [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, LocationId),
+            -- Non-nullable foreign keys.
             ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId),
             -- Nullable foreign keys.
+            EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
+            LocationId = [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, LocationId),
             VendorId = [dbo].[udf_GetDefaultUniqueidentifier](@VendorId, VendorId),
             -- Nullable columns.
             DocumentationUrl = [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, DocumentationUrl),
@@ -81,14 +81,14 @@ BEGIN
             WarrantyDuration = [dbo].[udf_GetDefaultInt](@WarrantyDuration, WarrantyDuration),
             WarrantyUnitOfMeasure = [dbo].[udf_GetDefaultNvarchar](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure)
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable foreign keys.
-            INSERTED.EmployeeId,
-            INSERTED.LocationId,
             INSERTED.ProductId,
             -- Nullable foreign keys.
+            INSERTED.EmployeeId,
+            INSERTED.LocationId,
             INSERTED.VendorId,
             -- Nullable columns.
             INSERTED.DocumentationUrl,
@@ -105,10 +105,10 @@ BEGIN
             INSERTED.WarrantyExpirationDate,
             -- Old values.
             -- Non-nullable foreign keys.
-            DELETED.EmployeeId AS OldEmployeeId,
-            DELETED.LocationId AS OldLocationId,
             DELETED.ProductId AS OldProductId,
             -- Nullable foreign keys.
+            DELETED.EmployeeId AS OldEmployeeId,
+            DELETED.LocationId AS OldLocationId,
             DELETED.VendorId AS OldVendorId,
             -- Nullable columns.
             DELETED.DocumentationUrl AS OldDocumentationUrl,

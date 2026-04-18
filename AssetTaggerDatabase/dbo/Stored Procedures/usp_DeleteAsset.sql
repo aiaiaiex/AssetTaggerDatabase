@@ -34,14 +34,14 @@ BEGIN
         -- Run actual query.
         DELETE [dbo].[Asset]
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             DELETED.CreatedAt,
             DELETED.Id,
             -- Non-nullable foreign keys.
-            DELETED.EmployeeId,
-            DELETED.LocationId,
             DELETED.ProductId,
             -- Nullable foreign keys.
+            DELETED.EmployeeId,
+            DELETED.LocationId,
             DELETED.VendorId,
             -- Nullable columns.
             DELETED.DocumentationUrl,

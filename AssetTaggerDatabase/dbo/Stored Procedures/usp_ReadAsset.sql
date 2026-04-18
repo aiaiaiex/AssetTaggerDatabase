@@ -5,10 +5,10 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
-    @LocationId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = '',
     -- Nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @LocationId NVARCHAR(36) = '',
     @VendorId NVARCHAR(36) = '',
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
@@ -51,10 +51,10 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
-        '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
         -- Nullable foreign keys.
+        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
+        '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@VendorId = ''', [dbo].[udf_ConvertNullToNvarchar](@VendorId), ''', ',
         -- Nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
@@ -111,14 +111,14 @@ BEGIN
 
         -- Run actual query.
         SELECT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             CreatedAt,
             Id,
             -- Non-nullable foreign keys.
-            EmployeeId,
-            LocationId,
             ProductId,
             -- Nullable foreign keys.
+            EmployeeId,
+            LocationId,
             VendorId,
             -- Nullable columns.
             DocumentationUrl,
@@ -136,13 +136,13 @@ BEGIN
         FROM
             [dbo].[Asset]
         WHERE
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
             -- Non-nullable foreign keys.
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId) = 1
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@LocationId, LocationId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
             -- Nullable foreign keys.
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@LocationId, LocationId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@VendorId, VendorId) = 1
             -- Nullable columns.
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, DocumentationUrl) = 1

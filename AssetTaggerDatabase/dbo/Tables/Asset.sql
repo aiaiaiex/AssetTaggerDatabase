@@ -9,16 +9,16 @@
     CONSTRAINT [AK_Asset_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable foreign keys.
-    [EmployeeId] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Asset_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
-
-    [LocationId] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_Asset_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),
-
     [ProductId] UNIQUEIDENTIFIER NOT NULL,
     CONSTRAINT [FK_Asset_Product] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id]),
 
     -- Nullable foreign keys.
+    [EmployeeId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_Asset_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
+
+    [LocationId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_Asset_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),
+
     [VendorId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Asset_Vendor] FOREIGN KEY ([VendorId]) REFERENCES [dbo].[Vendor] ([Id]),
 

@@ -3,10 +3,10 @@ CREATE PROCEDURE [dbo].[usp_CreateAsset]
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
-    @LocationId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = '',
     -- Nullable foreign keys.
+    @EmployeeId NVARCHAR(36) = '',
+    @LocationId NVARCHAR(36) = '',
     @VendorId NVARCHAR(36) = '',
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
@@ -25,10 +25,10 @@ BEGIN
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
-        '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
         -- Nullable foreign keys.
+        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
+        '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@VendorId = ''', [dbo].[udf_ConvertNullToNvarchar](@VendorId), ''', ',
         -- Nullable columns.
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
@@ -59,11 +59,11 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[Asset] (
-        -- Non-nullable foreign keys.
-            EmployeeId,
-            LocationId,
+            -- Non-nullable foreign keys.
             ProductId,
             -- Nullable foreign keys.
+            EmployeeId,
+            LocationId,
             VendorId,
             -- Nullable columns.
             DocumentationUrl,
@@ -76,14 +76,14 @@ BEGIN
             WarrantyUnitOfMeasure
         )
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable foreign keys.
-            INSERTED.EmployeeId,
-            INSERTED.LocationId,
             INSERTED.ProductId,
             -- Nullable foreign keys.
+            INSERTED.EmployeeId,
+            INSERTED.LocationId,
             INSERTED.VendorId,
             -- Nullable columns.
             INSERTED.DocumentationUrl,
@@ -100,10 +100,10 @@ BEGIN
             INSERTED.WarrantyExpirationDate
         VALUES (
         -- Non-nullable foreign keys.
-            [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
-            [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, NULL),
             -- Nullable foreign keys.
+            [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
+            [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@VendorId, NULL),
             -- Nullable columns.
             [dbo].[udf_GetDefaultNvarchar](@DocumentationUrl, NULL),
