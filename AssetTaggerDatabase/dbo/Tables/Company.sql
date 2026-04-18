@@ -21,12 +21,10 @@
 
     -- Nullable columns.
     [Address] NVARCHAR(850) NULL,
-    CONSTRAINT [AK_Company_Address] UNIQUE ([Address]),
     CONSTRAINT [CK_Company_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Address]) = 1),
     CONSTRAINT [CK_Company_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1),
 
     [Code] NVARCHAR(5) NULL,
-    CONSTRAINT [AK_Company_Code] UNIQUE ([Code]),
     CONSTRAINT [CK_Company_Code_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Code]) = 1),
     CONSTRAINT [CK_Company_Code_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Code]) = 1)
 );
