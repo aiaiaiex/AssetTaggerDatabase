@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_ReadEmployee]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     @DepartmentId NVARCHAR(36) = '',
     @RoleId NVARCHAR(36) = '',
@@ -28,7 +28,7 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         '@DepartmentId = ''', [dbo].[udf_ConvertNullToNvarchar](@DepartmentId), ''', ',
         '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
@@ -79,9 +79,9 @@ BEGIN
         FROM
             [dbo].[Employee]
         WHERE
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@CompanyId, CompanyId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@DepartmentId, DepartmentId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@RoleId, RoleId) = 1

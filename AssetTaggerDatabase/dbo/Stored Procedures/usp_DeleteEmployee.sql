@@ -34,10 +34,10 @@ BEGIN
         -- Run actual query.
         DELETE [dbo].[Employee]
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             DELETED.CreatedAt,
             DELETED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             DELETED.CompanyId,
             DELETED.DepartmentId,
             DELETED.RoleId,

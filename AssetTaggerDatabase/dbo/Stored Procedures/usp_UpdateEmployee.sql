@@ -4,7 +4,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateEmployee]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     @DepartmentId NVARCHAR(36) = '',
     @RoleId NVARCHAR(36) = '',
@@ -19,7 +19,7 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         '@DepartmentId = ''', [dbo].[udf_ConvertNullToNvarchar](@DepartmentId), ''', ',
         '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
@@ -47,24 +47,24 @@ BEGIN
         UPDATE
             [dbo].[Employee]
         SET
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             CompanyId = [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, CompanyId),
             DepartmentId = [dbo].[udf_GetDefaultUniqueidentifier](@DepartmentId, DepartmentId),
             RoleId = [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, RoleId),
             -- Non-nullable columns.
             FullName = [dbo].[udf_GetDefaultNvarchar](@FullName, FullName)
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             INSERTED.CompanyId,
             INSERTED.DepartmentId,
             INSERTED.RoleId,
             -- Non-nullable columns.
             INSERTED.FullName,
             -- Old values.
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             DELETED.CompanyId AS OldCompanyId,
             DELETED.DepartmentId AS OldDepartmentId,
             DELETED.RoleId AS OldRoleId,

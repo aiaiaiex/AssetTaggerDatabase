@@ -2,7 +2,7 @@ CREATE PROCEDURE [dbo].[usp_CreateEmployee]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     @DepartmentId NVARCHAR(36) = '',
     @RoleId NVARCHAR(36) = '',
@@ -15,7 +15,7 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         '@DepartmentId = ''', [dbo].[udf_ConvertNullToNvarchar](@DepartmentId), ''', ',
         '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
@@ -41,7 +41,7 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[Employee] (
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             CompanyId,
             DepartmentId,
             RoleId,
@@ -49,17 +49,17 @@ BEGIN
             FullName
         )
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             INSERTED.CompanyId,
             INSERTED.DepartmentId,
             INSERTED.RoleId,
             -- Non-nullable columns.
             INSERTED.FullName
         VALUES (
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@DepartmentId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, NULL),

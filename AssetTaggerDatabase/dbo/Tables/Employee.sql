@@ -8,14 +8,14 @@
     [RowNumber] INT IDENTITY (1, 1),
     CONSTRAINT [AK_Employee_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
-    -- Non-nullable foreign keys.
-    [CompanyId] UNIQUEIDENTIFIER NOT NULL,
+    -- Nullable foreign keys.
+    [CompanyId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Employee_Company] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Company] ([Id]),
 
-    [DepartmentId] UNIQUEIDENTIFIER NOT NULL,
+    [DepartmentId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([Id]),
 
-    [RoleId] UNIQUEIDENTIFIER NOT NULL,
+    [RoleId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Employee_Role] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role] ([Id]),
 
     -- Non-nullable columns.
