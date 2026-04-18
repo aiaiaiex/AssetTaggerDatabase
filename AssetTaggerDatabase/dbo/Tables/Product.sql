@@ -20,11 +20,11 @@
     CONSTRAINT [CK_Product_DocumentationUrl_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([DocumentationUrl]) = 1),
     CONSTRAINT [CK_Product_DocumentationUrl_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([DocumentationUrl]) = 1),
 
-    [ModelNumber] NVARCHAR(834) NULL,
+    [ModelNumber] NVARCHAR(842) NULL,
     CONSTRAINT [CK_Product_ModelNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([ModelNumber]) = 1),
     CONSTRAINT [CK_Product_ModelNumber_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([ModelNumber]) = 1),
 
-    [Name] NVARCHAR(834) NULL,
+    [Name] NVARCHAR(842) NULL,
     CONSTRAINT [CK_Product_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
     CONSTRAINT [CK_Product_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1),
 
@@ -33,11 +33,11 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ManufacturerId_ModelNumber_CategoryId]
-    ON [dbo].[Product] ([ManufacturerId], [ModelNumber], [CategoryId])
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ManufacturerId_ModelNumber]
+    ON [dbo].[Product] ([ManufacturerId], [ModelNumber])
     WHERE [ModelNumber] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ManufacturerId_Name_CategoryId]
-    ON [dbo].[Product] ([ManufacturerId], [Name], [CategoryId])
+CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ManufacturerId_Name]
+    ON [dbo].[Product] ([ManufacturerId], [Name])
     WHERE [ModelNumber] IS NULL;
