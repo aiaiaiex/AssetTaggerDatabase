@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateLocation]
     -- Nullable foreign keys.
     @BuildingId NVARCHAR(36) = '',
     -- Non-nullable columns.
-    @Address NVARCHAR(842) = ''
+    @Name NVARCHAR(842) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -20,7 +20,7 @@ BEGIN
         -- Nullable foreign keys.
         '@BuildingId = ''', [dbo].[udf_ConvertNullToNvarchar](@BuildingId), ''', ',
         -- Non-nullable columns.
-        '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''';'
+        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Update';
@@ -46,7 +46,7 @@ BEGIN
             -- Nullable foreign keys.
             BuildingId = [dbo].[udf_GetDefaultUniqueidentifier](@BuildingId, BuildingId),
             -- Non-nullable columns.
-            Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address)
+            Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
         OUTPUT
             -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
@@ -54,12 +54,12 @@ BEGIN
             -- Nullable foreign keys.
             INSERTED.BuildingId,
             -- Non-nullable columns.
-            INSERTED.Address,
+            INSERTED.Name,
             -- Old values.
             -- Nullable foreign keys.
             DELETED.BuildingId AS OldBuildingId,
             -- Non-nullable columns.
-            DELETED.Address AS OldAddress
+            DELETED.Name AS OldName
         FROM
             [dbo].[Location]
         WHERE

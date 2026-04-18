@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_ReadLocation]
     -- Nullable foreign keys.
     @BuildingId NVARCHAR(36) = '',
     -- Non-nullable columns.
-    @Address NVARCHAR(842) = '',
+    @Name NVARCHAR(842) = '',
     -- DATETIME2(3) range parameters.
     @FromCreatedAt NVARCHAR(24) = '',
     @ToCreatedAt NVARCHAR(24) = '',
@@ -29,7 +29,7 @@ BEGIN
         -- Nullable foreign keys.
         '@BuildingId = ''', [dbo].[udf_ConvertNullToNvarchar](@BuildingId), ''', ',
         -- Non-nullable columns.
-        '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''', ',
+        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''', ',
         -- DATETIME2(3) range parameters.
         '@FromCreatedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@FromCreatedAt), ''', ',
         '@ToCreatedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@ToCreatedAt), ''', ',
@@ -69,7 +69,7 @@ BEGIN
             -- Nullable foreign keys.
             BuildingId,
             -- Non-nullable columns.
-            Address
+            Name
         FROM
             [dbo].[Location]
         WHERE
@@ -78,18 +78,18 @@ BEGIN
             -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@BuildingId, BuildingId) = 1
             -- Non-nullable columns.
-            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Address, Address) = 1
+            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Name, Name) = 1
             -- DATETIME2(3) range parameters.
             AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
         ORDER BY
         -- Descending sort.
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Address')) THEN Address END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
             -- Ascending sort.
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Address')) THEN Address END ASC
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC
             -- Pagination.
             OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;

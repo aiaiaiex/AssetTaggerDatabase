@@ -40,7 +40,7 @@ BEGIN
             -- Nullable foreign keys.
             DELETED.BuildingId,
             -- Non-nullable columns.
-            DELETED.Address
+            DELETED.Name
         FROM
             [dbo].[Location]
         WHERE
