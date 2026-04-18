@@ -19,7 +19,7 @@
     CONSTRAINT [CK_Building_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1),
 
     -- Nullable columns.
-    [Address] NVARCHAR(850) NOT NULL,
+    [Address] NVARCHAR(4000) NULL,
     CONSTRAINT [CK_Building_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Address]) = 1),
     CONSTRAINT [CK_Building_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1)
 );
