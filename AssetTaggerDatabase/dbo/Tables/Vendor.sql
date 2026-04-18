@@ -9,12 +9,12 @@
     CONSTRAINT [AK_Vendor_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable columns.
-    [Name] NVARCHAR(850) NOT NULL,
+    [Name] NVARCHAR(425) NOT NULL,
     CONSTRAINT [CK_Vendor_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
     CONSTRAINT [CK_Vendor_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1),
 
     -- Nullable columns.
-    [Address] NVARCHAR(850) NULL,
+    [Address] NVARCHAR(425) NULL,
     CONSTRAINT [CK_Vendor_Address_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Address]) = 1),
     CONSTRAINT [CK_Vendor_Address_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Address]) = 1)
 );
