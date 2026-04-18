@@ -4,11 +4,12 @@ CREATE PROCEDURE [dbo].[usp_UpdateBuilding]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     -- Non-nullable columns.
-    @Address NVARCHAR(850) = '',
-    @Name NVARCHAR(850) = ''
+    @Name NVARCHAR(850) = '',
+    -- Nullable columns.
+    @Address NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -18,11 +19,12 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         -- Non-nullable columns.
-        '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''', ',
-        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''';'
+        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''', ',
+        -- Nullable columns.
+        '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Update';
@@ -45,26 +47,29 @@ BEGIN
         UPDATE
             [dbo].[Building]
         SET
-        -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             CompanyId = [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, CompanyId),
             -- Non-nullable columns.
-            Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address),
-            Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
+            Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name),
+            -- Nullable columns.
+            Address = [dbo].[udf_GetDefaultNvarchar](@Address, Address)
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             INSERTED.CompanyId,
             -- Non-nullable columns.
-            INSERTED.Address,
             INSERTED.Name,
+            -- Nullable columns.
+            INSERTED.Address,
             -- Old values.
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             DELETED.CompanyId AS OldCompanyId,
             -- Non-nullable columns.
-            DELETED.Address AS OldAddress,
-            DELETED.Name AS OldName
+            DELETED.Name AS OldName,
+            -- Nullable columns.
+            DELETED.Address AS OldAddress
         FROM
             [dbo].[Building]
         WHERE

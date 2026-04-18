@@ -37,11 +37,12 @@ BEGIN
         -- Non-nullable columns with default values.
             DELETED.CreatedAt,
             DELETED.Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             DELETED.CompanyId,
             -- Non-nullable columns.
-            DELETED.Address,
-            DELETED.Name
+            DELETED.Name,
+            -- Nullable columns.
+            DELETED.Address
         FROM
             [dbo].[Building]
         WHERE

@@ -4,11 +4,12 @@ CREATE PROCEDURE [dbo].[usp_ReadBuilding]
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
-    -- Non-nullable foreign keys.
+    -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     -- Non-nullable columns.
-    @Address NVARCHAR(850) = '',
     @Name NVARCHAR(850) = '',
+    -- Nullable columns.
+    @Address NVARCHAR(850) = '',
     -- DATETIME2(3) range parameters.
     @FromCreatedAt NVARCHAR(24) = '',
     @ToCreatedAt NVARCHAR(24) = '',
@@ -27,11 +28,12 @@ BEGIN
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
-        -- Non-nullable foreign keys.
+        -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         -- Non-nullable columns.
-        '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''', ',
         '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''', ',
+        -- Nullable columns.
+        '@Address = ''', [dbo].[udf_ConvertNullToNvarchar](@Address), ''', ',
         -- DATETIME2(3) range parameters.
         '@FromCreatedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@FromCreatedAt), ''', ',
         '@ToCreatedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@ToCreatedAt), ''', ',
@@ -65,37 +67,39 @@ BEGIN
 
         -- Run actual query.
         SELECT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             CreatedAt,
             Id,
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             CompanyId,
             -- Non-nullable columns.
-            Address,
-            Name
+            Name,
+            -- Nullable columns.
+            Address
         FROM
             [dbo].[Building]
         WHERE
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
-            -- Non-nullable foreign keys.
+            -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@CompanyId, CompanyId) = 1
             -- Non-nullable columns.
-            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Address, Address) = 1
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Name, Name) = 1
+            -- Nullable columns.
+            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@Address, Address) = 1
             -- DATETIME2(3) range parameters.
             AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
         ORDER BY
         -- Descending sort.
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Address')) THEN Address END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Name')) THEN Name END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Address')) THEN Address END DESC,
             -- Ascending sort.
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Address')) THEN Address END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Address')) THEN Address END ASC
             -- Pagination.
             OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
