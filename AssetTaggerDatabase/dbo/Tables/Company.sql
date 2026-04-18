@@ -32,11 +32,6 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Company_Address]
-    ON [dbo].[Company] ([Address])
-    WHERE [Address] IS NOT NULL;
-GO
-
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Company_Code]
     ON [dbo].[Company] ([Code])
     WHERE [Code] IS NOT NULL;
