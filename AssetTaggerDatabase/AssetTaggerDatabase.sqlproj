@@ -236,6 +236,7 @@
     <Build Include="dbo\Stored Procedures\usp_UpdateEndUser.sql" />
     <Build Include="dbo\Stored Procedures\usp_ReadEndUser.sql" />
     <Build Include="dbo\Utils\CreateFirstAdmin.sql" />
+    <Build Include="dbo\Utils\DeleteAllRows.sql" />
     <Build Include="Security\db_REST_API.sql" />
     <Build Include="Security\Permissions.sql" />
   </ItemGroup>
