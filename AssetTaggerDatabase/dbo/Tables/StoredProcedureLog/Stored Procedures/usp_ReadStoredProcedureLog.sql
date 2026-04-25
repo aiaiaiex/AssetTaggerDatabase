@@ -15,8 +15,8 @@ CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
     @EndUserIpAddress NVARCHAR(4000) = '',
     @ErrorMessage NVARCHAR(4000) = '',
     -- INT range parameters.
-    @FromErrorNumber NVARCHAR(11) = '',
-    @ToErrorNumber NVARCHAR(11) = '',
+    @FromErrorNumber NVARCHAR(10) = '',
+    @ToErrorNumber NVARCHAR(10) = '',
     -- BIGINT range parameters.
     @FromExecutionTimeInMilliseconds NVARCHAR(20) = '',
     @ToExecutionTimeInMilliseconds NVARCHAR(20) = '',
