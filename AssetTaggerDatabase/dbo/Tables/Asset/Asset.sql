@@ -29,9 +29,9 @@
 
     [PurchasedAt] DATETIME2(3) NULL,
 
-    [PurchasePrice] DECIMAL(19, 4) NULL,
+    [PurchasePrice] DECIMAL(15, 4) NULL,
 
-    [SalvageValue] DECIMAL(19, 4) NULL,
+    [SalvageValue] DECIMAL(15, 4) NULL,
 
     [SerialNumber] NVARCHAR(842) NULL,
     CONSTRAINT [CK_Asset_SerialNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([SerialNumber]) = 1),

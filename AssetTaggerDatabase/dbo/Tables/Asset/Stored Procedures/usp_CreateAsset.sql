@@ -11,8 +11,8 @@ CREATE PROCEDURE [dbo].[usp_CreateAsset]
     -- Nullable columns.
     @DocumentationUrl NVARCHAR(4000) = '',
     @PurchasedAt NVARCHAR(24) = '',
-    @PurchasePrice NVARCHAR(21) = '',
-    @SalvageValue NVARCHAR(21) = '',
+    @PurchasePrice NVARCHAR(17) = '',
+    @SalvageValue NVARCHAR(17) = '',
     @SerialNumber NVARCHAR(842) = '',
     @UsefulLife NVARCHAR(11) = '',
     @WarrantyDuration NVARCHAR(11) = '',

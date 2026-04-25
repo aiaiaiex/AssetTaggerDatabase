@@ -19,15 +19,15 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @ToUsefulLife NVARCHAR(11) = '',
     @FromWarrantyDuration NVARCHAR(11) = '',
     @ToWarrantyDuration NVARCHAR(11) = '',
-    -- DECIMAL(19, 4) range parameters.
-    @FromAnnualDepreciationExpense NVARCHAR(21) = '',
-    @ToAnnualDepreciationExpense NVARCHAR(21) = '',
-    @FromCurrentBookValue NVARCHAR(21) = '',
-    @ToCurrentBookValue NVARCHAR(21) = '',
-    @FromPurchasePrice NVARCHAR(21) = '',
-    @ToPurchasePrice NVARCHAR(21) = '',
-    @FromSalvageValue NVARCHAR(21) = '',
-    @ToSalvageValue NVARCHAR(21) = '',
+    -- DECIMAL(15, 4) range parameters.
+    @FromAnnualDepreciationExpense NVARCHAR(17) = '',
+    @ToAnnualDepreciationExpense NVARCHAR(17) = '',
+    @FromCurrentBookValue NVARCHAR(17) = '',
+    @ToCurrentBookValue NVARCHAR(17) = '',
+    @FromPurchasePrice NVARCHAR(17) = '',
+    @ToPurchasePrice NVARCHAR(17) = '',
+    @FromSalvageValue NVARCHAR(17) = '',
+    @ToSalvageValue NVARCHAR(17) = '',
     -- DATETIME2(3) range parameters.
     @FromCreatedAt NVARCHAR(24) = NULL,
     @ToCreatedAt NVARCHAR(24) = NULL,
@@ -65,7 +65,7 @@ BEGIN
         '@ToUsefulLife = ''', [dbo].[udf_ConvertNullToNvarchar](@ToUsefulLife), ''', ',
         '@FromWarrantyDuration = ''', [dbo].[udf_ConvertNullToNvarchar](@FromWarrantyDuration), ''', ',
         '@ToWarrantyDuration = ''', [dbo].[udf_ConvertNullToNvarchar](@ToWarrantyDuration), ''', ',
-        -- DECIMAL(19, 4) range parameters.
+        -- DECIMAL(15, 4) range parameters.
         '@FromAnnualDepreciationExpense = ''', [dbo].[udf_ConvertNullToNvarchar](@FromAnnualDepreciationExpense), ''', ',
         '@ToAnnualDepreciationExpense = ''', [dbo].[udf_ConvertNullToNvarchar](@ToAnnualDepreciationExpense), ''', ',
         '@FromCurrentBookValue = ''', [dbo].[udf_ConvertNullToNvarchar](@FromCurrentBookValue), ''', ',
@@ -151,7 +151,7 @@ BEGIN
             -- INT range parameters.
             AND [dbo].[udf_IsBetweenInts](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
             AND [dbo].[udf_IsBetweenInts](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1
-            -- DECIMAL(19, 4) range parameters.
+            -- DECIMAL(15, 4) range parameters.
             AND [dbo].[udf_IsBetweenDecimals](@FromAnnualDepreciationExpense, AnnualDepreciationExpense, @ToAnnualDepreciationExpense) = 1
             AND [dbo].[udf_IsBetweenDecimals](@FromCurrentBookValue, CurrentBookValue, @ToCurrentBookValue) = 1
             AND [dbo].[udf_IsBetweenDecimals](@FromPurchasePrice, PurchasePrice, @ToPurchasePrice) = 1
