@@ -179,7 +179,6 @@
     <Build Include="dbo\Functions\GetRow\udf_GetRowOrder.sql" />
     <Build Include="dbo\Functions\GetRow\udf_GetRowsToReturnInBigint.sql" />
     <Build Include="dbo\Functions\GetRow\udf_GetRowsToSkipInBigint.sql" />
-    <Build Include="dbo\Functions\GetRow\udf_GetRowsToSkipInInt.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoLeadingAndTrailingWhitespaceInNvarchar.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoLeadingAndTrailingWhitespaceInNvarcharMax.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoWhitespaceInNvarchar.sql" />
