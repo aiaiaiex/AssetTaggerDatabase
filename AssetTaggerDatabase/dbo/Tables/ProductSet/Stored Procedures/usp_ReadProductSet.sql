@@ -89,7 +89,7 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ProductQuantity')) THEN ProductQuantity END ASC
             -- Pagination.
-            OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+            OFFSET [dbo].[udf_GetRowsToSkip](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH

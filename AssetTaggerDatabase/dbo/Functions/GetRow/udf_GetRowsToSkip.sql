@@ -1,4 +1,4 @@
-CREATE FUNCTION [dbo].[udf_GetRowsToSkipInBigint](
+CREATE FUNCTION [dbo].[udf_GetRowsToSkip](
     @RowsToSkipInNvarchar NVARCHAR(19)
 )
 RETURNS BIGINT WITH SCHEMABINDING AS

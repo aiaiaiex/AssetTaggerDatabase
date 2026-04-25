@@ -489,7 +489,7 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingVendorPermission')) THEN HasUpdatingVendorPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingVendorPermission')) THEN HasDeletingVendorPermission END ASC
             -- Pagination.
-            OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+            OFFSET [dbo].[udf_GetRowsToSkip](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH

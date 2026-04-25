@@ -101,7 +101,7 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Address')) THEN Address END ASC
             -- Pagination.
-            OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+            OFFSET [dbo].[udf_GetRowsToSkip](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH

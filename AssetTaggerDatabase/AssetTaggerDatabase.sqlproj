@@ -178,7 +178,7 @@
     <Build Include="dbo\Functions\GetDefault\udf_GetDefaultUniqueidentifier.sql" />
     <Build Include="dbo\Functions\GetRow\udf_GetRowOrder.sql" />
     <Build Include="dbo\Functions\GetRow\udf_GetRowsToReturn.sql" />
-    <Build Include="dbo\Functions\GetRow\udf_GetRowsToSkipInBigint.sql" />
+    <Build Include="dbo\Functions\GetRow\udf_GetRowsToSkip.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoLeadingAndTrailingWhitespaceInNvarchar.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoLeadingAndTrailingWhitespaceInNvarcharMax.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoWhitespaceInNvarchar.sql" />
