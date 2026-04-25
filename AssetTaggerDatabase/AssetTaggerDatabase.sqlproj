@@ -168,6 +168,7 @@
   <ItemGroup>
     <Build Include="dbo\Functions\ConvertNullToNvarchar\udf_ConvertNullToNvarchar.sql" />
     <Build Include="dbo\Functions\ConvertNullToNvarchar\udf_ConvertNullToNvarcharMax.sql" />
+    <Build Include="dbo\Functions\GetDefault\udf_GetDefaultBigint.sql" />
     <Build Include="dbo\Functions\GetDefault\udf_GetDefaultBit.sql" />
     <Build Include="dbo\Functions\GetDefault\udf_GetDefaultDatetime2.sql" />
     <Build Include="dbo\Functions\GetDefault\udf_GetDefaultDecimal.sql" />
