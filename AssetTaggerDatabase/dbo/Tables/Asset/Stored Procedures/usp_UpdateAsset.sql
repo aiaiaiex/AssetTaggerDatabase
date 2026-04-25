@@ -16,8 +16,8 @@ CREATE PROCEDURE [dbo].[usp_UpdateAsset]
     @PurchasePrice NVARCHAR(17) = '',
     @SalvageValue NVARCHAR(17) = '',
     @SerialNumber NVARCHAR(842) = '',
-    @UsefulLife NVARCHAR(11) = '',
-    @WarrantyDuration NVARCHAR(11) = '',
+    @UsefulLife NVARCHAR(19) = '',
+    @WarrantyDuration NVARCHAR(19) = '',
     @WarrantyUnitOfMeasure NVARCHAR(2) = ''
 AS;
 BEGIN
@@ -77,8 +77,8 @@ BEGIN
             PurchasePrice = [dbo].[udf_GetDefaultDecimal](@PurchasePrice, PurchasePrice),
             SalvageValue = [dbo].[udf_GetDefaultDecimal](@SalvageValue, SalvageValue),
             SerialNumber = [dbo].[udf_GetDefaultNvarchar](@SerialNumber, SerialNumber),
-            UsefulLife = [dbo].[udf_GetDefaultInt](@UsefulLife, UsefulLife),
-            WarrantyDuration = [dbo].[udf_GetDefaultInt](@WarrantyDuration, WarrantyDuration),
+            UsefulLife = [dbo].[udf_GetDefaultBigint](@UsefulLife, UsefulLife),
+            WarrantyDuration = [dbo].[udf_GetDefaultBigint](@WarrantyDuration, WarrantyDuration),
             WarrantyUnitOfMeasure = [dbo].[udf_GetDefaultNvarchar](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure)
         OUTPUT
             -- Non-nullable columns with default values.

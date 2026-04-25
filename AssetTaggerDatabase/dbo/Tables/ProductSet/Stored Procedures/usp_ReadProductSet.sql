@@ -5,9 +5,9 @@ CREATE PROCEDURE [dbo].[usp_ReadProductSet]
     -- Non-nullable foreign keys.
     @ParentProductId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = '',
-    -- INT range parameters.
-    @FromProductQuantity NVARCHAR(10) = '',
-    @ToProductQuantity NVARCHAR(10) = '',
+    -- BIGINT range parameters.
+    @FromProductQuantity NVARCHAR(19) = '',
+    @ToProductQuantity NVARCHAR(19) = '',
     -- DATETIME2(3) range parameters.
     @FromCreatedAt NVARCHAR(24) = '',
     @ToCreatedAt NVARCHAR(24) = '',
@@ -15,8 +15,8 @@ CREATE PROCEDURE [dbo].[usp_ReadProductSet]
     @SortColumn NVARCHAR(4000) = '',
     @RowOrder NVARCHAR(4) = '',
     -- Pagination parameters.
-    @RowsToSkip NVARCHAR(10) = '',
-    @RowsToReturn NVARCHAR(10) = ''
+    @RowsToSkip NVARCHAR(19) = '',
+    @RowsToReturn NVARCHAR(19) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -27,7 +27,7 @@ BEGIN
         -- Non-nullable foreign keys.
         '@ParentProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ParentProductId), ''', ',
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
-        -- INT range parameters.
+        -- BIGINT range parameters.
         '@FromProductQuantity = ''', [dbo].[udf_ConvertNullToNvarchar](@FromProductQuantity), ''', ',
         '@ToProductQuantity = ''', [dbo].[udf_ConvertNullToNvarchar](@ToProductQuantity), ''', ',
         -- DATETIME2(3) range parameters.
@@ -75,8 +75,8 @@ BEGIN
         -- Non-nullable foreign keys.
             [dbo].[udf_IsEqualToUniqueIdentifier](@ParentProductId, ParentProductId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
-            -- INT range parameters.
-            AND [dbo].[udf_IsBetweenInts](@FromProductQuantity, ProductQuantity, @ToProductQuantity) = 1
+            -- BIGINT range parameters.
+            AND [dbo].[udf_IsBetweenBigints](@FromProductQuantity, ProductQuantity, @ToProductQuantity) = 1
             -- DATETIME2(3) range parameters.
             AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
         ORDER BY
@@ -89,8 +89,8 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ProductQuantity')) THEN ProductQuantity END ASC
             -- Pagination.
-            OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
-            FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
+            OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+            FETCH NEXT [dbo].[udf_GetRowsToReturnInBigint](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;

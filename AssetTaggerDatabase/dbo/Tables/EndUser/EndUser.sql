@@ -5,7 +5,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUser_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_EndUser] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [RowNumber] INT IDENTITY (1, 1),
+    [RowNumber] BIGINT IDENTITY (1, 1),
     CONSTRAINT [AK_EndUser_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable foreign keys.

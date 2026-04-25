@@ -5,7 +5,7 @@ CREATE TABLE [dbo].[InHouseUnit] (
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_InHouseUnit_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_InHouseUnit] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [RowNumber] INT IDENTITY (1, 1),
+    [RowNumber] BIGINT IDENTITY (1, 1),
     CONSTRAINT [AK_InHouseUnit_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Nullable foreign keys.

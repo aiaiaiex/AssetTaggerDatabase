@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateProductSet]
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
-    @ProductQuantity NVARCHAR(10) = '',
+    @ProductQuantity NVARCHAR(19) = '',
     -- Non-nullable foreign keys.
     @ParentProductId NVARCHAR(36),
     @ProductId NVARCHAR(36) = ''
@@ -41,7 +41,7 @@ BEGIN
         UPDATE
             [dbo].[ProductSet]
         SET
-            ProductQuantity = [dbo].[udf_GetDefaultInt](@ProductQuantity, ProductQuantity)
+            ProductQuantity = [dbo].[udf_GetDefaultBigint](@ProductQuantity, ProductQuantity)
         OUTPUT
         -- Non-nullable columns with default values.
             INSERTED.CreatedAt,

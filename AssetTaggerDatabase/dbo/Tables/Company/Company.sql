@@ -5,7 +5,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Company_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Company] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 
-    [RowNumber] INT IDENTITY (1, 1),
+    [RowNumber] BIGINT IDENTITY (1, 1),
     CONSTRAINT [AK_Company_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
 
     -- Nullable foreign keys.

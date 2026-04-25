@@ -5,7 +5,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Asset_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Asset] PRIMARY KEY NONCLUSTERED ([Id]),
 
-    [RowNumber] INT IDENTITY (1, 1),
+    [RowNumber] BIGINT IDENTITY (1, 1),
     CONSTRAINT [AK_Asset_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable foreign keys.
@@ -37,10 +37,10 @@
     CONSTRAINT [CK_Asset_SerialNumber_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([SerialNumber]) = 1),
     CONSTRAINT [CK_Asset_SerialNumber_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([SerialNumber]) = 1),
 
-    [UsefulLife] INT NULL,
+    [UsefulLife] BIGINT NULL,
     CONSTRAINT [CK_Asset_UsefulLife] CHECK ([UsefulLife] >= 0),
 
-    [WarrantyDuration] INT NULL,
+    [WarrantyDuration] BIGINT NULL,
     CONSTRAINT [CK_Asset_WarrantyDuration] CHECK ([WarrantyDuration] >= 0),
 
     [WarrantyUnitOfMeasure] NVARCHAR(2) NULL,

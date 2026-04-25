@@ -13,8 +13,8 @@ CREATE PROCEDURE [dbo].[usp_ReadDepartment]
     @SortColumn NVARCHAR(4000) = '',
     @RowOrder NVARCHAR(4) = '',
     -- Pagination parameters.
-    @RowsToSkip NVARCHAR(10) = '',
-    @RowsToReturn NVARCHAR(10) = ''
+    @RowsToSkip NVARCHAR(19) = '',
+    @RowsToReturn NVARCHAR(19) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -83,8 +83,8 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC
             -- Pagination.
-            OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
-            FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
+            OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+            FETCH NEXT [dbo].[udf_GetRowsToReturnInBigint](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;

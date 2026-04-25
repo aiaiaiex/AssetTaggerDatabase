@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[usp_CreateProductSet]
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
-    @ProductQuantity NVARCHAR(10) = '',
+    @ProductQuantity NVARCHAR(19) = '',
     -- Non-nullable foreign keys.
     @ParentProductId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = ''
@@ -54,7 +54,7 @@ BEGIN
             INSERTED.ProductId
         VALUES (
         -- Non-nullable columns with default values.
-            [dbo].[udf_GetDefaultInt](@ProductQuantity, 1),
+            [dbo].[udf_GetDefaultBigint](@ProductQuantity, 1),
             -- Non-nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@ParentProductId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, NULL)

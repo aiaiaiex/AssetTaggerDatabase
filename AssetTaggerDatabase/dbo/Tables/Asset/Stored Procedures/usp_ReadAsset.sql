@@ -14,11 +14,11 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @DocumentationUrl NVARCHAR(4000) = '',
     @SerialNumber NVARCHAR(842) = '',
     @WarrantyUnitOfMeasure NVARCHAR(2) = '',
-    -- INT range parameters.
-    @FromUsefulLife NVARCHAR(11) = '',
-    @ToUsefulLife NVARCHAR(11) = '',
-    @FromWarrantyDuration NVARCHAR(11) = '',
-    @ToWarrantyDuration NVARCHAR(11) = '',
+    -- BIGINT range parameters.
+    @FromUsefulLife NVARCHAR(19) = '',
+    @ToUsefulLife NVARCHAR(19) = '',
+    @FromWarrantyDuration NVARCHAR(19) = '',
+    @ToWarrantyDuration NVARCHAR(19) = '',
     -- DECIMAL(15, 4) range parameters.
     @FromAnnualDepreciationExpense NVARCHAR(17) = '',
     @ToAnnualDepreciationExpense NVARCHAR(17) = '',
@@ -39,8 +39,8 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @SortColumn NVARCHAR(4000) = '',
     @RowOrder NVARCHAR(4) = '',
     -- Pagination parameters.
-    @RowsToSkip NVARCHAR(10) = '',
-    @RowsToReturn NVARCHAR(10) = ''
+    @RowsToSkip NVARCHAR(19) = '',
+    @RowsToReturn NVARCHAR(19) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -60,7 +60,7 @@ BEGIN
         '@DocumentationUrl = ''', [dbo].[udf_ConvertNullToNvarchar](@DocumentationUrl), ''', ',
         '@SerialNumber = ''', [dbo].[udf_ConvertNullToNvarchar](@SerialNumber), ''', ',
         '@WarrantyUnitOfMeasure = ''', [dbo].[udf_ConvertNullToNvarchar](@WarrantyUnitOfMeasure), ''', ',
-        -- INT range parameters.
+        -- BIGINT range parameters.
         '@FromUsefulLife = ''', [dbo].[udf_ConvertNullToNvarchar](@FromUsefulLife), ''', ',
         '@ToUsefulLife = ''', [dbo].[udf_ConvertNullToNvarchar](@ToUsefulLife), ''', ',
         '@FromWarrantyDuration = ''', [dbo].[udf_ConvertNullToNvarchar](@FromWarrantyDuration), ''', ',
@@ -148,9 +148,9 @@ BEGIN
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, DocumentationUrl) = 1
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@SerialNumber, SerialNumber) = 1
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) = 1
-            -- INT range parameters.
-            AND [dbo].[udf_IsBetweenInts](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
-            AND [dbo].[udf_IsBetweenInts](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1
+            -- BIGINT range parameters.
+            AND [dbo].[udf_IsBetweenBigints](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
+            AND [dbo].[udf_IsBetweenBigints](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1
             -- DECIMAL(15, 4) range parameters.
             AND [dbo].[udf_IsBetweenDecimals](@FromAnnualDepreciationExpense, AnnualDepreciationExpense, @ToAnnualDepreciationExpense) = 1
             AND [dbo].[udf_IsBetweenDecimals](@FromCurrentBookValue, CurrentBookValue, @ToCurrentBookValue) = 1
@@ -190,8 +190,8 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CurrentBookValue')) THEN CurrentBookValue END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN WarrantyExpirationDate END ASC
             -- Pagination.
-            OFFSET [dbo].[udf_GetRowsToSkipInInt](@RowsToSkip) ROWS
-            FETCH NEXT [dbo].[udf_GetRowsToReturnInInt](@RowsToReturn) ROWS ONLY;
+            OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
+            FETCH NEXT [dbo].[udf_GetRowsToReturnInBigint](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;

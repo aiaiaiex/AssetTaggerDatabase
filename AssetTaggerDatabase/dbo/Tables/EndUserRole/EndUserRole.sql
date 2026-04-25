@@ -5,7 +5,7 @@
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 
-    [RowNumber] INT IDENTITY (1, 1),
+    [RowNumber] BIGINT IDENTITY (1, 1),
     CONSTRAINT [AK_EndUserRole_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
 
     -- Non-nullable columns.

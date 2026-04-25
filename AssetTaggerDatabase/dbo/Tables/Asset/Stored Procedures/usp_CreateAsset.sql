@@ -14,8 +14,8 @@ CREATE PROCEDURE [dbo].[usp_CreateAsset]
     @PurchasePrice NVARCHAR(17) = '',
     @SalvageValue NVARCHAR(17) = '',
     @SerialNumber NVARCHAR(842) = '',
-    @UsefulLife NVARCHAR(11) = '',
-    @WarrantyDuration NVARCHAR(11) = '',
+    @UsefulLife NVARCHAR(19) = '',
+    @WarrantyDuration NVARCHAR(19) = '',
     @WarrantyUnitOfMeasure NVARCHAR(2) = ''
 AS;
 BEGIN
@@ -111,8 +111,8 @@ BEGIN
             [dbo].[udf_GetDefaultDecimal](@PurchasePrice, NULL),
             [dbo].[udf_GetDefaultDecimal](@SalvageValue, NULL),
             [dbo].[udf_GetDefaultNvarchar](@SerialNumber, NULL),
-            [dbo].[udf_GetDefaultInt](@UsefulLife, NULL),
-            [dbo].[udf_GetDefaultInt](@WarrantyDuration, NULL),
+            [dbo].[udf_GetDefaultBigint](@UsefulLife, NULL),
+            [dbo].[udf_GetDefaultBigint](@WarrantyDuration, NULL),
             [dbo].[udf_GetDefaultNvarchar](@WarrantyUnitOfMeasure, NULL)
         );
     END TRY

@@ -1,7 +1,7 @@
 CREATE FUNCTION [dbo].[udf_CalculateCurrentBookValue](
     @PurchasePrice DECIMAL(15, 4),
     @SalvageValue DECIMAL(15, 4),
-    @UsefulLife INT,
+    @UsefulLife BIGINT,
     @PurchasedAt DATETIME2(3)
 )
 RETURNS DECIMAL(15, 4) WITH SCHEMABINDING AS
