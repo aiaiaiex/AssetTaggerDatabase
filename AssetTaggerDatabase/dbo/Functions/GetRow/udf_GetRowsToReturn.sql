@@ -1,4 +1,4 @@
-CREATE FUNCTION [dbo].[udf_GetRowsToReturnInBigint](
+CREATE FUNCTION [dbo].[udf_GetRowsToReturn](
     @RowsToReturnInNvarchar NVARCHAR(19)
 )
 RETURNS BIGINT WITH SCHEMABINDING AS

@@ -108,7 +108,7 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Name')) THEN Name END ASC
             -- Pagination.
             OFFSET [dbo].[udf_GetRowsToSkipInBigint](@RowsToSkip) ROWS
-            FETCH NEXT [dbo].[udf_GetRowsToReturnInBigint](@RowsToReturn) ROWS ONLY;
+            FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;
