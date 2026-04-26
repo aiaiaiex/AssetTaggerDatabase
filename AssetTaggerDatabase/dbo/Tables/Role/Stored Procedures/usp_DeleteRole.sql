@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_DeleteEndUserRole]
+CREATE PROCEDURE [dbo].[usp_DeleteRole]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
@@ -16,7 +16,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Delete';
-    DECLARE @TableName NVARCHAR(4000) = 'EndUserRole';
+    DECLARE @TableName NVARCHAR(4000) = 'Role';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
@@ -32,7 +32,7 @@ BEGIN
         EXEC [dbo].[usp_HasPermission] @EndUserId, @Operation, @TableName;
 
         -- Run actual query.
-        DELETE [dbo].[EndUserRole]
+        DELETE [dbo].[Role]
         OUTPUT
         -- Non-nullable columns with default values.
             DELETED.CreatedAt,
@@ -75,11 +75,11 @@ BEGIN
             DELETED.HasReadingEndUserPermission,
             DELETED.HasUpdatingEndUserPermission,
             DELETED.HasDeletingEndUserPermission,
-            -- EndUserRole CRUD Permissions.
-            DELETED.HasCreatingEndUserRolePermission,
-            DELETED.HasReadingEndUserRolePermission,
-            DELETED.HasUpdatingEndUserRolePermission,
-            DELETED.HasDeletingEndUserRolePermission,
+            -- Role CRUD Permissions.
+            DELETED.HasCreatingRolePermission,
+            DELETED.HasReadingRolePermission,
+            DELETED.HasUpdatingRolePermission,
+            DELETED.HasDeletingRolePermission,
             -- Location CRUD Permissions.
             DELETED.HasCreatingLocationPermission,
             DELETED.HasReadingLocationPermission,
@@ -113,7 +113,7 @@ BEGIN
             DELETED.HasUpdatingVendorPermission,
             DELETED.HasDeletingVendorPermission
         FROM
-            [dbo].[EndUserRole]
+            [dbo].[Role]
         WHERE
             Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
     END TRY

@@ -9,8 +9,8 @@
     CONSTRAINT [AK_EndUser_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable foreign keys.
-    [EndUserRoleId] UNIQUEIDENTIFIER NOT NULL,
-    CONSTRAINT [FK_EndUser_EndUserRole] FOREIGN KEY ([EndUserRoleId]) REFERENCES [dbo].[EndUserRole] ([Id]),
+    [RoleId] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [FK_EndUser_Role] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role] ([Id]),
 
     -- Nullable foreign keys.
     [EmployeeId] UNIQUEIDENTIFIER NULL,

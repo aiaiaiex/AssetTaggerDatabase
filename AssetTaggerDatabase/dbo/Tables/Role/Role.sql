@@ -1,18 +1,18 @@
-﻿CREATE TABLE [dbo].[EndUserRole] (
+﻿CREATE TABLE [dbo].[Role] (
     -- Non-nullable columns with default values.
-    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_EndUserRole_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
+    [CreatedAt] DATETIME2(3) CONSTRAINT [DF_Role_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
-    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_EndUserRole_Id] DEFAULT (NEWID()) NOT NULL,
-    CONSTRAINT [PK_EndUserRole] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Role_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_Role] PRIMARY KEY NONCLUSTERED ([Id] ASC),
 
     [RowNumber] BIGINT IDENTITY (1, 1),
-    CONSTRAINT [AK_EndUserRole_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
+    CONSTRAINT [AK_Role_RowNumber] UNIQUE CLUSTERED ([RowNumber] ASC),
 
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
-    CONSTRAINT [AK_EndUserRole_Name] UNIQUE NONCLUSTERED ([Name] ASC),
-    CONSTRAINT [CK_EndUserRole_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
-    CONSTRAINT [CK_EndUserRole_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1),
+    CONSTRAINT [AK_Role_Name] UNIQUE NONCLUSTERED ([Name] ASC),
+    CONSTRAINT [CK_Role_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
+    CONSTRAINT [CK_Role_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1),
 
     -- Permissions.
     -- Asset CRUD Permissions.
@@ -50,11 +50,11 @@
     [HasReadingEndUserPermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingEndUserPermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingEndUserPermission] BIT DEFAULT 0 NOT NULL,
-    -- EndUserRole CRUD Permissions.
-    [HasCreatingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
-    [HasReadingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
-    [HasUpdatingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
-    [HasDeletingEndUserRolePermission] BIT DEFAULT 0 NOT NULL,
+    -- Role CRUD Permissions.
+    [HasCreatingRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
     -- Location CRUD Permissions.
     [HasCreatingLocationPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingLocationPermission] BIT DEFAULT 0 NOT NULL,

@@ -38,7 +38,7 @@ BEGIN
             DELETED.CreatedAt,
             DELETED.Id,
             -- Non-nullable foreign keys.
-            DELETED.EndUserRoleId,
+            DELETED.RoleId,
             -- Nullable foreign keys.
             DELETED.EmployeeId,
             -- Non-nullable columns.

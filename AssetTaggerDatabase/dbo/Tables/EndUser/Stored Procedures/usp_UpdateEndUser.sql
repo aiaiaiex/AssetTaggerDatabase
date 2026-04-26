@@ -5,7 +5,7 @@
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EndUserRoleId NVARCHAR(36) = '',
+    @RoleId NVARCHAR(36) = '',
     -- Nullable foreign keys.
     @EmployeeId NVARCHAR(36) = '',
     -- Non-nullable columns.
@@ -20,7 +20,7 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
-        '@EndUserRoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@EndUserRoleId), ''', ',
+        '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
         -- Nullable foreign keys.
         '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         -- Non-nullable columns.
@@ -48,7 +48,7 @@ BEGIN
             [dbo].[EndUser]
         SET
             -- Non-nullable foreign keys.
-            EndUserRoleId = [dbo].[udf_GetDefaultUniqueidentifier](@EndUserRoleId, EndUserRoleId),
+            RoleId = [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, RoleId),
             -- Nullable foreign keys.
             EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
             -- Non-nullable columns.
@@ -58,14 +58,14 @@ BEGIN
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable foreign keys.
-            INSERTED.EndUserRoleId,
+            INSERTED.RoleId,
             -- Nullable foreign keys.
             INSERTED.EmployeeId,
             -- Non-nullable columns.
             INSERTED.Username,
             -- Old values.
             -- Non-nullable foreign keys.
-            DELETED.EndUserRoleId AS OldEndUserRoleId,
+            DELETED.RoleId AS OldRoleId,
             -- Nullable foreign keys.
             DELETED.EmployeeId AS OldEmployeeId,
             -- Non-nullable columns.

@@ -5,7 +5,7 @@
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
-    @EndUserRoleId NVARCHAR(36) = '',
+    @RoleId NVARCHAR(36) = '',
     -- Nullable foreign keys.
     @EmployeeId NVARCHAR(36) = '',
     -- Non-nullable columns.
@@ -29,7 +29,7 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
-        '@EndUserRoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@EndUserRoleId), ''', ',
+        '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
         -- Nullable foreign keys.
         '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         -- Non-nullable columns.
@@ -71,7 +71,7 @@ BEGIN
             CreatedAt,
             Id,
             -- Non-nullable foreign keys.
-            EndUserRoleId,
+            RoleId,
             -- Nullable foreign keys.
             EmployeeId,
             -- Non-nullable columns.
@@ -82,7 +82,7 @@ BEGIN
         -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
             -- Non-nullable foreign keys.
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@EndUserRoleId, EndUserRoleId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@RoleId, RoleId) = 1
             -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId) = 1
             -- Non-nullable columns.

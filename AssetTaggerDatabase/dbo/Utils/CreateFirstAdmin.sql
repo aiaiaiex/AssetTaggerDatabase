@@ -3,11 +3,11 @@ DECLARE @Username NVARCHAR(850) = 'username';
 DECLARE @Password NVARCHAR(MAX) = 'password';
 DECLARE @RoleName NVARCHAR(850) = 'admin';
 
--- Create EndUserRole.
-CREATE TABLE #EndUserRoleIdTable (EndUserRoleId UNIQUEIDENTIFIER);
-DECLARE @EndUserRoleId UNIQUEIDENTIFIER;
+-- Create Role.
+CREATE TABLE #RoleIdTable (RoleId UNIQUEIDENTIFIER);
+DECLARE @RoleId UNIQUEIDENTIFIER;
 
-INSERT INTO [dbo].[EndUserRole]
+INSERT INTO [dbo].[Role]
 (
     -- Non-nullable columns.
     [Name],
@@ -26,8 +26,8 @@ INSERT INTO [dbo].[EndUserRole]
     [HasCreatingEmployeePermission], [HasReadingEmployeePermission], [HasUpdatingEmployeePermission], [HasDeletingEmployeePermission],
     -- EndUser CRUD Permissions.
     [HasCreatingEndUserPermission], [HasReadingEndUserPermission], [HasUpdatingEndUserPermission], [HasDeletingEndUserPermission],
-    -- EndUserRole CRUD Permissions.
-    [HasCreatingEndUserRolePermission], [HasReadingEndUserRolePermission], [HasUpdatingEndUserRolePermission], [HasDeletingEndUserRolePermission],
+    -- Role CRUD Permissions.
+    [HasCreatingRolePermission], [HasReadingRolePermission], [HasUpdatingRolePermission], [HasDeletingRolePermission],
     -- Location CRUD Permissions.
     [HasCreatingLocationPermission], [HasReadingLocationPermission], [HasUpdatingLocationPermission], [HasDeletingLocationPermission],
     -- Log R Permissions.
@@ -44,7 +44,7 @@ INSERT INTO [dbo].[EndUserRole]
     [HasCreatingVendorPermission], [HasReadingVendorPermission], [HasUpdatingVendorPermission], [HasDeletingVendorPermission]
 )
 OUTPUT INSERTED.Id
-INTO #EndUserRoleIdTable
+INTO #RoleIdTable
 VALUES
 (
     -- Non-nullable columns.
@@ -64,7 +64,7 @@ VALUES
     1, 1, 1, 1,
     -- EndUser CRUD Permissions.
     1, 1, 1, 1,
-    -- EndUserRole CRUD Permissions.
+    -- Role CRUD Permissions.
     1, 1, 1, 1,
     -- Location CRUD Permissions.
     1, 1, 1, 1,
@@ -82,8 +82,8 @@ VALUES
     1, 1, 1, 1
 );
 
-SET @EndUserRoleId = (SELECT EndUserRoleId FROM #EndUserRoleIdTable);
-DROP TABLE #EndUserRoleIdTable;
+SET @RoleId = (SELECT RoleId FROM #RoleIdTable);
+DROP TABLE #RoleIdTable;
 
 -- Create EndUser.
 DECLARE @PasswordSalt UNIQUEIDENTIFIER = NEWID();
@@ -91,7 +91,7 @@ DECLARE @PasswordSalt UNIQUEIDENTIFIER = NEWID();
 INSERT INTO [dbo].[EndUser]
 (
     -- Non-nullable foreign keys.
-    [EndUserRoleId],
+    [RoleId],
     -- Non-nullable columns.
     [Username],
     -- Secret columns.
@@ -103,7 +103,7 @@ OUTPUT
     INSERTED.CreatedAt,
     INSERTED.Id,
     -- Non-nullable foreign keys.
-    INSERTED.EndUserRoleId,
+    INSERTED.RoleId,
     -- Nullable foreign keys.
     INSERTED.EmployeeId,
     -- Non-nullable columns.
@@ -111,7 +111,7 @@ OUTPUT
 VALUES
 (
     -- Non-nullable foreign keys.
-    @EndUserRoleId,
+    @RoleId,
     -- Non-nullable columns.
     @Username,
     -- Secret columns.

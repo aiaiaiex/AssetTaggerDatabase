@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
+CREATE PROCEDURE [dbo].[usp_ReadRole]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
@@ -42,11 +42,11 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingEndUserPermission NVARCHAR(1) = '',
     @HasUpdatingEndUserPermission NVARCHAR(1) = '',
     @HasDeletingEndUserPermission NVARCHAR(1) = '',
-    -- EndUserRole CRUD Permissions.
-    @HasCreatingEndUserRolePermission NVARCHAR(1) = '',
-    @HasReadingEndUserRolePermission NVARCHAR(1) = '',
-    @HasUpdatingEndUserRolePermission NVARCHAR(1) = '',
-    @HasDeletingEndUserRolePermission NVARCHAR(1) = '',
+    -- Role CRUD Permissions.
+    @HasCreatingRolePermission NVARCHAR(1) = '',
+    @HasReadingRolePermission NVARCHAR(1) = '',
+    @HasUpdatingRolePermission NVARCHAR(1) = '',
+    @HasDeletingRolePermission NVARCHAR(1) = '',
     -- Location CRUD Permissions.
     @HasCreatingLocationPermission NVARCHAR(1) = '',
     @HasReadingLocationPermission NVARCHAR(1) = '',
@@ -135,11 +135,11 @@ BEGIN
         '@HasReadingEndUserPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingEndUserPermission), ''', ',
         '@HasUpdatingEndUserPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingEndUserPermission), ''', ',
         '@HasDeletingEndUserPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingEndUserPermission), ''', ',
-        -- EndUserRole CRUD Permissions.
-        '@HasCreatingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingEndUserRolePermission), ''', ',
-        '@HasReadingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingEndUserRolePermission), ''', ',
-        '@HasUpdatingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingEndUserRolePermission), ''', ',
-        '@HasDeletingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingEndUserRolePermission), ''', ',
+        -- Role CRUD Permissions.
+        '@HasCreatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingRolePermission), ''', ',
+        '@HasReadingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingRolePermission), ''', ',
+        '@HasUpdatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingRolePermission), ''', ',
+        '@HasDeletingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingRolePermission), ''', ',
         -- Location CRUD Permissions.
         '@HasCreatingLocationPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingLocationPermission), ''', ',
         '@HasReadingLocationPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingLocationPermission), ''', ',
@@ -184,7 +184,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Read';
-    DECLARE @TableName NVARCHAR(4000) = 'EndUserRole';
+    DECLARE @TableName NVARCHAR(4000) = 'Role';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
@@ -246,11 +246,11 @@ BEGIN
             HasReadingEndUserPermission,
             HasUpdatingEndUserPermission,
             HasDeletingEndUserPermission,
-            -- EndUserRole CRUD Permissions.
-            HasCreatingEndUserRolePermission,
-            HasReadingEndUserRolePermission,
-            HasUpdatingEndUserRolePermission,
-            HasDeletingEndUserRolePermission,
+            -- Role CRUD Permissions.
+            HasCreatingRolePermission,
+            HasReadingRolePermission,
+            HasUpdatingRolePermission,
+            HasDeletingRolePermission,
             -- Location CRUD Permissions.
             HasCreatingLocationPermission,
             HasReadingLocationPermission,
@@ -284,7 +284,7 @@ BEGIN
             HasUpdatingVendorPermission,
             HasDeletingVendorPermission
         FROM
-            [dbo].[EndUserRole]
+            [dbo].[Role]
         WHERE
         -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
@@ -328,11 +328,11 @@ BEGIN
             AND [dbo].[udf_IsEqualToBit](@HasReadingEndUserPermission, HasReadingEndUserPermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasUpdatingEndUserPermission, HasUpdatingEndUserPermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasDeletingEndUserPermission, HasDeletingEndUserPermission) = 1
-            -- EndUserRole CRUD Permissions.
-            AND [dbo].[udf_IsEqualToBit](@HasCreatingEndUserRolePermission, HasCreatingEndUserRolePermission) = 1
-            AND [dbo].[udf_IsEqualToBit](@HasReadingEndUserRolePermission, HasReadingEndUserRolePermission) = 1
-            AND [dbo].[udf_IsEqualToBit](@HasUpdatingEndUserRolePermission, HasUpdatingEndUserRolePermission) = 1
-            AND [dbo].[udf_IsEqualToBit](@HasDeletingEndUserRolePermission, HasDeletingEndUserRolePermission) = 1
+            -- Role CRUD Permissions.
+            AND [dbo].[udf_IsEqualToBit](@HasCreatingRolePermission, HasCreatingRolePermission) = 1
+            AND [dbo].[udf_IsEqualToBit](@HasReadingRolePermission, HasReadingRolePermission) = 1
+            AND [dbo].[udf_IsEqualToBit](@HasUpdatingRolePermission, HasUpdatingRolePermission) = 1
+            AND [dbo].[udf_IsEqualToBit](@HasDeletingRolePermission, HasDeletingRolePermission) = 1
             -- Location CRUD Permissions.
             AND [dbo].[udf_IsEqualToBit](@HasCreatingLocationPermission, HasCreatingLocationPermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasReadingLocationPermission, HasReadingLocationPermission) = 1
@@ -398,10 +398,10 @@ BEGIN
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingEndUserPermission')) THEN HasReadingEndUserPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingEndUserPermission')) THEN HasUpdatingEndUserPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingEndUserPermission')) THEN HasDeletingEndUserPermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingEndUserRolePermission')) THEN HasCreatingEndUserRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingEndUserRolePermission')) THEN HasReadingEndUserRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingEndUserRolePermission')) THEN HasUpdatingEndUserRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingEndUserRolePermission')) THEN HasDeletingEndUserRolePermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingRolePermission')) THEN HasCreatingRolePermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingRolePermission')) THEN HasReadingRolePermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingRolePermission')) THEN HasUpdatingRolePermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingRolePermission')) THEN HasDeletingRolePermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingLocationPermission')) THEN HasCreatingLocationPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingLocationPermission')) THEN HasReadingLocationPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingLocationPermission')) THEN HasUpdatingLocationPermission END DESC,
@@ -459,10 +459,10 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingEndUserPermission')) THEN HasReadingEndUserPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingEndUserPermission')) THEN HasUpdatingEndUserPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingEndUserPermission')) THEN HasDeletingEndUserPermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingEndUserRolePermission')) THEN HasCreatingEndUserRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingEndUserRolePermission')) THEN HasReadingEndUserRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingEndUserRolePermission')) THEN HasUpdatingEndUserRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingEndUserRolePermission')) THEN HasDeletingEndUserRolePermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingRolePermission')) THEN HasCreatingRolePermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingRolePermission')) THEN HasReadingRolePermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingRolePermission')) THEN HasUpdatingRolePermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingRolePermission')) THEN HasDeletingRolePermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingLocationPermission')) THEN HasCreatingLocationPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingLocationPermission')) THEN HasReadingLocationPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingLocationPermission')) THEN HasUpdatingLocationPermission END ASC,

@@ -1,7 +1,9 @@
-CREATE PROCEDURE [dbo].[usp_CreateEndUserRole]
+CREATE PROCEDURE [dbo].[usp_UpdateRole]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
     -- Non-nullable columns.
     @Name NVARCHAR(850) = '',
     -- Permissions.
@@ -40,11 +42,11 @@ CREATE PROCEDURE [dbo].[usp_CreateEndUserRole]
     @HasReadingEndUserPermission NVARCHAR(1) = '',
     @HasUpdatingEndUserPermission NVARCHAR(1) = '',
     @HasDeletingEndUserPermission NVARCHAR(1) = '',
-    -- EndUserRole CRUD Permissions.
-    @HasCreatingEndUserRolePermission NVARCHAR(1) = '',
-    @HasReadingEndUserRolePermission NVARCHAR(1) = '',
-    @HasUpdatingEndUserRolePermission NVARCHAR(1) = '',
-    @HasDeletingEndUserRolePermission NVARCHAR(1) = '',
+    -- Role CRUD Permissions.
+    @HasCreatingRolePermission NVARCHAR(1) = '',
+    @HasReadingRolePermission NVARCHAR(1) = '',
+    @HasUpdatingRolePermission NVARCHAR(1) = '',
+    @HasDeletingRolePermission NVARCHAR(1) = '',
     -- Location CRUD Permissions.
     @HasCreatingLocationPermission NVARCHAR(1) = '',
     @HasReadingLocationPermission NVARCHAR(1) = '',
@@ -84,6 +86,8 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
+        -- Non-nullable columns with default values.
+        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable columns.
         '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''', ',
         -- Permissions.
@@ -122,11 +126,11 @@ BEGIN
         '@HasReadingEndUserPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingEndUserPermission), ''', ',
         '@HasUpdatingEndUserPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingEndUserPermission), ''', ',
         '@HasDeletingEndUserPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingEndUserPermission), ''', ',
-        -- EndUserRole CRUD Permissions.
-        '@HasCreatingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingEndUserRolePermission), ''', ',
-        '@HasReadingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingEndUserRolePermission), ''', ',
-        '@HasUpdatingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingEndUserRolePermission), ''', ',
-        '@HasDeletingEndUserRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingEndUserRolePermission), ''', ',
+        -- Role CRUD Permissions.
+        '@HasCreatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingRolePermission), ''', ',
+        '@HasReadingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingRolePermission), ''', ',
+        '@HasUpdatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingRolePermission), ''', ',
+        '@HasDeletingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingRolePermission), ''', ',
         -- Location CRUD Permissions.
         '@HasCreatingLocationPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingLocationPermission), ''', ',
         '@HasReadingLocationPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingLocationPermission), ''', ',
@@ -161,8 +165,8 @@ BEGIN
         '@HasDeletingVendorPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingVendorPermission), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
-    DECLARE @Operation NVARCHAR(6) = 'Create';
-    DECLARE @TableName NVARCHAR(4000) = 'EndUserRole';
+    DECLARE @Operation NVARCHAR(6) = 'Update';
+    DECLARE @TableName NVARCHAR(4000) = 'Role';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
@@ -178,83 +182,84 @@ BEGIN
         EXEC [dbo].[usp_HasPermission] @EndUserId, @Operation, @TableName;
 
         -- Run actual query.
-        INSERT INTO [dbo].[EndUserRole] (
+        UPDATE
+            [dbo].[Role]
+        SET
         -- Non-nullable columns.
-            Name,
+            Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name),
             -- Permissions.
             -- Asset CRUD Permissions.
-            HasCreatingAssetPermission,
-            HasReadingAssetPermission,
-            HasUpdatingAssetPermission,
-            HasDeletingAssetPermission,
+            HasCreatingAssetPermission = [dbo].[udf_GetDefaultBit](@HasCreatingAssetPermission, HasCreatingAssetPermission),
+            HasReadingAssetPermission = [dbo].[udf_GetDefaultBit](@HasReadingAssetPermission, HasReadingAssetPermission),
+            HasUpdatingAssetPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingAssetPermission, HasUpdatingAssetPermission),
+            HasDeletingAssetPermission = [dbo].[udf_GetDefaultBit](@HasDeletingAssetPermission, HasDeletingAssetPermission),
             -- Building CRUD Permissions.
-            HasCreatingBuildingPermission,
-            HasReadingBuildingPermission,
-            HasUpdatingBuildingPermission,
-            HasDeletingBuildingPermission,
+            HasCreatingBuildingPermission = [dbo].[udf_GetDefaultBit](@HasCreatingBuildingPermission, HasCreatingBuildingPermission),
+            HasReadingBuildingPermission = [dbo].[udf_GetDefaultBit](@HasReadingBuildingPermission, HasReadingBuildingPermission),
+            HasUpdatingBuildingPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingBuildingPermission, HasUpdatingBuildingPermission),
+            HasDeletingBuildingPermission = [dbo].[udf_GetDefaultBit](@HasDeletingBuildingPermission, HasDeletingBuildingPermission),
             -- Category CRUD Permissions.
-            HasCreatingCategoryPermission,
-            HasReadingCategoryPermission,
-            HasUpdatingCategoryPermission,
-            HasDeletingCategoryPermission,
+            HasCreatingCategoryPermission = [dbo].[udf_GetDefaultBit](@HasCreatingCategoryPermission, HasCreatingCategoryPermission),
+            HasReadingCategoryPermission = [dbo].[udf_GetDefaultBit](@HasReadingCategoryPermission, HasReadingCategoryPermission),
+            HasUpdatingCategoryPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingCategoryPermission, HasUpdatingCategoryPermission),
+            HasDeletingCategoryPermission = [dbo].[udf_GetDefaultBit](@HasDeletingCategoryPermission, HasDeletingCategoryPermission),
             -- Company CRUD Permissions.
-            HasCreatingCompanyPermission,
-            HasReadingCompanyPermission,
-            HasUpdatingCompanyPermission,
-            HasDeletingCompanyPermission,
+            HasCreatingCompanyPermission = [dbo].[udf_GetDefaultBit](@HasCreatingCompanyPermission, HasCreatingCompanyPermission),
+            HasReadingCompanyPermission = [dbo].[udf_GetDefaultBit](@HasReadingCompanyPermission, HasReadingCompanyPermission),
+            HasUpdatingCompanyPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingCompanyPermission, HasUpdatingCompanyPermission),
+            HasDeletingCompanyPermission = [dbo].[udf_GetDefaultBit](@HasDeletingCompanyPermission, HasDeletingCompanyPermission),
             -- Department CRUD Permissions.
-            HasCreatingDepartmentPermission,
-            HasReadingDepartmentPermission,
-            HasUpdatingDepartmentPermission,
-            HasDeletingDepartmentPermission,
+            HasCreatingDepartmentPermission = [dbo].[udf_GetDefaultBit](@HasCreatingDepartmentPermission, HasCreatingDepartmentPermission),
+            HasReadingDepartmentPermission = [dbo].[udf_GetDefaultBit](@HasReadingDepartmentPermission, HasReadingDepartmentPermission),
+            HasUpdatingDepartmentPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingDepartmentPermission, HasUpdatingDepartmentPermission),
+            HasDeletingDepartmentPermission = [dbo].[udf_GetDefaultBit](@HasDeletingDepartmentPermission, HasDeletingDepartmentPermission),
             -- Employee CRUD Permissions.
-            HasCreatingEmployeePermission,
-            HasReadingEmployeePermission,
-            HasUpdatingEmployeePermission,
-            HasDeletingEmployeePermission,
+            HasCreatingEmployeePermission = [dbo].[udf_GetDefaultBit](@HasCreatingEmployeePermission, HasCreatingEmployeePermission),
+            HasReadingEmployeePermission = [dbo].[udf_GetDefaultBit](@HasReadingEmployeePermission, HasReadingEmployeePermission),
+            HasUpdatingEmployeePermission = [dbo].[udf_GetDefaultBit](@HasUpdatingEmployeePermission, HasUpdatingEmployeePermission),
+            HasDeletingEmployeePermission = [dbo].[udf_GetDefaultBit](@HasDeletingEmployeePermission, HasDeletingEmployeePermission),
             -- EndUser CRUD Permissions.
-            HasCreatingEndUserPermission,
-            HasReadingEndUserPermission,
-            HasUpdatingEndUserPermission,
-            HasDeletingEndUserPermission,
-            -- EndUserRole CRUD Permissions.
-            HasCreatingEndUserRolePermission,
-            HasReadingEndUserRolePermission,
-            HasUpdatingEndUserRolePermission,
-            HasDeletingEndUserRolePermission,
+            HasCreatingEndUserPermission = [dbo].[udf_GetDefaultBit](@HasCreatingEndUserPermission, HasCreatingEndUserPermission),
+            HasReadingEndUserPermission = [dbo].[udf_GetDefaultBit](@HasReadingEndUserPermission, HasReadingEndUserPermission),
+            HasUpdatingEndUserPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingEndUserPermission, HasUpdatingEndUserPermission),
+            HasDeletingEndUserPermission = [dbo].[udf_GetDefaultBit](@HasDeletingEndUserPermission, HasDeletingEndUserPermission),
+            -- Role CRUD Permissions.
+            HasCreatingRolePermission = [dbo].[udf_GetDefaultBit](@HasCreatingRolePermission, HasCreatingRolePermission),
+            HasReadingRolePermission = [dbo].[udf_GetDefaultBit](@HasReadingRolePermission, HasReadingRolePermission),
+            HasUpdatingRolePermission = [dbo].[udf_GetDefaultBit](@HasUpdatingRolePermission, HasUpdatingRolePermission),
+            HasDeletingRolePermission = [dbo].[udf_GetDefaultBit](@HasDeletingRolePermission, HasDeletingRolePermission),
             -- Location CRUD Permissions.
-            HasCreatingLocationPermission,
-            HasReadingLocationPermission,
-            HasUpdatingLocationPermission,
-            HasDeletingLocationPermission,
+            HasCreatingLocationPermission = [dbo].[udf_GetDefaultBit](@HasCreatingLocationPermission, HasCreatingLocationPermission),
+            HasReadingLocationPermission = [dbo].[udf_GetDefaultBit](@HasReadingLocationPermission, HasReadingLocationPermission),
+            HasUpdatingLocationPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingLocationPermission, HasUpdatingLocationPermission),
+            HasDeletingLocationPermission = [dbo].[udf_GetDefaultBit](@HasDeletingLocationPermission, HasDeletingLocationPermission),
             -- Manufacturer CRUD Permissions.
-            HasCreatingManufacturerPermission,
-            HasReadingManufacturerPermission,
-            HasUpdatingManufacturerPermission,
-            HasDeletingManufacturerPermission,
+            HasCreatingManufacturerPermission = [dbo].[udf_GetDefaultBit](@HasCreatingManufacturerPermission, HasCreatingManufacturerPermission),
+            HasReadingManufacturerPermission = [dbo].[udf_GetDefaultBit](@HasReadingManufacturerPermission, HasReadingManufacturerPermission),
+            HasUpdatingManufacturerPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingManufacturerPermission, HasUpdatingManufacturerPermission),
+            HasDeletingManufacturerPermission = [dbo].[udf_GetDefaultBit](@HasDeletingManufacturerPermission, HasDeletingManufacturerPermission),
             -- Product CRUD Permissions.
-            HasCreatingProductPermission,
-            HasReadingProductPermission,
-            HasUpdatingProductPermission,
-            HasDeletingProductPermission,
+            HasCreatingProductPermission = [dbo].[udf_GetDefaultBit](@HasCreatingProductPermission, HasCreatingProductPermission),
+            HasReadingProductPermission = [dbo].[udf_GetDefaultBit](@HasReadingProductPermission, HasReadingProductPermission),
+            HasUpdatingProductPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingProductPermission, HasUpdatingProductPermission),
+            HasDeletingProductPermission = [dbo].[udf_GetDefaultBit](@HasDeletingProductPermission, HasDeletingProductPermission),
             -- ProductSet CRUD Permissions.
-            HasCreatingProductSetPermission,
-            HasReadingProductSetPermission,
-            HasUpdatingProductSetPermission,
-            HasDeletingProductSetPermission,
+            HasCreatingProductSetPermission = [dbo].[udf_GetDefaultBit](@HasCreatingProductSetPermission, HasCreatingProductSetPermission),
+            HasReadingProductSetPermission = [dbo].[udf_GetDefaultBit](@HasReadingProductSetPermission, HasReadingProductSetPermission),
+            HasUpdatingProductSetPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingProductSetPermission, HasUpdatingProductSetPermission),
+            HasDeletingProductSetPermission = [dbo].[udf_GetDefaultBit](@HasDeletingProductSetPermission, HasDeletingProductSetPermission),
             -- Job CRUD Permissions.
-            HasCreatingJobPermission,
-            HasReadingJobPermission,
-            HasUpdatingJobPermission,
-            HasDeletingJobPermission,
-            -- Log R Permissions.
-            HasReadingLogPermission,
+            HasCreatingJobPermission = [dbo].[udf_GetDefaultBit](@HasCreatingJobPermission, HasCreatingJobPermission),
+            HasReadingJobPermission = [dbo].[udf_GetDefaultBit](@HasReadingJobPermission, HasReadingJobPermission),
+            HasUpdatingJobPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingJobPermission, HasUpdatingJobPermission),
+            HasDeletingJobPermission = [dbo].[udf_GetDefaultBit](@HasDeletingJobPermission, HasDeletingJobPermission),
+            -- Log CRUD Permissions.
+            HasReadingLogPermission = [dbo].[udf_GetDefaultBit](@HasReadingLogPermission, HasReadingLogPermission),
             -- Vendor CRUD Permissions.
-            HasCreatingVendorPermission,
-            HasReadingVendorPermission,
-            HasUpdatingVendorPermission,
-            HasDeletingVendorPermission
-        )
+            HasCreatingVendorPermission = [dbo].[udf_GetDefaultBit](@HasCreatingVendorPermission, HasCreatingVendorPermission),
+            HasReadingVendorPermission = [dbo].[udf_GetDefaultBit](@HasReadingVendorPermission, HasReadingVendorPermission),
+            HasUpdatingVendorPermission = [dbo].[udf_GetDefaultBit](@HasUpdatingVendorPermission, HasUpdatingVendorPermission),
+            HasDeletingVendorPermission = [dbo].[udf_GetDefaultBit](@HasDeletingVendorPermission, HasDeletingVendorPermission)
         OUTPUT
         -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
@@ -297,11 +302,11 @@ BEGIN
             INSERTED.HasReadingEndUserPermission,
             INSERTED.HasUpdatingEndUserPermission,
             INSERTED.HasDeletingEndUserPermission,
-            -- EndUserRole CRUD Permissions.
-            INSERTED.HasCreatingEndUserRolePermission,
-            INSERTED.HasReadingEndUserRolePermission,
-            INSERTED.HasUpdatingEndUserRolePermission,
-            INSERTED.HasDeletingEndUserRolePermission,
+            -- Role CRUD Permissions.
+            INSERTED.HasCreatingRolePermission,
+            INSERTED.HasReadingRolePermission,
+            INSERTED.HasUpdatingRolePermission,
+            INSERTED.HasDeletingRolePermission,
             -- Location CRUD Permissions.
             INSERTED.HasCreatingLocationPermission,
             INSERTED.HasReadingLocationPermission,
@@ -333,84 +338,87 @@ BEGIN
             INSERTED.HasCreatingVendorPermission,
             INSERTED.HasReadingVendorPermission,
             INSERTED.HasUpdatingVendorPermission,
-            INSERTED.HasDeletingVendorPermission
-        VALUES (
-        -- Non-nullable columns.
-            @Name,
+            INSERTED.HasDeletingVendorPermission,
+            -- Old values.
+            -- Non-nullable columns.
+            DELETED.Name AS OldName,
             -- Permissions.
             -- Asset CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingAssetPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingAssetPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingAssetPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingAssetPermission, 0),
+            DELETED.HasCreatingAssetPermission AS OldHasCreatingAssetPermission,
+            DELETED.HasReadingAssetPermission AS OldHasReadingAssetPermission,
+            DELETED.HasUpdatingAssetPermission AS OldHasUpdatingAssetPermission,
+            DELETED.HasDeletingAssetPermission AS OldHasDeletingAssetPermission,
             -- Building CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingBuildingPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingBuildingPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingBuildingPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingBuildingPermission, 0),
+            DELETED.HasCreatingBuildingPermission AS OldHasCreatingBuildingPermission,
+            DELETED.HasReadingBuildingPermission AS OldHasReadingBuildingPermission,
+            DELETED.HasUpdatingBuildingPermission AS OldHasUpdatingBuildingPermission,
+            DELETED.HasDeletingBuildingPermission AS OldHasDeletingBuildingPermission,
             -- Category CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingCategoryPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingCategoryPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingCategoryPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingCategoryPermission, 0),
+            DELETED.HasCreatingCategoryPermission AS OldHasCreatingCategoryPermission,
+            DELETED.HasReadingCategoryPermission AS OldHasReadingCategoryPermission,
+            DELETED.HasUpdatingCategoryPermission AS OldHasUpdatingCategoryPermission,
+            DELETED.HasDeletingCategoryPermission AS OldHasDeletingCategoryPermission,
             -- Company CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingCompanyPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingCompanyPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingCompanyPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingCompanyPermission, 0),
+            DELETED.HasCreatingCompanyPermission AS OldHasCreatingCompanyPermission,
+            DELETED.HasReadingCompanyPermission AS OldHasReadingCompanyPermission,
+            DELETED.HasUpdatingCompanyPermission AS OldHasUpdatingCompanyPermission,
+            DELETED.HasDeletingCompanyPermission AS OldHasDeletingCompanyPermission,
             -- Department CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingDepartmentPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingDepartmentPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingDepartmentPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingDepartmentPermission, 0),
+            DELETED.HasCreatingDepartmentPermission AS OldHasCreatingDepartmentPermission,
+            DELETED.HasReadingDepartmentPermission AS OldHasReadingDepartmentPermission,
+            DELETED.HasUpdatingDepartmentPermission AS OldHasUpdatingDepartmentPermission,
+            DELETED.HasDeletingDepartmentPermission AS OldHasDeletingDepartmentPermission,
             -- Employee CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingEmployeePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingEmployeePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingEmployeePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingEmployeePermission, 0),
+            DELETED.HasCreatingEmployeePermission AS OldHasCreatingEmployeePermission,
+            DELETED.HasReadingEmployeePermission AS OldHasReadingEmployeePermission,
+            DELETED.HasUpdatingEmployeePermission AS OldHasUpdatingEmployeePermission,
+            DELETED.HasDeletingEmployeePermission AS OldHasDeletingEmployeePermission,
             -- EndUser CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingEndUserPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingEndUserPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingEndUserPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingEndUserPermission, 0),
-            -- EndUserRole CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingEndUserRolePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingEndUserRolePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingEndUserRolePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingEndUserRolePermission, 0),
+            DELETED.HasCreatingEndUserPermission AS OldHasCreatingEndUserPermission,
+            DELETED.HasReadingEndUserPermission AS OldHasReadingEndUserPermission,
+            DELETED.HasUpdatingEndUserPermission AS OldHasUpdatingEndUserPermission,
+            DELETED.HasDeletingEndUserPermission AS OldHasDeletingEndUserPermission,
+            -- Role CRUD Permissions.
+            DELETED.HasCreatingRolePermission AS OldHasCreatingRolePermission,
+            DELETED.HasReadingRolePermission AS OldHasReadingRolePermission,
+            DELETED.HasUpdatingRolePermission AS OldHasUpdatingRolePermission,
+            DELETED.HasDeletingRolePermission AS OldHasDeletingRolePermission,
             -- Location CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingLocationPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingLocationPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingLocationPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingLocationPermission, 0),
+            DELETED.HasCreatingLocationPermission AS OldHasCreatingLocationPermission,
+            DELETED.HasReadingLocationPermission AS OldHasReadingLocationPermission,
+            DELETED.HasUpdatingLocationPermission AS OldHasUpdatingLocationPermission,
+            DELETED.HasDeletingLocationPermission AS OldHasDeletingLocationPermission,
             -- Manufacturer CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingManufacturerPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingManufacturerPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingManufacturerPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingManufacturerPermission, 0),
+            DELETED.HasCreatingManufacturerPermission AS OldHasCreatingManufacturerPermission,
+            DELETED.HasReadingManufacturerPermission AS OldHasReadingManufacturerPermission,
+            DELETED.HasUpdatingManufacturerPermission AS OldHasUpdatingManufacturerPermission,
+            DELETED.HasDeletingManufacturerPermission AS OldHasDeletingManufacturerPermission,
             -- Product CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingProductPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingProductPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingProductPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingProductPermission, 0),
+            DELETED.HasCreatingProductPermission AS OldHasCreatingProductPermission,
+            DELETED.HasReadingProductPermission AS OldHasReadingProductPermission,
+            DELETED.HasUpdatingProductPermission AS OldHasUpdatingProductPermission,
+            DELETED.HasDeletingProductPermission AS OldHasDeletingProductPermission,
             -- ProductSet CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingProductSetPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingProductSetPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingProductSetPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingProductSetPermission, 0),
+            DELETED.HasCreatingProductSetPermission AS OldHasCreatingProductSetPermission,
+            DELETED.HasReadingProductSetPermission AS OldHasReadingProductSetPermission,
+            DELETED.HasUpdatingProductSetPermission AS OldHasUpdatingProductSetPermission,
+            DELETED.HasDeletingProductSetPermission AS OldHasDeletingProductSetPermission,
             -- Job CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingJobPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingJobPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingJobPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingJobPermission, 0),
+            DELETED.HasCreatingJobPermission AS OldHasCreatingJobPermission,
+            DELETED.HasReadingJobPermission AS OldHasReadingJobPermission,
+            DELETED.HasUpdatingJobPermission AS OldHasUpdatingJobPermission,
+            DELETED.HasDeletingJobPermission AS OldHasDeletingJobPermission,
             -- Log R Permissions.
-            [dbo].[udf_GetDefaultBit](@HasReadingLogPermission, 0),
+            DELETED.HasReadingLogPermission AS OldHasReadingLogPermission,
             -- Vendor CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingVendorPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingVendorPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingVendorPermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingVendorPermission, 0)
-        );
+            DELETED.HasCreatingVendorPermission AS OldHasCreatingVendorPermission,
+            DELETED.HasReadingVendorPermission AS OldHasReadingVendorPermission,
+            DELETED.HasUpdatingVendorPermission AS OldHasUpdatingVendorPermission,
+            DELETED.HasDeletingVendorPermission AS OldHasDeletingVendorPermission
+        FROM
+            [dbo].[Role]
+        WHERE
+            Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;

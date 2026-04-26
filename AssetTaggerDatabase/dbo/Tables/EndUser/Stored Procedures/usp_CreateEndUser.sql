@@ -3,7 +3,7 @@
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable foreign keys.
-    @EndUserRoleId NVARCHAR(36) = '',
+    @RoleId NVARCHAR(36) = '',
     -- Nullable foreign keys.
     @EmployeeId NVARCHAR(36) = '',
     -- Non-nullable columns.
@@ -18,7 +18,7 @@ BEGIN
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable foreign keys.
-        '@EndUserRoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@EndUserRoleId), ''', ',
+        '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
         -- Nullable foreign keys.
         '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
         -- Non-nullable columns.
@@ -47,7 +47,7 @@ BEGIN
         -- Run actual query.
         INSERT INTO [dbo].[EndUser] (
             -- Non-nullable foreign keys.
-            EndUserRoleId,
+            RoleId,
             -- Nullable foreign keys.
             EmployeeId,
             -- Non-nullable columns.
@@ -61,14 +61,14 @@ BEGIN
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable foreign keys.
-            INSERTED.EndUserRoleId,
+            INSERTED.RoleId,
             -- Nullable foreign keys.
             INSERTED.EmployeeId,
             -- Non-nullable columns.
             INSERTED.Username
         VALUES (
             -- Non-nullable foreign keys.
-            [dbo].[udf_GetDefaultUniqueidentifier](@EndUserRoleId, NULL),
+            [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, NULL),
             -- Nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, NULL),
             -- Non-nullable columns.
