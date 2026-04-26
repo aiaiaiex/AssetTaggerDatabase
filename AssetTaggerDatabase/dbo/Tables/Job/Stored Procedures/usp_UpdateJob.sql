@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_UpdateRole]
+CREATE PROCEDURE [dbo].[usp_UpdateJob]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
@@ -20,7 +20,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Update';
-    DECLARE @TableName NVARCHAR(4000) = 'Role';
+    DECLARE @TableName NVARCHAR(4000) = 'Job';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
@@ -37,7 +37,7 @@ BEGIN
 
         -- Run actual query.
         UPDATE
-            [dbo].[Role]
+            [dbo].[Job]
         SET
         -- Non-nullable columns.
             Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
@@ -51,7 +51,7 @@ BEGIN
             -- Non-nullable columns.
             DELETED.Name AS OldName
         FROM
-            [dbo].[Role]
+            [dbo].[Job]
         WHERE
             Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
     END TRY

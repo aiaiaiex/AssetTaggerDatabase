@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateEmployee]
     -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     @DepartmentId NVARCHAR(36) = '',
-    @RoleId NVARCHAR(36) = '',
+    @JobId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @FullName NVARCHAR(850) = ''
 AS;
@@ -22,7 +22,7 @@ BEGIN
         -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         '@DepartmentId = ''', [dbo].[udf_ConvertNullToNvarchar](@DepartmentId), ''', ',
-        '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
+        '@JobId = ''', [dbo].[udf_ConvertNullToNvarchar](@JobId), ''', ',
         -- Non-nullable columns.
         '@FullName = ''', [dbo].[udf_ConvertNullToNvarchar](@FullName), ''';'
     );
@@ -50,7 +50,7 @@ BEGIN
             -- Nullable foreign keys.
             CompanyId = [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, CompanyId),
             DepartmentId = [dbo].[udf_GetDefaultUniqueidentifier](@DepartmentId, DepartmentId),
-            RoleId = [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, RoleId),
+            JobId = [dbo].[udf_GetDefaultUniqueidentifier](@JobId, JobId),
             -- Non-nullable columns.
             FullName = [dbo].[udf_GetDefaultNvarchar](@FullName, FullName)
         OUTPUT
@@ -60,14 +60,14 @@ BEGIN
             -- Nullable foreign keys.
             INSERTED.CompanyId,
             INSERTED.DepartmentId,
-            INSERTED.RoleId,
+            INSERTED.JobId,
             -- Non-nullable columns.
             INSERTED.FullName,
             -- Old values.
             -- Nullable foreign keys.
             DELETED.CompanyId AS OldCompanyId,
             DELETED.DepartmentId AS OldDepartmentId,
-            DELETED.RoleId AS OldRoleId,
+            DELETED.JobId AS OldJobId,
             -- Non-nullable columns.
             DELETED.FullName AS OldFullName
         FROM

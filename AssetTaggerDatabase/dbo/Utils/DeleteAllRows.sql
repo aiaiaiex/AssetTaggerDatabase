@@ -16,7 +16,7 @@ DELETE FROM [dbo].[Company];
 DELETE FROM [dbo].[Department];
 DELETE FROM [dbo].[EndUserRole];
 DELETE FROM [dbo].[Manufacturer];
-DELETE FROM [dbo].[Role];
+DELETE FROM [dbo].[Job];
 DELETE FROM [dbo].[Vendor];
 
 -- Reset identity values back to 0.
@@ -37,5 +37,5 @@ DBCC CHECKIDENT('dbo.Company', RESEED, 0);
 DBCC CHECKIDENT('dbo.Department', RESEED, 0);
 DBCC CHECKIDENT('dbo.EndUserRole', RESEED, 0);
 DBCC CHECKIDENT('dbo.Manufacturer', RESEED, 0);
-DBCC CHECKIDENT('dbo.Role', RESEED, 0);
+DBCC CHECKIDENT('dbo.Job', RESEED, 0);
 DBCC CHECKIDENT('dbo.Vendor', RESEED, 0);

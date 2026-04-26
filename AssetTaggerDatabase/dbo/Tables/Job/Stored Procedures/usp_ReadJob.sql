@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_ReadRole]
+CREATE PROCEDURE [dbo].[usp_ReadJob]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
@@ -38,7 +38,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Read';
-    DECLARE @TableName NVARCHAR(4000) = 'Role';
+    DECLARE @TableName NVARCHAR(4000) = 'Job';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
@@ -65,7 +65,7 @@ BEGIN
             -- Non-nullable columns.
             Name
         FROM
-            [dbo].[Role]
+            [dbo].[Job]
         WHERE
         -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1

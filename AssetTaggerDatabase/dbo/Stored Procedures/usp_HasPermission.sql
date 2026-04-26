@@ -294,26 +294,26 @@ BEGIN
                         WHERE Id = @EndUserRoleId
                     )
             END
-        WHEN 'Role'
+        WHEN 'Job'
             THEN CASE @Operation
                 WHEN 'Create'
                     THEN (
-                        SELECT HasCreatingRolePermission FROM [dbo].[EndUserRole]
+                        SELECT HasCreatingJobPermission FROM [dbo].[EndUserRole]
                         WHERE Id = @EndUserRoleId
                     )
                 WHEN 'Read'
                     THEN (
-                        SELECT HasReadingRolePermission FROM [dbo].[EndUserRole]
+                        SELECT HasReadingJobPermission FROM [dbo].[EndUserRole]
                         WHERE Id = @EndUserRoleId
                     )
                 WHEN 'Update'
                     THEN (
-                        SELECT HasUpdatingRolePermission FROM [dbo].[EndUserRole]
+                        SELECT HasUpdatingJobPermission FROM [dbo].[EndUserRole]
                         WHERE Id = @EndUserRoleId
                     )
                 WHEN 'Delete'
                     THEN (
-                        SELECT HasDeletingRolePermission FROM [dbo].[EndUserRole]
+                        SELECT HasDeletingJobPermission FROM [dbo].[EndUserRole]
                         WHERE Id = @EndUserRoleId
                     )
             END

@@ -75,11 +75,11 @@
     [HasReadingProductSetPermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingProductSetPermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingProductSetPermission] BIT DEFAULT 0 NOT NULL,
-    -- Role CRUD Permissions.
-    [HasCreatingRolePermission] BIT DEFAULT 0 NOT NULL,
-    [HasReadingRolePermission] BIT DEFAULT 0 NOT NULL,
-    [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
-    [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
+    -- Job CRUD Permissions.
+    [HasCreatingJobPermission] BIT DEFAULT 0 NOT NULL,
+    [HasReadingJobPermission] BIT DEFAULT 0 NOT NULL,
+    [HasUpdatingJobPermission] BIT DEFAULT 0 NOT NULL,
+    [HasDeletingJobPermission] BIT DEFAULT 0 NOT NULL,
     -- Log R Permissions.
     -- Log has no create permission because every call to stored procedures should be logged even if CallingEndUserId doesn't exist.
     -- Log has no update and delete permissions because no update and delete stored procedures for Log exist to make logs immutable.

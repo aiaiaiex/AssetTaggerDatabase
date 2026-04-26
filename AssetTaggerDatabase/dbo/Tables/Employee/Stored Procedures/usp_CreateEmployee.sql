@@ -5,7 +5,7 @@ CREATE PROCEDURE [dbo].[usp_CreateEmployee]
     -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     @DepartmentId NVARCHAR(36) = '',
-    @RoleId NVARCHAR(36) = '',
+    @JobId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @FullName NVARCHAR(850) = ''
 AS;
@@ -18,7 +18,7 @@ BEGIN
         -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         '@DepartmentId = ''', [dbo].[udf_ConvertNullToNvarchar](@DepartmentId), ''', ',
-        '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
+        '@JobId = ''', [dbo].[udf_ConvertNullToNvarchar](@JobId), ''', ',
         -- Non-nullable columns.
         '@FullName = ''', [dbo].[udf_ConvertNullToNvarchar](@FullName), ''';'
     );
@@ -44,7 +44,7 @@ BEGIN
             -- Nullable foreign keys.
             CompanyId,
             DepartmentId,
-            RoleId,
+            JobId,
             -- Non-nullable columns.
             FullName
         )
@@ -55,14 +55,14 @@ BEGIN
             -- Nullable foreign keys.
             INSERTED.CompanyId,
             INSERTED.DepartmentId,
-            INSERTED.RoleId,
+            INSERTED.JobId,
             -- Non-nullable columns.
             INSERTED.FullName
         VALUES (
             -- Nullable foreign keys.
             [dbo].[udf_GetDefaultUniqueidentifier](@CompanyId, NULL),
             [dbo].[udf_GetDefaultUniqueidentifier](@DepartmentId, NULL),
-            [dbo].[udf_GetDefaultUniqueidentifier](@RoleId, NULL),
+            [dbo].[udf_GetDefaultUniqueidentifier](@JobId, NULL),
             -- Non-nullable columns.
             [dbo].[udf_GetDefaultNvarchar](@FullName, NULL)
         );

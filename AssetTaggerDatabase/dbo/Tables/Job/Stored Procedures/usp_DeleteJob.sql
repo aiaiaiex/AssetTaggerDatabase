@@ -1,9 +1,9 @@
-CREATE PROCEDURE [dbo].[usp_CreateRole]
+CREATE PROCEDURE [dbo].[usp_DeleteJob]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
-    -- Non-nullable columns.
-    @Name NVARCHAR(850) = ''
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -11,12 +11,12 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
-        -- Non-nullable columns.
-        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''';'
+        -- Non-nullable columns with default values.
+        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
-    DECLARE @Operation NVARCHAR(6) = 'Create';
-    DECLARE @TableName NVARCHAR(4000) = 'Role';
+    DECLARE @Operation NVARCHAR(6) = 'Delete';
+    DECLARE @TableName NVARCHAR(4000) = 'Job';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;
@@ -32,20 +32,17 @@ BEGIN
         EXEC [dbo].[usp_HasPermission] @EndUserId, @Operation, @TableName;
 
         -- Run actual query.
-        INSERT INTO [dbo].[Role] (
-        -- Non-nullable columns.
-            Name
-        )
+        DELETE [dbo].[Job]
         OUTPUT
         -- Non-nullable columns with default values.
-            INSERTED.CreatedAt,
-            INSERTED.Id,
+            DELETED.CreatedAt,
+            DELETED.Id,
             -- Non-nullable columns.
-            INSERTED.Name
-        VALUES (
-        -- Non-nullable columns.
-            [dbo].[udf_GetDefaultNvarchar](@Name, NULL)
-        );
+            DELETED.Name
+        FROM
+            [dbo].[Job]
+        WHERE
+            Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;

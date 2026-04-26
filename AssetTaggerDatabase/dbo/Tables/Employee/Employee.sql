@@ -15,8 +15,8 @@
     [DepartmentId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Employee_Department] FOREIGN KEY ([DepartmentId]) REFERENCES [dbo].[Department] ([Id]),
 
-    [RoleId] UNIQUEIDENTIFIER NULL,
-    CONSTRAINT [FK_Employee_Role] FOREIGN KEY ([RoleId]) REFERENCES [dbo].[Role] ([Id]),
+    [JobId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_Employee_Job] FOREIGN KEY ([JobId]) REFERENCES [dbo].[Job] ([Id]),
 
     -- Non-nullable columns.
     [FullName] NVARCHAR(850) NOT NULL,

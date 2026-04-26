@@ -40,7 +40,7 @@ BEGIN
             -- Nullable foreign keys.
             DELETED.CompanyId,
             DELETED.DepartmentId,
-            DELETED.RoleId,
+            DELETED.JobId,
             -- Non-nullable columns.
             DELETED.FullName
         FROM

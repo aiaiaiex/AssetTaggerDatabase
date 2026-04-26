@@ -100,11 +100,11 @@ BEGIN
             DELETED.HasReadingProductSetPermission,
             DELETED.HasUpdatingProductSetPermission,
             DELETED.HasDeletingProductSetPermission,
-            -- Role CRUD Permissions.
-            DELETED.HasCreatingRolePermission,
-            DELETED.HasReadingRolePermission,
-            DELETED.HasUpdatingRolePermission,
-            DELETED.HasDeletingRolePermission,
+            -- Job CRUD Permissions.
+            DELETED.HasCreatingJobPermission,
+            DELETED.HasReadingJobPermission,
+            DELETED.HasUpdatingJobPermission,
+            DELETED.HasDeletingJobPermission,
             -- Log R Permissions.
             DELETED.HasReadingLogPermission,
             -- Vendor CRUD Permissions.

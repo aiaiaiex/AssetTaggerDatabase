@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_ReadEmployee]
     -- Nullable foreign keys.
     @CompanyId NVARCHAR(36) = '',
     @DepartmentId NVARCHAR(36) = '',
-    @RoleId NVARCHAR(36) = '',
+    @JobId NVARCHAR(36) = '',
     -- Non-nullable columns.
     @FullName NVARCHAR(850) = '',
     -- DATETIME2(3) range parameters.
@@ -31,7 +31,7 @@ BEGIN
         -- Nullable foreign keys.
         '@CompanyId = ''', [dbo].[udf_ConvertNullToNvarchar](@CompanyId), ''', ',
         '@DepartmentId = ''', [dbo].[udf_ConvertNullToNvarchar](@DepartmentId), ''', ',
-        '@RoleId = ''', [dbo].[udf_ConvertNullToNvarchar](@RoleId), ''', ',
+        '@JobId = ''', [dbo].[udf_ConvertNullToNvarchar](@JobId), ''', ',
         -- Non-nullable columns.
         '@FullName = ''', [dbo].[udf_ConvertNullToNvarchar](@FullName), ''', ',
         -- DATETIME2(3) range parameters.
@@ -73,7 +73,7 @@ BEGIN
             -- Non-nullable foreign keys.
             CompanyId,
             DepartmentId,
-            RoleId,
+            JobId,
             -- Non-nullable columns.
             FullName
         FROM
@@ -84,7 +84,7 @@ BEGIN
             -- Nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@CompanyId, CompanyId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@DepartmentId, DepartmentId) = 1
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@RoleId, RoleId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@JobId, JobId) = 1
             -- Non-nullable columns.
             AND [dbo].[udf_IsEqualToOrLikeNvarchar](@FullName, FullName) = 1
             -- DATETIME2(3) range parameters.

@@ -38,8 +38,8 @@ INSERT INTO [dbo].[EndUserRole]
     [HasCreatingProductPermission], [HasReadingProductPermission], [HasUpdatingProductPermission], [HasDeletingProductPermission],
     -- ProductSet CRUD Permissions.
     [HasCreatingProductSetPermission], [HasReadingProductSetPermission], [HasUpdatingProductSetPermission], [HasDeletingProductSetPermission],
-    -- Role CRUD Permissions.
-    [HasCreatingRolePermission], [HasReadingRolePermission], [HasUpdatingRolePermission], [HasDeletingRolePermission],
+    -- Job CRUD Permissions.
+    [HasCreatingJobPermission], [HasReadingJobPermission], [HasUpdatingJobPermission], [HasDeletingJobPermission],
     -- Vendor CRUD Permissions.
     [HasCreatingVendorPermission], [HasReadingVendorPermission], [HasUpdatingVendorPermission], [HasDeletingVendorPermission]
 )
@@ -48,7 +48,7 @@ INTO #EndUserRoleIdTable
 VALUES
 (
     -- Non-nullable columns.
-    @RoleName,
+    @JobName,
     -- Permissions.
     -- Asset CRUD Permissions.
     1, 1, 1, 1,
@@ -76,7 +76,7 @@ VALUES
     1, 1, 1, 1,
     -- ProductSet CRUD Permissions.
     1, 1, 1, 1,
-    -- Role CRUD Permissions.
+    -- Job CRUD Permissions.
     1, 1, 1, 1,
     -- Vendor CRUD Permissions.
     1, 1, 1, 1

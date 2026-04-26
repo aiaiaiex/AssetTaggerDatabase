@@ -67,11 +67,11 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingProductSetPermission NVARCHAR(1) = '',
     @HasUpdatingProductSetPermission NVARCHAR(1) = '',
     @HasDeletingProductSetPermission NVARCHAR(1) = '',
-    -- Role CRUD Permissions.
-    @HasCreatingRolePermission NVARCHAR(1) = '',
-    @HasReadingRolePermission NVARCHAR(1) = '',
-    @HasUpdatingRolePermission NVARCHAR(1) = '',
-    @HasDeletingRolePermission NVARCHAR(1) = '',
+    -- Job CRUD Permissions.
+    @HasCreatingJobPermission NVARCHAR(1) = '',
+    @HasReadingJobPermission NVARCHAR(1) = '',
+    @HasUpdatingJobPermission NVARCHAR(1) = '',
+    @HasDeletingJobPermission NVARCHAR(1) = '',
     -- Log R Permissions.
     @HasReadingLogPermission NVARCHAR(1) = '',
     -- Vendor CRUD Permissions.
@@ -160,11 +160,11 @@ BEGIN
         '@HasReadingProductSetPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingProductSetPermission), ''', ',
         '@HasUpdatingProductSetPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingProductSetPermission), ''', ',
         '@HasDeletingProductSetPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingProductSetPermission), ''', ',
-        -- Role CRUD Permissions.
-        '@HasCreatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingRolePermission), ''', ',
-        '@HasReadingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingRolePermission), ''', ',
-        '@HasUpdatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingRolePermission), ''', ',
-        '@HasDeletingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingRolePermission), ''', ',
+        -- Job CRUD Permissions.
+        '@HasCreatingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingJobPermission), ''', ',
+        '@HasReadingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingJobPermission), ''', ',
+        '@HasUpdatingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingJobPermission), ''', ',
+        '@HasDeletingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingJobPermission), ''', ',
         -- Log R Permissions.
         '@HasReadingLogPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingLogPermission), ''', ',
         -- Vendor CRUD Permissions.
@@ -271,11 +271,11 @@ BEGIN
             HasReadingProductSetPermission,
             HasUpdatingProductSetPermission,
             HasDeletingProductSetPermission,
-            -- Role CRUD Permissions.
-            HasCreatingRolePermission,
-            HasReadingRolePermission,
-            HasUpdatingRolePermission,
-            HasDeletingRolePermission,
+            -- Job CRUD Permissions.
+            HasCreatingJobPermission,
+            HasReadingJobPermission,
+            HasUpdatingJobPermission,
+            HasDeletingJobPermission,
             -- Log R Permissions.
             HasReadingLogPermission,
             -- Vendor CRUD Permissions.
@@ -353,11 +353,11 @@ BEGIN
             AND [dbo].[udf_IsEqualToBit](@HasReadingProductSetPermission, HasReadingProductSetPermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasUpdatingProductSetPermission, HasUpdatingProductSetPermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasDeletingProductSetPermission, HasDeletingProductSetPermission) = 1
-            -- Role CRUD Permissions.
-            AND [dbo].[udf_IsEqualToBit](@HasCreatingRolePermission, HasCreatingRolePermission) = 1
-            AND [dbo].[udf_IsEqualToBit](@HasReadingRolePermission, HasReadingRolePermission) = 1
-            AND [dbo].[udf_IsEqualToBit](@HasUpdatingRolePermission, HasUpdatingRolePermission) = 1
-            AND [dbo].[udf_IsEqualToBit](@HasDeletingRolePermission, HasDeletingRolePermission) = 1
+            -- Job CRUD Permissions.
+            AND [dbo].[udf_IsEqualToBit](@HasCreatingJobPermission, HasCreatingJobPermission) = 1
+            AND [dbo].[udf_IsEqualToBit](@HasReadingJobPermission, HasReadingJobPermission) = 1
+            AND [dbo].[udf_IsEqualToBit](@HasUpdatingJobPermission, HasUpdatingJobPermission) = 1
+            AND [dbo].[udf_IsEqualToBit](@HasDeletingJobPermission, HasDeletingJobPermission) = 1
             -- Log R Permissions.
             AND [dbo].[udf_IsEqualToBit](@HasReadingLogPermission, HasReadingLogPermission) = 1
             -- Vendor CRUD Permissions.
@@ -418,10 +418,10 @@ BEGIN
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingProductSetPermission')) THEN HasReadingProductSetPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingProductSetPermission')) THEN HasUpdatingProductSetPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingProductSetPermission')) THEN HasDeletingProductSetPermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingRolePermission')) THEN HasCreatingRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingRolePermission')) THEN HasReadingRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingRolePermission')) THEN HasUpdatingRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingRolePermission')) THEN HasDeletingRolePermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingJobPermission')) THEN HasCreatingJobPermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingJobPermission')) THEN HasReadingJobPermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingJobPermission')) THEN HasUpdatingJobPermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingJobPermission')) THEN HasDeletingJobPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingLogPermission')) THEN HasReadingLogPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingVendorPermission')) THEN HasCreatingVendorPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingVendorPermission')) THEN HasReadingVendorPermission END DESC,
@@ -479,10 +479,10 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingProductSetPermission')) THEN HasReadingProductSetPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingProductSetPermission')) THEN HasUpdatingProductSetPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingProductSetPermission')) THEN HasDeletingProductSetPermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingRolePermission')) THEN HasCreatingRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingRolePermission')) THEN HasReadingRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingRolePermission')) THEN HasUpdatingRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingRolePermission')) THEN HasDeletingRolePermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingJobPermission')) THEN HasCreatingJobPermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingJobPermission')) THEN HasReadingJobPermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingJobPermission')) THEN HasUpdatingJobPermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingJobPermission')) THEN HasDeletingJobPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingLogPermission')) THEN HasReadingLogPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingVendorPermission')) THEN HasCreatingVendorPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingVendorPermission')) THEN HasReadingVendorPermission END ASC,

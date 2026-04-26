@@ -65,11 +65,11 @@ CREATE PROCEDURE [dbo].[usp_CreateEndUserRole]
     @HasReadingProductSetPermission NVARCHAR(1) = '',
     @HasUpdatingProductSetPermission NVARCHAR(1) = '',
     @HasDeletingProductSetPermission NVARCHAR(1) = '',
-    -- Role CRUD Permissions.
-    @HasCreatingRolePermission NVARCHAR(1) = '',
-    @HasReadingRolePermission NVARCHAR(1) = '',
-    @HasUpdatingRolePermission NVARCHAR(1) = '',
-    @HasDeletingRolePermission NVARCHAR(1) = '',
+    -- Job CRUD Permissions.
+    @HasCreatingJobPermission NVARCHAR(1) = '',
+    @HasReadingJobPermission NVARCHAR(1) = '',
+    @HasUpdatingJobPermission NVARCHAR(1) = '',
+    @HasDeletingJobPermission NVARCHAR(1) = '',
     -- Log R Permissions.
     @HasReadingLogPermission NVARCHAR(1) = '',
     -- Vendor CRUD Permissions.
@@ -147,11 +147,11 @@ BEGIN
         '@HasReadingProductSetPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingProductSetPermission), ''', ',
         '@HasUpdatingProductSetPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingProductSetPermission), ''', ',
         '@HasDeletingProductSetPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingProductSetPermission), ''', ',
-        -- Role CRUD Permissions.
-        '@HasCreatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingRolePermission), ''', ',
-        '@HasReadingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingRolePermission), ''', ',
-        '@HasUpdatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingRolePermission), ''', ',
-        '@HasDeletingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingRolePermission), ''', ',
+        -- Job CRUD Permissions.
+        '@HasCreatingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingJobPermission), ''', ',
+        '@HasReadingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingJobPermission), ''', ',
+        '@HasUpdatingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingJobPermission), ''', ',
+        '@HasDeletingJobPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingJobPermission), ''', ',
         -- Log R Permissions.
         '@HasReadingLogPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingLogPermission), ''', ',
         -- Vendor CRUD Permissions.
@@ -242,11 +242,11 @@ BEGIN
             HasReadingProductSetPermission,
             HasUpdatingProductSetPermission,
             HasDeletingProductSetPermission,
-            -- Role CRUD Permissions.
-            HasCreatingRolePermission,
-            HasReadingRolePermission,
-            HasUpdatingRolePermission,
-            HasDeletingRolePermission,
+            -- Job CRUD Permissions.
+            HasCreatingJobPermission,
+            HasReadingJobPermission,
+            HasUpdatingJobPermission,
+            HasDeletingJobPermission,
             -- Log R Permissions.
             HasReadingLogPermission,
             -- Vendor CRUD Permissions.
@@ -322,11 +322,11 @@ BEGIN
             INSERTED.HasReadingProductSetPermission,
             INSERTED.HasUpdatingProductSetPermission,
             INSERTED.HasDeletingProductSetPermission,
-            -- Role CRUD Permissions.
-            INSERTED.HasCreatingRolePermission,
-            INSERTED.HasReadingRolePermission,
-            INSERTED.HasUpdatingRolePermission,
-            INSERTED.HasDeletingRolePermission,
+            -- Job CRUD Permissions.
+            INSERTED.HasCreatingJobPermission,
+            INSERTED.HasReadingJobPermission,
+            INSERTED.HasUpdatingJobPermission,
+            INSERTED.HasDeletingJobPermission,
             -- Log R Permissions.
             INSERTED.HasReadingLogPermission,
             -- Vendor CRUD Permissions.
@@ -398,11 +398,11 @@ BEGIN
             [dbo].[udf_GetDefaultBit](@HasReadingProductSetPermission, 0),
             [dbo].[udf_GetDefaultBit](@HasUpdatingProductSetPermission, 0),
             [dbo].[udf_GetDefaultBit](@HasDeletingProductSetPermission, 0),
-            -- Role CRUD Permissions.
-            [dbo].[udf_GetDefaultBit](@HasCreatingRolePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasReadingRolePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasUpdatingRolePermission, 0),
-            [dbo].[udf_GetDefaultBit](@HasDeletingRolePermission, 0),
+            -- Job CRUD Permissions.
+            [dbo].[udf_GetDefaultBit](@HasCreatingJobPermission, 0),
+            [dbo].[udf_GetDefaultBit](@HasReadingJobPermission, 0),
+            [dbo].[udf_GetDefaultBit](@HasUpdatingJobPermission, 0),
+            [dbo].[udf_GetDefaultBit](@HasDeletingJobPermission, 0),
             -- Log R Permissions.
             [dbo].[udf_GetDefaultBit](@HasReadingLogPermission, 0),
             -- Vendor CRUD Permissions.

@@ -144,6 +144,8 @@
     <Folder Include="dbo\Tables\EndUserRole\Stored Procedures" />
     <Folder Include="dbo\Tables\EndUser\Stored Procedures" />
     <Folder Include="dbo\Tables\InHouseUnit" />
+    <Folder Include="dbo\Tables\Job" />
+    <Folder Include="dbo\Tables\Job\Stored Procedures" />
     <Folder Include="dbo\Tables\Location" />
     <Folder Include="dbo\Tables\Location\Stored Procedures" />
     <Folder Include="dbo\Tables\Log" />
@@ -154,8 +156,6 @@
     <Folder Include="dbo\Tables\ProductSet" />
     <Folder Include="dbo\Tables\ProductSet\Stored Procedures" />
     <Folder Include="dbo\Tables\Product\Stored Procedures" />
-    <Folder Include="dbo\Tables\Role" />
-    <Folder Include="dbo\Tables\Role\Stored Procedures" />
     <Folder Include="dbo\Tables\Vendor" />
     <Folder Include="dbo\Tables\Vendor\Stored Procedures" />
     <Folder Include="Properties" />
@@ -240,6 +240,11 @@
     <Build Include="dbo\Tables\EndUser\Stored Procedures\usp_ReadEndUser.sql" />
     <Build Include="dbo\Tables\EndUser\Stored Procedures\usp_UpdateEndUser.sql" />
     <Build Include="dbo\Tables\InHouseUnit\InHouseUnit.sql" />
+    <Build Include="dbo\Tables\Job\Job.sql" />
+    <Build Include="dbo\Tables\Job\Stored Procedures\usp_CreateJob.sql" />
+    <Build Include="dbo\Tables\Job\Stored Procedures\usp_DeleteJob.sql" />
+    <Build Include="dbo\Tables\Job\Stored Procedures\usp_ReadJob.sql" />
+    <Build Include="dbo\Tables\Job\Stored Procedures\usp_UpdateJob.sql" />
     <Build Include="dbo\Tables\Location\Location.sql" />
     <Build Include="dbo\Tables\Location\Stored Procedures\usp_CreateLocation.sql" />
     <Build Include="dbo\Tables\Location\Stored Procedures\usp_DeleteLocation.sql" />
@@ -263,11 +268,6 @@
     <Build Include="dbo\Tables\Product\Stored Procedures\usp_DeleteProduct.sql" />
     <Build Include="dbo\Tables\Product\Stored Procedures\usp_ReadProduct.sql" />
     <Build Include="dbo\Tables\Product\Stored Procedures\usp_UpdateProduct.sql" />
-    <Build Include="dbo\Tables\Role\Role.sql" />
-    <Build Include="dbo\Tables\Role\Stored Procedures\usp_CreateRole.sql" />
-    <Build Include="dbo\Tables\Role\Stored Procedures\usp_DeleteRole.sql" />
-    <Build Include="dbo\Tables\Role\Stored Procedures\usp_ReadRole.sql" />
-    <Build Include="dbo\Tables\Role\Stored Procedures\usp_UpdateRole.sql" />
     <Build Include="dbo\Tables\Vendor\Stored Procedures\usp_CreateVendor.sql" />
     <Build Include="dbo\Tables\Vendor\Stored Procedures\usp_DeleteVendor.sql" />
     <Build Include="dbo\Tables\Vendor\Stored Procedures\usp_ReadVendor.sql" />
