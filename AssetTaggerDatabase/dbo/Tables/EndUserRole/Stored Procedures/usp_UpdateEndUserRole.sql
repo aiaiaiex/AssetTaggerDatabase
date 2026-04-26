@@ -72,8 +72,8 @@ CREATE PROCEDURE [dbo].[usp_UpdateEndUserRole]
     @HasReadingRolePermission NVARCHAR(1) = '',
     @HasUpdatingRolePermission NVARCHAR(1) = '',
     @HasDeletingRolePermission NVARCHAR(1) = '',
-    -- StoredProcedureLog R Permissions.
-    @HasReadingStoredProcedureLogPermission NVARCHAR(1) = '',
+    -- Log R Permissions.
+    @HasReadingLogPermission NVARCHAR(1) = '',
     -- Vendor CRUD Permissions.
     @HasCreatingVendorPermission NVARCHAR(1) = '',
     @HasReadingVendorPermission NVARCHAR(1) = '',
@@ -156,8 +156,8 @@ BEGIN
         '@HasReadingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingRolePermission), ''', ',
         '@HasUpdatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingRolePermission), ''', ',
         '@HasDeletingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingRolePermission), ''', ',
-        -- StoredProcedureLog R Permissions.
-        '@HasReadingStoredProcedureLogPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingStoredProcedureLogPermission), ''', ',
+        -- Log R Permissions.
+        '@HasReadingLogPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingLogPermission), ''', ',
         -- Vendor CRUD Permissions.
         '@HasCreatingVendorPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingVendorPermission), ''', ',
         '@HasReadingVendorPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingVendorPermission), ''', ',
@@ -253,8 +253,8 @@ BEGIN
             HasReadingRolePermission = [dbo].[udf_GetDefaultBit](@HasReadingRolePermission, HasReadingRolePermission),
             HasUpdatingRolePermission = [dbo].[udf_GetDefaultBit](@HasUpdatingRolePermission, HasUpdatingRolePermission),
             HasDeletingRolePermission = [dbo].[udf_GetDefaultBit](@HasDeletingRolePermission, HasDeletingRolePermission),
-            -- StoredProcedureLog CRUD Permissions.
-            HasReadingStoredProcedureLogPermission = [dbo].[udf_GetDefaultBit](@HasReadingStoredProcedureLogPermission, HasReadingStoredProcedureLogPermission),
+            -- Log CRUD Permissions.
+            HasReadingLogPermission = [dbo].[udf_GetDefaultBit](@HasReadingLogPermission, HasReadingLogPermission),
             -- Vendor CRUD Permissions.
             HasCreatingVendorPermission = [dbo].[udf_GetDefaultBit](@HasCreatingVendorPermission, HasCreatingVendorPermission),
             HasReadingVendorPermission = [dbo].[udf_GetDefaultBit](@HasReadingVendorPermission, HasReadingVendorPermission),
@@ -332,8 +332,8 @@ BEGIN
             INSERTED.HasReadingRolePermission,
             INSERTED.HasUpdatingRolePermission,
             INSERTED.HasDeletingRolePermission,
-            -- StoredProcedureLog R Permissions.
-            INSERTED.HasReadingStoredProcedureLogPermission,
+            -- Log R Permissions.
+            INSERTED.HasReadingLogPermission,
             -- Vendor CRUD Permissions.
             INSERTED.HasCreatingVendorPermission,
             INSERTED.HasReadingVendorPermission,
@@ -408,8 +408,8 @@ BEGIN
             DELETED.HasReadingRolePermission AS OldHasReadingRolePermission,
             DELETED.HasUpdatingRolePermission AS OldHasUpdatingRolePermission,
             DELETED.HasDeletingRolePermission AS OldHasDeletingRolePermission,
-            -- StoredProcedureLog R Permissions.
-            DELETED.HasReadingStoredProcedureLogPermission AS OldHasReadingStoredProcedureLogPermission,
+            -- Log R Permissions.
+            DELETED.HasReadingLogPermission AS OldHasReadingLogPermission,
             -- Vendor CRUD Permissions.
             DELETED.HasCreatingVendorPermission AS OldHasCreatingVendorPermission,
             DELETED.HasReadingVendorPermission AS OldHasReadingVendorPermission,
@@ -428,5 +428,5 @@ BEGIN
 
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
-    EXEC [dbo].[usp_CreateStoredProcedureLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
+    EXEC [dbo].[usp_CreateLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
 END;

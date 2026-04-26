@@ -146,6 +146,8 @@
     <Folder Include="dbo\Tables\InHouseUnit" />
     <Folder Include="dbo\Tables\Location" />
     <Folder Include="dbo\Tables\Location\Stored Procedures" />
+    <Folder Include="dbo\Tables\Log" />
+    <Folder Include="dbo\Tables\Log\Stored Procedures" />
     <Folder Include="dbo\Tables\Manufacturer" />
     <Folder Include="dbo\Tables\Manufacturer\Stored Procedures" />
     <Folder Include="dbo\Tables\Product" />
@@ -154,8 +156,6 @@
     <Folder Include="dbo\Tables\Product\Stored Procedures" />
     <Folder Include="dbo\Tables\Role" />
     <Folder Include="dbo\Tables\Role\Stored Procedures" />
-    <Folder Include="dbo\Tables\StoredProcedureLog" />
-    <Folder Include="dbo\Tables\StoredProcedureLog\Stored Procedures" />
     <Folder Include="dbo\Tables\Vendor" />
     <Folder Include="dbo\Tables\Vendor\Stored Procedures" />
     <Folder Include="Properties" />
@@ -245,6 +245,9 @@
     <Build Include="dbo\Tables\Location\Stored Procedures\usp_DeleteLocation.sql" />
     <Build Include="dbo\Tables\Location\Stored Procedures\usp_ReadLocation.sql" />
     <Build Include="dbo\Tables\Location\Stored Procedures\usp_UpdateLocation.sql" />
+    <Build Include="dbo\Tables\Log\Log.sql" />
+    <Build Include="dbo\Tables\Log\Stored Procedures\usp_CreateLog.sql" />
+    <Build Include="dbo\Tables\Log\Stored Procedures\usp_ReadLog.sql" />
     <Build Include="dbo\Tables\Manufacturer\Manufacturer.sql" />
     <Build Include="dbo\Tables\Manufacturer\Stored Procedures\usp_CreateManufacturer.sql" />
     <Build Include="dbo\Tables\Manufacturer\Stored Procedures\usp_DeleteManufacturer.sql" />
@@ -265,9 +268,6 @@
     <Build Include="dbo\Tables\Role\Stored Procedures\usp_DeleteRole.sql" />
     <Build Include="dbo\Tables\Role\Stored Procedures\usp_ReadRole.sql" />
     <Build Include="dbo\Tables\Role\Stored Procedures\usp_UpdateRole.sql" />
-    <Build Include="dbo\Tables\StoredProcedureLog\Stored Procedures\usp_CreateStoredProcedureLog.sql" />
-    <Build Include="dbo\Tables\StoredProcedureLog\Stored Procedures\usp_ReadStoredProcedureLog.sql" />
-    <Build Include="dbo\Tables\StoredProcedureLog\StoredProcedureLog.sql" />
     <Build Include="dbo\Tables\Vendor\Stored Procedures\usp_CreateVendor.sql" />
     <Build Include="dbo\Tables\Vendor\Stored Procedures\usp_DeleteVendor.sql" />
     <Build Include="dbo\Tables\Vendor\Stored Procedures\usp_ReadVendor.sql" />

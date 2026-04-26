@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_ReadStoredProcedureLog]
+CREATE PROCEDURE [dbo].[usp_ReadLog]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
@@ -70,7 +70,7 @@ BEGIN
     );
     DECLARE @LogHasExecutedSuccessfully BIT = 1;
     DECLARE @LogOperation NVARCHAR(6) = 'Read';
-    DECLARE @LogTableName NVARCHAR(4000) = 'StoredProcedureLog';
+    DECLARE @LogTableName NVARCHAR(4000) = 'Log';
     DECLARE @LogEndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @LogEndUserId UNIQUEIDENTIFIER;
@@ -109,7 +109,7 @@ BEGIN
             -- Computed columns.
             ExecutionTimeInMilliseconds
         FROM
-            [dbo].[StoredProcedureLog]
+            [dbo].[Log]
         WHERE
         -- Non-nullable columns with default values.
             [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
@@ -167,5 +167,5 @@ BEGIN
 
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
-    EXEC [dbo].[usp_CreateStoredProcedureLog] @LogEndUserId, @LogArguments, @EndedAt, @LogHasExecutedSuccessfully, @LogOperation, @StartedAt, @LogTableName, @LogEndUserIpAddress, @LogErrorMessage, @ErrorNumber;
+    EXEC [dbo].[usp_CreateLog] @LogEndUserId, @LogArguments, @EndedAt, @LogHasExecutedSuccessfully, @LogOperation, @StartedAt, @LogTableName, @LogEndUserIpAddress, @LogErrorMessage, @ErrorNumber;
 END;

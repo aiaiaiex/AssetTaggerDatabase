@@ -30,8 +30,8 @@ INSERT INTO [dbo].[EndUserRole]
     [HasCreatingEndUserRolePermission], [HasReadingEndUserRolePermission], [HasUpdatingEndUserRolePermission], [HasDeletingEndUserRolePermission],
     -- Location CRUD Permissions.
     [HasCreatingLocationPermission], [HasReadingLocationPermission], [HasUpdatingLocationPermission], [HasDeletingLocationPermission],
-    -- StoredProcedureLog R Permissions.
-    [HasReadingStoredProcedureLogPermission],
+    -- Log R Permissions.
+    [HasReadingLogPermission],
     -- Manufacturer CRUD Permissions.
     [HasCreatingManufacturerPermission], [HasReadingManufacturerPermission], [HasUpdatingManufacturerPermission], [HasDeletingManufacturerPermission],
     -- Product CRUD Permissions.
@@ -68,7 +68,7 @@ VALUES
     1, 1, 1, 1,
     -- Location CRUD Permissions.
     1, 1, 1, 1,
-    -- StoredProcedureLog R Permissions.
+    -- Log R Permissions.
     1,
     -- Manufacturer CRUD Permissions.
     1, 1, 1, 1,

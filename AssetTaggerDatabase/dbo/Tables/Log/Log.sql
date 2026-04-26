@@ -1,17 +1,17 @@
-CREATE TABLE [dbo].[StoredProcedureLog] (
+CREATE TABLE [dbo].[Log] (
     -- Non-nullable columns with default values.
     [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_StoreProcedureLog_Id] DEFAULT (NEWID()) NOT NULL,
-    CONSTRAINT [PK_StoredProcedureLog] PRIMARY KEY NONCLUSTERED ([Id]),
+    CONSTRAINT [PK_Log] PRIMARY KEY NONCLUSTERED ([Id]),
 
     [RowNumber] BIGINT IDENTITY (1, 1),
-    CONSTRAINT [AK_StoredProcedureLog_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
+    CONSTRAINT [AK_Log_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Nullable foreign keys.
     [EndUserId] UNIQUEIDENTIFIER NULL,
 
     -- Non-nullable columns.
     [Arguments] NVARCHAR(MAX) NOT NULL,
-    CONSTRAINT [CK_StoredProcedureLog_Arguments_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarcharMax]([Arguments]) = 1),
+    CONSTRAINT [CK_Log_Arguments_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarcharMax]([Arguments]) = 1),
 
     [EndedAt] DATETIME2(3) NOT NULL,
 
@@ -25,7 +25,7 @@ CREATE TABLE [dbo].[StoredProcedureLog] (
 
     -- Nullable columns.
     [EndUserIpAddress] NVARCHAR(4000) NULL,
-    CONSTRAINT [CK_StoredProcedureLog_EndUserIpAddress_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([EndUserIpAddress]) = 1),
+    CONSTRAINT [CK_Log_EndUserIpAddress_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([EndUserIpAddress]) = 1),
 
     -- From ERROR_MESSAGE().
     -- See more:

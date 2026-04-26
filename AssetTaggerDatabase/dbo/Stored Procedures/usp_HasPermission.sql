@@ -317,11 +317,11 @@ BEGIN
                         WHERE Id = @EndUserRoleId
                     )
             END
-        WHEN 'StoredProcedureLog'
+        WHEN 'Log'
             THEN CASE @Operation
                 WHEN 'Read'
                     THEN (
-                        SELECT HasReadingStoredProcedureLogPermission FROM [dbo].[EndUserRole]
+                        SELECT HasReadingLogPermission FROM [dbo].[EndUserRole]
                         WHERE Id = @EndUserRoleId
                     )
             END

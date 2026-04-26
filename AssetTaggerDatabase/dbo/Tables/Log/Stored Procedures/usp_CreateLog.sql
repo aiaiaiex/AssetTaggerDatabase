@@ -1,4 +1,4 @@
-CREATE PROCEDURE [dbo].[usp_CreateStoredProcedureLog]
+CREATE PROCEDURE [dbo].[usp_CreateLog]
     -- Nullable foreign keys.
     @EndUserId UNIQUEIDENTIFIER = NULL,
     -- Non-nullable columns.
@@ -17,7 +17,7 @@ BEGIN
     SET NOCOUNT ON;
 
     -- Run actual query.
-    INSERT INTO [dbo].[StoredProcedureLog] (
+    INSERT INTO [dbo].[Log] (
         -- Nullable foreign keys.
         EndUserId,
         -- Non-nullable columns.

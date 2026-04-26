@@ -105,8 +105,8 @@ BEGIN
             DELETED.HasReadingRolePermission,
             DELETED.HasUpdatingRolePermission,
             DELETED.HasDeletingRolePermission,
-            -- StoredProcedureLog R Permissions.
-            DELETED.HasReadingStoredProcedureLogPermission,
+            -- Log R Permissions.
+            DELETED.HasReadingLogPermission,
             -- Vendor CRUD Permissions.
             DELETED.HasCreatingVendorPermission,
             DELETED.HasReadingVendorPermission,
@@ -125,5 +125,5 @@ BEGIN
 
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
-    EXEC [dbo].[usp_CreateStoredProcedureLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
+    EXEC [dbo].[usp_CreateLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
 END;

@@ -80,10 +80,10 @@
     [HasReadingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasUpdatingRolePermission] BIT DEFAULT 0 NOT NULL,
     [HasDeletingRolePermission] BIT DEFAULT 0 NOT NULL,
-    -- StoredProcedureLog R Permissions.
-    -- StoredProcedureLog has no create permission because every call to stored procedures should be logged even if CallingEndUserId doesn't exist.
-    -- StoredProcedureLog has no update and delete permissions because no update and delete stored procedures for StoredProcedureLog exist to make logs immutable.
-    [HasReadingStoredProcedureLogPermission] BIT DEFAULT 0 NOT NULL,
+    -- Log R Permissions.
+    -- Log has no create permission because every call to stored procedures should be logged even if CallingEndUserId doesn't exist.
+    -- Log has no update and delete permissions because no update and delete stored procedures for Log exist to make logs immutable.
+    [HasReadingLogPermission] BIT DEFAULT 0 NOT NULL,
     -- Vendor CRUD Permissions.
     [HasCreatingVendorPermission] BIT DEFAULT 0 NOT NULL,
     [HasReadingVendorPermission] BIT DEFAULT 0 NOT NULL,

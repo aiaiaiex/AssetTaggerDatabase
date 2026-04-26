@@ -1,7 +1,7 @@
 -- Delete all rows from all tables in order.
 -- Has foreign keys from tables below.
 DELETE FROM [dbo].[Asset];
-DELETE FROM [dbo].[StoredProcedureLog];
+DELETE FROM [dbo].[Log];
 -- Has foreign keys from tables below.
 DELETE FROM [dbo].[EndUser];
 DELETE FROM [dbo].[Location];
@@ -22,7 +22,7 @@ DELETE FROM [dbo].[Vendor];
 -- Reset identity values back to 0.
 -- Has foreign keys from tables below.
 DBCC CHECKIDENT('dbo.Asset', RESEED, 0);
-DBCC CHECKIDENT('dbo.StoredProcedureLog', RESEED, 0);
+DBCC CHECKIDENT('dbo.Log', RESEED, 0);
 -- Has foreign keys from tables below.
 DBCC CHECKIDENT('dbo.EndUser', RESEED, 0);
 DBCC CHECKIDENT('dbo.Location', RESEED, 0);

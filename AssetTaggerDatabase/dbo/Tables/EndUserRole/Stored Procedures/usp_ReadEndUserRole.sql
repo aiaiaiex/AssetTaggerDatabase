@@ -72,8 +72,8 @@ CREATE PROCEDURE [dbo].[usp_ReadEndUserRole]
     @HasReadingRolePermission NVARCHAR(1) = '',
     @HasUpdatingRolePermission NVARCHAR(1) = '',
     @HasDeletingRolePermission NVARCHAR(1) = '',
-    -- StoredProcedureLog R Permissions.
-    @HasReadingStoredProcedureLogPermission NVARCHAR(1) = '',
+    -- Log R Permissions.
+    @HasReadingLogPermission NVARCHAR(1) = '',
     -- Vendor CRUD Permissions.
     @HasCreatingVendorPermission NVARCHAR(1) = '',
     @HasReadingVendorPermission NVARCHAR(1) = '',
@@ -165,8 +165,8 @@ BEGIN
         '@HasReadingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingRolePermission), ''', ',
         '@HasUpdatingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasUpdatingRolePermission), ''', ',
         '@HasDeletingRolePermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasDeletingRolePermission), ''', ',
-        -- StoredProcedureLog R Permissions.
-        '@HasReadingStoredProcedureLogPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingStoredProcedureLogPermission), ''', ',
+        -- Log R Permissions.
+        '@HasReadingLogPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingLogPermission), ''', ',
         -- Vendor CRUD Permissions.
         '@HasCreatingVendorPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasCreatingVendorPermission), ''', ',
         '@HasReadingVendorPermission = ''', [dbo].[udf_ConvertNullToNvarchar](@HasReadingVendorPermission), ''', ',
@@ -276,8 +276,8 @@ BEGIN
             HasReadingRolePermission,
             HasUpdatingRolePermission,
             HasDeletingRolePermission,
-            -- StoredProcedureLog R Permissions.
-            HasReadingStoredProcedureLogPermission,
+            -- Log R Permissions.
+            HasReadingLogPermission,
             -- Vendor CRUD Permissions.
             HasCreatingVendorPermission,
             HasReadingVendorPermission,
@@ -358,8 +358,8 @@ BEGIN
             AND [dbo].[udf_IsEqualToBit](@HasReadingRolePermission, HasReadingRolePermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasUpdatingRolePermission, HasUpdatingRolePermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasDeletingRolePermission, HasDeletingRolePermission) = 1
-            -- StoredProcedureLog R Permissions.
-            AND [dbo].[udf_IsEqualToBit](@HasReadingStoredProcedureLogPermission, HasReadingStoredProcedureLogPermission) = 1
+            -- Log R Permissions.
+            AND [dbo].[udf_IsEqualToBit](@HasReadingLogPermission, HasReadingLogPermission) = 1
             -- Vendor CRUD Permissions.
             AND [dbo].[udf_IsEqualToBit](@HasCreatingVendorPermission, HasCreatingVendorPermission) = 1
             AND [dbo].[udf_IsEqualToBit](@HasReadingVendorPermission, HasReadingVendorPermission) = 1
@@ -422,7 +422,7 @@ BEGIN
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingRolePermission')) THEN HasReadingRolePermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingRolePermission')) THEN HasUpdatingRolePermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasDeletingRolePermission')) THEN HasDeletingRolePermission END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingStoredProcedureLogPermission')) THEN HasReadingStoredProcedureLogPermission END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingLogPermission')) THEN HasReadingLogPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasCreatingVendorPermission')) THEN HasCreatingVendorPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasReadingVendorPermission')) THEN HasReadingVendorPermission END DESC,
             CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasUpdatingVendorPermission')) THEN HasUpdatingVendorPermission END DESC,
@@ -483,7 +483,7 @@ BEGIN
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingRolePermission')) THEN HasReadingRolePermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingRolePermission')) THEN HasUpdatingRolePermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasDeletingRolePermission')) THEN HasDeletingRolePermission END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingStoredProcedureLogPermission')) THEN HasReadingStoredProcedureLogPermission END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingLogPermission')) THEN HasReadingLogPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasCreatingVendorPermission')) THEN HasCreatingVendorPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasReadingVendorPermission')) THEN HasReadingVendorPermission END ASC,
             CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasUpdatingVendorPermission')) THEN HasUpdatingVendorPermission END ASC,
@@ -500,5 +500,5 @@ BEGIN
 
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
-    EXEC [dbo].[usp_CreateStoredProcedureLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
+    EXEC [dbo].[usp_CreateLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
 END;
