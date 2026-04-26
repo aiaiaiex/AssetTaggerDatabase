@@ -48,7 +48,7 @@ INTO #EndUserRoleIdTable
 VALUES
 (
     -- Non-nullable columns.
-    @JobName,
+    @RoleName,
     -- Permissions.
     -- Asset CRUD Permissions.
     1, 1, 1, 1,
