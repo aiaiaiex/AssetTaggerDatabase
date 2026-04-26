@@ -9,8 +9,8 @@
     CONSTRAINT [AK_Job_RowNumber] UNIQUE CLUSTERED ([RowNumber]),
 
     -- Non-nullable columns.
-    [Name] NVARCHAR(850) NOT NULL,
-    CONSTRAINT [AK_Job_Name] UNIQUE ([Name]),
-    CONSTRAINT [CK_Job_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
-    CONSTRAINT [CK_Job_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1)
+    [Title] NVARCHAR(850) NOT NULL,
+    CONSTRAINT [AK_Job_Title] UNIQUE ([Title]),
+    CONSTRAINT [CK_Job_Title_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Title]) = 1),
+    CONSTRAINT [CK_Job_Title_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Title]) = 1)
 );

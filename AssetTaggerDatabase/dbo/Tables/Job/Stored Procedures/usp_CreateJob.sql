@@ -3,7 +3,7 @@ CREATE PROCEDURE [dbo].[usp_CreateJob]
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns.
-    @Name NVARCHAR(850) = ''
+    @Title NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -12,7 +12,7 @@ BEGIN
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns.
-        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''';'
+        '@Title = ''', [dbo].[udf_ConvertNullToNvarchar](@Title), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Create';
@@ -34,17 +34,17 @@ BEGIN
         -- Run actual query.
         INSERT INTO [dbo].[Job] (
         -- Non-nullable columns.
-            Name
+            Title
         )
         OUTPUT
         -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable columns.
-            INSERTED.Name
+            INSERTED.Title
         VALUES (
         -- Non-nullable columns.
-            [dbo].[udf_GetDefaultNvarchar](@Name, NULL)
+            [dbo].[udf_GetDefaultNvarchar](@Title, NULL)
         );
     END TRY
     BEGIN CATCH

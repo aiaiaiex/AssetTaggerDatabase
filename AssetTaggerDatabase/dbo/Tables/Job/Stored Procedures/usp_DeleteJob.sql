@@ -38,7 +38,7 @@ BEGIN
             DELETED.CreatedAt,
             DELETED.Id,
             -- Non-nullable columns.
-            DELETED.Name
+            DELETED.Title
         FROM
             [dbo].[Job]
         WHERE

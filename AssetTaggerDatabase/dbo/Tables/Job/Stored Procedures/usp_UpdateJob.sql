@@ -5,7 +5,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateJob]
     -- Non-nullable columns with default values.
     @Id NVARCHAR(36) = '',
     -- Non-nullable columns.
-    @Name NVARCHAR(850) = ''
+    @Title NVARCHAR(850) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -16,7 +16,7 @@ BEGIN
         -- Non-nullable columns with default values.
         '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable columns.
-        '@Name = ''', [dbo].[udf_ConvertNullToNvarchar](@Name), ''';'
+        '@Title = ''', [dbo].[udf_ConvertNullToNvarchar](@Title), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Update';
@@ -40,16 +40,16 @@ BEGIN
             [dbo].[Job]
         SET
         -- Non-nullable columns.
-            Name = [dbo].[udf_GetDefaultNvarchar](@Name, Name)
+            Title = [dbo].[udf_GetDefaultNvarchar](@Title, Title)
         OUTPUT
         -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
             INSERTED.Id,
             -- Non-nullable columns.
-            INSERTED.Name,
+            INSERTED.Title,
             -- Old values.
             -- Non-nullable columns.
-            DELETED.Name AS OldName
+            DELETED.Title AS OldTitle
         FROM
             [dbo].[Job]
         WHERE
