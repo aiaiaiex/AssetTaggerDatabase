@@ -1,6 +1,6 @@
 CREATE TABLE [dbo].[Log] (
     -- Non-nullable columns with default values.
-    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_StoreProcedureLog_Id] DEFAULT (NEWID()) NOT NULL,
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_Log_Id] DEFAULT (NEWID()) NOT NULL,
     CONSTRAINT [PK_Log] PRIMARY KEY NONCLUSTERED ([Id]),
 
     [RowNumber] BIGINT IDENTITY (1, 1),
