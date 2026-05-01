@@ -150,6 +150,8 @@
     <Folder Include="dbo\Tables\Log\Stored Procedures" />
     <Folder Include="dbo\Tables\Manufacturer" />
     <Folder Include="dbo\Tables\Manufacturer\Stored Procedures" />
+    <Folder Include="dbo\Tables\Permission" />
+    <Folder Include="dbo\Tables\Permission\Stored Procedures" />
     <Folder Include="dbo\Tables\Product" />
     <Folder Include="dbo\Tables\ProductSet" />
     <Folder Include="dbo\Tables\ProductSet\Stored Procedures" />
@@ -253,6 +255,11 @@
     <Build Include="dbo\Tables\Manufacturer\Stored Procedures\usp_DeleteManufacturer.sql" />
     <Build Include="dbo\Tables\Manufacturer\Stored Procedures\usp_ReadManufacturer.sql" />
     <Build Include="dbo\Tables\Manufacturer\Stored Procedures\usp_UpdateManufacturer.sql" />
+    <Build Include="dbo\Tables\Permission\Permission.sql" />
+    <Build Include="dbo\Tables\Permission\Stored Procedures\usp_CreatePermission.sql" />
+    <Build Include="dbo\Tables\Permission\Stored Procedures\usp_DeletePermission.sql" />
+    <Build Include="dbo\Tables\Permission\Stored Procedures\usp_ReadPermission.sql" />
+    <Build Include="dbo\Tables\Permission\Stored Procedures\usp_UpdatePermission.sql" />
     <Build Include="dbo\Tables\ProductSet\ProductSet.sql" />
     <Build Include="dbo\Tables\ProductSet\Stored Procedures\usp_CreateProductSet.sql" />
     <Build Include="dbo\Tables\ProductSet\Stored Procedures\usp_DeleteProductSet.sql" />
