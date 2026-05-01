@@ -10,80 +10,111 @@ DECLARE @RoleId UNIQUEIDENTIFIER;
 INSERT INTO [dbo].[Role]
 (
     -- Non-nullable columns.
-    [Name],
-    -- Permissions.
-    -- Asset CRUD Permissions.
-    [HasCreatingAssetPermission], [HasReadingAssetPermission], [HasUpdatingAssetPermission], [HasDeletingAssetPermission],
-    -- Building CRUD Permissions.
-    [HasCreatingBuildingPermission], [HasReadingBuildingPermission], [HasUpdatingBuildingPermission], [HasDeletingBuildingPermission],
-    -- Category CRUD Permissions.
-    [HasCreatingCategoryPermission], [HasReadingCategoryPermission], [HasUpdatingCategoryPermission], [HasDeletingCategoryPermission],
-    -- Company CRUD Permissions.
-    [HasCreatingCompanyPermission], [HasReadingCompanyPermission], [HasUpdatingCompanyPermission], [HasDeletingCompanyPermission],
-    -- Department CRUD Permissions.
-    [HasCreatingDepartmentPermission], [HasReadingDepartmentPermission], [HasUpdatingDepartmentPermission], [HasDeletingDepartmentPermission],
-    -- Employee CRUD Permissions.
-    [HasCreatingEmployeePermission], [HasReadingEmployeePermission], [HasUpdatingEmployeePermission], [HasDeletingEmployeePermission],
-    -- EndUser CRUD Permissions.
-    [HasCreatingEndUserPermission], [HasReadingEndUserPermission], [HasUpdatingEndUserPermission], [HasDeletingEndUserPermission],
-    -- Role CRUD Permissions.
-    [HasCreatingRolePermission], [HasReadingRolePermission], [HasUpdatingRolePermission], [HasDeletingRolePermission],
-    -- Location CRUD Permissions.
-    [HasCreatingLocationPermission], [HasReadingLocationPermission], [HasUpdatingLocationPermission], [HasDeletingLocationPermission],
-    -- Log R Permissions.
-    [HasReadingLogPermission],
-    -- Manufacturer CRUD Permissions.
-    [HasCreatingManufacturerPermission], [HasReadingManufacturerPermission], [HasUpdatingManufacturerPermission], [HasDeletingManufacturerPermission],
-    -- Product CRUD Permissions.
-    [HasCreatingProductPermission], [HasReadingProductPermission], [HasUpdatingProductPermission], [HasDeletingProductPermission],
-    -- ProductSet CRUD Permissions.
-    [HasCreatingProductSetPermission], [HasReadingProductSetPermission], [HasUpdatingProductSetPermission], [HasDeletingProductSetPermission],
-    -- Job CRUD Permissions.
-    [HasCreatingJobPermission], [HasReadingJobPermission], [HasUpdatingJobPermission], [HasDeletingJobPermission],
-    -- Vendor CRUD Permissions.
-    [HasCreatingVendorPermission], [HasReadingVendorPermission], [HasUpdatingVendorPermission], [HasDeletingVendorPermission]
+    [Name]
 )
 OUTPUT INSERTED.Id
 INTO #RoleIdTable
 VALUES
 (
     -- Non-nullable columns.
-    @RoleName,
-    -- Permissions.
-    -- Asset CRUD Permissions.
-    1, 1, 1, 1,
-    -- Building CRUD Permissions.
-    1, 1, 1, 1,
-    -- Category CRUD Permissions.
-    1, 1, 1, 1,
-    -- Company CRUD Permissions.
-    1, 1, 1, 1,
-    -- Department CRUD Permissions.
-    1, 1, 1, 1,
-    -- Employee CRUD Permissions.
-    1, 1, 1, 1,
-    -- EndUser CRUD Permissions.
-    1, 1, 1, 1,
-    -- Role CRUD Permissions.
-    1, 1, 1, 1,
-    -- Location CRUD Permissions.
-    1, 1, 1, 1,
-    -- Log R Permissions.
-    1,
-    -- Manufacturer CRUD Permissions.
-    1, 1, 1, 1,
-    -- Product CRUD Permissions.
-    1, 1, 1, 1,
-    -- ProductSet CRUD Permissions.
-    1, 1, 1, 1,
-    -- Job CRUD Permissions.
-    1, 1, 1, 1,
-    -- Vendor CRUD Permissions.
-    1, 1, 1, 1
+    @RoleName
 );
 
 SET @RoleId = (SELECT RoleId FROM #RoleIdTable);
 DROP TABLE #RoleIdTable;
+
+-- Create Permissions.
+INSERT INTO [dbo].[Permission]
+(
+    -- Non-nullable foreign keys.
+    RoleId,
+    -- Non-nullable columns.
+    Operation,
+    TableName
+)
+VALUES
+-- Asset CRUD Permissions.
+(@RoleId, 'Create', 'Asset'),
+(@RoleId, 'Read', 'Asset'),
+(@RoleId, 'Update', 'Asset'),
+(@RoleId, 'Delete', 'Asset'),
+-- Building CRUD Permissions.
+(@RoleId, 'Create', 'Building'),
+(@RoleId, 'Read', 'Building'),
+(@RoleId, 'Update', 'Building'),
+(@RoleId, 'Delete', 'Building'),
+-- Category CRUD Permissions.
+(@RoleId, 'Create', 'Category'),
+(@RoleId, 'Read', 'Category'),
+(@RoleId, 'Update', 'Category'),
+(@RoleId, 'Delete', 'Category'),
+-- Company CRUD Permissions.
+(@RoleId, 'Create', 'Company'),
+(@RoleId, 'Read', 'Company'),
+(@RoleId, 'Update', 'Company'),
+(@RoleId, 'Delete', 'Company'),
+-- Department CRUD Permissions.
+(@RoleId, 'Create', 'Department'),
+(@RoleId, 'Read', 'Department'),
+(@RoleId, 'Update', 'Department'),
+(@RoleId, 'Delete', 'Department'),
+-- Employee CRUD Permissions.
+(@RoleId, 'Create', 'Employee'),
+(@RoleId, 'Read', 'Employee'),
+(@RoleId, 'Update', 'Employee'),
+(@RoleId, 'Delete', 'Employee'),
+-- EndUser CRUD Permissions.
+(@RoleId, 'Create', 'EndUser'),
+(@RoleId, 'Read', 'EndUser'),
+(@RoleId, 'Update', 'EndUser'),
+(@RoleId, 'Delete', 'EndUser'),
+-- InHouseUnit CRUD Permissions.
+(@RoleId, 'Create', 'InHouseUnit'),
+(@RoleId, 'Read', 'InHouseUnit'),
+(@RoleId, 'Update', 'InHouseUnit'),
+(@RoleId, 'Delete', 'InHouseUnit'),
+-- Job CRUD Permissions.
+(@RoleId, 'Create', 'Job'),
+(@RoleId, 'Read', 'Job'),
+(@RoleId, 'Update', 'Job'),
+(@RoleId, 'Delete', 'Job'),
+-- Location CRUD Permissions.
+(@RoleId, 'Create', 'Location'),
+(@RoleId, 'Read', 'Location'),
+(@RoleId, 'Update', 'Location'),
+(@RoleId, 'Delete', 'Location'),
+-- Log R Permission.
+(@RoleId, 'Read', 'Log'),
+-- Manufacturer CRUD Permissions.
+(@RoleId, 'Create', 'Manufacturer'),
+(@RoleId, 'Read', 'Manufacturer'),
+(@RoleId, 'Update', 'Manufacturer'),
+(@RoleId, 'Delete', 'Manufacturer'),
+-- Permission CRUD Permissions.
+(@RoleId, 'Create', 'Permission'),
+(@RoleId, 'Read', 'Permission'),
+(@RoleId, 'Update', 'Permission'),
+(@RoleId, 'Delete', 'Permission'),
+-- Product CRUD Permissions.
+(@RoleId, 'Create', 'Product'),
+(@RoleId, 'Read', 'Product'),
+(@RoleId, 'Update', 'Product'),
+(@RoleId, 'Delete', 'Product'),
+-- ProductSet CRUD Permissions.
+(@RoleId, 'Create', 'ProductSet'),
+(@RoleId, 'Read', 'ProductSet'),
+(@RoleId, 'Update', 'ProductSet'),
+(@RoleId, 'Delete', 'ProductSet'),
+-- Role CRUD Permissions.
+(@RoleId, 'Create', 'Role'),
+(@RoleId, 'Read', 'Role'),
+(@RoleId, 'Update', 'Role'),
+(@RoleId, 'Delete', 'Role'),
+-- Vendor CRUD Permissions.
+(@RoleId, 'Create', 'Vendor'),
+(@RoleId, 'Read', 'Vendor'),
+(@RoleId, 'Update', 'Vendor'),
+(@RoleId, 'Delete', 'Vendor');
 
 -- Create EndUser.
 DECLARE @PasswordSalt UNIQUEIDENTIFIER = NEWID();
