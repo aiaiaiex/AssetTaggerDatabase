@@ -1,7 +1,7 @@
 CREATE PROCEDURE [dbo].[usp_HasPermission]
     @EndUserId UNIQUEIDENTIFIER,
     @Operation NVARCHAR(6), -- Create, Read, Update, and Delete.
-    @TableName NVARCHAR(4000)
+    @TableName NVARCHAR(836)
 AS;
 BEGIN
     SET NOCOUNT ON;

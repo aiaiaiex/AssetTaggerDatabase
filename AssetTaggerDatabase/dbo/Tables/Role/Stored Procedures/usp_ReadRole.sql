@@ -184,7 +184,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Read';
-    DECLARE @TableName NVARCHAR(4000) = 'Role';
+    DECLARE @TableName NVARCHAR(836) = 'Role';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;

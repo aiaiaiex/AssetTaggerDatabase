@@ -10,7 +10,7 @@ CREATE PROCEDURE [dbo].[usp_ReadLog]
     @Arguments NVARCHAR(MAX) = '',
     @HasExecutedSuccessfully NVARCHAR(1) = '',
     @Operation NVARCHAR(6) = '',
-    @TableName NVARCHAR(4000) = '',
+    @TableName NVARCHAR(836) = '',
     -- Nullable columns.
     @EndUserIpAddress NVARCHAR(4000) = '',
     @ErrorMessage NVARCHAR(4000) = '',
@@ -70,7 +70,7 @@ BEGIN
     );
     DECLARE @LogHasExecutedSuccessfully BIT = 1;
     DECLARE @LogOperation NVARCHAR(6) = 'Read';
-    DECLARE @LogTableName NVARCHAR(4000) = 'Log';
+    DECLARE @LogTableName NVARCHAR(836) = 'Log';
     DECLARE @LogEndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @LogEndUserId UNIQUEIDENTIFIER;

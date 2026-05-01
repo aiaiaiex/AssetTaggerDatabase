@@ -16,7 +16,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Delete';
-    DECLARE @TableName NVARCHAR(4000) = 'Job';
+    DECLARE @TableName NVARCHAR(836) = 'Job';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;

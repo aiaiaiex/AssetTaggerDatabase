@@ -22,7 +22,7 @@ BEGIN
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @LogOperation NVARCHAR(6) = 'Create';
-    DECLARE @LogTableName NVARCHAR(4000) = 'Permission';
+    DECLARE @LogTableName NVARCHAR(836) = 'Permission';
     DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
 
     DECLARE @EndUserId UNIQUEIDENTIFIER;

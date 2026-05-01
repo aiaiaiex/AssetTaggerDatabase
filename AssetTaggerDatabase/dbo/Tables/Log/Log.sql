@@ -21,7 +21,7 @@ CREATE TABLE [dbo].[Log] (
 
     [StartedAt] DATETIME2(3) NOT NULL,
 
-    [TableName] NVARCHAR(4000) NOT NULL,
+    [TableName] NVARCHAR(836) NOT NULL,
 
     -- Nullable columns.
     [EndUserIpAddress] NVARCHAR(4000) NULL,

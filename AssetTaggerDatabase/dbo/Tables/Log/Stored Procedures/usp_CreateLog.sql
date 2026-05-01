@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_CreateLog]
     @HasExecutedSuccessfully BIT,
     @Operation NVARCHAR(6),
     @StartedAt DATETIME2(3),
-    @TableName NVARCHAR(4000),
+    @TableName NVARCHAR(836),
     -- Nullable columns.
     @EndUserIpAddress NVARCHAR(4000) = NULL,
     @ErrorMessage NVARCHAR(4000) = NULL,
