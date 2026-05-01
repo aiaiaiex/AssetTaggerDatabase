@@ -31,7 +31,7 @@ CREATE TABLE [dbo].[Permission] (
         'Employee',
         'EndUser',
         'InHouseUnit',
-        'Permission',
+        'Job',
         'Location',
         'Log',
         'Manufacturer',
