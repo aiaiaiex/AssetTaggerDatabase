@@ -10,7 +10,7 @@
 
     -- Non-nullable columns.
     [Name] NVARCHAR(850) NOT NULL,
-    CONSTRAINT [AK_Role_Name] UNIQUE NONCLUSTERED ([Name] ASC),
+    CONSTRAINT [AK_Role_Name] UNIQUE ([Name] ASC),
     CONSTRAINT [CK_Role_Name_IsNotReservedKeyword] CHECK ([dbo].[udf_IsNotReservedKeywordInNvarchar]([Name]) = 1),
     CONSTRAINT [CK_Role_Name_HasNoLeadingAndTrailingWhitespace] CHECK ([dbo].[udf_HasNoLeadingAndTrailingWhitespaceInNvarchar]([Name]) = 1)
 );
