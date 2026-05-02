@@ -2,6 +2,9 @@
     -- Non-nullable columns with default values.
     [CreatedAt] DATETIME2(3) CONSTRAINT [DF_ProductSet_CreatedAt] DEFAULT (SYSUTCDATETIME()) NOT NULL,
 
+    [Id] UNIQUEIDENTIFIER CONSTRAINT [DF_ProductSet_Id] DEFAULT (NEWID()) NOT NULL,
+    CONSTRAINT [PK_ProductSet] PRIMARY KEY NONCLUSTERED ([Id] ASC),
+
     [ProductQuantity] BIGINT DEFAULT 1 NOT NULL,
     CONSTRAINT [CK_ProductSet_ProductQuantity] CHECK ([ProductQuantity] > 0),
 
@@ -16,6 +19,7 @@
     CONSTRAINT [FK_ProductSet_Product_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id]),
 
     -- Composite constraints.
-    CONSTRAINT [CTK_ProductSet_ParentProductId_ProductId] CHECK ([ParentProductId] <> [ProductId]),
-    CONSTRAINT [PK_ProductSet] PRIMARY KEY NONCLUSTERED ([ParentProductId], [ProductId])
+    CONSTRAINT [AK_ProductSet_ParentProductId_ProductId] UNIQUE ([ParentProductId], [ProductId]),
+
+    CONSTRAINT [CTK_ProductSet_ParentProductId_ProductId] CHECK ([ParentProductId] <> [ProductId])
 );

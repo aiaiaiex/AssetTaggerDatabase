@@ -3,6 +3,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateProductSet]
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
     -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
     @ProductQuantity NVARCHAR(19) = '',
     -- Non-nullable foreign keys.
     @ParentProductId NVARCHAR(36),
@@ -15,6 +16,7 @@ BEGIN
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
         -- Non-nullable columns with default values.
+        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         '@ProductQuantity = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductQuantity), ''', ',
         -- Non-nullable foreign keys.
         '@ParentProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ParentProductId), ''', ',
@@ -41,22 +43,29 @@ BEGIN
         UPDATE
             [dbo].[ProductSet]
         SET
-            ProductQuantity = [dbo].[udf_GetDefaultBigint](@ProductQuantity, ProductQuantity)
+            -- Non-nullable columns with default values.
+            ProductQuantity = [dbo].[udf_GetDefaultBigint](@ProductQuantity, ProductQuantity),
+            -- Non-nullable foreign keys.
+            ParentProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ParentProductId, ParentProductId),
+            ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId)
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
+            INSERTED.Id,
             INSERTED.ProductQuantity,
             -- Non-nullable foreign keys.
             INSERTED.ParentProductId,
             INSERTED.ProductId,
             -- Old values.
             -- Non-nullable columns with default values.
-            DELETED.ProductQuantity AS OldProductQuantity
+            DELETED.ProductQuantity AS OldProductQuantity,
+            -- Non-nullable foreign keys.
+            DELETED.ParentProductId AS OldParentProductId,
+            DELETED.ProductId AS OldProductId
         FROM
             [dbo].[ProductSet]
         WHERE
-            ParentProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ParentProductId, NULL)
-            AND ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId);
+            Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;

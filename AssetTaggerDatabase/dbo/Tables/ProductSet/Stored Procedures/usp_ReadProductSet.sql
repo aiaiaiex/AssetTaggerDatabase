@@ -2,6 +2,8 @@ CREATE PROCEDURE [dbo].[usp_ReadProductSet]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = '',
     -- Non-nullable foreign keys.
     @ParentProductId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = '',
@@ -24,6 +26,8 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
+        -- Non-nullable columns with default values.
+        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''', ',
         -- Non-nullable foreign keys.
         '@ParentProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ParentProductId), ''', ',
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
@@ -63,8 +67,9 @@ BEGIN
 
         -- Run actual query.
         SELECT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             CreatedAt,
+            Id,
             ProductQuantity,
             -- Non-nullable foreign keys.
             ParentProductId,
@@ -72,8 +77,10 @@ BEGIN
         FROM
             [dbo].[ProductSet]
         WHERE
-        -- Non-nullable foreign keys.
-            [dbo].[udf_IsEqualToUniqueIdentifier](@ParentProductId, ParentProductId) = 1
+            -- Non-nullable columns with default values.
+            [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
+            -- Non-nullable foreign keys.
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@ParentProductId, ParentProductId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
             -- BIGINT range parameters.
             AND [dbo].[udf_IsBetweenBigints](@FromProductQuantity, ProductQuantity, @ToProductQuantity) = 1

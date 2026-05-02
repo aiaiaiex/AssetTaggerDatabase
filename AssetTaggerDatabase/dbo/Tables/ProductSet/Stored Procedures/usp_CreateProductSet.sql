@@ -39,15 +39,16 @@ BEGIN
 
         -- Run actual query.
         INSERT INTO [dbo].[ProductSet] (
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             ProductQuantity,
             -- Non-nullable foreign keys.
             ParentProductId,
             ProductId
         )
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             INSERTED.CreatedAt,
+            INSERTED.Id,
             INSERTED.ProductQuantity,
             -- Non-nullable foreign keys.
             INSERTED.ParentProductId,

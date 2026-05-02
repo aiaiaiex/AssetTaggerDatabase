@@ -2,9 +2,8 @@ CREATE PROCEDURE [dbo].[usp_DeleteProductSet]
     -- Caller parameters.
     @CallingEndUserId NVARCHAR(36) = '',
     @CallingEndUserIpAddress NVARCHAR(4000) = '',
-    -- Non-nullable foreign keys.
-    @ParentProductId NVARCHAR(36) = '',
-    @ProductId NVARCHAR(36) = ''
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = ''
 AS;
 BEGIN
     SET NOCOUNT ON;
@@ -12,9 +11,8 @@ BEGIN
     -- Log variables.
     DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
     DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
-        -- Non-nullable foreign keys.
-        '@ParentProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ParentProductId), ''', ',
-        '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''';'
+        -- Non-nullable columns with default values.
+        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''';'
     );
     DECLARE @HasExecutedSuccessfully BIT = 1;
     DECLARE @Operation NVARCHAR(6) = 'Delete';
@@ -36,8 +34,9 @@ BEGIN
         -- Run actual query.
         DELETE [dbo].[ProductSet]
         OUTPUT
-        -- Non-nullable columns with default values.
+            -- Non-nullable columns with default values.
             DELETED.CreatedAt,
+            DELETED.Id,
             DELETED.ProductQuantity,
             -- Non-nullable foreign keys.
             DELETED.ParentProductId,
@@ -45,8 +44,7 @@ BEGIN
         FROM
             [dbo].[ProductSet]
         WHERE
-            ParentProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ParentProductId, NULL)
-            AND ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId);
+            Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
     END TRY
     BEGIN CATCH
         SET @HasExecutedSuccessfully = 0;
