@@ -64,6 +64,6 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Asset_ProductId_SerialNumber]
+CREATE UNIQUE INDEX [IX_Asset_ProductId_SerialNumber]
     ON [dbo].[Asset] ([ProductId], [SerialNumber])
     WHERE [SerialNumber] IS NOT NULL;

@@ -30,6 +30,6 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Company_Code]
+CREATE UNIQUE INDEX [IX_Company_Code]
     ON [dbo].[Company] ([Code])
     WHERE [Code] IS NOT NULL;

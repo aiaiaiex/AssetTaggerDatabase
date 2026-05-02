@@ -20,5 +20,5 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Vendor_Name_Address]
+CREATE UNIQUE INDEX [IX_Vendor_Name_Address]
     ON [dbo].[Vendor] ([Name], [Address]);

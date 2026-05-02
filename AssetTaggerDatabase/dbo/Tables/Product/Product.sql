@@ -33,16 +33,16 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ManufacturerId_ModelNumber]
+CREATE UNIQUE INDEX [IX_Product_ManufacturerId_ModelNumber]
     ON [dbo].[Product] ([ManufacturerId], [ModelNumber])
     WHERE [ModelNumber] IS NOT NULL AND [ManufacturerId] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ManufacturerId_Name]
+CREATE UNIQUE INDEX [IX_Product_ManufacturerId_Name]
     ON [dbo].[Product] ([ManufacturerId], [Name])
     WHERE [ModelNumber] IS NULL AND [ManufacturerId] IS NOT NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_Product_ModelNumber_Name]
+CREATE UNIQUE INDEX [IX_Product_ModelNumber_Name]
     ON [dbo].[Product] ([ModelNumber], [Name])
     WHERE [ManufacturerId] IS NULL;

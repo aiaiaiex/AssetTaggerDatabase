@@ -29,6 +29,6 @@
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_EndUser_EmployeeId]
+CREATE UNIQUE INDEX [IX_EndUser_EmployeeId]
     ON [dbo].[EndUser] ([EmployeeId])
     WHERE [EmployeeId] IS NOT NULL;

@@ -26,11 +26,11 @@ CREATE TABLE [dbo].[InHouseUnit] (
 );
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_InHouseUnit_CompanyId_DepartmentId]
+CREATE UNIQUE INDEX [IX_InHouseUnit_CompanyId_DepartmentId]
     ON [dbo].[InHouseUnit] ([CompanyId], [DepartmentId])
     WHERE [EmployeeId] IS NULL;
 GO
 
-CREATE UNIQUE NONCLUSTERED INDEX [IX_InHouseUnit_EmployeeId]
+CREATE UNIQUE INDEX [IX_InHouseUnit_EmployeeId]
     ON [dbo].[InHouseUnit] ([EmployeeId])
     WHERE [EmployeeId] IS NOT NULL;
