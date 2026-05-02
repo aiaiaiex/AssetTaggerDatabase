@@ -81,4 +81,11 @@ BEGIN
     -- Log stored procedure.
     SET @EndedAt = SYSUTCDATETIME();
     EXEC [dbo].[usp_CreateLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
+
+    -- Re-raise error.
+    IF (@ErrorMessage IS NOT NULL)
+        BEGIN
+            RAISERROR (@ErrorMessage, 11, 0);
+            RETURN -1;
+        END;
 END;
