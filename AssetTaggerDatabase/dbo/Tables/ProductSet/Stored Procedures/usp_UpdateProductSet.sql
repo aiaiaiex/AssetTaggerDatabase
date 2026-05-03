@@ -6,7 +6,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateProductSet]
     @Id NVARCHAR(36) = '',
     @ProductQuantity NVARCHAR(19) = '',
     -- Non-nullable foreign keys.
-    @ParentProductId NVARCHAR(36),
+    @ParentProductId NVARCHAR(36) = '',
     @ProductId NVARCHAR(36) = ''
 AS;
 BEGIN
