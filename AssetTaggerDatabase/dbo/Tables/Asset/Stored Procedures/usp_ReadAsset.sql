@@ -29,8 +29,8 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     @FromSalvageValue NVARCHAR(17) = '',
     @ToSalvageValue NVARCHAR(17) = '',
     -- DATETIME2(3) range parameters.
-    @FromCreatedAt NVARCHAR(24) = NULL,
-    @ToCreatedAt NVARCHAR(24) = NULL,
+    @FromCreatedAt NVARCHAR(24) = '',
+    @ToCreatedAt NVARCHAR(24) = '',
     @FromPurchasedAt NVARCHAR(24) = '',
     @ToPurchasedAt NVARCHAR(24) = '',
     @FromWarrantyExpirationDate NVARCHAR(24) = '',
