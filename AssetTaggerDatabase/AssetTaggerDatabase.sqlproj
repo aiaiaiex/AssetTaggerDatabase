@@ -142,6 +142,7 @@
     <Folder Include="dbo\Tables\EndUser" />
     <Folder Include="dbo\Tables\EndUser\Stored Procedures" />
     <Folder Include="dbo\Tables\InHouseUnit" />
+    <Folder Include="dbo\Tables\InHouseUnit\Stored Procedures" />
     <Folder Include="dbo\Tables\Job" />
     <Folder Include="dbo\Tables\Job\Stored Procedures" />
     <Folder Include="dbo\Tables\Location" />
@@ -237,6 +238,10 @@
     <Build Include="dbo\Tables\EndUser\Stored Procedures\usp_ReadEndUser.sql" />
     <Build Include="dbo\Tables\EndUser\Stored Procedures\usp_UpdateEndUser.sql" />
     <Build Include="dbo\Tables\InHouseUnit\InHouseUnit.sql" />
+    <Build Include="dbo\Tables\InHouseUnit\Stored Procedures\usp_CreateInHouseUnit.sql" />
+    <Build Include="dbo\Tables\InHouseUnit\Stored Procedures\usp_DeleteInHouseUnit.sql" />
+    <Build Include="dbo\Tables\InHouseUnit\Stored Procedures\usp_ReadInHouseUnit.sql" />
+    <Build Include="dbo\Tables\InHouseUnit\Stored Procedures\usp_UpdateInHouseUnit.sql" />
     <Build Include="dbo\Tables\Job\Job.sql" />
     <Build Include="dbo\Tables\Job\Stored Procedures\usp_CreateJob.sql" />
     <Build Include="dbo\Tables\Job\Stored Procedures\usp_DeleteJob.sql" />

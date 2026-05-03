@@ -1,0 +1,65 @@
+CREATE PROCEDURE [dbo].[usp_DeleteInHouseUnit]
+    -- Caller parameters.
+    @CallingEndUserId NVARCHAR(36) = '',
+    @CallingEndUserIpAddress NVARCHAR(4000) = '',
+    -- Non-nullable columns with default values.
+    @Id NVARCHAR(36) = ''
+AS;
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Log variables.
+    DECLARE @StartedAt DATETIME2(3) = SYSUTCDATETIME();
+    DECLARE @Arguments NVARCHAR(MAX) = CONCAT(
+        -- Non-nullable columns with default values.
+        '@Id = ''', [dbo].[udf_ConvertNullToNvarchar](@Id), ''';'
+    );
+    DECLARE @HasExecutedSuccessfully BIT = 1;
+    DECLARE @Operation NVARCHAR(6) = 'Delete';
+    DECLARE @TableName NVARCHAR(836) = 'InHouseUnit';
+    DECLARE @EndUserIpAddress NVARCHAR(4000) = [dbo].[udf_GetDefaultNvarchar](@CallingEndUserIpAddress, NULL);
+
+    DECLARE @EndUserId UNIQUEIDENTIFIER;
+    DECLARE @EndedAt DATETIME2(3);
+    DECLARE @ErrorMessage NVARCHAR(4000);
+    DECLARE @ErrorNumber INT;
+
+    BEGIN TRY
+        -- Set final values.
+        SET @EndUserId = [dbo].[udf_GetDefaultUniqueidentifier](@CallingEndUserId, NULL);
+
+        -- Check the permission of the calling EndUser.
+        EXEC [dbo].[usp_HasPermission] @EndUserId, @Operation, @TableName;
+
+        -- Run actual query.
+        DELETE [dbo].[InHouseUnit]
+        OUTPUT
+            -- Non-nullable columns with default values.
+            DELETED.CreatedAt,
+            DELETED.Id,
+            -- Nullable foreign keys.
+            DELETED.CompanyId,
+            DELETED.DepartmentId,
+            DELETED.EmployeeId
+        FROM
+            [dbo].[InHouseUnit]
+        WHERE
+            Id = [dbo].[udf_GetDefaultUniqueidentifier](@Id, NULL);
+    END TRY
+    BEGIN CATCH
+        SET @HasExecutedSuccessfully = 0;
+        SET @ErrorMessage = ERROR_MESSAGE();
+        SET @ErrorNumber = ERROR_NUMBER();
+    END CATCH;
+
+    -- Log stored procedure.
+    SET @EndedAt = SYSUTCDATETIME();
+    EXEC [dbo].[usp_CreateLog] @EndUserId, @Arguments, @EndedAt, @HasExecutedSuccessfully, @Operation, @StartedAt, @TableName, @EndUserIpAddress, @ErrorMessage, @ErrorNumber;
+
+    -- Re-raise error.
+    IF (@ErrorMessage IS NOT NULL)
+        BEGIN
+            RAISERROR (@ErrorMessage, 11, 0);
+            RETURN -1;
+        END;
+END;
