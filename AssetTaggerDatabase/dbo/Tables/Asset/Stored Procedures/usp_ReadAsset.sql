@@ -112,83 +112,91 @@ BEGIN
         -- Run actual query.
         SELECT
             -- Non-nullable columns with default values.
-            CreatedAt,
-            Id,
+            Asset.CreatedAt,
+            Asset.Id,
             -- Non-nullable foreign keys.
-            ProductId,
+            Asset.ProductId,
             -- Nullable foreign keys.
-            InHouseUnitId,
-            LocationId,
-            VendorId,
+            Asset.InHouseUnitId,
+            Asset.LocationId,
+            Asset.VendorId,
             -- Nullable columns.
-            DocumentationUrl,
-            PurchasedAt,
-            PurchasePrice,
-            SalvageValue,
-            SerialNumber,
-            UsefulLife,
-            WarrantyDuration,
-            WarrantyUnitOfMeasure,
+            Asset.DocumentationUrl,
+            Asset.PurchasedAt,
+            Asset.PurchasePrice,
+            Asset.SalvageValue,
+            Asset.SerialNumber,
+            Asset.UsefulLife,
+            Asset.WarrantyDuration,
+            Asset.WarrantyUnitOfMeasure,
             -- Computed columns.
-            AnnualDepreciationExpense,
-            CurrentBookValue,
-            WarrantyExpirationDate
+            Asset.AnnualDepreciationExpense,
+            Asset.CurrentBookValue,
+            Asset.WarrantyExpirationDate,
+            -- Calculations.
+            ROW_NUMBER() OVER (PARTITION BY COALESCE(InHouseUnit.CompanyId, Employee.CompanyId), Asset.ProductId ORDER BY Asset.PurchasedAt ASC, Asset.RowNumber ASC) AS CompanyPosition
         FROM
-            [dbo].[Asset]
+            [dbo].[Asset] AS Asset
+        LEFT JOIN
+            [dbo].[InHouseUnit] AS InHouseUnit
+            ON Asset.InHouseUnitId = InHouseUnit.Id
+        LEFT JOIN
+            [dbo].[Employee] AS Employee
+            ON InHouseUnit.EmployeeId = Employee.Id
         WHERE
             -- Non-nullable columns with default values.
-            [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Id) = 1
+            [dbo].[udf_IsEqualToUniqueIdentifier](@Id, Asset.Id) = 1
             -- Non-nullable foreign keys.
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, Asset.ProductId) = 1
             -- Nullable foreign keys.
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@InHouseUnitId, InHouseUnitId) = 1
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@LocationId, LocationId) = 1
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@VendorId, VendorId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@InHouseUnitId, Asset.InHouseUnitId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@LocationId, Asset.LocationId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@VendorId, Asset.VendorId) = 1
             -- Nullable columns.
-            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, DocumentationUrl) = 1
-            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@SerialNumber, SerialNumber) = 1
-            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@WarrantyUnitOfMeasure, WarrantyUnitOfMeasure) = 1
+            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@DocumentationUrl, Asset.DocumentationUrl) = 1
+            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@SerialNumber, Asset.SerialNumber) = 1
+            AND [dbo].[udf_IsEqualToOrLikeNvarchar](@WarrantyUnitOfMeasure, Asset.WarrantyUnitOfMeasure) = 1
             -- BIGINT range parameters.
-            AND [dbo].[udf_IsBetweenBigints](@FromUsefulLife, UsefulLife, @ToUsefulLife) = 1
-            AND [dbo].[udf_IsBetweenBigints](@FromWarrantyDuration, WarrantyDuration, @ToWarrantyDuration) = 1
+            AND [dbo].[udf_IsBetweenBigints](@FromUsefulLife, Asset.UsefulLife, @ToUsefulLife) = 1
+            AND [dbo].[udf_IsBetweenBigints](@FromWarrantyDuration, Asset.WarrantyDuration, @ToWarrantyDuration) = 1
             -- DECIMAL(15, 4) range parameters.
-            AND [dbo].[udf_IsBetweenDecimals](@FromAnnualDepreciationExpense, AnnualDepreciationExpense, @ToAnnualDepreciationExpense) = 1
-            AND [dbo].[udf_IsBetweenDecimals](@FromCurrentBookValue, CurrentBookValue, @ToCurrentBookValue) = 1
-            AND [dbo].[udf_IsBetweenDecimals](@FromPurchasePrice, PurchasePrice, @ToPurchasePrice) = 1
-            AND [dbo].[udf_IsBetweenDecimals](@FromSalvageValue, SalvageValue, @ToSalvageValue) = 1
+            AND [dbo].[udf_IsBetweenDecimals](@FromAnnualDepreciationExpense, Asset.AnnualDepreciationExpense, @ToAnnualDepreciationExpense) = 1
+            AND [dbo].[udf_IsBetweenDecimals](@FromCurrentBookValue, Asset.CurrentBookValue, @ToCurrentBookValue) = 1
+            AND [dbo].[udf_IsBetweenDecimals](@FromPurchasePrice, Asset.PurchasePrice, @ToPurchasePrice) = 1
+            AND [dbo].[udf_IsBetweenDecimals](@FromSalvageValue, Asset.SalvageValue, @ToSalvageValue) = 1
             -- DATETIME2(3) range parameters.
-            AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
-            AND [dbo].[udf_IsBetweenDatetime2s](@FromPurchasedAt, PurchasedAt, @ToPurchasedAt) = 1
-            AND [dbo].[udf_IsBetweenDatetime2s](@FromWarrantyExpirationDate, WarrantyExpirationDate, @ToWarrantyExpirationDate) = 1
+            AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, Asset.CreatedAt, @ToCreatedAt) = 1
+            AND [dbo].[udf_IsBetweenDatetime2s](@FromPurchasedAt, Asset.PurchasedAt, @ToPurchasedAt) = 1
+            AND [dbo].[udf_IsBetweenDatetime2s](@FromWarrantyExpirationDate, Asset.WarrantyExpirationDate, @ToWarrantyExpirationDate) = 1
         ORDER BY
         -- Descending sort.
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'DocumentationUrl')) THEN DocumentationUrl END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'PurchasedAt')) THEN PurchasedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'PurchasePrice')) THEN PurchasePrice END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'SalvageValue')) THEN SalvageValue END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'SerialNumber')) THEN SerialNumber END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'UsefulLife')) THEN UsefulLife END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyDuration')) THEN WarrantyDuration END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyUnitOfMeasure')) THEN WarrantyUnitOfMeasure END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'AnnualDepreciationExpense')) THEN AnnualDepreciationExpense END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CurrentBookValue')) THEN CurrentBookValue END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN WarrantyExpirationDate END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN Asset.RowNumber END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN Asset.CreatedAt END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'DocumentationUrl')) THEN Asset.DocumentationUrl END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'PurchasedAt')) THEN Asset.PurchasedAt END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'PurchasePrice')) THEN Asset.PurchasePrice END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'SalvageValue')) THEN Asset.SalvageValue END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'SerialNumber')) THEN Asset.SerialNumber END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'UsefulLife')) THEN Asset.UsefulLife END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyDuration')) THEN Asset.WarrantyDuration END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyUnitOfMeasure')) THEN Asset.WarrantyUnitOfMeasure END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'AnnualDepreciationExpense')) THEN Asset.AnnualDepreciationExpense END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CurrentBookValue')) THEN Asset.CurrentBookValue END DESC,
+            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN Asset.WarrantyExpirationDate END DESC,
             -- Ascending sort.
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'DocumentationUrl')) THEN DocumentationUrl END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'PurchasedAt')) THEN PurchasedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'PurchasePrice')) THEN PurchasePrice END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'SalvageValue')) THEN SalvageValue END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'SerialNumber')) THEN SerialNumber END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'UsefulLife')) THEN UsefulLife END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyDuration')) THEN WarrantyDuration END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyUnitOfMeasure')) THEN WarrantyUnitOfMeasure END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'AnnualDepreciationExpense')) THEN AnnualDepreciationExpense END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CurrentBookValue')) THEN CurrentBookValue END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN WarrantyExpirationDate END ASC
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN Asset.RowNumber END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN Asset.CreatedAt END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'DocumentationUrl')) THEN Asset.DocumentationUrl END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'PurchasedAt')) THEN Asset.PurchasedAt END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'PurchasePrice')) THEN Asset.PurchasePrice END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'SalvageValue')) THEN Asset.SalvageValue END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'SerialNumber')) THEN Asset.SerialNumber END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'UsefulLife')) THEN Asset.UsefulLife END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyDuration')) THEN Asset.WarrantyDuration END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyUnitOfMeasure')) THEN Asset.WarrantyUnitOfMeasure END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'AnnualDepreciationExpense')) THEN Asset.AnnualDepreciationExpense END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CurrentBookValue')) THEN Asset.CurrentBookValue END ASC,
+            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'WarrantyExpirationDate')) THEN Asset.WarrantyExpirationDate END ASC
             -- Pagination.
             OFFSET [dbo].[udf_GetRowsToSkip](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;
