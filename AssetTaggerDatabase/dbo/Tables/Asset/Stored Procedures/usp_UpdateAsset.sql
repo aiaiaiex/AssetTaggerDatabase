@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_UpdateAsset]
     -- Non-nullable foreign keys.
     @ProductId NVARCHAR(36) = '',
     -- Nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
+    @InHouseUnitId NVARCHAR(36) = '',
     @LocationId NVARCHAR(36) = '',
     @VendorId NVARCHAR(36) = '',
     -- Nullable columns.
@@ -31,7 +31,7 @@ BEGIN
         -- Non-nullable foreign keys.
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
         -- Nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
+        '@InHouseUnitId = ''', [dbo].[udf_ConvertNullToNvarchar](@InHouseUnitId), ''', ',
         '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@VendorId = ''', [dbo].[udf_ConvertNullToNvarchar](@VendorId), ''', ',
         -- Nullable columns.
@@ -68,7 +68,7 @@ BEGIN
             -- Non-nullable foreign keys.
             ProductId = [dbo].[udf_GetDefaultUniqueidentifier](@ProductId, ProductId),
             -- Nullable foreign keys.
-            EmployeeId = [dbo].[udf_GetDefaultUniqueidentifier](@EmployeeId, EmployeeId),
+            InHouseUnitId = [dbo].[udf_GetDefaultUniqueidentifier](@InHouseUnitId, InHouseUnitId),
             LocationId = [dbo].[udf_GetDefaultUniqueidentifier](@LocationId, LocationId),
             VendorId = [dbo].[udf_GetDefaultUniqueidentifier](@VendorId, VendorId),
             -- Nullable columns.
@@ -87,7 +87,7 @@ BEGIN
             -- Non-nullable foreign keys.
             INSERTED.ProductId,
             -- Nullable foreign keys.
-            INSERTED.EmployeeId,
+            INSERTED.InHouseUnitId,
             INSERTED.LocationId,
             INSERTED.VendorId,
             -- Nullable columns.
@@ -107,7 +107,7 @@ BEGIN
             -- Non-nullable foreign keys.
             DELETED.ProductId AS OldProductId,
             -- Nullable foreign keys.
-            DELETED.EmployeeId AS OldEmployeeId,
+            DELETED.InHouseUnitId AS OldInHouseUnitId,
             DELETED.LocationId AS OldLocationId,
             DELETED.VendorId AS OldVendorId,
             -- Nullable columns.

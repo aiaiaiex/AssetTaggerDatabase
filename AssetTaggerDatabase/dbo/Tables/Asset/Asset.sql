@@ -13,8 +13,8 @@
     CONSTRAINT [FK_Asset_Product] FOREIGN KEY ([ProductId]) REFERENCES [dbo].[Product] ([Id]),
 
     -- Nullable foreign keys.
-    [EmployeeId] UNIQUEIDENTIFIER NULL,
-    CONSTRAINT [FK_Asset_Employee] FOREIGN KEY ([EmployeeId]) REFERENCES [dbo].[Employee] ([Id]),
+    [InHouseUnitId] UNIQUEIDENTIFIER NULL,
+    CONSTRAINT [FK_Asset_InHouseUnit] FOREIGN KEY ([InHouseUnitId]) REFERENCES [dbo].[InHouseUnit] ([Id]),
 
     [LocationId] UNIQUEIDENTIFIER NULL,
     CONSTRAINT [FK_Asset_Location] FOREIGN KEY ([LocationId]) REFERENCES [dbo].[Location] ([Id]),

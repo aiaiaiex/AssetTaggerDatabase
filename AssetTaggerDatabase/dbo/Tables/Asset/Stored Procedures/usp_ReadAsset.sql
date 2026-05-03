@@ -7,7 +7,7 @@ CREATE PROCEDURE [dbo].[usp_ReadAsset]
     -- Non-nullable foreign keys.
     @ProductId NVARCHAR(36) = '',
     -- Nullable foreign keys.
-    @EmployeeId NVARCHAR(36) = '',
+    @InHouseUnitId NVARCHAR(36) = '',
     @LocationId NVARCHAR(36) = '',
     @VendorId NVARCHAR(36) = '',
     -- Nullable columns.
@@ -53,7 +53,7 @@ BEGIN
         -- Non-nullable foreign keys.
         '@ProductId = ''', [dbo].[udf_ConvertNullToNvarchar](@ProductId), ''', ',
         -- Nullable foreign keys.
-        '@EmployeeId = ''', [dbo].[udf_ConvertNullToNvarchar](@EmployeeId), ''', ',
+        '@InHouseUnitId = ''', [dbo].[udf_ConvertNullToNvarchar](@InHouseUnitId), ''', ',
         '@LocationId = ''', [dbo].[udf_ConvertNullToNvarchar](@LocationId), ''', ',
         '@VendorId = ''', [dbo].[udf_ConvertNullToNvarchar](@VendorId), ''', ',
         -- Nullable columns.
@@ -117,7 +117,7 @@ BEGIN
             -- Non-nullable foreign keys.
             ProductId,
             -- Nullable foreign keys.
-            EmployeeId,
+            InHouseUnitId,
             LocationId,
             VendorId,
             -- Nullable columns.
@@ -141,7 +141,7 @@ BEGIN
             -- Non-nullable foreign keys.
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@ProductId, ProductId) = 1
             -- Nullable foreign keys.
-            AND [dbo].[udf_IsEqualToUniqueIdentifier](@EmployeeId, EmployeeId) = 1
+            AND [dbo].[udf_IsEqualToUniqueIdentifier](@InHouseUnitId, InHouseUnitId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@LocationId, LocationId) = 1
             AND [dbo].[udf_IsEqualToUniqueIdentifier](@VendorId, VendorId) = 1
             -- Nullable columns.
