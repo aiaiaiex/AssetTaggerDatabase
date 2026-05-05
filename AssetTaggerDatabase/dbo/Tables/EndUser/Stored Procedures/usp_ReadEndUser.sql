@@ -15,7 +15,7 @@
     @ToCreatedAt NVARCHAR(24) = '',
     -- Sort parameters.
     @SortColumn NVARCHAR(4000) = '',
-    @RowOrder NVARCHAR(4) = '',
+    @SortOrder NVARCHAR(4) = '',
     -- Pagination parameters.
     @RowsToSkip NVARCHAR(19) = '',
     @RowsToReturn NVARCHAR(19) = ''
@@ -39,7 +39,7 @@ BEGIN
         '@ToCreatedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@ToCreatedAt), ''', ',
         -- Sort parameters.
         '@SortColumn = ''', [dbo].[udf_ConvertNullToNvarchar](@SortColumn), ''', ',
-        '@RowOrder = ''', [dbo].[udf_ConvertNullToNvarchar](@RowOrder), ''', ',
+        '@SortOrder = ''', [dbo].[udf_ConvertNullToNvarchar](@SortOrder), ''', ',
         -- Pagination parameters.
         '@RowsToSkip = ''', [dbo].[udf_ConvertNullToNvarchar](@RowsToSkip), ''', ',
         '@RowsToReturn = ''', [dbo].[udf_ConvertNullToNvarchar](@RowsToReturn), ''';'
@@ -63,7 +63,7 @@ BEGIN
 
         -- Set final values.
         SET @SortColumn = [dbo].[udf_GetSortColumn](@SortColumn);
-        SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
+        SET @SortOrder = [dbo].[udf_GetSortOrder](@SortOrder);
 
         -- Run actual query.
         SELECT
@@ -91,13 +91,13 @@ BEGIN
             AND [dbo].[udf_IsBetweenDatetime2s](@FromCreatedAt, CreatedAt, @ToCreatedAt) = 1
         ORDER BY
         -- Descending sort.
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Username')) THEN Username END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'Username')) THEN Username END DESC,
             -- Ascending sort.
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Username')) THEN Username END ASC
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'CreatedAt')) THEN CreatedAt END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'Username')) THEN Username END ASC
             -- Pagination.
             OFFSET [dbo].[udf_GetRowsToSkip](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;

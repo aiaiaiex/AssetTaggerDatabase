@@ -27,7 +27,7 @@ CREATE PROCEDURE [dbo].[usp_ReadLog]
     @ToStartedAt NVARCHAR(24) = '',
     -- Sort parameters.
     @SortColumn NVARCHAR(4000) = '',
-    @RowOrder NVARCHAR(4) = '',
+    @SortOrder NVARCHAR(4) = '',
     -- Pagination parameters.
     @RowsToSkip NVARCHAR(19) = '',
     @RowsToReturn NVARCHAR(19) = ''
@@ -63,7 +63,7 @@ BEGIN
         '@ToStartedAt = ''', [dbo].[udf_ConvertNullToNvarchar](@ToStartedAt), ''', ',
         -- Sort parameters.
         '@SortColumn = ''', [dbo].[udf_ConvertNullToNvarchar](@SortColumn), ''', ',
-        '@RowOrder = ''', [dbo].[udf_ConvertNullToNvarchar](@RowOrder), ''', ',
+        '@SortOrder = ''', [dbo].[udf_ConvertNullToNvarchar](@SortOrder), ''', ',
         -- Pagination parameters.
         '@RowsToSkip = ''', [dbo].[udf_ConvertNullToNvarchar](@RowsToSkip), ''', ',
         '@RowsToReturn = ''', [dbo].[udf_ConvertNullToNvarchar](@RowsToReturn), ''';'
@@ -87,7 +87,7 @@ BEGIN
 
         -- Set final values.
         SET @SortColumn = [dbo].[udf_GetSortColumn](@SortColumn);
-        SET @RowOrder = [dbo].[udf_GetRowOrder](@RowOrder);
+        SET @SortOrder = [dbo].[udf_GetSortOrder](@SortOrder);
 
         -- Run actual query.
         SELECT
@@ -132,29 +132,29 @@ BEGIN
             AND [dbo].[udf_IsBetweenDatetime2s](@FromStartedAt, StartedAt, @ToStartedAt) = 1
         ORDER BY
         -- Descending sort.
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Arguments')) THEN Arguments END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'Operation')) THEN Operation END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'TableName')) THEN TableName END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'ErrorMessage')) THEN ErrorMessage END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'ErrorNumber')) THEN ErrorNumber END DESC,
-            CASE WHEN ((@RowOrder = 'DESC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'Arguments')) THEN Arguments END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'Operation')) THEN Operation END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'TableName')) THEN TableName END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'ErrorMessage')) THEN ErrorMessage END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'ErrorNumber')) THEN ErrorNumber END DESC,
+            CASE WHEN ((@SortOrder = 'DESC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END DESC,
             -- Ascending sort.
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Arguments')) THEN Arguments END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'Operation')) THEN Operation END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'TableName')) THEN TableName END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ErrorMessage')) THEN ErrorMessage END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ErrorNumber')) THEN ErrorNumber END ASC,
-            CASE WHEN ((@RowOrder = 'ASC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END ASC
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'RowNumber')) THEN RowNumber END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'Arguments')) THEN Arguments END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'EndedAt')) THEN EndedAt END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'HasExecutedSuccessfully')) THEN HasExecutedSuccessfully END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'Operation')) THEN Operation END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'StartedAt')) THEN StartedAt END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'TableName')) THEN TableName END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'EndUserIpAddress')) THEN EndUserIpAddress END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'ErrorMessage')) THEN ErrorMessage END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'ErrorNumber')) THEN ErrorNumber END ASC,
+            CASE WHEN ((@SortOrder = 'ASC') AND (@SortColumn = 'ExecutionTimeInMilliseconds')) THEN ExecutionTimeInMilliseconds END ASC
             -- Pagination.
             OFFSET [dbo].[udf_GetRowsToSkip](@RowsToSkip) ROWS
             FETCH NEXT [dbo].[udf_GetRowsToReturn](@RowsToReturn) ROWS ONLY;
