@@ -122,6 +122,7 @@
     <Folder Include="dbo\Functions\ConvertNullToNvarchar" />
     <Folder Include="dbo\Functions\GetDefault" />
     <Folder Include="dbo\Functions\GetRow" />
+    <Folder Include="dbo\Functions\GetSort" />
     <Folder Include="dbo\Functions\HasNo" />
     <Folder Include="dbo\Functions\IsBetween" />
     <Folder Include="dbo\Functions\IsEqualTo" />
@@ -181,7 +182,8 @@
     <Build Include="dbo\Functions\GetDefault\udf_GetDefaultUniqueidentifier.sql" />
     <Build Include="dbo\Functions\GetRow\udf_GetRowsToReturn.sql" />
     <Build Include="dbo\Functions\GetRow\udf_GetRowsToSkip.sql" />
-    <Build Include="dbo\Functions\GetRow\udf_GetSortOrder.sql" />
+    <Build Include="dbo\Functions\GetSort\udf_GetSortColumn.sql" />
+    <Build Include="dbo\Functions\GetSort\udf_GetSortOrder.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoLeadingAndTrailingWhitespaceInNvarchar.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoLeadingAndTrailingWhitespaceInNvarcharMax.sql" />
     <Build Include="dbo\Functions\HasNo\udf_HasNoWhitespaceInNvarchar.sql" />
@@ -193,7 +195,6 @@
     <Build Include="dbo\Functions\IsEqualTo\udf_IsEqualToOrLikeNvarchar.sql" />
     <Build Include="dbo\Functions\IsEqualTo\udf_IsEqualToOrLikeNvarcharMax.sql" />
     <Build Include="dbo\Functions\IsEqualTo\udf_IsEqualToUniqueIdentifier.sql" />
-    <Build Include="dbo\Functions\udf_GetSortColumn.sql" />
     <Build Include="dbo\Functions\udf_HashPassword.sql" />
     <Build Include="dbo\Functions\udf_IsNotReservedKeywordInNvarchar\udf_IsNotReservedKeywordInNvarchar.sql" />
     <Build Include="dbo\Functions\udf_IsNotReservedKeywordInNvarchar\udf_IsNotReservedKeywordInNvarcharMax.sql" />
